@@ -1,0 +1,96 @@
+{
+    "win32": {
+        "x86-64": {
+            "bin\\chrome_elf.dll": {
+                "original": "A5E9F8B63AB9EADD17DC3C082BFA5F8E9729260A11771925DAD89E97BA5C350F",
+                "patch": "8981EC9090DF243B209BC3BBE6776547E12A2963B3A203018B90DE87709A2DF4",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/chrome_elf.dll.bsdiff",
+                "fixed": "8464E6E10CDF0DA7E99305DC35D9530137CB5A9973CEE1BB97B6891C4C25AA7F"
+            },
+            "bin\\d3dcompiler_47.dll": {
+                "original": "2AD0D4987FC4624566B190E747C9D95038443956ED816ABFD1E2D389B5EC0851",
+                "patch": "6E698F570E6112FF971976C0BB2F082F6D1406B0B21C17CB17FC521A3717D963",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/d3dcompiler_47.dll.bsdiff",
+                "fixed": "4056E0804A13D791362555636BA34158FADE7C1E71599E415A285DE1472D83D5"
+            },
+            "bin\\libcef.dll": {
+                "original": "D0D5C52479796EB2906716BBD2460F7FE423B4F71AEC4654AD9ACB9FAE171425",
+                "patch": "FBB8DF8500CE1D22775682351F9AFFF94EA858980E6581E51E12D805AF104D8B",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/libcef.dll.bsdiff",
+                "fixed": "A9BD8943DF8B2518D4A352FF56752545A4B6823DE8E0F69A53D678CB8B06179E"
+            },
+            "bin\\libEGL.dll": {
+                "original": "29ABD5EAF3975BA8E6144EFFEB5E22E00BF9ED5694945AD91FFE44593F6E690C",
+                "patch": "532C8D5410362F46A58554EFB47734BFC37474FA717147DD099B71B9CD58FAA5",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/libEGL.dll.bsdiff",
+                "fixed": "2EFDCA5139DE43FE524A735677360996B3F7561265F99B006B0D1765381DD85E"
+            },
+            "bin\\libGLESv2.dll": {
+                "original": "2624C9DDDD5C9494FB3CB061A58474F0C1AEFC1468C7C975F5A4DEE3F227200C",
+                "patch": "13A5860FA160C9B5A493D76343E12199914E290041EBECFF00EC2DAF18C7B5F3",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/libGLESv2.dll.bsdiff",
+                "fixed": "CEFEE2A9DB042DDF93447D91C82481FC257E8EF8D560004F365C81F0301FB31D"
+            },
+            "bin\\chromium\\cef.pak": {
+                "original": "05B10B0307BFF29041289F494EF8AE5F4C564205B4F539F8F522DE5BC2B7072F",
+                "patch": "62B2BA1C13B11F05B2B47C492E77418BAA16D3F62B2E27D576D4D36468A9D763",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/chromium/cef.pak.bsdiff",
+                "fixed": "5F43FED6FCB9ACA1D274E299EE498DFE8B5DB04AED516D5BFD1B025809BEED78"
+            },
+            "bin\\chromium\\cef_100_percent.pak": {
+                "original": "FDD54A5C7B3F194122B29B7FD27A4794881BD427901C397DC267621AEEF6C56C",
+                "patch": "046E43A75FF3300A1291BD47C7B409ABEC63F6C290986A2D990C62F005CF1392",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/chromium/cef_100_percent.pak.bsdiff",
+                "fixed": "96FBB0FB98331AC6AD259CCC85F81F25F4BD9C21F757DE8A73A9BE4E078B4FD1"
+            },
+            "bin\\chromium\\cef_200_percent.pak": {
+                "original": "043E3AE51BF4E508D5066ADCDF66A16A92882A4601EE5324E5C71ECDD224E33D",
+                "patch": "7CD8C9C0FF185DE62B318B6BAE1AFCFE8AE12D1F58A159BD195A87D644FCA31F",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/chromium/cef_200_percent.pak.bsdiff",
+                "fixed": "58653245931FC1C95B948763A84CBC620CAC875BE9DEDE1F5EDA57B474530002"
+            },
+            "bin\\chromium\\cef_extensions.pak": {
+                "original": "EC827498972825450EDF7133F18BE8284AB334A3DFD808BEDB934ECACF32EB7F",
+                "patch": "7284B1F5BC9985E070C92C62474969B0AF5FBC0A1F83C36293B9C88B750F36EE",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/chromium/cef_extensions.pak.bsdiff",
+                "fixed": "651F852B2ED0D824B8877AFE2F8BA74FB385263A395999126E533ED894EC47BE"
+            },
+            "bin\\chromium\\devtools_resources.pak": {
+                "original": "9C16156DA2FBFFB8B5E4CA6AAB1DD59C32824EB3A05AA9D9AFE62A97B66D8EBA",
+                "patch": "91E08F4ABE2C4F1BEE577EF12A19D3BFEA0E126FCEFCD9D2A90A04508DA77E9B",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/chromium/devtools_resources.pak.bsdiff",
+                "fixed": "8D1E45FA90C23C50AD50D2492F7D71FC39AF882F3D2449F9019170394D1E4409"
+            },
+            "bin\\win64\\chrome_elf.dll": {
+                "original": "1B78E24A081A9A69135AEA4F6AFA22EB90AF6AF1ACFEB2FEC4908CDA5BC2C155",
+                "patch": "7207F7AF73C6AD5D53DFE04452EAF1A0F643E5D48376D5B36D2D525D8D1E3D50",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/win64/chrome_elf.dll.bsdiff",
+                "fixed": "F1E61ABE1C2084E0A986027C787717930704312F426291C006A5E7E4C3A5BD7A"
+            },
+            "bin\\win64\\d3dcompiler_47.dll": {
+                "original": "4432BBD1A390874F3F0A503D45CC48D346ABC3A8C0213C289F4B615BF0EE84F3",
+                "patch": "7A9C479E35CEAEF93481FA721A637A80E0B7A0BE3ED49B34A7739A663B32275F",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/win64/d3dcompiler_47.dll.bsdiff",
+                "fixed": "DCA0CD7272A56801DD74D0B253DF33A8829BEE61F5FA0C6D8E2ED5B62F440DFF"
+            },
+            "bin\\win64\\libcef.dll": {
+                "original": "D4F0D430EF4EE2047A65B758BDEB6A08B05C3F717C07FE4DB796E90944B7AF37",
+                "patch": "456988229BA2F704E9C71A11CFF8303B7DF6208A448C0BA62775A93A341C07B6",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/win64/libcef.dll.bsdiff",
+                "fixed": "229A990605CBC9A6779E1703380329B0BDA77183109EF912386244D8085168C3"
+            },
+            "bin\\win64\\libEGL.dll": {
+                "original": "9ED324B5D6D92F359D24480C8F6F226529A84A3F74A3C2D1A4560B2E6380E53C",
+                "patch": "53A318AF20B11C7840F432C5C363E63B73C27912559150F616187E069265D706",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/win64/libEGL.dll.bsdiff",
+                "fixed": "F3FAAAC0F8D2412E6D31FE16CC5E1551F8530C9B4D9AD61E6DBFAFFA60BA875A"
+            },
+            "bin\\win64\\libGLESv2.dll": {
+                "original": "E6C656E78D6BCAA3C9A37686A315431297F6297EB07756745289DFC1BDE438BB",
+                "patch": "D6A7CF1AE4B5C70D9D5F9CFD773CC6C96CEE66166FF33595E401748DEA1A20F8",
+                "patch-url": "https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64/bin/win64/libGLESv2.dll.bsdiff",
+                "fixed": "9037F848A78D4801AF179F33E6B36C3E7FCBDF991C8C28366E0738FF567BA6D4"
+            }
+        }
+    }
+}
