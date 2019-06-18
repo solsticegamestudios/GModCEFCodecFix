@@ -39,8 +39,8 @@ with open(getattr(sys, "frozen", False) and sys._MEIPASS + "\\version.txt" or "v
 
 #print("Local Version: " + str(localVersion))
 
-versionCon = http.client.HTTPSConnection("www.solsticegamestudios.com")
-versionCon.request("GET", "/gmodcefcodecfix/version.txt")
+versionCon = http.client.HTTPSConnection("raw.githubusercontent.com")
+versionCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/version.txt")
 versionResp = versionCon.getresponse()
 
 if versionResp.status == 200:
@@ -50,7 +50,7 @@ if versionResp.status == 200:
 	#print("Remote Version: " + str(remoteVersion) + "\n")
 
 	if remoteVersion > localVersion:
-		print(colored("WARNING: CEFCodecFix is out of date! Please get the latest version at https://www.solsticegamestudios.com/gmodcefcodecfix/GModCEFCodecFix.exe\n", "red"))
+		print(colored("WARNING: CEFCodecFix is out of date! Please get the latest version at https://github.com/solsticegamestudios/GModCEFCodecFix/releases\n", "red"))
 	else:
 		print(colored("You are running the latest version of CEFCodecFix!\n", "green"))
 else:
@@ -218,8 +218,8 @@ with open(gmodManifestPath, "r", encoding="UTF-8") as gmodManifestFile:
 print("Garry's Mod Branch:\n" + gmodBranch + "\n")
 
 # Get CEFCodecFix Manifest
-manifestCon = http.client.HTTPSConnection("www.solsticegamestudios.com")
-manifestCon.request("GET", "/gmodcefcodecfix/manifest.json")
+manifestCon = http.client.HTTPSConnection("raw.githubusercontent.com")
+manifestCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/manifest.json")
 manifestResp = manifestCon.getresponse()
 
 if manifestResp.status != 200:
@@ -229,7 +229,7 @@ manifest = json.loads(manifestResp.read())
 manifestCon.close()
 
 if not sys.platform in manifest:
-	sys.exit(colored("Error: This Operating System is not supported by CEFCodecFix!" + contactInfo, "red"))
+	sys.exit(colored("Error: This Operating System is not yet supported by CEFCodecFix!" + contactInfo, "red"))
 
 if not gmodBranch in manifest[sys.platform]:
 	sys.exit(colored("Error: This Branch of Garry's Mod is not supported! Please switch to the x86-64 branch and then try again." + contactInfo, "red"))
