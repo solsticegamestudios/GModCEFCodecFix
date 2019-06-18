@@ -57,7 +57,7 @@ else:
 	print(colored("WARNING: Could not get CEFCodecFix remote version.\n", "yellow"))
 
 # Let's start the show
-from time import process_time
+from time import perf_counter
 import winreg
 import vdf
 from requests.structures import CaseInsensitiveDict
@@ -65,11 +65,12 @@ from steamfiles import appinfo
 from steamid import SteamID
 import json
 from hashlib import sha256
+from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 from bsdiff4 import file_patch
 from subprocess import Popen
 
-timeStart = process_time()
+timeStart = perf_counter()
 
 contactInfo = "\n\nIf you need help, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
 
@@ -148,7 +149,7 @@ if foundGMod:
 else:
 	sys.exit(colored("Error: Could Not Find Garry's Mod!" + contactInfo, "red"))
 
-# Get GMod's Steam AppInfo and Executable Paths
+# Get GMod's Steam AppInfo
 osTypeMap = {
 	"win32": b"windows",
 	"darwin": b"macos",
@@ -160,6 +161,7 @@ print("Getting Steam AppInfo for GMod...")
 if not os.path.isfile(steamPath + "\\appcache\\appinfo.vdf"):
 	sys.exit(colored("Error: Steam AppInfo File Not Found!" + contactInfo, "red"))
 
+# Get GMod Executable Paths
 gmodEXELaunchOptions = []
 with open(steamPath + "\\appcache\\appinfo.vdf", "rb") as steamAppInfoFile:
 	steamAppInfo = appinfo.load(steamAppInfoFile)
@@ -250,7 +252,8 @@ def getFileSHA256(filePath):
 
 filesToUpdate = []
 fileNoMatchOriginal = False
-for file in manifest:
+printLock = False
+def determineFileIntegrityStatus(file):
 	fileSHA256 = getFileSHA256(gmodPath + "\\" + file)
 
 	if fileSHA256 != manifest[file]["fixed"]:
@@ -258,13 +261,17 @@ for file in manifest:
 		if fileSHA256 == manifest[file]["original"]:
 			# And it matches the original
 			filesToUpdate.append(file)
-			print("\t" + file + ": Needs Fix")
+			return "\t" + file + ": Needs Fix"
 		else:
 			# And it doesn't match the original...
 			fileNoMatchOriginal = True
-			print("\t" + file + ": Does Not Match Original!")
+			return "\t" + file + ": Does Not Match Original!"
 	else:
-		print("\t" + file + ": Already Fixed")
+		return "\t" + file + ": Already Fixed"
+
+with ThreadPoolExecutor() as executor:
+	for fileIntegrityResult in executor.map(determineFileIntegrityStatus, manifest):
+		print(fileIntegrityResult)
 
 # Something's wrong; bail before we break their installation or something
 if fileNoMatchOriginal:
@@ -329,7 +336,7 @@ if len(filesToUpdate) > 0:
 else:
 	print("\nNo Files Need Fixing!")
 
-print(colored("\nCEFCodecFix applied successfully! Took " + str(process_time() - timeStart) + " second(s).", "green"))
+print(colored("\nCEFCodecFix applied successfully! Took " + str(round(perf_counter() - timeStart, 4)) + " second(s).", "green"))
 
 if gmodEXELaunchOptionsLen == 1:
 	gmodEXESelected = 0
