@@ -333,6 +333,11 @@ if len(filesToUpdate) > 0:
 		except Exception as e:
 			# Probably some read/write issue
 			sys.exit(colored(writeFailed, "red"))
+
+	# Mark steam.inf so Lua knows it's available
+	with open(gmodPath + "\\garrysmod\\steam.inf", "a") as gmodSteamINFFile:
+		print("\tWriting Marker: garrysmod\\steam.inf...")
+		gmodSteamINFFile.write("CEFCodecFix=true\n")
 else:
 	print("\nNo Files Need Fixing!")
 
