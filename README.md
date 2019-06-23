@@ -9,3 +9,6 @@ Download the [Latest Release](https://github.com/solsticegamestudios/GModCEFCode
 # Contact
 * Discord: https://www.solsticegamestudios.com/chat.html
 * Email: contact@solsticegamestudios.com
+
+# Help Support Us
+This project is open source and provided free of charge. If you'd like to help support us, [you can do so here](https://www.solsticegamestudios.com/donate.php)!
