@@ -117,10 +117,10 @@ with open(steamPath + "\\Config\\loginusers.vdf", "r", encoding="UTF-8") as stea
 	for userSteamID64 in steamLoginUsers:
 		curSteamUser = steamLoginUsers[userSteamID64]
 
-		if steamLoginUsers[userSteamID64]["mostrecent"] == "1":
+		if str(steamLoginUsers[userSteamID64]["mostrecent"]) == "1":
 			steamUser = {"steamID64": userSteamID64, "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
 			break
-		elif steamLoginUsers[userSteamID64]["Timestamp"] > steamUser["Timestamp"]:
+		elif int(steamLoginUsers[userSteamID64]["Timestamp"]) > steamUser["Timestamp"]:
 			steamUser = {"steamID64": userSteamID64, "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
 
 if steamUser["Timestamp"] > 0:
