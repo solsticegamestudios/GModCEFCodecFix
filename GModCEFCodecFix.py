@@ -140,9 +140,11 @@ possibleGModPaths = [
 for path in steamLibraries:
 	for curGModPath in possibleGModPaths:
 		if os.path.isdir(path + curGModPath):
-			foundGMod = True
-			gmodPath = path + curGModPath
-			break
+			if foundGMod:
+				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n" + gmodPath + "\n" + path + curGModPath + contactInfo, "red"))
+			else:
+				foundGMod = True
+				gmodPath = path + curGModPath
 
 if foundGMod:
 	print("\nFound Garry's Mod:\n" + gmodPath + "\n")
@@ -166,11 +168,29 @@ gmodEXELaunchOptions = []
 with open(steamPath + "\\appcache\\appinfo.vdf", "rb") as steamAppInfoFile:
 	steamAppInfo = appinfo.load(steamAppInfoFile)
 	gmodLaunchConfig = steamAppInfo[4000]["sections"][b"appinfo"][b"config"][b"launch"]
+
+	print("\tPlatform: " + sys.platform)
+
 	for option in gmodLaunchConfig:
 		option = gmodLaunchConfig[option]
 
-		if option[b"config"][b"oslist"] == osTypeMap[sys.platform] and os.path.isfile(gmodPath + "\\" + option[b"executable"].decode("UTF-8")):
-			gmodEXELaunchOptions.append(option)
+		if option[b"config"][b"oslist"] == osTypeMap[sys.platform]:
+			pathParts = [os.sep]
+			pathParts.extend(gmodPath.replace("\\", "/").split("/"))
+			pathParts.extend(option[b"executable"].decode("UTF-8").replace("\\", "/").split("/"))
+			pathParts.insert(2, os.sep)
+
+			print("\t" + os.path.join(*pathParts))
+
+			# os.path.isfile failed sometimes
+			try:
+				with open(os.path.join(*pathParts), "rb"):
+					print("\t\tEXE Found")
+					gmodEXELaunchOptions.append(option)
+			except OSError as e:
+				print("\t\t[Errno " + str(e.errno) + "] " + e.strerror)
+			except Exception as e:
+				print("\t\t" + str(e))
 
 gmodEXELaunchOptionsLen = len(gmodEXELaunchOptions)
 if gmodEXELaunchOptionsLen > 0:
