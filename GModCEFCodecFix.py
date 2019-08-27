@@ -15,7 +15,8 @@ import os
 
 @atexit.register
 def exitHandler():
-	os.system("pause")
+	if not launchSuccess or not autoMode:
+		os.system("pause")
 
 # Set the title so it's not just some boring path
 os.system("title Garry's Mod: CEF Codec Fix")
@@ -70,6 +71,15 @@ from urllib.parse import urlparse
 from bsdiff4 import file_patch
 from subprocess import Popen
 
+if len(sys.argv) >= 3:
+	# sys.argv[0] is always the script/exe path
+	if sys.argv[1] == "-a":
+		try:
+			autoMode = int(sys.argv[2])
+			print(colored("AUTO MODE: Enabled\n", "cyan"))
+		except ValueError:
+			print(colored("Warning: Auto Mode switch present but option invalid! Please specify a Launch Option Number.\n", "yellow"))
+
 timeStart = perf_counter()
 
 contactInfo = "\n\nIf you need help, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
@@ -86,7 +96,7 @@ print("Steam Path:\n" + steamPath + "\n")
 if not os.path.isfile(steamPath + "\\Config\\config.vdf"):
 	sys.exit(colored("Error: Steam Config File Not Found!" + contactInfo, "red"))
 
-with open(steamPath + "\\Config\\config.vdf", "r", encoding="UTF-8") as steamConfigFile:
+with open(steamPath + "\\Config\\config.vdf", "r", encoding="UTF-8", errors="ignore") as steamConfigFile:
 	steamConfig = vdf.load(steamConfigFile, mapper=CaseInsensitiveDict)
 	steamConfig = steamConfig["InstallConfigStore"]["Software"]["Valve"]["Steam"]
 
@@ -110,7 +120,7 @@ if not os.path.isfile(steamPath + "\\Config\\loginusers.vdf"):
 	sys.exit(colored("Error: Steam LoginUsers File Not Found!" + contactInfo, "red"))
 
 steamUser = {"Timestamp": 0}
-with open(steamPath + "\\Config\\loginusers.vdf", "r", encoding="UTF-8") as steamLoginUsersFile:
+with open(steamPath + "\\Config\\loginusers.vdf", "r", encoding="UTF-8", errors="ignore") as steamLoginUsersFile:
 	steamLoginUsers = vdf.load(steamLoginUsersFile, mapper=CaseInsensitiveDict)
 	steamLoginUsers = steamLoginUsers["users"]
 
@@ -204,7 +214,7 @@ if not os.path.isfile(steamUserLocalConfigPath):
 	sys.exit(colored("Error: Steam User LocalConfig File Not Found!" + contactInfo, "red"))
 
 gmodUserLaunchOptions = ""
-with open(steamUserLocalConfigPath, "r", encoding="UTF-8") as steamUserLocalConfigFile:
+with open(steamUserLocalConfigPath, "r", encoding="UTF-8", errors="ignore") as steamUserLocalConfigFile:
 	steamUserLocalConfig = vdf.load(steamUserLocalConfigFile, mapper=CaseInsensitiveDict)
 	steamUserLocalConfig = steamUserLocalConfig["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]
 	gmodLocalConfig = steamUserLocalConfig["Apps"]["4000"]
@@ -231,7 +241,7 @@ else:
 	sys.exit(colored("Error: Could Not Find Garry's Mod Manifest!" + contactInfo, "red"))
 
 # Get GMod Branch
-with open(gmodManifestPath, "r", encoding="UTF-8") as gmodManifestFile:
+with open(gmodManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
 	gmodManifest = vdf.load(gmodManifestFile, mapper=CaseInsensitiveDict)
 	gmodBranch = "betakey" in gmodManifest["AppState"]["UserConfig"] and gmodManifest["AppState"]["UserConfig"]["betakey"] or "main"
 
@@ -368,21 +378,26 @@ if gmodEXELaunchOptionsLen == 1:
 else:
 	validGModEXESelection = False
 	while validGModEXESelection == False:
-		print("\nPlease enter the option number you want to launch Garry's Mod with:")
+		print("\nPlease enter the option number you want to launch Garry's Mod with (or CTRL+C to quit):")
 		optionNum = 0
 		for option in gmodEXELaunchOptions:
 			print("\t" + str(optionNum) + " | " + option[b"description"].decode("UTF-8"))
 			optionNum += 1
 
-		gmodEXESelected = input(">>> ")
+		if autoMode:
+			print(">>> " + colored("AUTO MODE: Selected Option " + str(autoMode), "cyan"))
+
+		gmodEXESelected = autoMode or input(">>> ")
 		try:
 			gmodEXESelected = int(gmodEXESelected)
 			if gmodEXESelected < gmodEXELaunchOptionsLen:
 				validGModEXESelection = True
 			else:
 				print("That's not a valid option.")
+				autoMode = None
 		except ValueError:
 			print("That's not a valid option.")
+			autoMode = None
 
 print(colored("\nLaunching Garry's Mod:", "green"))
 
@@ -391,3 +406,5 @@ gmodEXE = gmodPath + "\\" + gmodEXELaunchOptions[gmodEXESelected][b"executable"]
 print(gmodEXE + gmodUserLaunchOptions)
 
 Popen(gmodEXE + gmodUserLaunchOptions, stdin=None, stdout=None, stderr=None, close_fds=True)
+
+launchSuccess = True
