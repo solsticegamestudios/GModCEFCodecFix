@@ -13,6 +13,9 @@
 import atexit
 import os
 
+launchSuccess = False
+autoMode = False
+
 @atexit.register
 def exitHandler():
 	if not launchSuccess or not autoMode:
@@ -394,10 +397,10 @@ else:
 				validGModEXESelection = True
 			else:
 				print("That's not a valid option.")
-				autoMode = None
+				autoMode = False
 		except ValueError:
 			print("That's not a valid option.")
-			autoMode = None
+			autoMode = False
 
 print(colored("\nLaunching Garry's Mod:", "green"))
 
