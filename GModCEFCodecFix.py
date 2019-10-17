@@ -1,3 +1,5 @@
+#!/bash/bin/python3
+
 # GModCEFCodecFix
 #
 # Copyright 2019, Solstice Game Studios (www.solsticegamestudios.com)
