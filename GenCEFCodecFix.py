@@ -8,13 +8,13 @@ import json
 
 timeStart = process_time()
 
-originalPathRoot = r"F:\Program Files (x86)\Steam\steamapps\common\GarrysMod"
-fixedPathRoot = r"F:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\addons\gmcl_shared_content\ChromiumH264\GarrysMod"
-patchTargetPathRoot = r"F:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\addons\gmcl_shared_content\ChromiumH264\GarrysMod"
-manifestDest = r"F:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\addons\gmcl_shared_content\ChromiumH264\manifest.json"
+originalPathRoot = r"D:\SteamLibrary\steamapps\common\GarrysMod"
+fixedPathRoot = r"D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\gmcl_shared_content\ChromiumH264\GarrysMod"
+patchTargetPathRoot = r"D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\sgs_gmodcefcodecfix\win32\x86-64"
+manifestDest = r"D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\sgs_gmodcefcodecfix\manifest.json"
 
 # TODO: Support more than just x86-64 and Windows
-httpServerPathRoot = r"https://www.solsticegamestudios.com/gmodcefcodecfix/win32/x86-64"
+httpServerPathRoot = r"https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64"
 
 filesToDiff = [
 	r"bin\chrome_elf.dll",
@@ -79,7 +79,7 @@ for file in filesToDiff:
 		"fixed": getFileSHA256(fixedPathRoot + "\\" + file)
 	}
 
-with open(manifestDest, "w+", exist_ok=True) as manifestFile:
+with open(manifestDest, "w+") as manifestFile:
 	json.dump(manifest, manifestFile, indent=4)
 
 print("\tTook " + str(process_time() - manifestTimeStart) + " second(s)")
