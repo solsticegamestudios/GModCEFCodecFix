@@ -166,6 +166,32 @@ if foundGMod:
 else:
 	sys.exit(colored("Error: Could Not Find Garry's Mod!" + contactInfo, "red"))
 
+# Find GMod Manifest
+foundGModManifest = False
+gmodManifestPath = ""
+possibleGModManifestPaths = [
+	"\\steamapps\\appmanifest_4000.acf",
+	"\\appmanifest_4000.acf"
+]
+for path in steamLibraries:
+	for curGModManifestPath in possibleGModManifestPaths:
+		if os.path.isfile(path + curGModManifestPath):
+			foundGModManifest = True
+			gmodManifestPath = path + curGModManifestPath
+			break
+
+if foundGModManifest:
+	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
+else:
+	sys.exit(colored("Error: Could Not Find Garry's Mod Manifest!" + contactInfo, "red"))
+
+# Get GMod Branch
+with open(gmodManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
+	gmodManifest = vdf.load(gmodManifestFile, mapper=CaseInsensitiveDict)
+	gmodBranch = "betakey" in gmodManifest["AppState"]["UserConfig"] and gmodManifest["AppState"]["UserConfig"]["betakey"] or "main"
+
+print("Garry's Mod Branch:\n" + gmodBranch + "\n")
+
 # Get GMod's Steam AppInfo
 osTypeMap = {
 	"win32": b"windows",
@@ -189,7 +215,7 @@ with open(steamPath + "\\appcache\\appinfo.vdf", "rb") as steamAppInfoFile:
 	for option in gmodLaunchConfig:
 		option = gmodLaunchConfig[option]
 
-		if option[b"config"][b"oslist"] == osTypeMap[sys.platform]:
+		if option[b"config"][b"oslist"] == osTypeMap[sys.platform] and (b"betakey" not in option[b"config"] or option[b"config"][b"betakey"] == gmodBranch.encode('UTF-8')):
 			pathParts = [os.sep]
 			pathParts.extend(gmodPath.replace("\\", "/").split("/"))
 			pathParts.extend(option[b"executable"].decode("UTF-8").replace("\\", "/").split("/"))
@@ -225,32 +251,6 @@ with open(steamUserLocalConfigPath, "r", encoding="UTF-8", errors="ignore") as s
 	gmodLocalConfig = steamUserLocalConfig["Apps"]["4000"]
 	if "LaunchOptions" in gmodLocalConfig:
 		gmodUserLaunchOptions = " " + gmodLocalConfig["LaunchOptions"]
-
-# Find GMod Manifest
-foundGModManifest = False
-gmodManifestPath = ""
-possibleGModManifestPaths = [
-	"\\steamapps\\appmanifest_4000.acf",
-	"\\appmanifest_4000.acf"
-]
-for path in steamLibraries:
-	for curGModManifestPath in possibleGModManifestPaths:
-		if os.path.isfile(path + curGModManifestPath):
-			foundGModManifest = True
-			gmodManifestPath = path + curGModManifestPath
-			break
-
-if foundGModManifest:
-	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
-else:
-	sys.exit(colored("Error: Could Not Find Garry's Mod Manifest!" + contactInfo, "red"))
-
-# Get GMod Branch
-with open(gmodManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
-	gmodManifest = vdf.load(gmodManifestFile, mapper=CaseInsensitiveDict)
-	gmodBranch = "betakey" in gmodManifest["AppState"]["UserConfig"] and gmodManifest["AppState"]["UserConfig"]["betakey"] or "main"
-
-print("Garry's Mod Branch:\n" + gmodBranch + "\n")
 
 # Get CEFCodecFix Manifest
 manifestCon = http.client.HTTPSConnection("raw.githubusercontent.com")
@@ -368,13 +368,14 @@ if len(filesToUpdate) > 0:
 		except Exception as e:
 			# Probably some read/write issue
 			sys.exit(colored(writeFailed, "red"))
-
-	# Mark steam.inf so Lua knows it's available
-	with open(gmodPath + "\\garrysmod\\steam.inf", "a") as gmodSteamINFFile:
-		print("\tWriting Marker: garrysmod\\steam.inf...")
-		gmodSteamINFFile.write("CEFCodecFix=true\n")
 else:
 	print("\nNo Files Need Fixing!")
+
+# Mark steam.inf so Lua knows it's available
+with open(gmodPath + "\\garrysmod\\steam.inf", "r+") as gmodSteamINFFile:
+	if not "CEFCodecFix=true" in gmodSteamINFFile.read():
+		print("\nWriting Marker: garrysmod\\steam.inf...")
+		gmodSteamINFFile.write("CEFCodecFix=true\n")
 
 print(colored("\nCEFCodecFix applied successfully! Took " + str(round(perf_counter() - timeStart, 4)) + " second(s).", "green"))
 
