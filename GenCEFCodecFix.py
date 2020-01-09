@@ -135,7 +135,7 @@ for platform in filesToDiff:
 				manifest[platform][branch][file] = {
 					"original": originalHash,
 					"patch": getFileSHA256(os.path.join(patchTargetPathRoot, platform, branch, file + ".bsdiff")),
-					"patch-url": httpServerPathRoot + "/" + platform + "/" + branch + "/" + file.replace("\\", "/") + ".bsdiff",
+					"patch-url": httpServerPathRoot + "/" + platform + "/" + branch + "/" + file.replace("\\", "/").replace(" ", "%20") + ".bsdiff",
 					"fixed": fixedHash
 				}
 			else:
