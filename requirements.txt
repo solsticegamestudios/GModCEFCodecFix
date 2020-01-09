@@ -1,0 +1,7 @@
+colorama
+termcolor
+vdf
+requests
+git+git://github.com/leovp/steamfiles
+steamid
+bsdiff4

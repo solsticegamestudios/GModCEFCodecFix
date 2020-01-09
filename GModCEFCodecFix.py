@@ -13,7 +13,6 @@
 
 # Set up At-Exit handler so it doesn't just close immediately when it's done
 import atexit
-import os
 
 launchSuccess = False
 autoMode = False
@@ -21,12 +20,17 @@ autoMode = False
 @atexit.register
 def exitHandler():
 	if not launchSuccess or not autoMode:
-		os.system("pause")
-
-# Set the title so it's not just some boring path
-os.system("title Garry's Mod: CEF Codec Fix")
+		input("Press Enter to continue...")
 
 import sys
+import os
+
+# Set the title so it's not just some boring path
+if sys.platform == "win32":
+	os.system("title Garry's Mod: CEF Codec Fix")
+else:
+	print("\33]0;Garry's Mod: CEF Codec Fix\a", end='', flush=True)
+
 import http.client
 import colorama
 from termcolor import colored
@@ -64,7 +68,6 @@ else:
 
 # Let's start the show
 from time import perf_counter
-import winreg
 import vdf
 from requests.structures import CaseInsensitiveDict
 from steamfiles import appinfo
@@ -75,6 +78,12 @@ from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 from bsdiff4 import file_patch
 from subprocess import Popen
+
+# Specific platform imports
+if sys.platform == "win32":
+	import winreg
+else:
+	from pathlib import Path
 
 if len(sys.argv) >= 3:
 	# sys.argv[0] is always the script/exe path
@@ -90,15 +99,39 @@ timeStart = perf_counter()
 contactInfo = "\n\nIf you need help, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
 
 # Find Steam
-reg = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
-steamKey = winreg.OpenKey(reg, "Software\\Valve\\Steam")
-steamPathValue = winreg.QueryValueEx(steamKey, "SteamPath")
-steamPath = steamPathValue[0].replace("/", "\\")
+steamPathHints = {}
+if sys.platform == "win32":
+	# Windows
+	reg = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
+	steamKey = winreg.OpenKey(reg, "Software\\Valve\\Steam")
+	steamPathValue = winreg.QueryValueEx(steamKey, "SteamPath")
+	steamPath = steamPathValue[0].replace("/", "\\")
 
-print("Steam Path:\n" + steamPath + "\n")
+	steamPathHints["win32"] = "Is it installed properly and been run at least once?"
+elif sys.platform == "darwin":
+	# macOS
+	homeDir = str(Path.home())
+	if os.path.isdir(os.path.join(homeDir, "Library", "Application Support", "Steam")):
+		steamPath = os.path.join(homeDir, "Library", "Application Support", "Steam")
+
+	steamPathHints["darwin"] = "Is it installed somewhere other than " + os.path.join(homeDir, "Library", "Application Support", "Steam") + " ?"
+else:
+	# Linux
+	homeDir = str(Path.home())
+	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
+		steamPath = os.path.join(homeDir, ".steam", "steam")
+	elif os.path.isdir(os.path.join(homeDir, ".local", "share", "Steam")):
+		steamPath = os.path.join(homeDir, ".local", "share", "Steam")
+
+	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(homeDir, ".local", "share", "Steam") + " ?"
+
+if steamPath:
+	print("Steam Path:\n" + steamPath + "\n")
+else:
+	sys.exit(colored("Error: Steam Path Not Found!\n" + steamPathHints[sys.platform] + contactInfo, "red"))
 
 # Find Steam Config
-steamConfigPath = os.path.join(steamPath, "Config", "config.vdf")
+steamConfigPath = os.path.join(steamPath, "config", "config.vdf")
 if not os.path.isfile(steamConfigPath):
 	sys.exit(colored("Error: Steam Config File Not Found!" + contactInfo, "red"))
 
@@ -123,7 +156,7 @@ print("Steam Libraries:")
 print(steamLibraries)
 
 # Find most recent Steam User, which is probably the one they're using/want
-steamLoginUsersPath = os.path.join(steamPath, "Config", "loginusers.vdf")
+steamLoginUsersPath = os.path.join(steamPath, "config", "loginusers.vdf")
 if not os.path.isfile(steamLoginUsersPath):
 	sys.exit(colored("Error: Steam LoginUsers File Not Found!" + contactInfo, "red"))
 
@@ -392,7 +425,9 @@ print(colored("\nCEFCodecFix applied successfully! Took " + str(round(perf_count
 
 if gmodEXELaunchOptionsLen == 1:
 	gmodEXESelected = 0
-else:
+elif sys.platform == "win32":
+	# TODO: Proper multi-EXE selection on Linux and macOS
+
 	validGModEXESelection = False
 	while validGModEXESelection == False:
 		print("\nPlease enter the option number you want to launch Garry's Mod with (or CTRL+C to quit):")
@@ -418,10 +453,21 @@ else:
 
 print(colored("\nLaunching Garry's Mod:", "green"))
 
-gmodEXE = os.path.join(gmodPath, gmodEXELaunchOptions[gmodEXESelected][b"executable"].decode("UTF-8")) + " " + gmodEXELaunchOptions[gmodEXESelected][b"arguments"].decode("UTF-8")
+if sys.platform == "win32":
+	gmodEXE = os.path.join(gmodPath, gmodEXELaunchOptions[gmodEXESelected][b"executable"].decode("UTF-8")) + " " + gmodEXELaunchOptions[gmodEXESelected][b"arguments"].decode("UTF-8")
 
-print(gmodEXE + gmodUserLaunchOptions)
+	print(gmodEXE + gmodUserLaunchOptions)
 
-Popen(gmodEXE + gmodUserLaunchOptions, stdin=None, stdout=None, stderr=None, close_fds=True)
+	Popen(gmodEXE + gmodUserLaunchOptions, stdin=None, stdout=None, stderr=None, close_fds=True)
+elif sys.platform == "darwin":
+	print("open steam://rungameid/4000")
+
+	Popen(["open", "steam://rungameid/4000"], stdin=None, stdout=None, stderr=None, close_fds=True)
+else:
+	linuxGModLaunchCommand = "xdg-open steam://rungameid/4000 >/dev/null 2>&1 &"
+
+	print(linuxGModLaunchCommand)
+
+	Popen(linuxGModLaunchCommand, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 
 launchSuccess = True
