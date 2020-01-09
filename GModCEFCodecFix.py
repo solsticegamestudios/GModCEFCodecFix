@@ -1,8 +1,8 @@
-#!/bash/bin/python3
+#!/usr/bin/env python3
 
 # GModCEFCodecFix
 #
-# Copyright 2019, Solstice Game Studios (www.solsticegamestudios.com)
+# Copyright 2020, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 #
 # Purpose: Automatically patches Garry's Mod's internal Chromium Embedded Framework to enable Proprietary Video/Audio codec support
@@ -40,7 +40,7 @@ print(colored("GMod CEF Codec Fix\nCreated by: Solstice Game Studios\nContact Us
 localVersion = 0
 remoteVersion = 0
 
-with open(getattr(sys, "frozen", False) and sys._MEIPASS + "\\version.txt" or "version.txt", "r") as versionFile:
+with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.txt") or "version.txt", "r") as versionFile:
 	localVersion = int(versionFile.read())
 
 #print("Local Version: " + str(localVersion))
@@ -98,17 +98,19 @@ steamPath = steamPathValue[0].replace("/", "\\")
 print("Steam Path:\n" + steamPath + "\n")
 
 # Find Steam Config
-if not os.path.isfile(steamPath + "\\Config\\config.vdf"):
+steamConfigPath = os.path.join(steamPath, "Config", "config.vdf")
+if not os.path.isfile(steamConfigPath):
 	sys.exit(colored("Error: Steam Config File Not Found!" + contactInfo, "red"))
 
-with open(steamPath + "\\Config\\config.vdf", "r", encoding="UTF-8", errors="ignore") as steamConfigFile:
+with open(steamConfigPath, "r", encoding="UTF-8", errors="ignore") as steamConfigFile:
 	steamConfig = vdf.load(steamConfigFile, mapper=CaseInsensitiveDict)
 	steamConfig = steamConfig["InstallConfigStore"]["Software"]["Valve"]["Steam"]
 
 # Get Steam Libraries
 steamLibraries = []
-if os.path.isdir(steamPath + "\\steamapps"):
-	steamLibraries.append(steamPath + "\\steamapps")
+steamAppsPath = os.path.join(steamPath, "steamapps")
+if os.path.isdir(steamAppsPath):
+	steamLibraries.append(steamAppsPath)
 
 for configKey in steamConfig:
 	if "BaseInstallFolder" in configKey:
@@ -121,11 +123,12 @@ print("Steam Libraries:")
 print(steamLibraries)
 
 # Find most recent Steam User, which is probably the one they're using/want
-if not os.path.isfile(steamPath + "\\Config\\loginusers.vdf"):
+steamLoginUsersPath = os.path.join(steamPath, "Config", "loginusers.vdf")
+if not os.path.isfile(steamLoginUsersPath):
 	sys.exit(colored("Error: Steam LoginUsers File Not Found!" + contactInfo, "red"))
 
 steamUser = {"Timestamp": 0}
-with open(steamPath + "\\Config\\loginusers.vdf", "r", encoding="UTF-8", errors="ignore") as steamLoginUsersFile:
+with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamLoginUsersFile:
 	steamLoginUsers = vdf.load(steamLoginUsersFile, mapper=CaseInsensitiveDict)
 	steamLoginUsers = steamLoginUsers["users"]
 
@@ -148,18 +151,19 @@ else:
 foundGMod = False
 gmodPath = ""
 possibleGModPaths = [
-	"\\steamapps\\common\\GarrysMod",
-	"\\common\\GarrysMod",
-	"\\GarrysMod"
+	["steamapps", "common", "GarrysMod"],
+	["common", "GarrysMod"],
+	["GarrysMod"]
 ]
 for path in steamLibraries:
 	for curGModPath in possibleGModPaths:
-		if os.path.isdir(path + curGModPath):
+		curGModPath = os.path.join(path, *curGModPath)
+		if os.path.isdir(curGModPath):
 			if foundGMod:
-				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n" + gmodPath + "\n" + path + curGModPath + contactInfo, "red"))
+				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n" + gmodPath + "\n" + curGModPath + contactInfo, "red"))
 			else:
 				foundGMod = True
-				gmodPath = path + curGModPath
+				gmodPath = curGModPath
 
 if foundGMod:
 	print("\nFound Garry's Mod:\n" + gmodPath + "\n")
@@ -170,14 +174,15 @@ else:
 foundGModManifest = False
 gmodManifestPath = ""
 possibleGModManifestPaths = [
-	"\\steamapps\\appmanifest_4000.acf",
-	"\\appmanifest_4000.acf"
+	["steamapps", "appmanifest_4000.acf"],
+	["appmanifest_4000.acf"]
 ]
 for path in steamLibraries:
 	for curGModManifestPath in possibleGModManifestPaths:
-		if os.path.isfile(path + curGModManifestPath):
+		curGModManifestPath = os.path.join(path, *curGModManifestPath)
+		if os.path.isfile(curGModManifestPath):
 			foundGModManifest = True
-			gmodManifestPath = path + curGModManifestPath
+			gmodManifestPath = curGModManifestPath
 			break
 
 if foundGModManifest:
@@ -201,12 +206,13 @@ osTypeMap = {
 
 print("Getting Steam AppInfo for GMod...")
 
-if not os.path.isfile(steamPath + "\\appcache\\appinfo.vdf"):
+steamAppInfoPath = os.path.join(steamPath, "appcache", "appinfo.vdf")
+if not os.path.isfile(steamAppInfoPath):
 	sys.exit(colored("Error: Steam AppInfo File Not Found!" + contactInfo, "red"))
 
 # Get GMod Executable Paths
 gmodEXELaunchOptions = []
-with open(steamPath + "\\appcache\\appinfo.vdf", "rb") as steamAppInfoFile:
+with open(steamAppInfoPath, "rb") as steamAppInfoFile:
 	steamAppInfo = appinfo.load(steamAppInfoFile)
 	gmodLaunchConfig = steamAppInfo[4000]["sections"][b"appinfo"][b"config"][b"launch"]
 
@@ -240,7 +246,7 @@ else:
 	sys.exit(colored("Error: Could not detect GMod EXE Launch Options!" + contactInfo, "red"))
 
 # Get the User Launch Options for GMod
-steamUserLocalConfigPath = steamPath + "\\userdata\\" + steamUser["steamID3"].split(":")[2][:-1] + "\\config\\localconfig.vdf"
+steamUserLocalConfigPath = os.path.join(steamPath, "userdata", steamUser["steamID3"].split(":")[2][:-1], "config", "localconfig.vdf")
 if not os.path.isfile(steamUserLocalConfigPath):
 	sys.exit(colored("Error: Steam User LocalConfig File Not Found!" + contactInfo, "red"))
 
@@ -289,7 +295,8 @@ filesToUpdate = []
 fileNoMatchOriginal = False
 printLock = False
 def determineFileIntegrityStatus(file):
-	fileSHA256 = getFileSHA256(gmodPath + "\\" + file)
+	global fileNoMatchOriginal
+	fileSHA256 = getFileSHA256(os.path.join(gmodPath, file))
 
 	if fileSHA256 != manifest[file]["fixed"]:
 		# File needs to be fixed
@@ -310,13 +317,13 @@ with ThreadPoolExecutor() as executor:
 
 # Something's wrong; bail before we break their installation or something
 if fileNoMatchOriginal:
-	sys.exit(colored("\nError: One or More Files Failed to Match the Original Checksum!\n\tPlease Validate Garry's Mod Integrity and Try Again!" + contactInfo, "red"))
+	sys.exit(colored("\nError: One or More Files Failed to Match the Original Checksum!\n\tPlease Verify Garry's Mod Integrity and Try Again!" + contactInfo, "red"))
 
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
 	curDir = os.path.dirname(os.path.realpath(__file__))
-	cacheDir = curDir + "\\GModCEFCodecFixFiles"
+	cacheDir = os.path.join(curDir, "GModCEFCodecFixFiles")
 	cacheExists = os.path.isdir(cacheDir)
 
 	if not cacheExists:
@@ -324,10 +331,11 @@ if len(filesToUpdate) > 0:
 
 	for file in filesToUpdate:
 		cachedFileValid = False
+		patchFilePath = os.path.join(cacheDir, file + ".bsdiff")
 
-		if cacheExists and os.path.isfile(cacheDir + "\\" + file + ".bsdiff"):
+		if cacheExists and os.path.isfile(patchFilePath):
 			# Use cached patch files if available, but check the checksums first
-			fileSHA256 = getFileSHA256(cacheDir + "\\" + file + ".bsdiff")
+			fileSHA256 = getFileSHA256(patchFilePath)
 			if fileSHA256 == manifest[file]["patch"]:
 				cachedFileValid = True
 
@@ -347,8 +355,8 @@ if len(filesToUpdate) > 0:
 				sys.exit(colored("Error: Failed to Download " + file + " | HTTP " + str(cefPatchResp.status) + " " + cefPatchResp.reason + contactInfo, "red"))
 			else:
 				# Create needed directories if they don't exist already
-				os.makedirs(os.path.dirname(cacheDir + "\\" + file + ".bsdiff"), exist_ok = True)
-				with open(cacheDir + "\\" + file + ".bsdiff", "wb") as newCEFPatch:
+				os.makedirs(os.path.dirname(patchFilePath), exist_ok = True)
+				with open(patchFilePath, "wb") as newCEFPatch:
 					newCEFPatch.write(cefPatchResp.read())
 				cefPatchCon.close()
 
@@ -357,14 +365,16 @@ if len(filesToUpdate) > 0:
 	for file in filesToUpdate:
 		print("\tPatching: " + file + "...")
 
-		if os.access(cacheDir + "\\" + file + ".bsdiff", os.R_OK):
-			if not os.access(gmodPath + "\\" + file, os.W_OK):
+		patchFilePath = os.path.join(cacheDir, file + ".bsdiff")
+		originalFilePath = os.path.join(gmodPath, file)
+		if os.access(patchFilePath, os.R_OK):
+			if not os.access(originalFilePath, os.W_OK):
 				sys.exit(colored(writeFailed, "red"))
 		else:
 			sys.exit(colored(readFailed, "red"))
 
 		try:
-			file_patch(gmodPath + "\\" + file, gmodPath + "\\" + file, cacheDir + "\\" + file + ".bsdiff")
+			file_patch(originalFilePath, originalFilePath, patchFilePath)
 		except Exception as e:
 			# Probably some read/write issue
 			sys.exit(colored(writeFailed, "red"))
@@ -372,9 +382,10 @@ else:
 	print("\nNo Files Need Fixing!")
 
 # Mark steam.inf so Lua knows it's available
-with open(gmodPath + "\\garrysmod\\steam.inf", "r+") as gmodSteamINFFile:
+gmodSteamINFPath = os.path.join(gmodPath, "garrysmod", "steam.inf")
+with open(gmodSteamINFPath, "r+") as gmodSteamINFFile:
 	if not "CEFCodecFix=true" in gmodSteamINFFile.read():
-		print("\nWriting Marker: garrysmod\\steam.inf...")
+		print("\nWriting Marker: garrysmod/steam.inf...")
 		gmodSteamINFFile.write("CEFCodecFix=true\n")
 
 print(colored("\nCEFCodecFix applied successfully! Took " + str(round(perf_counter() - timeStart, 4)) + " second(s).", "green"))
@@ -407,7 +418,7 @@ else:
 
 print(colored("\nLaunching Garry's Mod:", "green"))
 
-gmodEXE = gmodPath + "\\" + gmodEXELaunchOptions[gmodEXESelected][b"executable"].decode("UTF-8") + " " + gmodEXELaunchOptions[gmodEXESelected][b"arguments"].decode("UTF-8")
+gmodEXE = os.path.join(gmodPath, gmodEXELaunchOptions[gmodEXESelected][b"executable"].decode("UTF-8")) + " " + gmodEXELaunchOptions[gmodEXESelected][b"arguments"].decode("UTF-8")
 
 print(gmodEXE + gmodUserLaunchOptions)
 
