@@ -13,11 +13,11 @@
 
 import sys
 import os
+from subprocess import Popen
 
 if sys.platform == "linux":
 	import psutil
 	import shutil
-	from subprocess import Popen
 
 # Hold up, gotta check if it's running in a Terminal or not on Linux
 possibleTerminals = [

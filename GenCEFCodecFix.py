@@ -15,10 +15,10 @@ import json
 
 timeStart = process_time()
 
-originalPathRoot = r"E:\cefcodecfix\release_original"
-fixedPathRoot = r"E:\cefcodecfix\release_fixed"
-patchTargetPathRoot = r"D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\sgs_gmodcefcodecfix"
-manifestDest = r"D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\sgs_gmodcefcodecfix\manifest.json"
+originalPathRoot = r"E:\GModCEFCodecFix_Internal\release_original"
+fixedPathRoot = r"E:\GModCEFCodecFix_Internal\release_fixed"
+patchTargetPathRoot = r"E:\GModCEFCodecFix"
+manifestDest = r"E:\GModCEFCodecFix\manifest.json"
 
 httpServerPathRoot = r"https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master"
 
