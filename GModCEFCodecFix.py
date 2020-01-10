@@ -11,6 +11,73 @@
 #	Discord: https://www.solsticegamestudios.com/chat.html
 #	Email: contact@solsticegamestudios.com
 
+import sys
+import os
+
+if sys.platform == "linux":
+	import psutil
+	import shutil
+	from subprocess import Popen
+
+# Hold up, gotta check if it's running in a Terminal or not on Linux
+possibleTerminals = [
+	"x-terminal-emulator",
+	"gnome-terminal",
+	"terminator",
+	"xfce4-terminal",
+	"konsole",
+	"xterm",
+	"urxvt",
+	"rxvt",
+	"termit",
+	"Eterm",
+	"aterm",
+	"uxterm",
+	"roxterm",
+	"termite",
+	"lxterminal",
+	"mate-terminal",
+	"terminology",
+	"st",
+	"qterminal",
+	"lilyterm",
+	"tilix",
+	"terminix",
+	"kitty",
+	"guake",
+	"tilda",
+	"alacritty",
+	"hyper"
+]
+termNotFoundError = "GModCEFCodecFix could not find a suitable Terminal Emulator!\n\tIf one is installed, Contact Us about this:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
+
+if sys.platform == "linux":
+	curProc = psutil.Process()
+	curProcRunningInTerm = False
+
+	for parentProc in curProc.parents():
+		parentProcName = parentProc.name()
+		if parentProc.name() in possibleTerminals or parentProcName == "gnome-terminal-server":
+			curProcRunningInTerm = True
+			break
+
+	if not curProcRunningInTerm:
+		print("ERROR: GModCEFCodecFix must run in a Terminal! Attempting to open it in one...")
+
+		foundTerm = False
+		for termEXE in possibleTerminals:
+			if shutil.which(termEXE) != None:
+				print("Found Terminal: " + termEXE + ", attempting to re-launch...")
+				Popen([termEXE, "-e", *sys.argv], stdin=None, stdout=None, stderr=None, close_fds=True)
+				foundTerm = True
+				break
+
+		if not foundTerm:
+			with open("ERROR_TerminalNotFound.txt", "w") as termNotFoundFile:
+				termNotFoundFile.write(termNotFoundError)
+
+		sys.exit(not foundTerm and "Terminal not found! Writing error info to ERROR_TerminalNotFound.txt...")
+
 # Set up At-Exit handler so it doesn't just close immediately when it's done
 import atexit
 
@@ -21,9 +88,6 @@ autoMode = False
 def exitHandler():
 	if not launchSuccess or not autoMode:
 		input("Press Enter to continue...")
-
-import sys
-import os
 
 # Set the title so it's not just some boring path
 if sys.platform == "win32":
@@ -77,7 +141,6 @@ from hashlib import sha256
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 from bsdiff4 import file_patch
-from subprocess import Popen
 
 # Specific platform imports
 if sys.platform == "win32":
