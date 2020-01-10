@@ -89,7 +89,7 @@ autoMode = False
 
 @atexit.register
 def exitHandler():
-	if not launchSuccess or not autoMode:
+	if not launchSuccess or autoMode is False:
 		input("Press Enter to continue...")
 
 # Set the title so it's not just some boring path
@@ -491,6 +491,33 @@ print(colored("\nCEFCodecFix applied successfully! Took " + str(round(perf_count
 
 if gmodEXELaunchOptionsLen == 1:
 	gmodEXESelected = 0
+
+	validShouldLaunch = False
+	while validShouldLaunch == False:
+		print("\nDo you want to Launch Garry's Mod now? (yes/no)")
+
+		if autoMode is not False:
+			print(">>> " + colored("AUTO MODE: yes", "cyan"))
+
+		shouldLaunch = "yes" if autoMode is not False else input(">>> ")
+		try:
+			shouldLaunch = shouldLaunch.lower()
+			if shouldLaunch == "yes" or shouldLaunch == "y":
+				validShouldLaunch = True
+				shouldLaunch = True
+			elif shouldLaunch == "no" or shouldLaunch == "n":
+				validShouldLaunch = True
+				shouldLaunch = False
+			else:
+				print("That's not a valid option.")
+				autoMode = False
+		except ValueError:
+			print("That's not a valid option.")
+			autoMode = False
+
+	if not shouldLaunch:
+		sys.exit()
+
 elif sys.platform == "win32":
 	# TODO: Proper multi-EXE selection on Linux and macOS
 
@@ -502,10 +529,10 @@ elif sys.platform == "win32":
 			print("\t" + str(optionNum) + " | " + option[b"description"].decode("UTF-8"))
 			optionNum += 1
 
-		if autoMode:
+		if autoMode is not False:
 			print(">>> " + colored("AUTO MODE: Selected Option " + str(autoMode), "cyan"))
 
-		gmodEXESelected = autoMode or input(">>> ")
+		gmodEXESelected = autoMode if autoMode is not False else input(">>> ")
 		try:
 			gmodEXESelected = int(gmodEXESelected)
 			if gmodEXESelected < gmodEXELaunchOptionsLen:
