@@ -52,6 +52,9 @@ possibleTerminals = [
 termNotFoundError = "GModCEFCodecFix could not find a suitable Terminal Emulator!\n\tIf one is installed, Contact Us about this:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
 
 if sys.platform == "linux":
+	if os.path.isfile("ERROR_TerminalNotFound.txt"):
+		os.remove("ERROR_TerminalNotFound.txt")
+
 	curProc = psutil.Process()
 	curProcRunningInTerm = False
 
