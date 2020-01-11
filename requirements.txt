@@ -5,3 +5,4 @@ requests
 git+git://github.com/leovp/steamfiles
 steamid
 bsdiff4
+psutil; sys_platform == 'linux'
