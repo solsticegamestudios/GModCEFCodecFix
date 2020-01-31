@@ -1,5 +1,5 @@
-Last Updated: 2019-10-16, using values from the x86-64 branch
+Last Updated: 2020-01-30, using values given to us in advance of the Main Branch Chromium Update by Willox
 
-CEF: Release Branch 3865
-Chromium: 77.0.3865.90
-depot_tools: Commit TODO (TODOM TODOD, 2019)
+CEF: Release Branch 3945
+Chromium: 79.0.3945.117 on Linux and Windows, 79.0.3945.130 on macOS
+depot_tools: Commit Unknown (Unknown Date)
