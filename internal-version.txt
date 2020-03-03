@@ -1,5 +1,5 @@
-Last Updated: 2020-01-30, using values given to us in advance of the Main Branch Chromium Update by Willox
+Last Updated: 2020-03-03, using values given to us in advance of the Main Branch Chromium Update by Willox
 
-CEF: Release Branch 3945
-Chromium: 79.0.3945.117 on Linux and Windows, 79.0.3945.130 on macOS
+CEF: Release Branch 3987
+Chromium: 80.0.3987.122
 depot_tools: Commit Unknown (Unknown Date)
