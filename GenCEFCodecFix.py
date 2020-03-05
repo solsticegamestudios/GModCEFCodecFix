@@ -31,7 +31,6 @@ filesToDiff = {
 			r"bin\libcef.dll",
 			r"bin\libEGL.dll",
 			r"bin\libGLESv2.dll",
-			r"bin\natives_blob.bin",
 			r"bin\snapshot_blob.bin",
 			r"bin\v8_context_snapshot.bin",
 
@@ -47,9 +46,11 @@ filesToDiff = {
 			r"bin\win64\libcef.dll",
 			r"bin\win64\libEGL.dll",
 			r"bin\win64\libGLESv2.dll",
-			r"bin\win64\natives_blob.bin",
 			r"bin\win64\snapshot_blob.bin",
-			r"bin\win64\v8_context_snapshot.bin"
+			r"bin\win64\v8_context_snapshot.bin",
+
+			r"bin\html_chromium.dll",
+			r"bin\win64\html_chromium.dll"
 		]
 	},
 	"darwin": {
@@ -67,9 +68,10 @@ filesToDiff = {
 			r"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_extensions.pak",
 			r"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/devtools_resources.pak",
 			r"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/icudtl.dat",
-			r"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/natives_blob.bin",
 			r"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/snapshot_blob.bin",
 			r"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.bin"
+
+			# TODO: GMod HTML DLL
 		]
 	},
 	"linux": {
@@ -85,9 +87,10 @@ filesToDiff = {
 			r"bin/linux64/libcef.so",
 			r"bin/linux64/libEGL.so",
 			r"bin/linux64/libGLESv2.so",
-			r"bin/linux64/natives_blob.bin",
 			r"bin/linux64/snapshot_blob.bin",
 			r"bin/linux64/v8_context_snapshot.bin"
+
+			# TODO: GMod HTML DLL
 		]
 	}
 }
