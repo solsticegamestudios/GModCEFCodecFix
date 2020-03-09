@@ -27,6 +27,7 @@ filesToDiff = {
 		"x86-64": [
 			r"bin\chrome_elf.dll",
 			r"bin\d3dcompiler_47.dll",
+			r"bin\html_chromium.dll",
 			r"bin\icudtl.dat",
 			r"bin\libcef.dll",
 			r"bin\libEGL.dll",
@@ -42,15 +43,13 @@ filesToDiff = {
 
 			r"bin\win64\chrome_elf.dll",
 			r"bin\win64\d3dcompiler_47.dll",
+			r"bin\win64\html_chromium.dll",
 			r"bin\win64\icudtl.dat",
 			r"bin\win64\libcef.dll",
 			r"bin\win64\libEGL.dll",
 			r"bin\win64\libGLESv2.dll",
 			r"bin\win64\snapshot_blob.bin",
-			r"bin\win64\v8_context_snapshot.bin",
-
-			r"bin\html_chromium.dll",
-			r"bin\win64\html_chromium.dll"
+			r"bin\win64\v8_context_snapshot.bin"
 		]
 	},
 	"darwin": {
@@ -83,6 +82,7 @@ filesToDiff = {
 			r"bin/linux32/chromium/devtools_resources.pak",
 
 			#r"bin/linux64/chromium_process",
+			#r"bin/linux64/html_chromium_client.so",
 			r"bin/linux64/icudtl.dat",
 			r"bin/linux64/libcef.so",
 			r"bin/linux64/libEGL.so",
