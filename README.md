@@ -9,6 +9,8 @@ Automatically patches [Garry's Mod](https://gmod.facepunch.com/)'s internal [Chr
 # How to use
 Download the [Latest Release](https://github.com/solsticegamestudios/GModCEFCodecFix/releases) and run the application.
 
+Need a more in-depth guide? Take a look at https://www.solsticegamestudios.com/forums/threads/60/
+
 # Contact
 * Discord: https://www.solsticegamestudios.com/chat.html
 * Email: contact@solsticegamestudios.com
