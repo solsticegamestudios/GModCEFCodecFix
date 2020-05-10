@@ -101,11 +101,12 @@ else:
 import http.client
 import colorama
 from termcolor import colored
+from time import sleep
 
 colorama.init()
 
 # Spit out the Software Info
-print(colored("GMod CEF Codec Fix\nCreated by: Solstice Game Studios\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/chat.html\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
+print(colored("GMod CEF Codec Fix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/chat.html\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
 
 # Get CEFCodecFix's version and compare it with the version we have on the website
 localVersion = 0
@@ -116,22 +117,33 @@ with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.
 
 #print("Local Version: " + str(localVersion))
 
-versionCon = http.client.HTTPSConnection("raw.githubusercontent.com")
-versionCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/version.txt")
-versionResp = versionCon.getresponse()
+try:
+	versionCon = http.client.HTTPSConnection("raw.githubusercontent.com")
+	versionCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/version.txt")
+	versionResp = versionCon.getresponse()
 
-if versionResp.status == 200:
-	remoteVersion = int(versionResp.read())
-	versionCon.close()
+	if versionResp.status == 200:
+		remoteVersion = int(versionResp.read())
+		versionCon.close()
 
-	#print("Remote Version: " + str(remoteVersion) + "\n")
+		#print("Remote Version: " + str(remoteVersion) + "\n")
 
-	if remoteVersion > localVersion:
-		print(colored("WARNING: CEFCodecFix is out of date! Please get the latest version at https://github.com/solsticegamestudios/GModCEFCodecFix/releases\n", "red"))
+		if remoteVersion > localVersion:
+			print(colored("WARNING: CEFCodecFix is out of date! Please get the latest version at\nhttps://github.com/solsticegamestudios/GModCEFCodecFix/releases", "red"))
+
+			secsToContinue = 5
+			while secsToContinue:
+				print(colored("\tContinuing in " + str(secsToContinue) + " seconds...", "yellow"), end="\r")
+				sleep(1)
+				secsToContinue -= 1
+
+			sys.stdout.write("\033[K\n")
+		else:
+			print(colored("You are running the latest version of CEFCodecFix!\n", "green"))
 	else:
-		print(colored("You are running the latest version of CEFCodecFix!\n", "green"))
-else:
-	print(colored("WARNING: Could not get CEFCodecFix remote version.\n", "yellow"))
+		print(colored("WARNING: Could not get CEFCodecFix remote version.\n", "yellow"))
+except Exception as e:
+	sys.exit(colored("Error: Could not get CEFCodecFix remote version! Exception: " + e + contactInfo, "red"))
 
 # Let's start the show
 from time import perf_counter
@@ -162,16 +174,20 @@ if len(sys.argv) >= 3:
 
 timeStart = perf_counter()
 
-contactInfo = "\n\nIf you need help, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
+contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com\n"
 
 # Find Steam
 steamPathHints = {}
 if sys.platform == "win32":
 	# Windows
-	reg = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
-	steamKey = winreg.OpenKey(reg, "Software\\Valve\\Steam")
-	steamPathValue = winreg.QueryValueEx(steamKey, "SteamPath")
-	steamPath = steamPathValue[0].replace("/", "\\")
+	try:
+		reg = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
+		steamKey = winreg.OpenKey(reg, "Software\\Valve\\Steam")
+		steamPathValue = winreg.QueryValueEx(steamKey, "SteamPath")
+		steamPath = steamPathValue[0].replace("/", "\\")
+	except:
+		# We wanna make sure it doesn't crash and burn while looking for the Registry Key, but we also wanna handle it below
+		pass
 
 	steamPathHints["win32"] = "Is it installed properly and been run at least once?"
 elif sys.platform == "darwin":
@@ -272,6 +288,7 @@ else:
 # Find GMod Manifest
 foundGModManifest = False
 gmodManifestPath = ""
+gmodManifestStr = ""
 possibleGModManifestPaths = [
 	["steamapps", "appmanifest_4000.acf"],
 	["appmanifest_4000.acf"]
@@ -279,20 +296,25 @@ possibleGModManifestPaths = [
 for path in steamLibraries:
 	for curGModManifestPath in possibleGModManifestPaths:
 		curGModManifestPath = os.path.join(path, *curGModManifestPath)
-		if os.path.isfile(curGModManifestPath):
-			foundGModManifest = True
-			gmodManifestPath = curGModManifestPath
-			break
+		if os.path.isfile(curGModManifestPath) and os.path.getsize(curGModManifestPath) > 0:
+			curGModManifestStr = ""
+			with open(curGModManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
+				curGModManifestStr = gmodManifestFile.read().strip().replace("\x00", "")
+
+			if curGModManifestStr:
+				foundGModManifest = True
+				gmodManifestPath = curGModManifestPath
+				gmodManifestStr = curGModManifestStr
+				break
 
 if foundGModManifest:
 	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
 else:
-	sys.exit(colored("Error: Could Not Find Garry's Mod Manifest!" + contactInfo, "red"))
+	sys.exit(colored("Error: Could Not Find Valid Garry's Mod Manifest!" + contactInfo, "red"))
 
 # Get GMod Branch
-with open(gmodManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
-	gmodManifest = vdf.load(gmodManifestFile, mapper=CaseInsensitiveDict)
-	gmodBranch = "betakey" in gmodManifest["AppState"]["UserConfig"] and gmodManifest["AppState"]["UserConfig"]["betakey"] or "main"
+gmodManifest = vdf.loads(gmodManifestStr, mapper=CaseInsensitiveDict)
+gmodBranch = "betakey" in gmodManifest["AppState"]["UserConfig"] and gmodManifest["AppState"]["UserConfig"]["betakey"] or "main"
 
 print("Garry's Mod Branch:\n" + gmodBranch + "\n")
 
@@ -358,12 +380,15 @@ with open(steamUserLocalConfigPath, "r", encoding="UTF-8", errors="ignore") as s
 		gmodUserLaunchOptions = " " + gmodLocalConfig["LaunchOptions"]
 
 # Get CEFCodecFix Manifest
-manifestCon = http.client.HTTPSConnection("raw.githubusercontent.com")
-manifestCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/manifest.json")
-manifestResp = manifestCon.getresponse()
+try:
+	manifestCon = http.client.HTTPSConnection("raw.githubusercontent.com")
+	manifestCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/manifest.json")
+	manifestResp = manifestCon.getresponse()
 
-if manifestResp.status != 200:
-	sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load!" + contactInfo, "red"))
+	if manifestResp.status != 200:
+		sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Status Code: " + manifestResp.status + contactInfo, "red"))
+except Exception as e:
+	sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Exception: " + e + contactInfo, "red"))
 
 manifest = json.loads(manifestResp.read())
 manifestCon.close()
@@ -479,13 +504,6 @@ if len(filesToUpdate) > 0:
 			sys.exit(colored(writeFailed, "red"))
 else:
 	print("\nNo Files Need Fixing!")
-
-# Mark steam.inf so Lua knows it's available
-gmodSteamINFPath = os.path.join(gmodPath, "garrysmod", "steam.inf")
-with open(gmodSteamINFPath, "r+") as gmodSteamINFFile:
-	if not "CEFCodecFix=true" in gmodSteamINFFile.read():
-		print("\nWriting Marker: garrysmod/steam.inf...")
-		gmodSteamINFFile.write("CEFCodecFix=true\n")
 
 print(colored("\nCEFCodecFix applied successfully! Took " + str(round(perf_counter() - timeStart, 4)) + " second(s).", "green"))
 
