@@ -97,6 +97,9 @@ filesToDiff = {
 	}
 }
 
+print("Original Path: " + originalPathRoot)
+print("Fixed Path: " + fixedPathRoot + "\n")
+
 # Get existing Manifest
 try:
 	manifestCon = http.client.HTTPSConnection("raw.githubusercontent.com")
