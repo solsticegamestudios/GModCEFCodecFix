@@ -17,9 +17,9 @@ import json
 
 timeStart = process_time()
 
-originalPathRoot = os.path.join(sys.argv[1], "release_original")
-fixedPathRoot = os.path.join(sys.argv[1], "release_fixed")
-patchTargetPathRoot = sys.argv[2]
+originalPathRoot = os.path.join(sys.argv[-2], "release_original")
+fixedPathRoot = os.path.join(sys.argv[-2], "release_fixed")
+patchTargetPathRoot = sys.argv[-1]
 manifestDest = os.path.join(patchTargetPathRoot, "manifest.json")
 
 httpServerPathRoot = "https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master"
@@ -97,6 +97,7 @@ filesToDiff = {
 	}
 }
 
+print("\nArguments: " + str(sys.argv) + "\n")
 print("Original Path: " + originalPathRoot)
 print("Patch Path: " + patchTargetPathRoot + "\n")
 
