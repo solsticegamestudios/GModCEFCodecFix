@@ -98,7 +98,7 @@ filesToDiff = {
 }
 
 print("Original Path: " + originalPathRoot)
-print("Fixed Path: " + fixedPathRoot + "\n")
+print("Patch Path: " + patchTargetPathRoot + "\n")
 
 # Get existing Manifest
 try:
