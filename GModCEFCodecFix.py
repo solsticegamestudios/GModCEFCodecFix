@@ -394,7 +394,7 @@ manifest = json.loads(manifestResp.read())
 manifestCon.close()
 
 if not sys.platform in manifest:
-	sys.exit(colored("Error: This Operating System is not yet supported by CEFCodecFix!" + contactInfo, "red"))
+	sys.exit(colored("Error: This Operating System is not supported by CEFCodecFix!" + contactInfo, "red"))
 
 if not gmodBranch in manifest[sys.platform]:
 	sys.exit(colored("Error: This Branch of Garry's Mod is not supported! Please switch to the x86-64 branch and then try again." + contactInfo, "red"))
@@ -417,7 +417,6 @@ def getFileSHA256(filePath):
 
 filesToUpdate = []
 fileNoMatchOriginal = False
-printLock = False
 def determineFileIntegrityStatus(file):
 	global fileNoMatchOriginal
 	fileSHA256 = getFileSHA256(os.path.join(gmodPath, file))
