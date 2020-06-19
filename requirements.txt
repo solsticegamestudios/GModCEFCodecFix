@@ -2,7 +2,7 @@ colorama
 termcolor
 vdf
 requests
-git+git://github.com/leovp/steamfiles
+git+git://github.com/winterphoenix/steamfiles@patch-1
 steamid
 bsdiff4
 psutil; sys_platform == 'linux'

@@ -115,8 +115,6 @@ remoteVersion = 0
 with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.txt") or "version.txt", "r") as versionFile:
 	localVersion = int(versionFile.read())
 
-#print("Local Version: " + str(localVersion))
-
 try:
 	versionCon = http.client.HTTPSConnection("raw.githubusercontent.com")
 	versionCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/version.txt")
@@ -125,8 +123,6 @@ try:
 	if versionResp.status == 200:
 		remoteVersion = int(versionResp.read())
 		versionCon.close()
-
-		#print("Remote Version: " + str(remoteVersion) + "\n")
 
 		if remoteVersion > localVersion:
 			print(colored("WARNING: CEFCodecFix is out of date! Please get the latest version at\nhttps://github.com/solsticegamestudios/GModCEFCodecFix/releases", "red"))
@@ -139,7 +135,7 @@ try:
 
 			sys.stdout.write("\033[K\n")
 		else:
-			print(colored("You are running the latest version of CEFCodecFix!\n", "green"))
+			print(colored("You are running the latest version of CEFCodecFix [Local: " + str(localVersion) + " / Remote: " + str(remoteVersion) + "]!\n", "green"))
 	else:
 		print(colored("WARNING: Could not get CEFCodecFix remote version.\n", "yellow"))
 except Exception as e:
