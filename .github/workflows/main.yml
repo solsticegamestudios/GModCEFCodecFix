@@ -30,7 +30,7 @@ jobs:
         pip install pyinstaller
 
     - name: PyInstaller Build
-      run: $(cat pyinstaller_${{ runner.os == 'Windows' && "windows" || runner.os == 'Linux' && "linux" || "macos" }}.txt)
+      run: $(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
       
     - name: Get Latest Release Info
       id: latest-release
