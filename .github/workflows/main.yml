@@ -23,9 +23,9 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
 
-    - name: PyInstaller Build Windows
+    #- name: PyInstaller Build Windows
       #run: TODO
-      if: runner.os == 'Windows'
+      #if: runner.os == 'Windows'
       
     - name: PyInstaller Build Linux
       run: $(cat pyinstaller_linux.txt)
