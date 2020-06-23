@@ -1,1 +1,1 @@
-pyinstaller --add-data "version.txt:." --add-data "LICENSE.txt:." --add-data "README.md:." --add-binary='/System/Library/Frameworks/Tk.framework/Tk':'tk' --add-binary='/System/Library/Frameworks/Tcl.framework/Tcl':'tcl' --onefile GModCEFCodecFix.py --icon=GModCEFCodecFixIcon.icns
+pyinstaller --add-data version.txt:. --add-data LICENSE.txt:. --add-data README.md:. --add-binary=/System/Library/Frameworks/Tk.framework/Tk:tk --add-binary=/System/Library/Frameworks/Tcl.framework/Tcl:tcl --onefile GModCEFCodecFix.py --icon=GModCEFCodecFixIcon.icns
