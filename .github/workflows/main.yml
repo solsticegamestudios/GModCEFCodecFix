@@ -3,6 +3,9 @@ name: All Platform Build
 on:
     release:
         types: [released]
+    push:
+        branches:
+            - master
 
 jobs:
   build:
