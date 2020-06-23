@@ -152,6 +152,7 @@ from hashlib import sha256
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 from bsdiff4 import file_patch
+from xdg import XDG_DATA_HOME
 
 # Specific platform imports
 if sys.platform == "win32":
@@ -196,12 +197,13 @@ elif sys.platform == "darwin":
 else:
 	# Linux
 	homeDir = str(Path.home())
+	dataDir = str(XDG_DATA_HOME)
 	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
 		steamPath = os.path.join(homeDir, ".steam", "steam")
-	elif os.path.isdir(os.path.join(homeDir, ".local", "share", "Steam")):
-		steamPath = os.path.join(homeDir, ".local", "share", "Steam")
+	elif os.path.isdir(os.path.join(dataDir, "Steam")):
+		steamPath = os.path.join(dataDir, "Steam")
 
-	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(homeDir, ".local", "share", "Steam") + " ?"
+	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(dataDir, "Steam") + " ?"
 
 if steamPath:
 	print("Steam Path:\n" + steamPath + "\n")
