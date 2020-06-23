@@ -16,10 +16,11 @@ jobs:
             os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Repo Checkout
+      uses: actions/checkout@master
 
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@master
  
     - name: Get Dependencies and PyInstaller
       run: |
@@ -28,15 +29,21 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
 
-    #- name: PyInstaller Build Windows
-      #run: TODO
-      #if: runner.os == 'Windows'
+    - name: PyInstaller Build
+      run: $(cat pyinstaller_${{ runner.os == 'Windows' && "windows" || runner.os == 'Linux' && "linux" || "macos" }}.txt)
       
-    - name: PyInstaller Build Linux
-      run: $(cat pyinstaller_linux.txt)
-      if: runner.os == 'Linux'
-
-    - name: PyInstaller Build macOS
-      run: $(cat pyinstaller_macos.txt)
-      if: runner.os == 'macOS'
+    - name: Get Latest Release Info
+      id: latest-release
+      uses: actions/github-script@v2
+      with:
+          script: return github.repos.getLatestRelease({ context.repo.owner, context.repo.repo });
       
+    #- name: Upload Release Binary
+      #uses: actions/upload-release-asset@v1
+      #env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #with:
+      #    upload_url: ${{ steps.latest-release.outputs.result.upload_url }}
+      #    asset_path: 
+      #    asset_name: 
+      #    asset_content_type: application/octet-stream
