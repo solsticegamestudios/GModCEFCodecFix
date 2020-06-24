@@ -1,49 +1,53 @@
 name: All Platform Build
 
 on:
-    release:
-        types: [released]
-    push:
-        branches:
-            - master
+  release:
+    types: [released]
+  push:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
-        fail-fast: false
-        matrix:
-            os: [windows-latest, ubuntu-latest, macos-latest]
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-    - name: Repo Checkout
-      uses: actions/checkout@master
+      - name: Repo Checkout
+        uses: actions/checkout@master
 
-    - name: Setup Python
-      uses: actions/setup-python@master
- 
-    - name: Get Dependencies and PyInstaller
-      run: |
-        python -m pip install --upgrade pip
-        pip install wheel
-        pip install -r requirements.txt
-        pip install pyinstaller
+      - name: Setup Python
+        uses: actions/setup-python@master
 
-    - name: PyInstaller Build
-      run: $(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
-      
-    - name: Get Latest Release Info
-      id: latest-release
-      uses: actions/github-script@v2
-      with:
-          script: return github.repos.getLatestRelease
-      
-    #- name: Upload Release Binary
-      #uses: actions/upload-release-asset@v1
-      #env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #with:
-      #    upload_url: ${{ steps.latest-release.outputs.result.upload_url }}
-      #    asset_path: 
-      #    asset_name: 
-      #    asset_content_type: application/octet-stream
+      - name: Get Dependencies and PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: PyInstaller Build
+        run: $(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
+
+      - name: Get Latest Release Info
+        id: latest-release
+        uses: actions/github-script@v2
+        with:
+          script: |
+            return github.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+
+      - name: Upload Release Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.latest-release.outputs.result.upload_url }}
+          asset_path: ./dist/GModCEFCodecFix${{ runner.os == 'Windows' && '.exe' || '' }}
+          asset_name: GModCEFCodecFix-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}
+          asset_content_type: application/octet-stream
