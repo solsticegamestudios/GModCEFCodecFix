@@ -42,15 +42,12 @@ jobs:
               repo: context.repo.repo,
             })
 
-      - name: Output Release Info
-        run: echo "${{ steps.latest-release.outputs.result }}"
-
       - name: Upload Release Binary
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.latest-release.outputs.result }}
+          upload_url: ${{ fromJSON(steps.latest-release.outputs.result).data.upload_url }}
           asset_path: ./dist/GModCEFCodecFix${{ runner.os == 'Windows' && '.exe' || '' }}
           asset_name: GModCEFCodecFix-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}
           asset_content_type: application/octet-stream
