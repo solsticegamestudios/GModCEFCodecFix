@@ -36,7 +36,7 @@ jobs:
       id: latest-release
       uses: actions/github-script@v2
       with:
-          script: return github.repos.getLatestRelease({ context.repo.owner, context.repo.repo });
+          script: return github.repos.getLatestRelease
       
     #- name: Upload Release Binary
       #uses: actions/upload-release-asset@v1
