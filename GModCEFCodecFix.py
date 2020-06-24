@@ -152,13 +152,14 @@ from hashlib import sha256
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 from bsdiff4 import file_patch
-from xdg import XDG_DATA_HOME
 
 # Specific platform imports
 if sys.platform == "win32":
 	import winreg
 else:
 	from pathlib import Path
+if sys.platform == "linux":
+	from xdg import XDG_DATA_HOME
 
 if len(sys.argv) >= 3:
 	# sys.argv[0] is always the script/exe path
