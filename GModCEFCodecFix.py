@@ -219,9 +219,7 @@ with open(steamConfigPath, "r", encoding="UTF-8", errors="ignore") as steamConfi
 
 # Get Steam Libraries
 steamLibraries = []
-steamAppsPath = os.path.join(steamPath, "steamapps")
-if os.path.isdir(steamAppsPath):
-	steamLibraries.append(steamAppsPath)
+steamLibraries.append(steamPath) # Default
 
 for configKey in steamConfig:
 	if "BaseInstallFolder" in configKey:
@@ -247,7 +245,7 @@ with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamL
 		curSteamUser = steamLoginUsers[userSteamID64]
 
 		if str(steamLoginUsers[userSteamID64]["mostrecent"]) == "1":
-			steamUser = {"steamID64": userSteamID64, "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
+			steamUser = {"steamID64": userSteamID64, "AccountName": curSteamUser["AccountName"], "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
 			break
 		elif int(steamLoginUsers[userSteamID64]["Timestamp"]) > steamUser["Timestamp"]:
 			steamUser = {"steamID64": userSteamID64, "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
@@ -263,8 +261,7 @@ foundGMod = False
 gmodPath = ""
 possibleGModPaths = [
 	["steamapps", "common", "GarrysMod"],
-	["common", "GarrysMod"],
-	["GarrysMod"]
+	["steamapps", steamUser["AccountName"], "GarrysMod"]
 ]
 for path in steamLibraries:
 	for curGModPath in possibleGModPaths:
