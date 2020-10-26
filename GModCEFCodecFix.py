@@ -102,11 +102,14 @@ import http.client
 import colorama
 from termcolor import colored
 from time import sleep
+from socket import gaierror
 
 colorama.init()
 
 # Spit out the Software Info
 print(colored("GMod CEF Codec Fix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/chat.html\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
+
+contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com\n"
 
 # Get CEFCodecFix's version and compare it with the version we have on the website
 localVersion = 0
@@ -138,8 +141,10 @@ try:
 			print(colored("You are running the latest version of CEFCodecFix [Local: " + str(localVersion) + " / Remote: " + str(remoteVersion) + "]!\n", "green"))
 	else:
 		print(colored("WARNING: Could not get CEFCodecFix remote version.\n", "yellow"))
+except gaierror as e:
+	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tLooks like you're having DNS Problems [Errno " + str(e.errno) + "].\n\tSee the 1.1.1.1 Setup instructions at https://1.1.1.1/dns/\n\tThey'll change your DNS Settings to something that'll probably work." + contactInfo, "red"))
 except Exception as e:
-	sys.exit(colored("Error: Could not get CEFCodecFix remote version! Exception: " + e + contactInfo, "red"))
+	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tException: " + str(e) + contactInfo, "red"))
 
 # Let's start the show
 from time import perf_counter
@@ -169,8 +174,6 @@ if len(sys.argv) >= 3:
 			print(colored("Warning: Auto Mode switch present but option invalid! Please specify a Launch Option Number.\n", "yellow"))
 
 timeStart = perf_counter()
-
-contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com\n"
 
 # Find Steam
 steamPathHints = {}
@@ -381,7 +384,7 @@ try:
 	if manifestResp.status != 200:
 		sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Status Code: " + manifestResp.status + contactInfo, "red"))
 except Exception as e:
-	sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Exception: " + e + contactInfo, "red"))
+	sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Exception: " + str(e) + contactInfo, "red"))
 
 manifest = json.loads(manifestResp.read())
 manifestCon.close()
