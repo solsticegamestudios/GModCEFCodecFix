@@ -163,6 +163,8 @@ if sys.platform == "win32":
 	import winreg
 else:
 	from pathlib import Path
+if sys.platform == "linux":
+	from xdg import XDG_DATA_HOME
 
 if len(sys.argv) >= 3:
 	# sys.argv[0] is always the script/exe path
@@ -199,12 +201,13 @@ elif sys.platform == "darwin":
 else:
 	# Linux
 	homeDir = str(Path.home())
+	dataDir = str(XDG_DATA_HOME)
 	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
 		steamPath = os.path.join(homeDir, ".steam", "steam")
-	elif os.path.isdir(os.path.join(homeDir, ".local", "share", "Steam")):
-		steamPath = os.path.join(homeDir, ".local", "share", "Steam")
+	elif os.path.isdir(os.path.join(dataDir, "Steam")):
+		steamPath = os.path.join(dataDir, "Steam")
 
-	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(homeDir, ".local", "share", "Steam") + " ?"
+	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(dataDir, "Steam") + " ?"
 
 if steamPath:
 	print("Steam Path:\n" + steamPath + "\n")
