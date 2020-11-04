@@ -3,9 +3,9 @@ name: All Platform Build
 on:
   release:
     types: [released]
-#  push:
-#    branches:
-#      - master
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -21,6 +21,8 @@ jobs:
 
       - name: Setup Python
         uses: actions/setup-python@master
+        with:
+          python-version: '3.7' # BLOCKING: PyInstaller supports up to 3.7
 
       - name: Get Dependencies and PyInstaller
         run: |
