@@ -30,8 +30,8 @@ jobs:
         run: |
           git clone https://github.com/pyinstaller/pyinstaller.git --depth=1
           cd pyinstaller/bootloader
-          python ./waf all
           python -c "import os, sys; print(os.path.dirname(sys.executable))"
+          python ./waf all
 
 #      - name: PyInstaller Build
 #        run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
