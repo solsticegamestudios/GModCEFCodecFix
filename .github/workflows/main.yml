@@ -33,8 +33,10 @@ jobs:
         run: |
           git clone https://github.com/pyinstaller/pyinstaller.git --depth=1
           cd pyinstaller/bootloader
-          python -c "import os, sys; print(os.path.dirname(sys.executable))"
           python ./waf all
+          rm -r "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
+          cp -r "../PyInstaller/bootloader" "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller"
+          ls "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
 
 #      - name: PyInstaller Build
 #        run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
