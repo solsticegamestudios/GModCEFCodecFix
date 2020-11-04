@@ -2,7 +2,7 @@ name: All Platform Build
 
 on:
   release:
-    types: [released]
+    types: [released, push]
 
 jobs:
   build:
@@ -26,25 +26,32 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: PyInstaller Build
-        run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
+      - name: Build PyInstaller Bootloader
+        run: |
+          git clone https://github.com/pyinstaller/pyinstaller.git --depth=1
+          cd pyinstaller/bootloader
+          python ./waf all
+          python -c "import os, sys; print(os.path.dirname(sys.executable))"
 
-      - name: Get Latest Release Info
-        id: latest-release
-        uses: actions/github-script@v2
-        with:
-          script: |
-            return github.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
+#      - name: PyInstaller Build
+#        run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
 
-      - name: Upload Release Binary
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ fromJSON(steps.latest-release.outputs.result).data.upload_url }}
-          asset_path: ./dist/GModCEFCodecFix${{ runner.os == 'Windows' && '.exe' || '' }}
-          asset_name: GModCEFCodecFix-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}
-          asset_content_type: application/octet-stream
+#      - name: Get Latest Release Info
+#        id: latest-release
+#        uses: actions/github-script@v2
+#        with:
+#          script: |
+#            return github.repos.getLatestRelease({
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#            })
+
+#      - name: Upload Release Binary
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ fromJSON(steps.latest-release.outputs.result).data.upload_url }}
+#          asset_path: ./dist/GModCEFCodecFix${{ runner.os == 'Windows' && '.exe' || '' }}
+#          asset_name: GModCEFCodecFix-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}
+#          asset_content_type: application/octet-stream
