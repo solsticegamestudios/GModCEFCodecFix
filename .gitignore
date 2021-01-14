@@ -2,3 +2,4 @@ GModCEFCodecFix.spec
 __pycache__/**
 build/**
 dist/**
+GModCEFCodecFixFiles/**
