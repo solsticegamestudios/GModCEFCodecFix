@@ -24,7 +24,7 @@ fixedPathRoot = os.path.join(sys.argv[-2], "release_fixed")
 patchTargetPathRoot = sys.argv[-1]
 manifestDest = os.path.join(patchTargetPathRoot, "manifest.json")
 
-httpServerPathRoot = "https://github.com/solsticegamestudios/GModCEFCodecFix/raw/master"
+httpServerPathRoot = "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master"
 
 filesToDiff = {
 	"win32": {
