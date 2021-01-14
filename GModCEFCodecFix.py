@@ -499,6 +499,7 @@ if len(filesToUpdate) > 0:
 			file_patch(originalFilePath, originalFilePath, patchFilePath)
 		except Exception as e:
 			# Probably some read/write issue
+			print(colored("\tException: " + str(e), "yellow"))
 			sys.exit(colored(writeFailed, "red"))
 else:
 	print("\nNo Files Need Fixing!")
