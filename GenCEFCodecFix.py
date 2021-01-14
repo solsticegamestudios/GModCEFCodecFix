@@ -4,6 +4,8 @@
 #
 # NOTE: 64-bit required due to Memory requirements!
 #
+# EXAMPLE: python GenCEFCodecFix.py "D:\GModCEFCodecFixDev\Internal" "D:\GModCEFCodecFixDev\External"
+#
 # Copyright 2020, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 
@@ -26,7 +28,7 @@ httpServerPathRoot = "https://raw.githubusercontent.com/solsticegamestudios/GMod
 
 filesToDiff = {
 	"win32": {
-		"x86-64": [
+		"chromium": [
 			"bin/chrome_elf.dll",
 			"bin/d3dcompiler_47.dll",
 			"bin/html_chromium.dll",
@@ -147,19 +149,19 @@ for platform in filesToDiff:
 		for file in filesToDiff[platform][branch]:
 			fileHashes[platform][branch][file] = {}
 
-			originalHash = getFileSHA256(os.path.join(originalPathRoot, platform, file))
-			fixedHash = getFileSHA256(os.path.join(fixedPathRoot, platform, file))
+			originalHash = getFileSHA256(os.path.join(originalPathRoot, platform, branch, file))
+			fixedHash = getFileSHA256(os.path.join(fixedPathRoot, platform, branch, file))
 
 			fileHashes[platform][branch][file]["original"] = originalHash
 			fileHashes[platform][branch][file]["fixed"] = fixedHash
 
-			print("\t" + file)
+			print("\t" + os.path.join(platform, branch, file))
 			if originalHash != fixedHash:
 				if file not in existingManifest[platform][branch] or originalHash != existingManifest[platform][branch][file]["original"] or fixedHash != existingManifest[platform][branch][file]["fixed"]:
 					fileTimeStart = process_time()
 
 					os.makedirs(os.path.dirname(os.path.join(patchTargetPathRoot, platform, branch, file)), exist_ok=True)
-					bsdiff4.file_diff(os.path.join(originalPathRoot , platform, file), os.path.join(fixedPathRoot, platform, file), os.path.join(patchTargetPathRoot, platform, branch, file + ".bsdiff"))
+					bsdiff4.file_diff(os.path.join(originalPathRoot, platform, branch, file), os.path.join(fixedPathRoot, platform, branch, file), os.path.join(patchTargetPathRoot, platform, branch, file + ".bsdiff"))
 
 					print("\t\tTook " + str(process_time() - fileTimeStart) + " second(s)")
 				else:
