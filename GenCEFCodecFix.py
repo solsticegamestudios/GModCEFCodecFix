@@ -54,6 +54,33 @@ filesToDiff = {
 			"bin/win64/libGLESv2.dll",
 			"bin/win64/snapshot_blob.bin",
 			"bin/win64/v8_context_snapshot.bin"
+		],
+		"x86-64": [
+			"bin/chrome_elf.dll",
+			"bin/d3dcompiler_47.dll",
+			"bin/html_chromium.dll",
+			"bin/icudtl.dat",
+			"bin/libcef.dll",
+			"bin/libEGL.dll",
+			"bin/libGLESv2.dll",
+			"bin/snapshot_blob.bin",
+			"bin/v8_context_snapshot.bin",
+
+			"bin/chromium/cef.pak",
+			"bin/chromium/cef_100_percent.pak",
+			"bin/chromium/cef_200_percent.pak",
+			"bin/chromium/cef_extensions.pak",
+			"bin/chromium/devtools_resources.pak",
+
+			"bin/win64/chrome_elf.dll",
+			"bin/win64/d3dcompiler_47.dll",
+			"bin/win64/html_chromium.dll",
+			"bin/win64/icudtl.dat",
+			"bin/win64/libcef.dll",
+			"bin/win64/libEGL.dll",
+			"bin/win64/libGLESv2.dll",
+			"bin/win64/snapshot_blob.bin",
+			"bin/win64/v8_context_snapshot.bin"
 		]
 	},
 	"darwin": {
