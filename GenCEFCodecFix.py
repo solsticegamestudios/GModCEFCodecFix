@@ -184,7 +184,7 @@ for platform in filesToDiff:
 
 			print("\t" + os.path.join(platform, branch, file))
 			if originalHash != fixedHash:
-				if file not in existingManifest[platform][branch] or originalHash != existingManifest[platform][branch][file]["original"] or fixedHash != existingManifest[platform][branch][file]["fixed"]:
+				if platform not in existingManifest or branch not in existingManifest[platform] or file not in existingManifest[platform][branch] or originalHash != existingManifest[platform][branch][file]["original"] or fixedHash != existingManifest[platform][branch][file]["fixed"]:
 					fileTimeStart = process_time()
 
 					os.makedirs(os.path.dirname(os.path.join(patchTargetPathRoot, platform, branch, file)), exist_ok=True)
