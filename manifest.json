@@ -72,31 +72,31 @@
     "darwin": {
         "x86-64": {
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework": {
-                "original": "9CEB76DCC8A88DB11631353BD404DE6916091AC61A318FFF3AB37F698E54A0B8",
-                "patch": "AB67BA36D51035D1FFAD92110BC186CB87DD73952A940B66370BB175D95B318C",
+                "original": "7EBE6D29919ED326692B6AF6DD1D12AB718D030E0C826AABB044C43B0000FACB",
+                "patch": "DF51C9F5691C64E4D38EC3D2B80F59D4A49F288CB095B0468ACBD5F19F1AAB5F",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Chromium%20Embedded%20Framework.bsdiff",
                 "fixed": "E02E386C0F0E5F746D8C5C616E8486CAF6D339A7FEAD91436FFCFAB5160DB3C0"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libEGL.dylib": {
-                "original": "88CDAA4738FAB6866345AA985C8F930109D9A966F7569189F88D044A9666A9C0",
+                "original": "D455E596A3EF1C30EFE5E4988178865FF01183A10587ADEEFEB28818456ADA6B",
                 "patch": "186FCB46DD7A180EC5374CAB78CAD65F8607B754351B7A4463663213F6A6579C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libEGL.dylib.bsdiff",
                 "fixed": "BD6CED6DECBAB7BEC264FA242B972E29277D47B683916C9B1F0683A95B257421"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libGLESv2.dylib": {
-                "original": "F2A532966BACB6883362CDD68EABD03C61DE226DD9E6EEF291A1E89C1859A379",
+                "original": "69F577D51F412EF307F319A29047B98F2743874D7A7862314B7BEEAC157C7956",
                 "patch": "5F2DFD7CDCFEB99428B8E1DBAF34EE9E40E70C5590FD64E4BC31FE51F1395AA9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libGLESv2.dylib.bsdiff",
                 "fixed": "BA10A4E55F5C5F2ABBB48AC86E6091863CE54F0147221BBC96A29F52C80F8725"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libEGL.dylib": {
-                "original": "57AD2647DEA7F7AE51B87D58863E312A4A72E303700213E8B7F4FC6FEA176B7C",
-                "patch": "B689A8DA677A4D8FD5DE0B394C164B2E854359D4977A8F01B34EB2556BFA073E",
+                "original": "782C1CD8E4AF2F45266E958ED0A795CAB645847F9648A7264F8EA0295ADCAB73",
+                "patch": "C07671D7A093DF7E46E3ADEF3564D37DD5BA70E5455286E1E810DB98117B6A1B",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libswiftshader_libEGL.dylib.bsdiff",
                 "fixed": "4616B8746D921A56CE45BB0D826EF4FE2328485D7291A13FEBEFED3884D1A379"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libGLESv2.dylib": {
-                "original": "C0B245F4B861D4BD8E0DE58DEB3196A32CB5466E0A87BB638F934EB31FEFE5E3",
+                "original": "C12AC85D9CA261228CA19D3BA7A678E6046021E18CE512905BAAF3857877C770",
                 "patch": "1DEFD84E4FD10073A6E08B9C3E4BA91C2D332D297DC452DD2DF9CD88858C7294",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libswiftshader_libGLESv2.dylib.bsdiff",
                 "fixed": "DF9639C5335627B561D1A95112A41C7BC9D52A7890987D051F3F2DBB073C9E64"
