@@ -214,22 +214,25 @@ if steamPath:
 else:
 	sys.exit(colored("Error: Steam Path Not Found!\n" + steamPathHints[sys.platform] + contactInfo, "red"))
 
-# Find Steam Config
-steamConfigPath = os.path.join(steamPath, "config", "config.vdf")
-if not os.path.isfile(steamConfigPath):
-	sys.exit(colored("Error: Steam Config File Not Found!" + contactInfo, "red"))
+# Find Steam Library Folders Config
+steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
+if not os.path.isfile(steamLibraryFoldersConfigPath):
+	sys.exit(colored("Error: Steam Library Folders Config File Not Found!" + contactInfo, "red"))
 
-with open(steamConfigPath, "r", encoding="UTF-8", errors="ignore") as steamConfigFile:
-	steamConfig = vdf.load(steamConfigFile, mapper=CaseInsensitiveDict)
-	steamConfig = steamConfig["InstallConfigStore"]["Software"]["Valve"]["Steam"]
+with open(steamLibraryFoldersConfigPath, "r", encoding="UTF-8", errors="ignore") as steamLibraryFoldersConfigFile:
+	steamLibraryFoldersConfig = vdf.load(steamLibraryFoldersConfigFile, mapper=CaseInsensitiveDict)
+	steamLibraryFoldersConfig = steamLibraryFoldersConfig["LibraryFolders"]
 
 # Get Steam Libraries
 steamLibraries = []
 steamLibraries.append(steamPath) # Default
 
-for configKey in steamConfig:
-	if "BaseInstallFolder" in configKey:
-		steamLibraries.append(steamConfig[configKey])
+for configKey in steamLibraryFoldersConfig:
+	try:
+		int(configKey) # Try to convert it to an int as a test
+		steamLibraries.append(steamLibraryFoldersConfig[configKey])
+	except ValueError:
+		continue
 
 if len(steamLibraries) == 0:
 	sys.exit(colored("Error: No Steam Libraries Found!" + contactInfo, "red"))
