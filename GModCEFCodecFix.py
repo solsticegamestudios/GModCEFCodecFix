@@ -230,7 +230,13 @@ steamLibraries.append(steamPath) # Default
 for configKey in steamLibraryFoldersConfig:
 	try:
 		int(configKey) # Try to convert it to an int as a test
-		steamLibraries.append(steamLibraryFoldersConfig[configKey])
+		configVal = steamLibraryFoldersConfig[configKey]
+
+		# Figure out if this is a string path or assume it's an array
+		if isinstance(configVal, str):
+			steamLibraries.append(configVal)
+		else:
+			steamLibraries.append(configVal["path"])
 	except ValueError:
 		continue
 
