@@ -18,11 +18,13 @@ jobs:
     steps:
       - name: Repo Checkout
         uses: actions/checkout@master
+        with:
+          lfs: true
 
       - name: Setup Python
         uses: actions/setup-python@master
         with:
-          python-version: '3.7' # BLOCKING: PyInstaller supports up to 3.7
+          python-version: '3.9' # PyInstaller supports up to 3.9
 
       - name: Get Dependencies and PyInstaller
         run: |
