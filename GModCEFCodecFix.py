@@ -2,7 +2,7 @@
 
 # GModCEFCodecFix
 #
-# Copyright 2020, Solstice Game Studios (www.solsticegamestudios.com)
+# Copyright 2020-2021, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 #
 # Purpose: Automatically patches Garry's Mod's internal Chromium Embedded Framework to enable Proprietary Video/Audio codec support
@@ -98,7 +98,7 @@ if sys.platform == "win32":
 else:
 	print("\33]0;Garry's Mod: CEF Codec Fix\a", end='', flush=True)
 
-import http.client
+import requests
 import colorama
 from termcolor import colored
 from time import sleep
@@ -119,13 +119,10 @@ with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.
 	localVersion = int(versionFile.read())
 
 try:
-	versionCon = http.client.HTTPSConnection("raw.githubusercontent.com")
-	versionCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/version.txt")
-	versionResp = versionCon.getresponse()
+	versionRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt")
 
-	if versionResp.status == 200:
-		remoteVersion = int(versionResp.read())
-		versionCon.close()
+	if versionRequest.status_code == 200:
+		remoteVersion = int(versionRequest.text)
 
 		if remoteVersion > localVersion:
 			print(colored("WARNING: CEFCodecFix is out of date! Please get the latest version at\nhttps://github.com/solsticegamestudios/GModCEFCodecFix/releases", "red"))
@@ -152,7 +149,6 @@ import vdf
 from requests.structures import CaseInsensitiveDict
 from steamfiles import appinfo
 from steamid import SteamID
-import json
 from hashlib import sha256
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
@@ -389,17 +385,14 @@ with open(steamUserLocalConfigPath, "r", encoding="UTF-8", errors="ignore") as s
 
 # Get CEFCodecFix Manifest
 try:
-	manifestCon = http.client.HTTPSConnection("raw.githubusercontent.com")
-	manifestCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/manifest.json")
-	manifestResp = manifestCon.getresponse()
+	manifestRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/manifest.json")
 
-	if manifestResp.status != 200:
-		sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Status Code: " + manifestResp.status + contactInfo, "red"))
+	if manifestRequest.status_code != 200:
+		sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Status Code: " + str(manifestRequest.status_code) + contactInfo, "red"))
 except Exception as e:
 	sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Exception: " + str(e) + contactInfo, "red"))
 
-manifest = json.loads(manifestResp.read())
-manifestCon.close()
+manifest = manifestRequest.json()
 
 if not sys.platform in manifest:
 	sys.exit(colored("Error: This Operating System is not supported by CEFCodecFix!" + contactInfo, "red"))
@@ -473,23 +466,15 @@ if len(filesToUpdate) > 0:
 		if not cachedFileValid:
 			patchURL = manifest[file]["patch-url"]
 			print("\tDownloading: " + patchURL + "...")
-			patchURLParsed = urlparse(patchURL)
-			if patchURLParsed.scheme == "https":
-				cefPatchCon = http.client.HTTPSConnection(patchURLParsed.netloc)
-			else:
-				cefPatchCon = http.client.HTTPConnection(patchURLParsed.netloc)
+			patchURLRequest = requests.get(patchURL)
 
-			cefPatchCon.request("GET", patchURLParsed.path)
-			cefPatchResp = cefPatchCon.getresponse()
-			if cefPatchResp.status != 200:
-				cefPatchCon.close()
-				sys.exit(colored("Error: Failed to Download " + file + " | HTTP " + str(cefPatchResp.status) + " " + cefPatchResp.reason + contactInfo, "red"))
+			if patchURLRequest.status_code != 200:
+				sys.exit(colored("Error: Failed to Download " + file + " | HTTP " + str(patchURLRequest.status_code) + contactInfo, "red"))
 			else:
 				# Create needed directories if they don't exist already
 				os.makedirs(os.path.dirname(patchFilePath), exist_ok = True)
 				with open(patchFilePath, "wb") as newCEFPatch:
-					newCEFPatch.write(cefPatchResp.read())
-				cefPatchCon.close()
+					newCEFPatch.write(patchURLRequest.content)
 
 	readFailed = "\nError: Cannot Access One or More Files in CEFCodecFix cache.\nPlease verify that CEFCodecFix has read permissions to the CEFCodecFixFiles directory (try running as admin)" + contactInfo
 	writeFailed = "\nError: Cannot Access One or More Files in Garry's Mod Installation.\nPlease verify that Garry's Mod is closed, Steam is not updating it, and that CEFCodecFix has write permissions to its directory (try running as admin)" + contactInfo
