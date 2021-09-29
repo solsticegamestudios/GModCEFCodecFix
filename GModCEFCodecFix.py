@@ -206,6 +206,7 @@ else:
 	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(dataDir, "Steam") + " ?"
 
 if steamPath:
+	steamPath = os.path.realpath(steamPath)
 	print("Steam Path:\n" + steamPath + "\n")
 else:
 	sys.exit(colored("Error: Steam Path Not Found!\n" + steamPathHints[sys.platform] + contactInfo, "red"))
@@ -229,10 +230,12 @@ for configKey in steamLibraryFoldersConfig:
 		configVal = steamLibraryFoldersConfig[configKey]
 
 		# Figure out if this is a string path or assume it's an array
-		if isinstance(configVal, str):
-			steamLibraries.append(configVal)
-		else:
-			steamLibraries.append(configVal["path"])
+		# Also don't allow duplicates
+		configPath = configVal if isinstance(configVal, str) else configVal["path"]
+		configPath = os.path.realpath(configPath)
+
+		if configPath not in steamLibraries:
+			steamLibraries.append(configPath)
 	except ValueError:
 		continue
 
