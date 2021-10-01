@@ -98,6 +98,7 @@ if sys.platform == "win32":
 else:
 	print("\33]0;Garry's Mod: CEF Codec Fix\a", end='', flush=True)
 
+import urllib.request
 import requests
 import colorama
 from termcolor import colored
@@ -114,12 +115,16 @@ contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.sols
 # Get CEFCodecFix's version and compare it with the version we have on the website
 localVersion = 0
 remoteVersion = 0
+systemProxies = urllib.request.getproxies()
+
+if systemProxies:
+	print("System Proxies:\n" + str(systemProxies) + "\n")
 
 with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.txt") or "version.txt", "r") as versionFile:
 	localVersion = int(versionFile.read())
 
 try:
-	versionRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt")
+	versionRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt", proxies=systemProxies)
 
 	if versionRequest.status_code == 200:
 		remoteVersion = int(versionRequest.text)
@@ -388,7 +393,7 @@ with open(steamUserLocalConfigPath, "r", encoding="UTF-8", errors="ignore") as s
 
 # Get CEFCodecFix Manifest
 try:
-	manifestRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/manifest.json")
+	manifestRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/manifest.json", proxies=systemProxies)
 
 	if manifestRequest.status_code != 200:
 		sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Status Code: " + str(manifestRequest.status_code) + contactInfo, "red"))
@@ -469,7 +474,7 @@ if len(filesToUpdate) > 0:
 		if not cachedFileValid:
 			patchURL = manifest[file]["patch-url"]
 			print("\tDownloading: " + patchURL + "...")
-			patchURLRequest = requests.get(patchURL)
+			patchURLRequest = requests.get(patchURL, proxies=systemProxies)
 
 			if patchURLRequest.status_code != 200:
 				sys.exit(colored("Error: Failed to Download " + file + " | HTTP " + str(patchURLRequest.status_code) + contactInfo, "red"))
