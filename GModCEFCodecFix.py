@@ -454,7 +454,7 @@ if fileNoMatchOriginal:
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
-	curDir = os.path.dirname(os.path.realpath(__file__))
+	curDir = os.path.dirname(sys.executable) if getattr(sys, "frozen", False) else os.path.dirname(os.path.realpath(__file__))
 	cacheDir = os.path.join(curDir, "GModCEFCodecFixFiles")
 	cacheExists = os.path.isdir(cacheDir)
 
@@ -463,7 +463,7 @@ if len(filesToUpdate) > 0:
 
 	for file in filesToUpdate:
 		cachedFileValid = False
-		patchFilePath = os.path.join(cacheDir, file + ".bsdiff")
+		patchFilePath = os.path.realpath(os.path.join(cacheDir, file + ".bsdiff"))
 
 		if cacheExists and os.path.isfile(patchFilePath):
 			# Use cached patch files if available, but check the checksums first
@@ -489,7 +489,7 @@ if len(filesToUpdate) > 0:
 	for file in filesToUpdate:
 		print("\tPatching: " + file + "...")
 
-		patchFilePath = os.path.join(cacheDir, file + ".bsdiff")
+		patchFilePath = os.path.realpath(os.path.join(cacheDir, file + ".bsdiff"))
 		originalFilePath = os.path.join(gmodPath, file)
 		if os.access(patchFilePath, os.R_OK):
 			if not os.access(originalFilePath, os.W_OK):
