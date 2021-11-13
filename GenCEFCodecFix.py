@@ -6,7 +6,7 @@
 #
 # EXAMPLE: python GenCEFCodecFix.py "D:\GModCEFCodecFixDev\Internal" "D:\GModCEFCodecFixDev\External"
 #
-# Copyright 2020, Solstice Game Studios (www.solsticegamestudios.com)
+# Copyright 2020-2021, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 
 from time import process_time
@@ -26,12 +26,17 @@ manifestDest = os.path.join(patchTargetPathRoot, "manifest.json")
 
 httpServerPathRoot = "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master"
 
+locales = ["am", "ar", "bg", "bn", "ca", "cs", "da", "de", "el", "en-GB", "en-US", "es", "es-419", "et", "fa", "fi", "fil", "fr", "gu", "he", "hi", "hr", "hu", "id", "it", "ja", "kn", "ko", "lt", "lv", "ml", "mr", "ms", "nb", "nl", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl", "sr", "sv", "sw", "ta", "te", "th", "tr", "uk", "vi", "zh-CN", "zh-TW"]
+
 filesToDiff = {
 	"win32": {
 		#"chromium": [],
 		"x86-64": [
+			"bin/swiftshader/libEGL.dll",
+			"bin/swiftshader/libGLESv2.dll",
 			"bin/chrome_elf.dll",
 			"bin/d3dcompiler_47.dll",
+			"bin/gmod.exe",
 			"bin/html_chromium.dll",
 			"bin/icudtl.dat",
 			"bin/libcef.dll",
@@ -39,22 +44,32 @@ filesToDiff = {
 			"bin/libGLESv2.dll",
 			"bin/snapshot_blob.bin",
 			"bin/v8_context_snapshot.bin",
+			"bin/vk_swiftshader.dll",
+			"bin/vk_swiftshader_icd.json",
+			"bin/vulkan-1.dll",
 
 			"bin/chromium/cef.pak",
 			"bin/chromium/cef_100_percent.pak",
 			"bin/chromium/cef_200_percent.pak",
 			"bin/chromium/cef_extensions.pak",
 			"bin/chromium/devtools_resources.pak",
+			"bin/chromium/resources.pak",
 
+			"bin/win64/swiftshader/libEGL.dll",
+			"bin/win64/swiftshader/libGLESv2.dll",
 			"bin/win64/chrome_elf.dll",
 			"bin/win64/d3dcompiler_47.dll",
+			"bin/win64/gmod.exe",
 			"bin/win64/html_chromium.dll",
 			"bin/win64/icudtl.dat",
 			"bin/win64/libcef.dll",
 			"bin/win64/libEGL.dll",
 			"bin/win64/libGLESv2.dll",
 			"bin/win64/snapshot_blob.bin",
-			"bin/win64/v8_context_snapshot.bin"
+			"bin/win64/v8_context_snapshot.bin",
+			"bin/win64/vk_swiftshader.dll",
+			"bin/win64/vk_swiftshader_icd.json",
+			"bin/win64/vulkan-1.dll"
 		]
 	},
 	"darwin": {
@@ -76,6 +91,7 @@ filesToDiff = {
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.bin"
 
 			# TODO: GMod HTML DLL
+			# TODO: GMod EXE
 		]
 	},
 	"linux": {
@@ -96,38 +112,31 @@ filesToDiff = {
 			"bin/linux64/v8_context_snapshot.bin"
 
 			# TODO: GMod HTML DLL
+			# TODO: GMod EXE
 		]
 	}
 }
+
+for locale in locales:
+	filesToDiff["win32"]["x86-64"].append("bin/chromium/locales/" + locale + ".pak");
+	# TODO: Linux / macOS
 
 print("\nArguments: " + str(sys.argv) + "\n")
 print("Original Path: " + originalPathRoot)
 print("Patch Path: " + patchTargetPathRoot + "\n")
 
-# Get existing Manifest
-try:
-	manifestCon = http.client.HTTPSConnection("raw.githubusercontent.com")
-	manifestCon.request("GET", "/solsticegamestudios/GModCEFCodecFix/master/manifest.json")
-	manifestResp = manifestCon.getresponse()
-
-	if manifestResp.status != 200:
-		sys.exit("Error: Existing Manifest Failed to Load! Status Code: " + manifestResp.status)
-except Exception as e:
-	sys.exit("Error: Existing Manifest Failed to Load! Exception: " + e)
-
-existingManifest = json.loads(manifestResp.read())
-manifestCon.close()
-print("Existing Manifest Loaded!\n")
-
 def getFileSHA256(filePath):
 	fileSHA256 = sha256()
 
-	with open(filePath, "rb") as file:
-		while True:
-			fileData = file.read(10485760) # Read about 10MB at a time
-			if not fileData:
-				break
-			fileSHA256.update(fileData)
+	try:
+		with open(filePath, "rb") as file:
+			while True:
+				fileData = file.read(10485760) # Read about 10MB at a time
+				if not fileData:
+					break
+				fileSHA256.update(fileData)
+	except FileNotFoundError:
+		pass
 
 	return fileSHA256.hexdigest().upper()
 
@@ -148,29 +157,37 @@ for platform in filesToDiff:
 		filesToSkip[platform][branch] = branch in filesToSkip[platform] and filesToSkip[platform][branch] or []
 
 		for file in filesToDiff[platform][branch]:
+			print("\t" + os.path.join(platform, branch, file))
+
 			fileHashes[platform][branch][file] = {}
 
-			originalHash = getFileSHA256(os.path.join(originalPathRoot, platform, branch, file))
-			fixedHash = getFileSHA256(os.path.join(fixedPathRoot, platform, branch, file))
+			originalFilePath = os.path.join(originalPathRoot, platform, branch, file)
+			fixedFilePath = os.path.join(fixedPathRoot, platform, branch, file)
+			patchFilePath = os.path.join(patchTargetPathRoot, platform, branch, file + ".bsdiff")
+
+			originalHash = getFileSHA256(originalFilePath)
+			fixedHash = getFileSHA256(fixedFilePath)
 
 			fileHashes[platform][branch][file]["original"] = originalHash
 			fileHashes[platform][branch][file]["fixed"] = fixedHash
 
-			print("\t" + os.path.join(platform, branch, file))
 			if originalHash != fixedHash:
-				if platform not in existingManifest or branch not in existingManifest[platform] or file not in existingManifest[platform][branch] or originalHash != existingManifest[platform][branch][file]["original"] or fixedHash != existingManifest[platform][branch][file]["fixed"]:
-					fileTimeStart = process_time()
+				fileTimeStart = process_time()
 
-					os.makedirs(os.path.dirname(os.path.join(patchTargetPathRoot, platform, branch, file)), exist_ok=True)
-					bsdiff4.file_diff(os.path.join(originalPathRoot, platform, branch, file), os.path.join(fixedPathRoot, platform, branch, file), os.path.join(patchTargetPathRoot, platform, branch, file + ".bsdiff"))
+				os.makedirs(os.path.dirname(patchFilePath), exist_ok=True)
 
-					print("\t\tTook " + str(process_time() - fileTimeStart) + " second(s)")
-				else:
-					print("\t\tSkipped: Up to date")
-					manifest[platform][branch][file] = existingManifest[platform][branch][file]
-					filesToSkip[platform][branch].append(file)
+				if not os.path.isfile(originalFilePath):
+					print("\t\tOriginal doesn't exist, setting to NULL")
+					originalFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
+				elif not os.path.isfile(fixedFilePath):
+					print("\t\tFixed doesn't exist, setting to NULL")
+					fixedFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
+
+				bsdiff4.file_diff(originalFilePath, fixedFilePath, patchFilePath)
+
+				print("\t\tTook " + str(process_time() - fileTimeStart) + " second(s)")
 			else:
-				print("\t\tSkipped: Original matches Fixed hash")
+				print("\t\tSkipped: Original matches Fixed hash" + (" (Files Not Found!)" if originalHash == "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855" else ""))
 				filesToSkip[platform][branch].append(file)
 
 print("\nGenerating New Manifest...")

@@ -451,6 +451,8 @@ with ThreadPoolExecutor() as executor:
 if fileNoMatchOriginal:
 	sys.exit(colored("\nError: One or More Files Failed to Match the Original Checksum!\n\tPlease Verify Garry's Mod Integrity and Try Again!" + contactInfo, "red"))
 
+readFailed = "\nError: Cannot Access One or More Files in CEFCodecFix cache.\nPlease verify that CEFCodecFix has read permissions to the CEFCodecFixFiles directory (try running as admin)" + contactInfo
+writeFailed = "\nError: Cannot Access One or More Files in Garry's Mod Installation.\nPlease verify that Garry's Mod is closed, Steam is not updating it, and that CEFCodecFix has write permissions to its directory (try running as admin)" + contactInfo
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
@@ -484,21 +486,25 @@ if len(filesToUpdate) > 0:
 				with open(patchFilePath, "wb") as newCEFPatch:
 					newCEFPatch.write(patchURLRequest.content)
 
-	readFailed = "\nError: Cannot Access One or More Files in CEFCodecFix cache.\nPlease verify that CEFCodecFix has read permissions to the CEFCodecFixFiles directory (try running as admin)" + contactInfo
-	writeFailed = "\nError: Cannot Access One or More Files in Garry's Mod Installation.\nPlease verify that Garry's Mod is closed, Steam is not updating it, and that CEFCodecFix has write permissions to its directory (try running as admin)" + contactInfo
 	for file in filesToUpdate:
 		print("\tPatching: " + file + "...")
 
-		patchFilePath = os.path.realpath(os.path.join(cacheDir, file + ".bsdiff"))
 		originalFilePath = os.path.join(gmodPath, file)
+		patchFilePath = os.path.realpath(os.path.join(cacheDir, file + ".bsdiff"))
+		fixedFilePath = originalFilePath # The original file path might be different from the fixed file path
+
+		if not os.path.isfile(originalFilePath):
+			print("\t\tOriginal doesn't exist, setting to NULL")
+			originalFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
+ 
 		if os.access(patchFilePath, os.R_OK):
-			if not os.access(originalFilePath, os.W_OK):
+			if not os.access(fixedFilePath, os.W_OK):
 				sys.exit(colored(writeFailed, "red"))
 		else:
 			sys.exit(colored(readFailed, "red"))
 
 		try:
-			file_patch(originalFilePath, originalFilePath, patchFilePath)
+			file_patch(originalFilePath, fixedFilePath, patchFilePath)
 		except Exception as e:
 			# Probably some read/write issue
 			print(colored("\tException: " + str(e), "yellow"))
