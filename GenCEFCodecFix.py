@@ -52,6 +52,8 @@ filesToDiff = {
 			"bin/chromium/cef_100_percent.pak",
 			"bin/chromium/cef_200_percent.pak",
 			"bin/chromium/cef_extensions.pak",
+			"bin/chromium/chrome_100_percent.pak",
+			"bin/chromium/chrome_200_percent.pak",
 			"bin/chromium/devtools_resources.pak",
 			"bin/chromium/resources.pak",
 
