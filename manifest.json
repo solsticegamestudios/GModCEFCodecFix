@@ -115,6 +115,18 @@
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/chromium/cef_extensions.pak.bsdiff",
                 "fixed": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
             },
+            "bin/chromium/chrome_100_percent.pak": {
+                "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                "patch": "D16AD643AC5C5CE4B93A3AE0A847FC04D70E38E04B41250476B32B84AE6D9ADA",
+                "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/chromium/chrome_100_percent.pak.bsdiff",
+                "fixed": "CD027517A091C9B6A423E9B8344E1AD8592E108B20E310AF0FBA91204D989BB3"
+            },
+            "bin/chromium/chrome_200_percent.pak": {
+                "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                "patch": "3124C49380641BDC1739F4D9B8E7D201C9D16A872D7938817A125E081666C21A",
+                "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/chromium/chrome_200_percent.pak.bsdiff",
+                "fixed": "DCB41CE9FD733B62A612480E01C066A16F4AB6208D185C3231636A13527F6462"
+            },
             "bin/chromium/devtools_resources.pak": {
                 "original": "4B2F4FEE4AD2A54DF0FF9DA1156EA176ABB869C3CDD9C7F91E71EF394B140038",
                 "patch": "82D27A0BD77C668D2AB2C3CA96AEFFAE567BD4C8313786C610704410BF2DC42E",
@@ -159,9 +171,9 @@
             },
             "bin/win64/html_chromium.dll": {
                 "original": "BA62987BB6ACE844E554A8E7B89C750D99AE6742E8680BC8232D79FB4A799278",
-                "patch": "82D27A0BD77C668D2AB2C3CA96AEFFAE567BD4C8313786C610704410BF2DC42E",
+                "patch": "80BD2CF900591965C317451D2C58C7C42A376DC2C26627F07827212C4EC01113",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/html_chromium.dll.bsdiff",
-                "fixed": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                "fixed": "C951294E11E536B9FFB26410F15F148F42FE0CAD57408437A8A046F5DA638BE3"
             },
             "bin/win64/icudtl.dat": {
                 "original": "27993E2079711D5F0F04A72F48FEE88B269604C8E3FBDF50A7F7BB3F5BFC8D8E",
