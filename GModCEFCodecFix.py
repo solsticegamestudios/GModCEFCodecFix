@@ -428,7 +428,9 @@ filesToUpdate = []
 fileNoMatchOriginal = False
 def determineFileIntegrityStatus(file):
 	global fileNoMatchOriginal
-	fileSHA256 = getFileSHA256(os.path.join(gmodPath, file))
+	originalFilePath = os.path.join(gmodPath, file)
+	originalFilePath = originalFilePath if os.path.isfile(originalFilePath) else ("NUL" if sys.platform == "win32" else "/dev/null")
+	fileSHA256 = getFileSHA256(originalFilePath)
 
 	if fileSHA256 != manifest[file]["fixed"]:
 		# File needs to be fixed
@@ -497,6 +499,14 @@ if len(filesToUpdate) > 0:
 			print("\t\tOriginal doesn't exist, setting to NULL")
 			originalFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
  
+		# Try and open target files, creating them if they don't exist
+		try:
+			os.makedirs(os.path.dirname(fixedFilePath), exist_ok = True)
+			open(fixedFilePath, "a+b").close()
+		except Exception as e:
+			print(colored("\tException (Fixed): " + str(e), "yellow"))
+			sys.exit(colored(writeFailed, "red"))
+
 		if os.access(patchFilePath, os.R_OK):
 			if not os.access(fixedFilePath, os.W_OK):
 				sys.exit(colored(writeFailed, "red"))
