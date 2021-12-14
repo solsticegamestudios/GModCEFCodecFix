@@ -32,8 +32,8 @@
                 "fixed": "7267A3F0A61B039C20BFFD4E1BCAA0D0232CD43A8025411F2E874B5F82C39FED"
             },
             "bin/html_chromium.dll": {
-                "original": "B352582D0D4E10F23A3F6A2747F49873B5386C2C1B70CE50076EC80C8B6798DD",
-                "patch": "A9ADA5FE5F37F67270D5D6F4F007D981F74B1E25EC37C3A88A3C159B4C967440",
+                "original": "5FA397811DB5F79BD666B775DB494F62D6A5810CC9D5D40F9CEE06FA6ECB5595",
+                "patch": "95A41D22A9F822FBE1D2E5B679CEBD703EBF5D8BE038A96832C576776CDFACF4",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/html_chromium.dll.bsdiff",
                 "fixed": "BE3EFBBC7A71C9CF3B938649A852E3DF9686931370B11F3C61A7D454A2A3B8C0"
             },
@@ -170,8 +170,8 @@
                 "fixed": "969A047C714F23113A7894DBBB80E152095966044015034B554E36563A54125F"
             },
             "bin/win64/html_chromium.dll": {
-                "original": "02C88B13E6A3B449E2F4A8DA7D549E2BF9EBC1F9FAE10DD47D40AF0E79EA4A3A",
-                "patch": "DA9027E7F1443FA68F1E7E932D2EB87224C39F46A13A02DDA98C819CF2270976",
+                "original": "0950DD9CB32239F3B4EDD8D6B2BCF76F24F39234A53F2C9F930B0F173BE67CEC",
+                "patch": "BE7B629E9F7B3C553B55439761BACCA6FFBA0F5DB0439C73EACAC4CD39C35FDD",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/html_chromium.dll.bsdiff",
                 "fixed": "C951294E11E536B9FFB26410F15F148F42FE0CAD57408437A8A046F5DA638BE3"
             },
