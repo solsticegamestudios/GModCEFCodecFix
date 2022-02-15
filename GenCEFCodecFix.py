@@ -102,26 +102,34 @@ filesToDiff = {
 			"bin/linux32/chromium/cef_100_percent.pak",
 			"bin/linux32/chromium/cef_200_percent.pak",
 			"bin/linux32/chromium/cef_extensions.pak",
+			"bin/linux32/chromium/chrome_100_percent.pak",
+			"bin/linux32/chromium/chrome_200_percent.pak",
 			"bin/linux32/chromium/devtools_resources.pak",
+			"bin/linux32/chromium/resources.pak",
 
-			#"bin/linux64/chromium_process",
-			#"bin/linux64/html_chromium_client.so",
+			"bin/linux64/swiftshader/libEGL.so",
+			"bin/linux64/swiftshader/libGLESv2.so",
+			"bin/linux64/chrome-sandbox",
+			"bin/linux64/chromium_process",
+			#"bin/linux64/gmod",
+			"bin/linux64/html_chromium_client.so",
 			"bin/linux64/icudtl.dat",
 			"bin/linux64/libcef.so",
 			"bin/linux64/libEGL.so",
 			"bin/linux64/libGLESv2.so",
+			"bin/linux64/libvk_swiftshader.so",
+			"bin/linux64/libvulkan.so.1",
 			"bin/linux64/snapshot_blob.bin",
-			"bin/linux64/v8_context_snapshot.bin"
-
-			# TODO: GMod HTML DLL
-			# TODO: GMod EXE
+			"bin/linux64/v8_context_snapshot.bin",
+			"bin/linux64/vk_swiftshader_icd.json",
 		]
 	}
 }
 
 for locale in locales:
-	filesToDiff["win32"]["x86-64"].append("bin/chromium/locales/" + locale + ".pak");
-	# TODO: Linux / macOS
+	filesToDiff["win32"]["x86-64"].append("bin/chromium/locales/" + locale + ".pak")
+	filesToDiff["linux"]["x86-64"].append("bin/linux32/chromium/locales/" + locale + ".pak")
+	# TODO: macOS
 
 print("\nArguments: " + str(sys.argv) + "\n")
 print("Original Path: " + originalPathRoot)
