@@ -211,7 +211,7 @@ else:
 	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(dataDir, "Steam") + " ?"
 
 if steamPath:
-	steamPath = os.path.realpath(steamPath)
+	steamPath = os.path.normcase(os.path.realpath(steamPath))
 	print("Steam Path:\n" + steamPath + "\n")
 else:
 	sys.exit(colored("Error: Steam Path Not Found!\n" + steamPathHints[sys.platform] + contactInfo, "red"))
@@ -237,11 +237,11 @@ for configKey in steamLibraryFoldersConfig:
 		# Figure out if this is a string path or assume it's an array
 		# Also don't allow duplicates
 		configPath = configVal if isinstance(configVal, str) else configVal["path"]
-		configPath = os.path.realpath(configPath)
+		configPath = os.path.normcase(os.path.realpath(configPath))
 
 		if configPath not in steamLibraries:
 			steamLibraries.append(configPath)
-	except ValueError:
+	except (FileNotFoundError, ValueError):
 		continue
 
 if len(steamLibraries) == 0:
@@ -287,7 +287,7 @@ for path in steamLibraries:
 		curGModPath = os.path.join(path, *curGModPath)
 		if os.path.isdir(curGModPath):
 			if foundGMod:
-				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n" + gmodPath + "\n" + curGModPath + contactInfo, "red"))
+				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n\t" + gmodPath + "\n\t" + curGModPath + contactInfo, "red"))
 			else:
 				foundGMod = True
 				gmodPath = curGModPath
@@ -314,10 +314,12 @@ for path in steamLibraries:
 				curGModManifestStr = gmodManifestFile.read().strip().replace("\x00", "")
 
 			if curGModManifestStr:
-				foundGModManifest = True
-				gmodManifestPath = curGModManifestPath
-				gmodManifestStr = curGModManifestStr
-				break
+				if foundGModManifest:
+					sys.exit(colored("Error: Multiple Garry's Mod App Manifests Detected!\nPlease manually remove the unused version(s):\n\t" + gmodManifestPath + "\n\t" + curGModManifestPath + contactInfo, "red"))
+				else:
+					foundGModManifest = True
+					gmodManifestPath = curGModManifestPath
+					gmodManifestStr = curGModManifestStr
 
 if foundGModManifest:
 	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
@@ -424,6 +426,8 @@ def getFileSHA256(filePath):
 
 	return fileSHA256.hexdigest().upper()
 
+blankFileSHA256 = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+filesToWipe = []
 filesToUpdate = []
 fileNoMatchOriginal = False
 def determineFileIntegrityStatus(file):
@@ -438,6 +442,11 @@ def determineFileIntegrityStatus(file):
 			# And it matches the original
 			filesToUpdate.append(file)
 			return "\t" + file + ": Needs Fix"
+		elif manifest[file]["original"] == blankFileSHA256:
+			# And it was empty originally, so we're gonna wipe it first
+			filesToWipe.append(file)
+			filesToUpdate.append(file)
+			return "\t" + file + ": Needs Wipe + Fix"
 		else:
 			# And it doesn't match the original...
 			fileNoMatchOriginal = True
@@ -458,7 +467,7 @@ writeFailed = "\nError: Cannot Access One or More Files in Garry's Mod Installat
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
-	curDir = os.path.dirname(sys.executable) if getattr(sys, "frozen", False) else os.path.dirname(os.path.realpath(__file__))
+	curDir = os.path.dirname(sys.executable) if getattr(sys, "frozen", False) else os.path.dirname(os.path.normcase(os.path.realpath(__file__)))
 	cacheDir = os.path.join(curDir, "GModCEFCodecFixFiles")
 	cacheExists = os.path.isdir(cacheDir)
 
@@ -466,8 +475,9 @@ if len(filesToUpdate) > 0:
 		os.mkdir(cacheDir)
 
 	for file in filesToUpdate:
+		# Download needed patch files to local cache
 		cachedFileValid = False
-		patchFilePath = os.path.realpath(os.path.join(cacheDir, file + ".bsdiff"))
+		patchFilePath = os.path.normcase(os.path.realpath(os.path.join(cacheDir, file + ".bsdiff")))
 
 		if cacheExists and os.path.isfile(patchFilePath):
 			# Use cached patch files if available, but check the checksums first
@@ -492,8 +502,17 @@ if len(filesToUpdate) > 0:
 		print("\tPatching: " + file + "...")
 
 		originalFilePath = os.path.join(gmodPath, file)
-		patchFilePath = os.path.realpath(os.path.join(cacheDir, file + ".bsdiff"))
+		patchFilePath = os.path.normcase(os.path.realpath(os.path.join(cacheDir, file + ".bsdiff")))
 		fixedFilePath = originalFilePath # The original file path might be different from the fixed file path
+
+		# Wipe any original files that need wiping
+		if file in filesToWipe:
+			try:
+				os.remove(originalFilePath)
+			except Exception as e:
+				# Probably some read/write issue
+				print(colored("\tException (Original Wipe): " + str(e), "yellow"))
+				sys.exit(colored(writeFailed, "red"))
 
 		if not os.path.isfile(originalFilePath):
 			print("\t\tOriginal doesn't exist, setting to NULL")
