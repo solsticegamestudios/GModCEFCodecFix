@@ -2,7 +2,7 @@
 
 # GModCEFCodecFix
 #
-# Copyright 2020-2021, Solstice Game Studios (www.solsticegamestudios.com)
+# Copyright 2020-2022, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 #
 # Purpose: Automatically patches Garry's Mod's internal Chromium Embedded Framework to enable Proprietary Video/Audio codec support
@@ -14,6 +14,9 @@
 import sys
 import os
 from subprocess import Popen
+
+if sys.version_info.major != 3:
+	sys.exit("ERROR: You're using a version of Python that's not supported. You must use Python 3.")
 
 if sys.platform == "linux":
 	import psutil
@@ -586,35 +589,33 @@ elif sys.platform == "win32":
 		if autoMode is not False:
 			print(">>> " + colored("AUTO MODE: Selected Option " + str(autoMode), "cyan"))
 
-		gmodEXESelected = autoMode if autoMode is not False else input(">>> ")
 		try:
-			gmodEXESelected = int(gmodEXESelected)
-			if gmodEXESelected < gmodEXELaunchOptionsLen:
-				validGModEXESelection = True
-			else:
+			gmodEXESelected = autoMode if autoMode is not False else input(">>> ")
+			try:
+				gmodEXESelected = int(gmodEXESelected)
+				if gmodEXESelected < gmodEXELaunchOptionsLen:
+					validGModEXESelection = True
+				else:
+					print("That's not a valid option.")
+					autoMode = False
+			except ValueError:
 				print("That's not a valid option.")
 				autoMode = False
-		except ValueError:
-			print("That's not a valid option.")
-			autoMode = False
+		except KeyboardInterrupt:
+			sys.exit("CTRL+C\n")
 
 print(colored("\nLaunching Garry's Mod:", "green"))
 
 if sys.platform == "win32":
 	gmodEXE = os.path.join(gmodPath, gmodEXELaunchOptions[gmodEXESelected][b"executable"].decode("UTF-8")) + " " + gmodEXELaunchOptions[gmodEXESelected][b"arguments"].decode("UTF-8")
-
 	print(gmodEXE + gmodUserLaunchOptions)
-
 	Popen(gmodEXE + gmodUserLaunchOptions, stdin=None, stdout=None, stderr=None, close_fds=True)
 elif sys.platform == "darwin":
 	print("open steam://rungameid/4000")
-
 	Popen(["open", "steam://rungameid/4000"], stdin=None, stdout=None, stderr=None, close_fds=True)
 else:
 	linuxGModLaunchCommand = "xdg-open steam://rungameid/4000 >/dev/null 2>&1 &"
-
 	print(linuxGModLaunchCommand)
-
 	Popen(linuxGModLaunchCommand, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 
 launchSuccess = True
