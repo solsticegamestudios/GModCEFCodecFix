@@ -82,18 +82,41 @@ filesToDiff = {
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libGLESv2.dylib",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libEGL.dylib",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libGLESv2.dylib",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libvk_swiftshader.dylib",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/vk_swiftshader_icd.json",
 
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_100_percent.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_200_percent.pak",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/chrome_100_percent.pak",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/chrome_200_percent.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_extensions.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/devtools_resources.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/icudtl.dat",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/Info.plist",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/resources.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/snapshot_blob.bin",
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.bin"
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.bin",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.x86_64.bin",
 
-			# TODO: GMod HTML DLL
-			# TODO: GMod EXE
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/_CodeSignature/CodeResources",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/Info.plist",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/MacOS/gmod Helper (GPU)",
+
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/_CodeSignature/CodeResources",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/Info.plist",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/MacOS/gmod Helper (Plugin)",
+
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/_CodeSignature/CodeResources",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/Info.plist",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/MacOS/gmod Helper (Renderer)",
+
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/_CodeSignature/CodeResources",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/Info.plist",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/MacOS/gmod Helper",
+
+			#"GarrysMod_Signed.app/Contents/MacOS/gmod",
+			"GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib"
 		]
 	},
 	"linux": {
@@ -129,7 +152,7 @@ filesToDiff = {
 for locale in locales:
 	filesToDiff["win32"]["x86-64"].append("bin/chromium/locales/" + locale + ".pak")
 	filesToDiff["linux"]["x86-64"].append("bin/linux32/chromium/locales/" + locale + ".pak")
-	# TODO: macOS
+	filesToDiff["darwin"]["x86-64"].append("GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/" + locale + ".lproj/locale.pak")
 
 print("\nArguments: " + str(sys.argv) + "\n")
 print("Original Path: " + originalPathRoot)
