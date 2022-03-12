@@ -720,7 +720,7 @@
                 "fixed": "B7FD3D658E45FCFEC298B67B10273E810315488938C22B6B63F8D9EA9AE3E991"
             },
             "GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib": {
-                "original": "04BC1DCD817EFEE88B9A37ECEFBAA9D1163668EB5F7EAE5C8F4B78D09FB96FE3",
+                "original": "9DF8BDD8BDCA8B57BDE97084C25C46275DC550D904F3297DADDBF6765AC194CB",
                 "patch": "78978B7F6E0BAB6754642BDF6C6CB3634CABB6B8209DEFDDE40769E07F7EC5CE",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib.bsdiff",
                 "fixed": "29C0565AD98E89E8896093FFA1B1B5C54CE28684E5DB3912413A5655C3EC59AF"
