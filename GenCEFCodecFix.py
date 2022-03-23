@@ -152,7 +152,7 @@ filesToDiff = {
 for locale in locales:
 	filesToDiff["win32"]["x86-64"].append("bin/chromium/locales/" + locale + ".pak")
 	filesToDiff["linux"]["x86-64"].append("bin/linux32/chromium/locales/" + locale + ".pak")
-	filesToDiff["darwin"]["x86-64"].append("GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/" + locale + ".lproj/locale.pak")
+	filesToDiff["darwin"]["x86-64"].append("GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/" + locale.replace("-", "_") + ".lproj/locale.pak")
 
 print("\nArguments: " + str(sys.argv) + "\n")
 print("Original Path: " + originalPathRoot)
