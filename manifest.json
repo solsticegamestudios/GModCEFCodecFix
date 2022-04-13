@@ -552,32 +552,32 @@
     "darwin": {
         "x86-64": {
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework": {
-                "original": "8429D5167E634459A3DE1498A53565DB31CEB01C2E644ACB812D341ACF3229EE",
-                "patch": "BD9E232D343290AC6E4B1D2DAC4B4DB359E608B2BBE8C1F71CFC0CD5F224D0D8",
+                "original": "5173523F4AA9B360D88C11CB7D09CA84040FE26A5180F6D4B257A6BFC12E711B",
+                "patch": "55EE0D03C75BCE787299DB4A1B3D957063704D360ADCA84721A7CC96A84C092B",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Chromium%20Embedded%20Framework.bsdiff",
                 "fixed": "7F596CF1CCFD7C6FD0D4E28CA97E38F57A789F9AD25DB7589EACBBFA0F624C43"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libEGL.dylib": {
-                "original": "0F46F605BE0CE3DC41EB6B8967D87EECAAF7FFE449B168467C79E0D5A3DFBDC6",
+                "original": "2F60C47FC3FC80D80958A45F9214377B5BC02178FC15610F4BC49B6FE8B63F9A",
                 "patch": "B5005D8C3F7804B87648765AEF97C3F1DA51F6F9B987C1BBDD5450BBDB700964",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libEGL.dylib.bsdiff",
                 "fixed": "459A4FA8777DF88F282DB522A360898493AC04235B523A7B3A1A26CAC16D13B2"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libGLESv2.dylib": {
-                "original": "A5EB99ABF7B1F7256F3B7A855966A20D6138AA306AD5A469A5015D5D53D48D03",
+                "original": "040A226F7CA04EFA79B2A45C2E1E672477C6E12B182466123496DF482CE7E336",
                 "patch": "0BC84AB9CED867157793BCBB105241FA991B4062C4EC527AFCA9D07E76985E2B",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libGLESv2.dylib.bsdiff",
                 "fixed": "46B539C92666291F707B93BE9D07F9AB7F696C2247F550ED029290AB29ECAE82"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libEGL.dylib": {
-                "original": "DFA17D7B9A1DE24EDB08C3AA84E6ADF691ED596BE953104614484B322771ADAC",
-                "patch": "50B9FCBE9C78B88F0635DCAE209FED0992532C56CAE74CF746B488C8D6DA714A",
+                "original": "8ADF9CA023880C88B177B1ACD7E7892362F231F695DD1A1DBE5FB0F1A26D2660",
+                "patch": "BCD74FC022690CBE6F9E09A86ED4B5BABE661D684D5425B9A5359B6C5B42897C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libswiftshader_libEGL.dylib.bsdiff",
                 "fixed": "EDA46B8899EF0252A1DFE341E9D3175D40BB5C82959D42F7317D8DB853DDF9C0"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libGLESv2.dylib": {
-                "original": "6381791B4C53EE415EC79D6E48CAE9A210F0661E6685CFC6D8B202448F5C6F8D",
-                "patch": "691F8341D83B8C1BBDF00996B5A514028F43C5646EBEEF75953D997C0F62C53F",
+                "original": "95DAC4BF08F29B002CCE142FBE7E0E3FF88A88549028B62DFDD6AAC1E771F174",
+                "patch": "07821FD9A7D2CA3B1F7CAD2344C5FF288BA545B2E191169C1DDE2DA9B74FC329",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/Chromium%20Embedded%20Framework.framework/Libraries/libswiftshader_libGLESv2.dylib.bsdiff",
                 "fixed": "3D96348F4CE8DA022C8A2E356DB8A0398E42AE2606B70A1C288EBA2FFA7DF9BD"
             },
@@ -678,7 +678,7 @@
                 "fixed": "447038285FA0EC7AF4CEF3815EA1ED4D160AD087620A075F01D9E1403784124F"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/MacOS/gmod Helper (GPU)": {
-                "original": "050BCD256E353EF46AF46BEB2D5493C994DBAF5F1120DF4D5DFC6239E8878670",
+                "original": "36D2BE5FB203AD39B0F1CAD60090A33AC493B27C846007D4F2A46550CE383854",
                 "patch": "D44DC77D578FD654B0D25A4820AA1CC0EC4E2E91C5F971EBA68688EE0D9C3995",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/gmod%20Helper%20(GPU).app/Contents/MacOS/gmod%20Helper%20(GPU).bsdiff",
                 "fixed": "B7FD3D658E45FCFEC298B67B10273E810315488938C22B6B63F8D9EA9AE3E991"
@@ -690,8 +690,8 @@
                 "fixed": "8E684C57CED81C72FD433AB6582D9043A2A3AA656D6C275862599D0F727298EB"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/MacOS/gmod Helper (Plugin)": {
-                "original": "55E9053136DA615ECB6450B85059BFF87C47BF0681151D4E47742A3B5175E71B",
-                "patch": "B6F11CE0318E55EB3ECDA46DDC084BB5E0B388EF8EC04AE1E37A185868A1EA60",
+                "original": "CE238CC91A3BA57FC41A531D6FB1E4FBC47496C5102B7CED54CF551A2718A4D8",
+                "patch": "BC1DD9E828C092B68B5D928CBFF1553F89E4EA5F15676C5464EE32A74730990A",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/gmod%20Helper%20(Plugin).app/Contents/MacOS/gmod%20Helper%20(Plugin).bsdiff",
                 "fixed": "B7FD3D658E45FCFEC298B67B10273E810315488938C22B6B63F8D9EA9AE3E991"
             },
@@ -702,8 +702,8 @@
                 "fixed": "26A6EC24DD5AA131DEC9C953CEBE245474798808E028C31185B3F6D33C4C6CAB"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/MacOS/gmod Helper (Renderer)": {
-                "original": "08A75CE841AE00D379AD97558AA09AD263671E83F142B50C23218A3C130FB5C9",
-                "patch": "CCEB332DA5C508D049930710A59D83CA99631DB0EFFF8FB494442AC203EB6ABE",
+                "original": "2CA6B6B9AC2A14EA6D53470FA8C7ED7B0E4FA535ED8977340E07B54478E01BE9",
+                "patch": "C78C7DA493F677719A8B16BED1A689A470BCAE1A25186BCF6F4AEFC2C839DE5D",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/gmod%20Helper%20(Renderer).app/Contents/MacOS/gmod%20Helper%20(Renderer).bsdiff",
                 "fixed": "B7FD3D658E45FCFEC298B67B10273E810315488938C22B6B63F8D9EA9AE3E991"
             },
@@ -714,14 +714,14 @@
                 "fixed": "81064897AAF8E74291951D2729F1E40DBD8C77CDAAD6C9AB2B6D759ED6DABE9A"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/MacOS/gmod Helper": {
-                "original": "7E2C11A52BAA46B769649AD73757972A24929595CF33590C37D21B0F00C2774F",
-                "patch": "98E42E6F9CE17EA23900F75D88B7333262EED1DFE6249AE8606110394120EBBA",
+                "original": "6E8C277624A199C0D6CD48F3F7529A25971ECE935830FCB7C89AFE84C9662ADE",
+                "patch": "65B1F7F62F4160F06D174B1E57AFEECB8B8A1D08D864AA0E489123C5E998D6B8",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/Frameworks/gmod%20Helper.app/Contents/MacOS/gmod%20Helper.bsdiff",
                 "fixed": "B7FD3D658E45FCFEC298B67B10273E810315488938C22B6B63F8D9EA9AE3E991"
             },
             "GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib": {
-                "original": "630CDF582909DB72FDBC89182F0D8AA36222BE76C190443C87833E9BBE670EC2",
-                "patch": "6B9FBD9F982F372A989ACA2B4A2FE21D3DC9573CB920A457CAC3824B5EC42658",
+                "original": "5A5F24693CC86D1937F8238D03AE0AE8DB98BC48240AF482FAE43400A8BD7259",
+                "patch": "F2A290B7A46CC0F16A14FBA2E28596CDAD2318861177AB83D227D9E1A2764136",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib.bsdiff",
                 "fixed": "29C0565AD98E89E8896093FFA1B1B5C54CE28684E5DB3912413A5655C3EC59AF"
             },
