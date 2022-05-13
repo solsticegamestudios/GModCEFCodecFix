@@ -50,7 +50,8 @@ possibleTerminals = [
 	"guake",
 	"tilda",
 	"alacritty",
-	"hyper"
+	"hyper",
+	"foot"
 ]
 termNotFoundError = "GModCEFCodecFix could not find a suitable Terminal Emulator!\n\tIf one is installed, Contact Us about this:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
 
