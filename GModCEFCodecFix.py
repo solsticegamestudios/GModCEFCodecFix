@@ -183,6 +183,7 @@ if len(sys.argv) >= 3:
 timeStart = perf_counter()
 
 # Find Steam
+steamPath = None
 steamPathHints = {}
 if sys.platform == "win32":
 	# Windows
@@ -207,8 +208,11 @@ else:
 	# Linux
 	homeDir = str(Path.home())
 	dataDir = str(XDG_DATA_HOME)
+
 	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
 		steamPath = os.path.join(homeDir, ".steam", "steam")
+	elif os.path.isdir(os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".steam", "steam")):
+		steamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".steam", "steam")
 	elif os.path.isdir(os.path.join(dataDir, "Steam")):
 		steamPath = os.path.join(dataDir, "Steam")
 
