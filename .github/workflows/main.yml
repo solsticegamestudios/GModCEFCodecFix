@@ -32,13 +32,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install wheel
           pip install -r requirements.txt
-          pip install pyinstaller
+          pip install pyinstaller==5.1
 
         # Windows Defender is throwing false-positive matches
       - name: Build PyInstaller Bootloader
         if: ${{ runner.os == 'Windows' }}
         run: |
-          git clone https://github.com/pyinstaller/pyinstaller.git --depth=1
+          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v5.1"
           cd pyinstaller/bootloader
           python ./waf all
           rm -r "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
@@ -52,7 +52,7 @@ jobs:
         uses: actions/github-script@main
         with:
           script: |
-            return github.repos.getLatestRelease({
+            return octokit.rest.repos.getLatestRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
