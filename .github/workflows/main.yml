@@ -18,14 +18,14 @@ jobs:
 
     steps:
       - name: Repo Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
           lfs: true
 
       - name: Setup Python
-        uses: actions/setup-python@master
+        uses: actions/setup-python@main
         with:
-          python-version: '3.9' # PyInstaller supports up to 3.9
+          python-version: '3.10' # PyInstaller supports up to 3.10
 
       - name: Get Dependencies and PyInstaller
         run: |
@@ -49,7 +49,7 @@ jobs:
 
       - name: Get Latest Release Info
         id: latest-release
-        uses: actions/github-script@v2
+        uses: actions/github-script@main
         with:
           script: |
             return github.repos.getLatestRelease({
