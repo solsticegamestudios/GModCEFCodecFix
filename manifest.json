@@ -1120,8 +1120,8 @@
                 "fixed": "3A76B27CE5D74A9C240D2873D5AEEEEEA3AC2F69DA3AFEA7326D60BFDF36ABEA"
             },
             "bin/linux64/html_chromium_client.so": {
-                "original": "2C355DD02BB18AEC926F23CCBFE8B8B5AAD0E94058A1050EBCC4C6D69FCFB059",
-                "patch": "7414F4926152997E5785D1CC329341F3F8E5D2B92FA82A3E5A6FCD0E5C77C454",
+                "original": "8F5F8C1407B8588819AC4BC72C716A7F1C9245BB5A312B7E45FB77E05AABAF5F",
+                "patch": "DE5CA410778EDC96C5479AFF89E213D2C2EEFF16C5DA5E2D4703EE3EDC355E5F",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/linux/x86-64/bin/linux64/html_chromium_client.so.bsdiff",
                 "fixed": "D36618A2AC9E0EB12C1C1886A8F697D8FAC2DA8991C1DD5583EA65B58D6D105E"
             },
