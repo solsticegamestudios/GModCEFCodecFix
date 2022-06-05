@@ -32,8 +32,6 @@ filesToDiff = {
 	"win32": {
 		#"chromium": [],
 		"x86-64": [
-			"bin/swiftshader/libEGL.dll",
-			"bin/swiftshader/libGLESv2.dll",
 			"bin/chrome_elf.dll",
 			"bin/d3dcompiler_47.dll",
 			"bin/gmod.exe",
@@ -57,8 +55,6 @@ filesToDiff = {
 			"bin/chromium/devtools_resources.pak",
 			"bin/chromium/resources.pak",
 
-			"bin/win64/swiftshader/libEGL.dll",
-			"bin/win64/swiftshader/libGLESv2.dll",
 			"bin/win64/chrome_elf.dll",
 			"bin/win64/d3dcompiler_47.dll",
 			"bin/win64/gmod.exe",
@@ -130,8 +126,6 @@ filesToDiff = {
 			"bin/linux32/chromium/devtools_resources.pak",
 			"bin/linux32/chromium/resources.pak",
 
-			"bin/linux64/swiftshader/libEGL.so",
-			"bin/linux64/swiftshader/libGLESv2.so",
 			"bin/linux64/chrome-sandbox",
 			"bin/linux64/chromium_process",
 			#"bin/linux64/gmod",
