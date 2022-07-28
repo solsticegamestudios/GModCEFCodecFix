@@ -563,11 +563,13 @@ if gmodEXELaunchOptionsLen == 1:
 
 		shouldLaunch = "yes" if autoMode is not False else input(">>> ")
 		try:
-			shouldLaunch = shouldLaunch.lower()
-			if shouldLaunch == "yes" or shouldLaunch == "y":
+			shouldLaunch = shouldLaunch.lower() 
+			shouldLaunch = shouldLaunch.strip() # strip of whitespaces
+			
+			if shouldLaunch in ["yes","y"]:
 				validShouldLaunch = True
 				shouldLaunch = True
-			elif shouldLaunch == "no" or shouldLaunch == "n":
+			elif shouldLaunch in ["no","n"]:
 				validShouldLaunch = True
 				shouldLaunch = False
 			else:
