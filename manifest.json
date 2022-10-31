@@ -713,6 +713,12 @@
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib.bsdiff",
                 "fixed": "3384AB9508AE2D075F08F6821A0716F99D51DE1A069BA30F019AF77AD95EB700"
             },
+            "garrysmod/html/js/menu/control.Menu.js": {
+                "original": "CCC08F014D6323695E29A8E0D9A22754E8DAF294E7BA4CB9147B5A647773B15D",
+                "patch": "7799275D888A58A5F7C27BF7370DFC558307DD2DC15A30A2F7F9EFBDB493768C",
+                "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/garrysmod/html/js/menu/control.Menu.js.bsdiff",
+                "fixed": "2EC4363892B49D3F30E1E18C23E0330FA0AE91DA7C0638396FC544A904F33D86"
+            },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/af.lproj/locale.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
                 "patch": "BE994BA217FF1B6F4D3494EAE6851C8281804B94969BEF9F5A9A201EE2C5875C",
