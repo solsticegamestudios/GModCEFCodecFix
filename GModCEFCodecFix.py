@@ -157,7 +157,7 @@ except Exception as e:
 from time import perf_counter
 import vdf
 from requests.structures import CaseInsensitiveDict
-from steamfiles import appinfo
+from steam.utils.appcache import parse_appinfo
 from steamid import SteamID
 from hashlib import sha256
 from concurrent.futures import ThreadPoolExecutor
@@ -343,9 +343,9 @@ print("Garry's Mod Branch:\n" + gmodBranch + "\n")
 
 # Get GMod's Steam AppInfo
 osTypeMap = {
-	"win32": b"windows",
-	"darwin": b"macos",
-	"linux": b"linux"
+	"win32": "windows",
+	"darwin": "macos",
+	"linux": "linux"
 }
 
 print("Getting Steam AppInfo for GMod...")
@@ -357,18 +357,23 @@ if not os.path.isfile(steamAppInfoPath):
 # Get GMod Executable Paths
 gmodEXELaunchOptions = []
 with open(steamAppInfoPath, "rb") as steamAppInfoFile:
-	steamAppInfo = appinfo.load(steamAppInfoFile)
-	gmodLaunchConfig = steamAppInfo[4000]["sections"][b"appinfo"][b"config"][b"launch"]
+	_, steamAppInfo = parse_appinfo(steamAppInfoFile)
+
+	gmodLaunchConfig = None
+	for app in steamAppInfo:
+		if app["appid"] == 4000:
+			gmodLaunchConfig = app["data"]["appinfo"]["config"]["launch"]
+			break
 
 	print("\tPlatform: " + sys.platform)
 
 	for option in gmodLaunchConfig:
 		option = gmodLaunchConfig[option]
 
-		if option[b"config"][b"oslist"] == osTypeMap[sys.platform] and (b"betakey" not in option[b"config"] or option[b"config"][b"betakey"] == gmodBranch.encode('UTF-8')):
+		if option["config"]["oslist"] == osTypeMap[sys.platform] and ("betakey" not in option["config"] or option["config"]["betakey"] == gmodBranch):
 			pathParts = [os.sep]
 			pathParts.extend(gmodPath.replace("\\", "/").split("/"))
-			pathParts.extend(option[b"executable"].decode("UTF-8").replace("\\", "/").split("/"))
+			pathParts.extend(option["executable"].replace("\\", "/").split("/"))
 			pathParts.insert(2, os.sep)
 
 			print("\t" + os.path.join(*pathParts))
@@ -589,7 +594,7 @@ elif sys.platform == "win32":
 		print("\nPlease enter the option number you want to launch Garry's Mod with (or CTRL+C to quit):")
 		optionNum = 0
 		for option in gmodEXELaunchOptions:
-			print("\t" + str(optionNum) + " | " + option[b"description"].decode("UTF-8"))
+			print("\t" + str(optionNum) + " | " + option["description"])
 			optionNum += 1
 
 		if autoMode is not False:
@@ -613,7 +618,7 @@ elif sys.platform == "win32":
 print(colored("\nLaunching Garry's Mod:", "green"))
 
 if sys.platform == "win32":
-	gmodEXE = os.path.join(gmodPath, gmodEXELaunchOptions[gmodEXESelected][b"executable"].decode("UTF-8")) + " " + gmodEXELaunchOptions[gmodEXESelected][b"arguments"].decode("UTF-8")
+	gmodEXE = os.path.join(gmodPath, gmodEXELaunchOptions[gmodEXESelected]["executable"]) + " " + gmodEXELaunchOptions[gmodEXESelected]["arguments"]
 	print(gmodEXE + gmodUserLaunchOptions)
 	Popen(gmodEXE + gmodUserLaunchOptions, stdin=None, stdout=None, stderr=None, close_fds=True)
 elif sys.platform == "darwin":
