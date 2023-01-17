@@ -38,11 +38,15 @@ jobs:
       - name: Build PyInstaller Bootloader
         if: ${{ runner.os == 'Windows' }}
         run: |
-          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v5.1"
+          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v5.7.0"
           cd pyinstaller/bootloader
           python ./waf all
           rm -r "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
           cp -r "../PyInstaller/bootloader" "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller"
+
+      - name: Install Tkinter
+      - if: ${{ runner.os == 'macOS' }}
+        run: brew install python-tk
 
       - name: PyInstaller Build
         run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
