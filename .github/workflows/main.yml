@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Tkinter
         if: ${{ runner.os == 'macOS' }}
-        run: brew install python-tk
+        run: brew install python-tk@3.11 && echo -n 'export PATH="/usr/local/opt/python/libexec/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc && echo -n 'export PATH="/usr/local/opt/python/libexec/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 
       - name: PyInstaller Build
         run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
