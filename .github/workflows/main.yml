@@ -45,8 +45,8 @@ jobs:
           cp -r "../PyInstaller/bootloader" "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller"
 
       - name: Install Tkinter
-      - if: ${{ runner.os == 'macOS' }}
-        run: "brew install python-tk"
+        if: ${{ runner.os == 'macOS' }}
+        run: brew install python-tk
 
       - name: PyInstaller Build
         run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
