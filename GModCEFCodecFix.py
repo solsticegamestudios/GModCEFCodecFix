@@ -2,7 +2,7 @@
 
 # GModCEFCodecFix
 #
-# Copyright 2020-2022, Solstice Game Studios (www.solsticegamestudios.com)
+# Copyright 2020-2023, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 #
 # Purpose: Automatically patches Garry's Mod's internal Chromium Embedded Framework to enable Proprietary Video/Audio codec support
