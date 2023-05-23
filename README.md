@@ -1,4 +1,4 @@
-# Garry's Mod: CEF Codec Fix
+# GModCEFCodecFix
 
 ![GModCEFCodecFix](GModCEFCodecFixIcon.png)
 
