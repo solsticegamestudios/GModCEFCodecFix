@@ -60,16 +60,7 @@ if sys.platform == "linux":
 	if os.path.isfile("ERROR_TerminalNotFound.txt"):
 		os.remove("ERROR_TerminalNotFound.txt")
 
-	curProc = psutil.Process()
-	curProcRunningInTerm = False
-
-	for parentProc in curProc.parents():
-		parentProcName = parentProc.name()
-		if parentProc.name() in possibleTerminals or parentProcName == "gnome-terminal-server":
-			curProcRunningInTerm = True
-			break
-
-	if not curProcRunningInTerm:
+	if not sys.__stdin__.isatty():
 		print("ERROR: GModCEFCodecFix must run in a Terminal! Attempting to open it in one...")
 
 		foundTerm = False
