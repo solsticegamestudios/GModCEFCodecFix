@@ -32,19 +32,19 @@ filesToDiff = {
 	"win32": {
 		#"chromium": [],
 		"x86-64": [
-			"bin/chrome_elf.dll",
-			"bin/d3dcompiler_47.dll",
+			#"bin/chrome_elf.dll",
+			#"bin/d3dcompiler_47.dll",
 			"bin/gmod.exe",
-			"bin/html_chromium.dll",
-			"bin/icudtl.dat",
-			"bin/libcef.dll",
-			"bin/libEGL.dll",
-			"bin/libGLESv2.dll",
-			"bin/snapshot_blob.bin",
-			"bin/v8_context_snapshot.bin",
-			"bin/vk_swiftshader.dll",
-			"bin/vk_swiftshader_icd.json",
-			"bin/vulkan-1.dll",
+			#"bin/html_chromium.dll",
+			#"bin/icudtl.dat",
+			#"bin/libcef.dll",
+			#"bin/libEGL.dll",
+			#"bin/libGLESv2.dll",
+			#"bin/snapshot_blob.bin",
+			#"bin/v8_context_snapshot.bin",
+			#"bin/vk_swiftshader.dll",
+			#"bin/vk_swiftshader_icd.json",
+			#"bin/vulkan-1.dll",
 
 			"bin/chromium/cef.pak",
 			"bin/chromium/cef_100_percent.pak",
@@ -220,6 +220,7 @@ for platform in filesToDiff:
 					print("\t\tFixed doesn't exist, setting to NULL")
 					fixedFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
 
+				# TODO: Multithreading
 				bsdiff4.file_diff(originalFilePath, fixedFilePath, patchFilePath)
 
 				print("\t\tTook " + str(process_time() - fileTimeStart) + " second(s)")
