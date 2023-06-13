@@ -90,9 +90,9 @@ def exitHandler():
 
 # Set the title so it's not just some boring path
 if sys.platform == "win32":
-	os.system("title Garry's Mod: CEF Codec Fix")
+	os.system("title GModCEFCodecFix")
 else:
-	print("\33]0;Garry's Mod: CEF Codec Fix\a", end='', flush=True)
+	print("\33]0;GModCEFCodecFix\a", end='', flush=True)
 
 import urllib.request
 import requests
@@ -104,7 +104,7 @@ from socket import gaierror
 colorama.init()
 
 # Spit out the Software Info
-print(colored("GMod CEF Codec Fix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/chat.html\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
+print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/chat.html\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
 
 contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com\n"
 
@@ -120,7 +120,7 @@ with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.
 	localVersion = int(versionFile.read())
 
 try:
-	versionRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt", proxies=systemProxies)
+	versionRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt", proxies=systemProxies, timeout=60)
 
 	if versionRequest.status_code == 200:
 		remoteVersion = int(versionRequest.text)
@@ -138,9 +138,11 @@ try:
 		else:
 			print(colored("You are running the latest version of CEFCodecFix [Local: " + str(localVersion) + " / Remote: " + str(remoteVersion) + "]!\n", "green"))
 	else:
-		print(colored("WARNING: Could not get CEFCodecFix remote version.\n", "yellow"))
+		sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tStatus Code: " + str(versionRequest.status_code) + contactInfo, "red"))
 except gaierror as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tLooks like you're having DNS Problems [Errno " + str(e.errno) + "].\n\tSee the 1.1.1.1 Setup instructions at https://1.1.1.1/dns/\n\tThey'll change your DNS Settings to something that'll probably work." + contactInfo, "red"))
+except requests.Timeout as e:
+	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tThe request timed out." + contactInfo, "red"))
 except Exception as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tException: " + str(e) + contactInfo, "red"))
 
@@ -413,7 +415,7 @@ if not sys.platform in manifest:
 	sys.exit(colored("Error: This Operating System is not supported by CEFCodecFix!" + contactInfo, "red"))
 
 if not gmodBranch in manifest[sys.platform]:
-	sys.exit(colored("Error: This Branch of Garry's Mod is not supported! Please switch to the x86-64 branch and then try again." + contactInfo, "red"))
+	sys.exit(colored("Error: This Branch of Garry's Mod is not supported! Please go to Steam > Garry's Mod > Properties > Betas, select the x86-64 beta, then try again!" + contactInfo, "red"))
 
 # Check File Status
 manifest = manifest[sys.platform][gmodBranch]
@@ -422,15 +424,21 @@ print("CEFCodecFix Manifest Loaded!\nChecking Files to see what needs to be Fixe
 def getFileSHA256(filePath):
 	fileSHA256 = sha256()
 
-	with open(filePath, "rb") as cefFile:
-		while True:
-			fileData = cefFile.read(10485760) # Read about 10MB at a time
-			if not fileData:
-				break
-			fileSHA256.update(fileData)
+	try:
+		with open(filePath, "rb") as cefFile:
+			while True:
+				fileData = cefFile.read(10485760) # Read about 10MB at a time
+				if not fileData:
+					break
+				fileSHA256.update(fileData)
+	except Exception as e:
+		# Probably some read/write issue
+		return False, str(e)
 
-	return fileSHA256.hexdigest().upper()
+	return True, fileSHA256.hexdigest().upper()
 
+cacheFileFailed = "\nError: Cannot Access One or More Files in CEFCodecFix cache.\nPlease verify that CEFCodecFix has read/write permissions to the CEFCodecFixFiles directory (try running as admin)" + contactInfo
+gmodFileFailed = "\nError: Cannot Access One or More Files in Garry's Mod Installation.\nPlease verify that Garry's Mod is closed, Steam is not updating it, and that CEFCodecFix has read/write permissions to its directory (try running as admin)" + contactInfo
 blankFileSHA256 = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
 filesToWipe = []
 filesToUpdate = []
@@ -439,36 +447,44 @@ def determineFileIntegrityStatus(file):
 	global fileNoMatchOriginal
 	originalFilePath = os.path.join(gmodPath, file)
 	originalFilePath = originalFilePath if os.path.isfile(originalFilePath) else ("NUL" if sys.platform == "win32" else "/dev/null")
-	fileSHA256 = getFileSHA256(originalFilePath)
+	success, fileSHA256OrException = getFileSHA256(originalFilePath)
 
-	if fileSHA256 != manifest[file]["fixed"]:
-		# File needs to be fixed
-		if fileSHA256 == manifest[file]["original"]:
-			# And it matches the original
-			filesToUpdate.append(file)
-			return "\t" + file + ": Needs Fix"
-		elif manifest[file]["original"] == blankFileSHA256:
-			# And it was empty originally, so we're gonna wipe it first
-			filesToWipe.append(file)
-			filesToUpdate.append(file)
-			return "\t" + file + ": Needs Wipe + Fix"
+	if success:
+		if fileSHA256OrException != manifest[file]["fixed"]:
+			# File needs to be fixed
+			if fileSHA256OrException == manifest[file]["original"]:
+				# And it matches the original
+				filesToUpdate.append(file)
+				return True, "\t" + file + ": Needs Fix"
+			elif manifest[file]["original"] == blankFileSHA256:
+				# And it was empty originally, so we're gonna wipe it first
+				filesToWipe.append(file)
+				filesToUpdate.append(file)
+				return True, "\t" + file + ": Needs Wipe + Fix"
+			else:
+				# And it doesn't match the original...
+				fileNoMatchOriginal = True
+				return True, "\t" + file + ": Does Not Match Original!"
 		else:
-			# And it doesn't match the original...
-			fileNoMatchOriginal = True
-			return "\t" + file + ": Does Not Match Original!"
+			return True, "\t" + file + ": Already Fixed"
 	else:
-		return "\t" + file + ": Already Fixed"
+		return False, "\t" + file + ": " + fileSHA256OrException
 
 with ThreadPoolExecutor() as executor:
-	for fileIntegrityResult in executor.map(determineFileIntegrityStatus, manifest):
-		print(fileIntegrityResult)
+	for fileIntegrityResultList in executor.map(determineFileIntegrityStatus, manifest):
+		success, fileIntegrityResult = fileIntegrityResultList
+
+		if success:
+			print(fileIntegrityResult)
+		else:
+			# Probably some read/write issue
+			print(colored(fileIntegrityResult, "yellow"))
+			sys.exit(colored(gmodFileFailed, "red"))
 
 # Something's wrong; bail before we break their installation or something
 if fileNoMatchOriginal:
-	sys.exit(colored("\nError: One or More Files Failed to Match the Original Checksum!\n\tPlease Verify Garry's Mod Integrity and Try Again!" + contactInfo, "red"))
+	sys.exit(colored("\nError: One or More Files failed to match the Original Checksum!\n\tPlease go to Steam > Garry's Mod > Properties > Local Files, Verify Integrity, then try again!" + contactInfo, "red"))
 
-readFailed = "\nError: Cannot Access One or More Files in CEFCodecFix cache.\nPlease verify that CEFCodecFix has read permissions to the CEFCodecFixFiles directory (try running as admin)" + contactInfo
-writeFailed = "\nError: Cannot Access One or More Files in Garry's Mod Installation.\nPlease verify that Garry's Mod is closed, Steam is not updating it, and that CEFCodecFix has write permissions to its directory (try running as admin)" + contactInfo
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
@@ -517,7 +533,7 @@ if len(filesToUpdate) > 0:
 			except Exception as e:
 				# Probably some read/write issue
 				print(colored("\tException (Original Wipe): " + str(e), "yellow"))
-				sys.exit(colored(writeFailed, "red"))
+				sys.exit(colored(gmodFileFailed, "red"))
 
 		if not os.path.isfile(originalFilePath):
 			print("\t\tOriginal doesn't exist, setting to NULL")
@@ -529,20 +545,20 @@ if len(filesToUpdate) > 0:
 			open(fixedFilePath, "a+b").close()
 		except Exception as e:
 			print(colored("\tException (Fixed): " + str(e), "yellow"))
-			sys.exit(colored(writeFailed, "red"))
+			sys.exit(colored(gmodFileFailed, "red"))
 
 		if os.access(patchFilePath, os.R_OK):
 			if not os.access(fixedFilePath, os.W_OK):
-				sys.exit(colored(writeFailed, "red"))
+				sys.exit(colored(gmodFileFailed, "red"))
 		else:
-			sys.exit(colored(readFailed, "red"))
+			sys.exit(colored(cacheFileFailed, "red"))
 
 		try:
 			file_patch(originalFilePath, fixedFilePath, patchFilePath)
 		except Exception as e:
 			# Probably some read/write issue
 			print(colored("\tException: " + str(e), "yellow"))
-			sys.exit(colored(writeFailed, "red"))
+			sys.exit(colored(gmodFileFailed, "red"))
 else:
 	print("\nNo Files Need Fixing!")
 
