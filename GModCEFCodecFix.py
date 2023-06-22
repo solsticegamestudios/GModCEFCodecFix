@@ -337,7 +337,7 @@ print("Garry's Mod Branch:\n" + gmodBranch + "\n")
 # Make sure GMod is in a good state (fully installed, not updating)
 gmodState = gmodManifest["AppState"]["StateFlags"]
 if gmodState != "4" or gmodManifest["AppState"]["ScheduledAutoUpdate"] != "0":
-	sys.exit(colored("Error: Garry's Mod isn't Ready.\n\tPlease make sure it's fully installed, up to date (check Steam > Downloads), and not corrupt (Steam > Garry's Mod > Properties > Local Files > Verify Integrity)." + contactInfo, "red"))
+	sys.exit(colored("Error: Garry's Mod isn't Ready. Please make sure it's fully installed, up to date (check Steam > Downloads), and not corrupt (Steam > Garry's Mod > Properties > Installed Files > Verify Integrity)." + contactInfo, "red"))
 
 print("Garry's Mod State:\n" + gmodState + "\n")
 
@@ -502,7 +502,7 @@ with ThreadPoolExecutor() as executor:
 
 # Something's wrong; bail before we break their installation or something
 if fileNoMatchOriginal:
-	sys.exit(colored("\nError: One or More Files failed to match the Original Checksum!\n\tPlease go to Steam > Garry's Mod > Properties > Local Files, Verify Integrity, then try again!" + contactInfo, "red"))
+	sys.exit(colored("\nError: One or More Files failed to match the Original Checksum!\n\tPlease go to Steam > Garry's Mod > Properties > Installed Files, Verify Integrity, then try again!" + contactInfo, "red"))
 
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
