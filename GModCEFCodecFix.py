@@ -334,6 +334,13 @@ gmodBranch = "betakey" in gmodManifest["AppState"]["UserConfig"] and gmodManifes
 
 print("Garry's Mod Branch:\n" + gmodBranch + "\n")
 
+# Make sure GMod is in a good state (fully installed, not updating)
+gmodState = gmodManifest["AppState"]["StateFlags"]
+if gmodState != "4" or gmodManifest["AppState"]["ScheduledAutoUpdate"] != "0":
+	sys.exit(colored("Error: Garry's Mod isn't Ready.\n\tPlease make sure it's fully installed, up to date (check Steam > Downloads), and not corrupt (Steam > Garry's Mod > Properties > Local Files > Verify Integrity)." + contactInfo, "red"))
+
+print("Garry's Mod State:\n" + gmodState + "\n")
+
 # Get GMod's Steam AppInfo
 osTypeMap = {
 	"win32": "windows",
@@ -399,6 +406,18 @@ with open(steamUserLocalConfigPath, "r", encoding="UTF-8", errors="ignore") as s
 	gmodLocalConfig = steamUserLocalConfig["Apps"]["4000"]
 	if "LaunchOptions" in gmodLocalConfig:
 		gmodUserLaunchOptions = " " + gmodLocalConfig["LaunchOptions"]
+
+# Some stupid guides include this
+if "-nochromium" in gmodUserLaunchOptions:
+	print(colored("WARNING: -nochromium is in GMod's Launch Options! CEF will not work with this.\n\tPlease go to Steam > Garry's Mod > Properties > General and remove it.\n\tAdditionally, if you have gmod-lua-menu installed, please uninstall it.", "red"))
+
+	secsToContinue = 5
+	while secsToContinue:
+		print(colored("\tContinuing in " + str(secsToContinue) + " seconds...", "yellow"), end="\r")
+		sleep(1)
+		secsToContinue -= 1
+
+	sys.stdout.write("\033[K\n")
 
 # Get CEFCodecFix Manifest
 try:
@@ -502,8 +521,9 @@ if len(filesToUpdate) > 0:
 
 		if cacheExists and os.path.isfile(patchFilePath):
 			# Use cached patch files if available, but check the checksums first
-			fileSHA256 = getFileSHA256(patchFilePath)
-			if fileSHA256 == manifest[file]["patch"]:
+			# We don't care about handling an exception here; we'll just overwrite the file
+			success, fileSHA256OrException = getFileSHA256(patchFilePath)
+			if success and fileSHA256OrException == manifest[file]["patch"]:
 				cachedFileValid = True
 
 		if not cachedFileValid:
