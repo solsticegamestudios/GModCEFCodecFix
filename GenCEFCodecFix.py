@@ -153,11 +153,6 @@ for locale in locales:
 # macOS has gotta be special
 filesToDiff["darwin"]["x86-64"].append("GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/en.lproj/locale.pak")
 
-# x86-64-temp is the same as x86-64, but with different original files
-filesToDiff["win32"]["x86-64-temp"] = filesToDiff["win32"]["x86-64"]
-filesToDiff["linux"]["x86-64-temp"] = filesToDiff["linux"]["x86-64"]
-filesToDiff["darwin"]["x86-64-temp"] = filesToDiff["darwin"]["x86-64"]
-
 print("\nArguments: " + str(sys.argv) + "\n")
 print("Original Path: " + originalPathRoot)
 print("Patch Path: " + patchTargetPathRoot + "\n")
