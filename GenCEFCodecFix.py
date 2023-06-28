@@ -67,7 +67,9 @@ filesToDiff = {
 			"bin/win64/v8_context_snapshot.bin",
 			"bin/win64/vk_swiftshader.dll",
 			"bin/win64/vk_swiftshader_icd.json",
-			"bin/win64/vulkan-1.dll"
+			"bin/win64/vulkan-1.dll",
+
+			"garrysmod/lua/menu/mainmenu.lua"
 		]
 	},
 	"darwin": {
@@ -114,7 +116,8 @@ filesToDiff = {
 			#"GarrysMod_Signed.app/Contents/MacOS/gmod",
 			"GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib",
 
-			"garrysmod/html/js/menu/control.Menu.js"
+			"garrysmod/html/js/menu/control.Menu.js",
+			"garrysmod/lua/menu/mainmenu.lua"
 		]
 	},
 	"linux": {
@@ -141,6 +144,8 @@ filesToDiff = {
 			"bin/linux64/snapshot_blob.bin",
 			"bin/linux64/v8_context_snapshot.bin",
 			"bin/linux64/vk_swiftshader_icd.json",
+
+			"garrysmod/lua/menu/mainmenu.lua"
 		]
 	}
 }
