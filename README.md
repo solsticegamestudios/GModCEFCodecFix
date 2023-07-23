@@ -4,7 +4,7 @@
 
 Automatically patches [Garry's Mod](https://gmod.facepunch.com/)'s internal [Chromium Embedded Framework](https://en.wikipedia.org/wiki/Chromium_Embedded_Framework) to:
 - Bring CEF up to date
-- Fix GMod launch issues on macOS and Linux
+- Fix GMod missing menu/launch issues on macOS and Linux
 - Enable [Proprietary Video/Audio codec](https://www.chromium.org/audio-video), like H.264 (MP4) and AAC, support
 - Enable [Widevine](https://www.widevine.com) support, so Netflix, Crunchyroll, etc now work
 - Enable Software WebGL
