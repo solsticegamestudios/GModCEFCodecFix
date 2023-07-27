@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # NOTE: If using VirtualBox Shared Folders, copy this folder + automate to the VM first. Symlinks don't work with it on NTFS
 # NOTE: use_cups=false might be a little bit fucked. If CEF crashes after compiling with it, compile *without* it, then just overwrite libcef.so with the non-cups version
