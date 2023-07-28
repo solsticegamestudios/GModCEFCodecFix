@@ -11,6 +11,9 @@
 #	Discord: https://www.solsticegamestudios.com/chat.html
 #	Email: contact@solsticegamestudios.com
 
+# TODO: Check if GMod is currently running
+# TODO: Move from requests to httpx; the latter supports HTTP/2
+
 import sys
 import os
 from subprocess import Popen
@@ -278,6 +281,7 @@ else:
 	sys.exit(colored("Error: Could not find Most Recent Steam User! Have you ever launched Steam?" + contactInfo, "red"))
 
 # Find GMod
+# TODO: Figure out what install Steam is referencing in its Library and just use that one instead of asking users to do something potentially dangerous
 foundGMod = False
 gmodPath = ""
 possibleGModPaths = [
@@ -289,7 +293,7 @@ for path in steamLibraries:
 		curGModPath = os.path.join(path, *curGModPath)
 		if os.path.isdir(curGModPath):
 			if foundGMod:
-				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n\t" + gmodPath + "\n\t" + curGModPath + contactInfo, "red"))
+				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n\t" + gmodPath + "\n\t" + curGModPath + "\nYou will also have to delete steamapps/appmanifest_4000.acf ON THE SAME DRIVE AS THE GMOD YOU DELETE." + contactInfo, "red"))
 			else:
 				foundGMod = True
 				gmodPath = curGModPath
