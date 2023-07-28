@@ -361,7 +361,7 @@ if sys.platform == "linux":
 			if "4000" in steamCompatToolMapping and "proton" in steamCompatToolMapping["4000"]["name"]:
 				sysPlatformProtonMasked = "win32"
 
-				print(colored("WARNING: Using Proton with Garry's Mod is not recommended.\n\tPlease consider going to Steam > Garry's Mod > Properties > Compatibility and turning off Compatibility Tools to use the Native Linux build.", "yellow"))
+				print(colored("WARNING: Using Proton with Garry's Mod is not recommended.\n\t- Please consider going to Steam > Garry's Mod > Properties > Compatibility and turning off Compatibility Tools to use the Native Linux build.\n\t- If you MUST use Proton, you will likely need to add the following to GMod's Launch Options:\n\tPROTON_SET_GAME_DRIVE=1 %command%\n", "yellow"))
 
 				secsToContinue = 5
 				while secsToContinue:
