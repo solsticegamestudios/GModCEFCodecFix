@@ -341,6 +341,35 @@ if gmodState != "4" or gmodManifest["AppState"]["ScheduledAutoUpdate"] != "0":
 
 print("Garry's Mod State:\n" + gmodState + "\n")
 
+# Get Steam Config for Proton
+# NOTE: We have a need to lie about about what OS is running from here on out. Reference both sys.platform and sysPlatformProtonMasked
+sysPlatformProtonMasked = sys.platform
+if sys.platform == "linux":
+	print("Getting Steam Config...")
+
+	steamConfigPath = os.path.join(steamPath, "config", "config.vdf")
+	if not os.path.isfile(steamConfigPath):
+		sys.exit(colored("Error: Steam Config File Not Found!" + contactInfo, "red"))
+
+	with open(steamConfigPath, "r", encoding="UTF-8", errors="ignore") as steamConfigPath:
+		steamConfig = vdf.load(steamConfigPath, mapper=CaseInsensitiveDict)
+		steamConfig = steamConfig["InstallConfigStore"]["Software"]["Valve"]["Steam"]
+
+		if "CompatToolMapping" in steamConfig:
+			steamCompatToolMapping = steamConfig["CompatToolMapping"]
+
+			if "4000" in steamCompatToolMapping and "proton" in steamCompatToolMapping["4000"]["name"]:
+				sysPlatformProtonMasked = "win32"
+
+				print(colored("WARNING: Using Proton with Garry's Mod is not recommended.\n\tPlease consider going to Steam > Garry's Mod > Properties > Compatibility and turning off Compatibility Tools to use the Native Linux build.", "yellow"))
+
+				secsToContinue = 5
+				while secsToContinue:
+					print(colored("\tContinuing in " + str(secsToContinue) + " seconds...", "yellow"), end="\r")
+					sleep(1)
+					secsToContinue -= 1
+				sys.stdout.write("\033[K\n")
+
 # Get GMod's Steam AppInfo
 osTypeMap = {
 	"win32": "windows",
@@ -367,10 +396,13 @@ with open(steamAppInfoPath, "rb") as steamAppInfoFile:
 
 	print("\tPlatform: " + sys.platform)
 
+	if sys.platform == "linux":
+		print("\tIs Using Proton: " + ("Yes" if sysPlatformProtonMasked != sys.platform else "No"))
+
 	for option in gmodLaunchConfig:
 		option = gmodLaunchConfig[option]
 
-		if option["config"]["oslist"] == osTypeMap[sys.platform] and ("betakey" not in option["config"] or option["config"]["betakey"] == gmodBranch):
+		if option["config"]["oslist"] == osTypeMap[sysPlatformProtonMasked] and ("betakey" not in option["config"] or option["config"]["betakey"] == gmodBranch):
 			pathParts = [os.sep]
 			pathParts.extend(gmodPath.replace("\\", "/").split("/"))
 			pathParts.extend(option["executable"].replace("\\", "/").split("/"))
@@ -433,11 +465,11 @@ manifest = manifestRequest.json()
 if not sys.platform in manifest:
 	sys.exit(colored("Error: This Operating System is not supported by CEFCodecFix!" + contactInfo, "red"))
 
-if not gmodBranch in manifest[sys.platform]:
+if not gmodBranch in manifest[sysPlatformProtonMasked]:
 	sys.exit(colored("Error: This Branch of Garry's Mod is not supported! Please go to Steam > Garry's Mod > Properties > Betas, select the x86-64 beta, then try again!" + contactInfo, "red"))
 
 # Check File Status
-manifest = manifest[sys.platform][gmodBranch]
+manifest = manifest[sysPlatformProtonMasked][gmodBranch]
 print("CEFCodecFix Manifest Loaded!\nChecking Files to see what needs to be Fixed...")
 
 def getFileSHA256(filePath):
