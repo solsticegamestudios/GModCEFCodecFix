@@ -24,4 +24,4 @@ Need a more in-depth guide? Take a look at https://www.solsticegamestudios.com/f
 # 💖 Help Support Us
 This project is open source and provided free of charge for the Garry's Mod community.
 
-**Please [consider contributing](https://www.solsticegamestudios.com/donate.php)** to help us maintain it!
+**If you like what we're doing here, consider [throwing a few dollars our way](https://www.solsticegamestudios.com/donate.php)! This work is 100% funded by users of the tool!**
