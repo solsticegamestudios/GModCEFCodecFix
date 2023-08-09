@@ -16,6 +16,7 @@
 
 import sys
 import os
+homedir = os.path.expanduser("~")
 from subprocess import Popen
 
 if sys.version_info.major != 3:
@@ -549,11 +550,12 @@ if len(filesToUpdate) > 0:
 		cacheDirLinux = str(XDG_CACHE_HOME)
 		cacheDir = os.path.join(cacheDirLinux, "GModCEFCodecFixFiles")
 	if sys.platform == "win32":
-		cacheDir = os.path.abspath("%appdata%/Temp/CEFCodecFixFiles")
+		cacheDirWin = str(homedir + "\\AppData\\Local\\Temp\\")
+		cacheDir = os.path.join(cacheDirWin, "GModCEFCodecFixFiles")
 	if sys.platform == "darwin":
-		cacheDir = os.path.abspath("~/Library/Caches/GModCEFCodecFixFiles")
+		cacheDirMac = str(homedir + "/Library/Caches/")
+		cacheDir = os.path.abspath(cacheDirMac, "GModCEFCodecFixFiles")
 	cacheExists = os.path.isdir(cacheDir)
-    	
 	if not cacheExists:
 		os.mkdir(cacheDir)
 
