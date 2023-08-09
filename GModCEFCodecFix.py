@@ -554,7 +554,7 @@ if len(filesToUpdate) > 0:
 		cacheDir = os.path.join(cacheDirWin, "GModCEFCodecFixFiles")
 	if sys.platform == "darwin":
 		cacheDirMac = str(homedir + "/Library/Caches/")
-		cacheDir = os.path.abspath(cacheDirMac, "GModCEFCodecFixFiles")
+		cacheDir = os.path.join(cacheDirMac, "GModCEFCodecFixFiles")
 	cacheExists = os.path.isdir(cacheDir)
 	if not cacheExists:
 		os.mkdir(cacheDir)
