@@ -545,7 +545,6 @@ if fileNoMatchOriginal:
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
-	curDir = os.path.dirname(sys.executable) if getattr(sys, "frozen", False) else os.path.dirname(os.path.normcase(os.path.realpath(__file__)))
 	if sys.platform == "linux":
 		cacheDirLinux = str(XDG_CACHE_HOME)
 		cacheDir = os.path.join(cacheDirLinux, "GModCEFCodecFixFiles")
