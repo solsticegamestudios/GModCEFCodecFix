@@ -16,7 +16,6 @@
 
 import sys
 import os
-homedir = os.path.expanduser("~")
 from subprocess import Popen
 
 if sys.version_info.major != 3:
@@ -545,6 +544,7 @@ if fileNoMatchOriginal:
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
+	homedir = os.path.expanduser("~")
 	if sys.platform == "linux":
 		cacheDirLinux = str(XDG_CACHE_HOME)
 		cacheDir = os.path.join(cacheDirLinux, "GModCEFCodecFixFiles")
@@ -555,6 +555,7 @@ if len(filesToUpdate) > 0:
 		cacheDirMac = str(homedir + "/Library/Caches/")
 		cacheDir = os.path.join(cacheDirMac, "GModCEFCodecFixFiles")
 	cacheExists = os.path.isdir(cacheDir)
+	
 	if not cacheExists:
 		os.mkdir(cacheDir)
 
