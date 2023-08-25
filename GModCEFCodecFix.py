@@ -159,12 +159,12 @@ from hashlib import sha256
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 from bsdiff4 import file_patch
+from pathlib import Path
+from tempfile import gettempdir
 
 # Specific platform imports
 if sys.platform == "win32":
 	import winreg
-else:
-	from pathlib import Path
 if sys.platform == "linux":
 	from xdg import XDG_DATA_HOME
 	from xdg import XDG_CACHE_HOME
@@ -179,6 +179,9 @@ if len(sys.argv) >= 3:
 			print(colored("Warning: Auto Mode switch present but option invalid! Please specify a Launch Option Number.\n", "yellow"))
 
 timeStart = perf_counter()
+
+# Get Home Dir (used for finding Steam and storing cached BSDIFFs)
+homeDir = str(Path.home())
 
 # Find Steam
 steamPath = None
@@ -197,14 +200,12 @@ if sys.platform == "win32":
 	steamPathHints["win32"] = "Is it installed properly and been run at least once?"
 elif sys.platform == "darwin":
 	# macOS
-	homeDir = str(Path.home())
 	if os.path.isdir(os.path.join(homeDir, "Library", "Application Support", "Steam")):
 		steamPath = os.path.join(homeDir, "Library", "Application Support", "Steam")
 
 	steamPathHints["darwin"] = "Is it installed somewhere other than " + os.path.join(homeDir, "Library", "Application Support", "Steam") + " ?"
 else:
 	# Linux
-	homeDir = str(Path.home())
 	dataDir = str(XDG_DATA_HOME)
 
 	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
@@ -544,16 +545,21 @@ if fileNoMatchOriginal:
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
-	homedir = os.path.expanduser("~")
-	if sys.platform == "linux":
-		cacheDirLinux = str(XDG_CACHE_HOME)
-		cacheDir = os.path.join(cacheDirLinux, "GModCEFCodecFixFiles")
 	if sys.platform == "win32":
-		cacheDirWin = str(homedir + "\\AppData\\Local\\Temp\\")
-		cacheDir = os.path.join(cacheDirWin, "GModCEFCodecFixFiles")
-	if sys.platform == "darwin":
-		cacheDirMac = str(homedir + "/Library/Caches/")
-		cacheDir = os.path.join(cacheDirMac, "GModCEFCodecFixFiles")
+		# Windows
+		cacheDir = os.path.join(homeDir, "AppData", "Local", "Temp")
+	elif sys.platform == "darwin":
+		# macOS
+		cacheDir = os.path.join(homeDir, "Library", "Caches")
+	else:
+		# Linux
+		cacheDir = XDG_CACHE_HOME
+
+	if not os.path.isdir(cacheDir):
+		# Cache root doesn't exist, let tempfile give us one instead
+		cacheDir = gettempdir()
+
+	cacheDir = os.path.join(cacheDir, "GModCEFCodecFix")
 	cacheExists = os.path.isdir(cacheDir)
 	
 	if not cacheExists:
