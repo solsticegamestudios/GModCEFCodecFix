@@ -167,6 +167,7 @@ else:
 	from pathlib import Path
 if sys.platform == "linux":
 	from xdg import XDG_DATA_HOME
+	from xdg import XDG_CACHE_HOME
 
 if len(sys.argv) >= 3:
 	# sys.argv[0] is always the script/exe path
@@ -543,10 +544,18 @@ if fileNoMatchOriginal:
 if len(filesToUpdate) > 0:
 	print("\nFixing Files...")
 
-	curDir = os.path.dirname(sys.executable) if getattr(sys, "frozen", False) else os.path.dirname(os.path.normcase(os.path.realpath(__file__)))
-	cacheDir = os.path.join(curDir, "GModCEFCodecFixFiles")
+	homedir = os.path.expanduser("~")
+	if sys.platform == "linux":
+		cacheDirLinux = str(XDG_CACHE_HOME)
+		cacheDir = os.path.join(cacheDirLinux, "GModCEFCodecFixFiles")
+	if sys.platform == "win32":
+		cacheDirWin = str(homedir + "\\AppData\\Local\\Temp\\")
+		cacheDir = os.path.join(cacheDirWin, "GModCEFCodecFixFiles")
+	if sys.platform == "darwin":
+		cacheDirMac = str(homedir + "/Library/Caches/")
+		cacheDir = os.path.join(cacheDirMac, "GModCEFCodecFixFiles")
 	cacheExists = os.path.isdir(cacheDir)
-
+	
 	if not cacheExists:
 		os.mkdir(cacheDir)
 
