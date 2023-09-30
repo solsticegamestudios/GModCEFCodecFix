@@ -210,8 +210,6 @@ else:
 
 	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
 		steamPath = os.path.join(homeDir, ".steam", "steam")
-	elif os.path.isdir(os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".steam", "steam")):
-		steamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".steam", "steam")
 	elif os.path.isdir(os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")):
 		steamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
 	elif os.path.isdir(os.path.join(dataDir, "Steam")):
