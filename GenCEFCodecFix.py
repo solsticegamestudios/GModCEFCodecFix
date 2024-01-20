@@ -6,7 +6,7 @@
 #
 # EXAMPLE: python GenCEFCodecFix.py "D:\GModCEFCodecFixDev\Internal" "D:\GModCEFCodecFixDev\External"
 #
-# Copyright 2020-2023, Solstice Game Studios (www.solsticegamestudios.com)
+# Copyright 2020-2024, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 
 from time import process_time
