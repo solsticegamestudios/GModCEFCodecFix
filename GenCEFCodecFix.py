@@ -26,7 +26,7 @@ manifestDest = os.path.join(patchTargetPathRoot, "manifest.json")
 
 httpServerPathRoot = "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master"
 
-locales = ["af", "am", "ar", "bg", "bn", "ca", "cs", "da", "de", "el", "en-GB", "en-US", "es", "es-419", "et", "fa", "fi", "fil", "fr", "gu", "he", "hi", "hr", "hu", "id", "it", "ja", "kn", "ko", "lt", "lv", "ml", "mr", "ms", "nb", "nl", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl", "sr", "sv", "sw", "ta", "te", "th", "tr", "uk", "ur", "vi", "zh-CN", "zh-TW"]
+locales = ["af", "am", "ar", "bg", "bn", "ca", "cs", "da", "de", "el", "en-GB", "en_GB", "en-US", "en_US", "es", "es-419", "es_419", "et", "fa", "fi", "fil", "fr", "gu", "he", "hi", "hr", "hu", "id", "it", "ja", "kn", "ko", "lt", "lv", "ml", "mr", "ms", "nb", "nl", "pl", "pt-BR", "pt_BR", "pt-PT", "pt_PT", "ro", "ru", "sk", "sl", "sr", "sv", "sw", "ta", "te", "th", "tr", "uk", "ur", "vi", "zh-CN", "zh_CN", "zh-TW", "zh_TW"]
 
 filesToDiff = {
 	"win32": {
@@ -90,6 +90,7 @@ filesToDiff = {
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/chrome_200_percent.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_extensions.pak",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/devtools_resources.pak",
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/gpu_shader_cache.bin",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/icudtl.dat",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/Info.plist",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/resources.pak",
@@ -97,20 +98,29 @@ filesToDiff = {
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.bin",
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.x86_64.bin",
 
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/_CodeSignature/CodeResources",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/Info.plist",
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/PkgInfo",
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/MacOS/gmod Helper (Alerts)",
+
 			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/_CodeSignature/CodeResources",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/Info.plist",
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/PkgInfo",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/MacOS/gmod Helper (GPU)",
 
 			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/_CodeSignature/CodeResources",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/Info.plist",
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/PkgInfo",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/MacOS/gmod Helper (Plugin)",
 
 			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/_CodeSignature/CodeResources",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/Info.plist",
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/PkgInfo",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/MacOS/gmod Helper (Renderer)",
 
 			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/_CodeSignature/CodeResources",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/Info.plist",
+			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/PkgInfo",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/MacOS/gmod Helper",
 
 			#"GarrysMod_Signed.app/Contents/MacOS/gmod",
