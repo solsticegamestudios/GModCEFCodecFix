@@ -22,6 +22,8 @@ Direct players to follow the Players' instructions above. This patch is CLIENTSI
 
 **To Detect CEFCodecFix:** Check out our [Lua detection example](detection_example.lua)
 
+**If you want to go more in-depth:** Check out [our fork of gmod-html](https://github.com/solsticegamestudios/gmod-html), which is how our custom CEF builds work with GMod.
+
 # 📢 Need Help / Contact Us
 * Discord: https://www.solsticegamestudios.com/discord/
 * Email: contact@solsticegamestudios.com
