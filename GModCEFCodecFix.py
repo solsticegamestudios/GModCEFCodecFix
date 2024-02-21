@@ -107,9 +107,9 @@ from socket import gaierror
 colorama.init()
 
 # Spit out the Software Info
-print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/chat.html\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
+print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/discord/\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
 
-contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com\n"
+contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/discord/\n- Email: contact@solsticegamestudios.com\n"
 
 # Get CEFCodecFix's version and compare it with the version we have on the website
 localVersion = 0
@@ -332,7 +332,7 @@ for path in steamLibraries:
 if foundGModManifest:
 	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
 else:
-	sys.exit(colored("Error: Could Not Find Valid Garry's Mod Manifest!" + contactInfo, "red"))
+	sys.exit(colored("Error: Could Not Find Valid Garry's Mod Manifest! Is Garry's Mod Installed?" + contactInfo, "red"))
 
 # Get GMod Branch
 gmodManifest = vdf.loads(gmodManifestStr, mapper=CaseInsensitiveDict)
