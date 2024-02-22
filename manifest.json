@@ -207,9 +207,9 @@
             },
             "garrysmod/lua/menu/mainmenu.lua": {
                 "original": "95C6C8AAF7DE7B8243BBBD15A51FA3B0CC6CD0FA8AE6E0ECF57FE9EF66A16471",
-                "patch": "DF28760AD9B9AA7FC11792684B8E7E0C2324860252B8C56D53E676D1EF352547",
+                "patch": "82E496AB61D6FFA90317D974763A50BD86417699815977D5495B35F6998D94FA",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/garrysmod/lua/menu/mainmenu.lua.bsdiff",
-                "fixed": "8E7DBA11EDAF2EB76A96D4E55585C8C41DE59A4F1EB8D3F65B13175B84FCE509"
+                "fixed": "F8F5492996696382B352B792645899D0A55048D19BABAA7B85E44AF8777C7ED5"
             },
             "bin/chromium/locales/af.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
@@ -745,9 +745,9 @@
             },
             "garrysmod/lua/menu/mainmenu.lua": {
                 "original": "95C6C8AAF7DE7B8243BBBD15A51FA3B0CC6CD0FA8AE6E0ECF57FE9EF66A16471",
-                "patch": "DF28760AD9B9AA7FC11792684B8E7E0C2324860252B8C56D53E676D1EF352547",
+                "patch": "82E496AB61D6FFA90317D974763A50BD86417699815977D5495B35F6998D94FA",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/garrysmod/lua/menu/mainmenu.lua.bsdiff",
-                "fixed": "8E7DBA11EDAF2EB76A96D4E55585C8C41DE59A4F1EB8D3F65B13175B84FCE509"
+                "fixed": "F8F5492996696382B352B792645899D0A55048D19BABAA7B85E44AF8777C7ED5"
             },
             "GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/af.lproj/locale.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
@@ -1205,9 +1205,9 @@
             },
             "garrysmod/lua/menu/mainmenu.lua": {
                 "original": "95C6C8AAF7DE7B8243BBBD15A51FA3B0CC6CD0FA8AE6E0ECF57FE9EF66A16471",
-                "patch": "DF28760AD9B9AA7FC11792684B8E7E0C2324860252B8C56D53E676D1EF352547",
+                "patch": "82E496AB61D6FFA90317D974763A50BD86417699815977D5495B35F6998D94FA",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/linux/x86-64/garrysmod/lua/menu/mainmenu.lua.bsdiff",
-                "fixed": "8E7DBA11EDAF2EB76A96D4E55585C8C41DE59A4F1EB8D3F65B13175B84FCE509"
+                "fixed": "F8F5492996696382B352B792645899D0A55048D19BABAA7B85E44AF8777C7ED5"
             },
             "bin/linux32/chromium/locales/af.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
