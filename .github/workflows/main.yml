@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-20.04, macos-11]
+        os: [windows-latest, ubuntu-20.04, macos-12]
 
     steps:
       - name: Repo Checkout
@@ -25,20 +25,20 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@main
         with:
-          python-version: '3.11' # PyInstaller supports up to 3.11
+          python-version: '3.12' # PyInstaller supports up to 3.12
 
       - name: Get Dependencies and PyInstaller
         run: |
           python -m pip install --upgrade pip
           pip install --upgrade wheel
           pip install --upgrade -r requirements.txt
-          pip install pyinstaller==5.12.0
+          pip install pyinstaller==6.5.0
 
         # Windows Defender is throwing false-positive matches
       - name: Build PyInstaller Bootloader
         if: ${{ runner.os == 'Windows' }}
         run: |
-          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v5.12.0"
+          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v6.5.0"
           cd pyinstaller/bootloader
           python ./waf all
           rm -r "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Tkinter
         if: ${{ runner.os == 'macOS' }}
-        run: brew install python-tk@3.11 && echo -n 'export PATH="/usr/local/opt/python/libexec/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc && echo -n 'export PATH="/usr/local/opt/python/libexec/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+        run: brew install python-tk@3.12 && echo -n 'export PATH="/usr/local/opt/python/libexec/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc && echo -n 'export PATH="/usr/local/opt/python/libexec/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 
       - name: PyInstaller Build
         run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
