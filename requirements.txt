@@ -2,6 +2,7 @@ colorama
 termcolor
 vdf
 requests
+httpx[brotli]
 steam
 steamid
 bsdiff4

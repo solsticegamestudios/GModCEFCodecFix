@@ -12,7 +12,7 @@
 #	Email: contact@solsticegamestudios.com
 
 # TODO: Check if GMod is currently running
-# TODO: Move from requests to httpx; the latter supports HTTP/2
+# TODO: Enable HTTP/2 with httpx?
 
 import sys
 import os
@@ -98,7 +98,7 @@ else:
 	print("\33]0;GModCEFCodecFix\a", end='', flush=True)
 
 import urllib.request
-import requests
+import httpx
 import colorama
 from termcolor import colored
 from time import sleep
@@ -123,7 +123,8 @@ with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.
 	localVersion = int(versionFile.read())
 
 try:
-	versionRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt", proxies=systemProxies, timeout=60)
+	print("Getting remote version...")
+	versionRequest = httpx.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt", follow_redirects=True, timeout=60)
 
 	if versionRequest.status_code == 200:
 		remoteVersion = int(versionRequest.text)
@@ -144,7 +145,7 @@ try:
 		sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tStatus Code: " + str(versionRequest.status_code) + contactInfo, "red"))
 except gaierror as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tLooks like you're having DNS Problems [Errno " + str(e.errno) + "].\n\tSee the 1.1.1.1 Setup instructions at https://1.1.1.1/dns/\n\tThey'll change your DNS Settings to something that'll probably work." + contactInfo, "red"))
-except requests.Timeout as e:
+except httpx.TimeoutException as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tThe request timed out." + contactInfo, "red"))
 except Exception as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tException: " + str(e) + contactInfo, "red"))
@@ -152,7 +153,7 @@ except Exception as e:
 # Let's start the show
 from time import perf_counter
 import vdf
-from requests.structures import CaseInsensitiveDict
+from requests.structures import CaseInsensitiveDict # TODO: Replace this so we don't need to require requests anymore
 from steam.utils.appcache import parse_appinfo
 from steamid import SteamID
 from hashlib import sha256
@@ -219,48 +220,14 @@ else:
 
 if steamPath:
 	steamPath = os.path.normcase(os.path.realpath(steamPath))
-	print("Steam Path:\n" + steamPath + "\n")
+	print("Steam Path:\n" + steamPath)
 else:
 	sys.exit(colored("Error: Steam Path Not Found!\n" + steamPathHints[sys.platform] + contactInfo, "red"))
-
-# Find Steam Library Folders Config
-steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
-if not os.path.isfile(steamLibraryFoldersConfigPath):
-	sys.exit(colored("Error: Steam Library Folders Config File Not Found!" + contactInfo, "red"))
-
-with open(steamLibraryFoldersConfigPath, "r", encoding="UTF-8", errors="ignore") as steamLibraryFoldersConfigFile:
-	steamLibraryFoldersConfig = vdf.load(steamLibraryFoldersConfigFile, mapper=CaseInsensitiveDict)
-	steamLibraryFoldersConfig = steamLibraryFoldersConfig["LibraryFolders"]
-
-# Get Steam Libraries
-steamLibraries = []
-steamLibraries.append(steamPath) # Default
-
-for configKey in steamLibraryFoldersConfig:
-	try:
-		int(configKey) # Try to convert it to an int as a test
-		configVal = steamLibraryFoldersConfig[configKey]
-
-		# Figure out if this is a string path or assume it's an array
-		# Also don't allow duplicates
-		configPath = configVal if isinstance(configVal, str) else configVal["path"]
-		configPath = os.path.normcase(os.path.realpath(configPath))
-
-		if configPath not in steamLibraries:
-			steamLibraries.append(configPath)
-	except (FileNotFoundError, ValueError):
-		continue
-
-if len(steamLibraries) == 0:
-	sys.exit(colored("Error: No Steam Libraries Found!" + contactInfo, "red"))
-
-print("Steam Libraries:")
-print(steamLibraries)
 
 # Find most recent Steam User, which is probably the one they're using/want
 steamLoginUsersPath = os.path.join(steamPath, "config", "loginusers.vdf")
 if not os.path.isfile(steamLoginUsersPath):
-	sys.exit(colored("Error: Steam LoginUsers File Not Found!" + contactInfo, "red"))
+	sys.exit(colored("Error: Steam LoginUsers File Not Found! Have you ever launched Steam?" + contactInfo, "red"))
 
 steamUser = {"Timestamp": 0}
 with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamLoginUsersFile:
@@ -282,23 +249,52 @@ if steamUser["Timestamp"] > 0:
 else:
 	sys.exit(colored("Error: Could not find Most Recent Steam User! Have you ever launched Steam?" + contactInfo, "red"))
 
+# Find Steam Library Folders Config
+steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
+if not os.path.isfile(steamLibraryFoldersConfigPath):
+	sys.exit(colored("Error: Steam Library Folders Config File Not Found!" + contactInfo, "red"))
+
+with open(steamLibraryFoldersConfigPath, "r", encoding="UTF-8", errors="ignore") as steamLibraryFoldersConfigFile:
+	steamLibraryFoldersConfig = vdf.load(steamLibraryFoldersConfigFile, mapper=CaseInsensitiveDict)
+	steamLibraryFoldersConfig = steamLibraryFoldersConfig["LibraryFolders"]
+
+# Get GMod Steam Library
+gmodSteamLibraryPath = None
+
+for configKey in steamLibraryFoldersConfig:
+	try:
+		int(configKey) # Try to convert it to an int as a test
+		configVal = steamLibraryFoldersConfig[configKey]
+
+		if "4000" in configVal["apps"]:
+			if gmodSteamLibraryPath == None:
+				gmodSteamLibraryPath = os.path.normcase(os.path.realpath(configVal["path"]))
+			else:
+				sys.exit(colored("Error: Multiple Steam Libraries containing GMod Detected! A Steam Library might be corrupt." + contactInfo, "red"))
+	except (FileNotFoundError, ValueError):
+		continue
+
+if gmodSteamLibraryPath:
+	print("\nFound Steam Library:\n" + gmodSteamLibraryPath)
+else:
+	sys.exit(colored("Error: Could Not Find Steam Library containing GMod!" + contactInfo, "red"))
+
 # Find GMod
-# TODO: Figure out what install Steam is referencing in its Library and just use that one instead of asking users to do something potentially dangerous
+# TODO: Do something if their steamapps folder has non-lowercase capitalization on a case-sensitive filesystem
 foundGMod = False
 gmodPath = ""
 possibleGModPaths = [
 	["steamapps", "common", "GarrysMod"],
 	["steamapps", steamUser["AccountName"], "GarrysMod"]
 ]
-for path in steamLibraries:
-	for curGModPath in possibleGModPaths:
-		curGModPath = os.path.join(path, *curGModPath)
-		if os.path.isdir(curGModPath):
-			if foundGMod:
-				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n\t" + gmodPath + "\n\t" + curGModPath + "\nYou will also have to delete steamapps/appmanifest_4000.acf ON THE SAME DRIVE AS THE GMOD YOU DELETE." + contactInfo, "red"))
-			else:
-				foundGMod = True
-				gmodPath = curGModPath
+for curGModPath in possibleGModPaths:
+	curGModPath = os.path.join(gmodSteamLibraryPath, *curGModPath)
+	if os.path.isdir(curGModPath):
+		if foundGMod:
+			sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n\t" + gmodPath + "\n\t" + curGModPath + contactInfo, "red"))
+		else:
+			foundGMod = True
+			gmodPath = curGModPath
 
 if foundGMod:
 	print("\nFound Garry's Mod:\n" + gmodPath + "\n")
@@ -310,24 +306,21 @@ foundGModManifest = False
 gmodManifestPath = ""
 gmodManifestStr = ""
 possibleGModManifestPaths = [
-	["steamapps", "appmanifest_4000.acf"],
-	["appmanifest_4000.acf"]
+	["steamapps", "appmanifest_4000.acf"]
 ]
-for path in steamLibraries:
-	for curGModManifestPath in possibleGModManifestPaths:
-		curGModManifestPath = os.path.join(path, *curGModManifestPath)
-		if os.path.isfile(curGModManifestPath) and os.path.getsize(curGModManifestPath) > 0:
-			curGModManifestStr = ""
-			with open(curGModManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
-				curGModManifestStr = gmodManifestFile.read().strip().replace("\x00", "")
-
-			if curGModManifestStr:
-				if foundGModManifest:
-					sys.exit(colored("Error: Multiple Garry's Mod App Manifests Detected!\nPlease manually remove the unused version(s):\n\t" + gmodManifestPath + "\n\t" + curGModManifestPath + contactInfo, "red"))
-				else:
-					foundGModManifest = True
-					gmodManifestPath = curGModManifestPath
-					gmodManifestStr = curGModManifestStr
+for curGModManifestPath in possibleGModManifestPaths:
+	curGModManifestPath = os.path.join(gmodSteamLibraryPath, *curGModManifestPath)
+	if os.path.isfile(curGModManifestPath) and os.path.getsize(curGModManifestPath) > 0:
+		curGModManifestStr = ""
+		with open(curGModManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
+			curGModManifestStr = gmodManifestFile.read().strip().replace("\x00", "")
+		if curGModManifestStr:
+			if foundGModManifest:
+				sys.exit(colored("Error: Multiple Garry's Mod App Manifests Detected!\nPlease manually remove the unused version(s):\n\t" + gmodManifestPath + "\n\t" + curGModManifestPath + contactInfo, "red"))
+			else:
+				foundGModManifest = True
+				gmodManifestPath = curGModManifestPath
+				gmodManifestStr = curGModManifestStr
 
 if foundGModManifest:
 	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
@@ -459,7 +452,7 @@ if "-nochromium" in gmodUserLaunchOptions:
 
 # Get CEFCodecFix Manifest
 try:
-	manifestRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/manifest.json", proxies=systemProxies)
+	manifestRequest = httpx.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/manifest.json", follow_redirects=True, timeout=60)
 
 	if manifestRequest.status_code != 200:
 		sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Status Code: " + str(manifestRequest.status_code) + contactInfo, "red"))
@@ -580,7 +573,7 @@ if len(filesToUpdate) > 0:
 		if not cachedFileValid:
 			patchURL = manifest[file]["patch-url"]
 			print("\tDownloading: " + patchURL + "...")
-			patchURLRequest = requests.get(patchURL, proxies=systemProxies)
+			patchURLRequest = httpx.get(patchURL, follow_redirects=True)
 
 			if patchURLRequest.status_code != 200:
 				sys.exit(colored("Error: Failed to Download " + file + " | HTTP " + str(patchURLRequest.status_code) + contactInfo, "red"))
