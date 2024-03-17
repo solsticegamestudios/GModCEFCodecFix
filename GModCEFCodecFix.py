@@ -245,7 +245,7 @@ with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamL
 
 if steamUser["Timestamp"] > 0:
 	steamUser["steamID3"] = SteamID(steamUser["steamID64"]).steam3()
-	print("\nGot Most Recent Steam User: " + steamUser["PersonaName"] + " (" + steamUser["steamID64"] + " / " + steamUser["steamID3"] + ")")
+	print("\nGot Most Recent Steam User: " + steamUser["PersonaName"] + " (" + steamUser["steamID64"] + " / " + steamUser["steamID3"] + ")" + "\n")
 else:
 	sys.exit(colored("Error: Could not find Most Recent Steam User! Have you ever launched Steam?" + contactInfo, "red"))
 
@@ -258,26 +258,80 @@ with open(steamLibraryFoldersConfigPath, "r", encoding="UTF-8", errors="ignore")
 	steamLibraryFoldersConfig = vdf.load(steamLibraryFoldersConfigFile, mapper=CaseInsensitiveDict)
 	steamLibraryFoldersConfig = steamLibraryFoldersConfig["LibraryFolders"]
 
-# Get GMod Steam Library
-gmodSteamLibraryPath = None
+# Find Steam Library Folders Config
+steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
+if not os.path.isfile(steamLibraryFoldersConfigPath):
+	sys.exit(colored("Error: Steam Library Folders Config File Not Found!" + contactInfo, "red"))
+
+with open(steamLibraryFoldersConfigPath, "r", encoding="UTF-8", errors="ignore") as steamLibraryFoldersConfigFile:
+	steamLibraryFoldersConfig = vdf.load(steamLibraryFoldersConfigFile, mapper=CaseInsensitiveDict)
+	steamLibraryFoldersConfig = steamLibraryFoldersConfig["LibraryFolders"]
+
+# Get Steam Libraries
+steamLibraries = []
+steamLibraries.append(steamPath) # Default
 
 for configKey in steamLibraryFoldersConfig:
 	try:
 		int(configKey) # Try to convert it to an int as a test
 		configVal = steamLibraryFoldersConfig[configKey]
 
-		if "4000" in configVal["apps"]:
-			if gmodSteamLibraryPath == None:
-				gmodSteamLibraryPath = os.path.normcase(os.path.realpath(configVal["path"]))
-			else:
-				sys.exit(colored("Error: Multiple Steam Libraries containing GMod Detected! A Steam Library might be corrupt." + contactInfo, "red"))
+		# Figure out if this is a string path or assume it's an array
+		# Also don't allow duplicates
+		configPath = configVal if isinstance(configVal, str) else configVal["path"]
+		configPath = os.path.normcase(os.path.realpath(configPath))
+
+		if configPath not in steamLibraries:
+			steamLibraries.append(configPath)
 	except (FileNotFoundError, ValueError):
 		continue
 
-if gmodSteamLibraryPath:
-	print("\nFound Steam Library:\n" + gmodSteamLibraryPath)
+if len(steamLibraries) == 0:
+	sys.exit(colored("Error: No Steam Libraries Found!" + contactInfo, "red"))
+
+print("Steam Libraries:")
+print(steamLibraries)
+print("") # Newline
+
+# Find GMod Manifest
+foundGModManifest = False
+gmodManifestPath = ""
+gmodManifestStr = ""
+gmodSteamLibraryPath = None
+possibleGModManifestPaths = [
+	["steamapps", "appmanifest_4000.acf"]
+]
+for path in steamLibraries:
+	for curGModManifestPath in possibleGModManifestPaths:
+		curGModManifestPath = os.path.join(path, *curGModManifestPath)
+		if os.path.isfile(curGModManifestPath) and os.path.getsize(curGModManifestPath) > 0:
+			curGModManifestStr = ""
+			with open(curGModManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
+				curGModManifestStr = gmodManifestFile.read().strip().replace("\x00", "")
+			if curGModManifestStr:
+				if foundGModManifest:
+					# Assume the GMod paths are where they're supposed to be
+					install1 = "\n\tGMod Install #1:\n\t\t" + gmodManifestPath
+					install1GModPath = os.path.join(gmodSteamLibraryPath, "steamapps", "common", "GarrysMod")
+					if os.path.isdir(install1GModPath):
+						install1 += "\n\t\t" + install1GModPath
+
+					install2 = "\n\tGMod Install #2:\n\t\t" + curGModManifestPath
+					install2GModPath = os.path.join(path, "steamapps", "common", "GarrysMod")
+					if os.path.isdir(install2GModPath):
+						install2 += "\n\t\t" + install2GModPath
+
+					sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version:", "red") + colored(install1 + "\n" + install2, "yellow") + colored(contactInfo, "red"))
+				else:
+					foundGModManifest = True
+					gmodManifestPath = curGModManifestPath
+					gmodManifestStr = curGModManifestStr
+					gmodSteamLibraryPath = path
+
+if foundGModManifest:
+	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
 else:
-	sys.exit(colored("Error: Could Not Find Steam Library containing GMod!" + contactInfo, "red"))
+	sys.exit(colored("Error: Could Not Find Valid Garry's Mod Manifest! Is Garry's Mod Installed?" + contactInfo, "red"))
 
 # Find GMod
 # TODO: Do something if their steamapps folder has non-lowercase capitalization on a case-sensitive filesystem
@@ -297,35 +351,9 @@ for curGModPath in possibleGModPaths:
 			gmodPath = curGModPath
 
 if foundGMod:
-	print("\nFound Garry's Mod:\n" + gmodPath + "\n")
+	print("Found Garry's Mod:\n" + gmodPath + "\n")
 else:
 	sys.exit(colored("Error: Could Not Find Garry's Mod!" + contactInfo, "red"))
-
-# Find GMod Manifest
-foundGModManifest = False
-gmodManifestPath = ""
-gmodManifestStr = ""
-possibleGModManifestPaths = [
-	["steamapps", "appmanifest_4000.acf"]
-]
-for curGModManifestPath in possibleGModManifestPaths:
-	curGModManifestPath = os.path.join(gmodSteamLibraryPath, *curGModManifestPath)
-	if os.path.isfile(curGModManifestPath) and os.path.getsize(curGModManifestPath) > 0:
-		curGModManifestStr = ""
-		with open(curGModManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
-			curGModManifestStr = gmodManifestFile.read().strip().replace("\x00", "")
-		if curGModManifestStr:
-			if foundGModManifest:
-				sys.exit(colored("Error: Multiple Garry's Mod App Manifests Detected!\nPlease manually remove the unused version(s):\n\t" + gmodManifestPath + "\n\t" + curGModManifestPath + contactInfo, "red"))
-			else:
-				foundGModManifest = True
-				gmodManifestPath = curGModManifestPath
-				gmodManifestStr = curGModManifestStr
-
-if foundGModManifest:
-	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
-else:
-	sys.exit(colored("Error: Could Not Find Valid Garry's Mod Manifest! Is Garry's Mod Installed?" + contactInfo, "red"))
 
 # Get GMod Branch
 gmodManifest = vdf.loads(gmodManifestStr, mapper=CaseInsensitiveDict)
@@ -397,6 +425,8 @@ with open(steamAppInfoPath, "rb") as steamAppInfoFile:
 
 	if sys.platform == "linux":
 		print("\tIs Using Proton: " + ("Yes" if sysPlatformProtonMasked != sys.platform else "No"))
+		# TODO
+		#print("\tIs Using Steam Runtime: " + ("Yes" if sysPlatformProtonMasked != sys.platform else "No"))
 
 	for option in gmodLaunchConfig:
 		option = gmodLaunchConfig[option]
