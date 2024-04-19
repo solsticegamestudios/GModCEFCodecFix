@@ -107,9 +107,9 @@ from socket import gaierror
 colorama.init()
 
 # Spit out the Software Info
-print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/discord/\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
+print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/fixmedia/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/discord/\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
 
-contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/discord/\n- Email: contact@solsticegamestudios.com\n"
+contactInfo = "\n\nIf you need help, look at the Guide/FAQ first:\n- https://www.solsticegamestudios.com/fixmedia/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/discord/\n- Email: contact@solsticegamestudios.com\n"
 
 # Get CEFCodecFix's version and compare it with the version we have on the website
 localVersion = 0
