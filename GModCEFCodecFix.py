@@ -208,8 +208,10 @@ elif sys.platform == "darwin":
 else:
 	# Linux
 	dataDir = str(XDG_DATA_HOME)
-
-	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
+	# Check Snap dir early to prevent conflicts/errors for users with SteamCMD installed
+	if os.path.isdir(os.path.join(homeDir, "snap", "steam")):
+		steamPath = os.path.join(homeDir, "snap", "steam")
+	elif os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
 		steamPath = os.path.join(homeDir, ".steam", "steam")
 	elif os.path.isdir(os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")):
 		steamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
