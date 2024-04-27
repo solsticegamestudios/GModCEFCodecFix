@@ -12,7 +12,7 @@
 #	Email: contact@solsticegamestudios.com
 
 # TODO: Check if GMod is currently running
-# TODO: Move from requests to httpx; the latter supports HTTP/2
+# TODO: Enable HTTP/2 with httpx?
 
 import sys
 import os
@@ -98,7 +98,7 @@ else:
 	print("\33]0;GModCEFCodecFix\a", end='', flush=True)
 
 import urllib.request
-import requests
+import httpx
 import colorama
 from termcolor import colored
 from time import sleep
@@ -107,9 +107,9 @@ from socket import gaierror
 colorama.init()
 
 # Spit out the Software Info
-print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/forums/threads/60/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/chat.html\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
+print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/fixmedia/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/discord/\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
 
-contactInfo = "\n\nIf you need help, follow the Guide first:\n- https://www.solsticegamestudios.com/forums/threads/60/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com\n"
+contactInfo = "\n\nIf you need help, look at the Guide/FAQ first:\n- https://www.solsticegamestudios.com/fixmedia/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/discord/\n- Email: contact@solsticegamestudios.com\n"
 
 # Get CEFCodecFix's version and compare it with the version we have on the website
 localVersion = 0
@@ -123,7 +123,8 @@ with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.
 	localVersion = int(versionFile.read())
 
 try:
-	versionRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt", proxies=systemProxies, timeout=60)
+	print("Getting remote version...")
+	versionRequest = httpx.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/version.txt", follow_redirects=True, timeout=60)
 
 	if versionRequest.status_code == 200:
 		remoteVersion = int(versionRequest.text)
@@ -144,7 +145,7 @@ try:
 		sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tStatus Code: " + str(versionRequest.status_code) + contactInfo, "red"))
 except gaierror as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tLooks like you're having DNS Problems [Errno " + str(e.errno) + "].\n\tSee the 1.1.1.1 Setup instructions at https://1.1.1.1/dns/\n\tThey'll change your DNS Settings to something that'll probably work." + contactInfo, "red"))
-except requests.Timeout as e:
+except httpx.TimeoutException as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tThe request timed out." + contactInfo, "red"))
 except Exception as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tException: " + str(e) + contactInfo, "red"))
@@ -152,7 +153,7 @@ except Exception as e:
 # Let's start the show
 from time import perf_counter
 import vdf
-from requests.structures import CaseInsensitiveDict
+from requests.structures import CaseInsensitiveDict # TODO: Replace this so we don't need to require requests anymore
 from steam.utils.appcache import parse_appinfo
 from steamid import SteamID
 from hashlib import sha256
@@ -219,9 +220,43 @@ else:
 
 if steamPath:
 	steamPath = os.path.normcase(os.path.realpath(steamPath))
-	print("Steam Path:\n" + steamPath + "\n")
+	print("Steam Path:\n" + steamPath)
 else:
 	sys.exit(colored("Error: Steam Path Not Found!\n" + steamPathHints[sys.platform] + contactInfo, "red"))
+
+# Find most recent Steam User, which is probably the one they're using/want
+steamLoginUsersPath = os.path.join(steamPath, "config", "loginusers.vdf")
+if not os.path.isfile(steamLoginUsersPath):
+	sys.exit(colored("Error: Steam LoginUsers File Not Found! Have you ever launched Steam?" + contactInfo, "red"))
+
+steamUser = {"Timestamp": 0}
+with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamLoginUsersFile:
+	steamLoginUsers = vdf.load(steamLoginUsersFile, mapper=CaseInsensitiveDict)
+	steamLoginUsers = steamLoginUsers["users"]
+
+	for userSteamID64 in steamLoginUsers:
+		curSteamUser = steamLoginUsers[userSteamID64]
+
+		if str(steamLoginUsers[userSteamID64]["mostrecent"]) == "1":
+			steamUser = {"steamID64": userSteamID64, "AccountName": curSteamUser["AccountName"], "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
+			break
+		elif int(steamLoginUsers[userSteamID64]["Timestamp"]) > steamUser["Timestamp"]:
+			steamUser = {"steamID64": userSteamID64, "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
+
+if steamUser["Timestamp"] > 0:
+	steamUser["steamID3"] = SteamID(steamUser["steamID64"]).steam3()
+	print("\nGot Most Recent Steam User: " + steamUser["PersonaName"] + " (" + steamUser["steamID64"] + " / " + steamUser["steamID3"] + ")" + "\n")
+else:
+	sys.exit(colored("Error: Could not find Most Recent Steam User! Have you ever launched Steam?" + contactInfo, "red"))
+
+# Find Steam Library Folders Config
+steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
+if not os.path.isfile(steamLibraryFoldersConfigPath):
+	sys.exit(colored("Error: Steam Library Folders Config File Not Found!" + contactInfo, "red"))
+
+with open(steamLibraryFoldersConfigPath, "r", encoding="UTF-8", errors="ignore") as steamLibraryFoldersConfigFile:
+	steamLibraryFoldersConfig = vdf.load(steamLibraryFoldersConfigFile, mapper=CaseInsensitiveDict)
+	steamLibraryFoldersConfig = steamLibraryFoldersConfig["LibraryFolders"]
 
 # Find Steam Library Folders Config
 steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
@@ -256,62 +291,15 @@ if len(steamLibraries) == 0:
 
 print("Steam Libraries:")
 print(steamLibraries)
-
-# Find most recent Steam User, which is probably the one they're using/want
-steamLoginUsersPath = os.path.join(steamPath, "config", "loginusers.vdf")
-if not os.path.isfile(steamLoginUsersPath):
-	sys.exit(colored("Error: Steam LoginUsers File Not Found!" + contactInfo, "red"))
-
-steamUser = {"Timestamp": 0}
-with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamLoginUsersFile:
-	steamLoginUsers = vdf.load(steamLoginUsersFile, mapper=CaseInsensitiveDict)
-	steamLoginUsers = steamLoginUsers["users"]
-
-	for userSteamID64 in steamLoginUsers:
-		curSteamUser = steamLoginUsers[userSteamID64]
-
-		if str(steamLoginUsers[userSteamID64]["mostrecent"]) == "1":
-			steamUser = {"steamID64": userSteamID64, "AccountName": curSteamUser["AccountName"], "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
-			break
-		elif int(steamLoginUsers[userSteamID64]["Timestamp"]) > steamUser["Timestamp"]:
-			steamUser = {"steamID64": userSteamID64, "PersonaName": curSteamUser["PersonaName"], "Timestamp": int(curSteamUser["Timestamp"])}
-
-if steamUser["Timestamp"] > 0:
-	steamUser["steamID3"] = SteamID(steamUser["steamID64"]).steam3()
-	print("\nGot Most Recent Steam User: " + steamUser["PersonaName"] + " (" + steamUser["steamID64"] + " / " + steamUser["steamID3"] + ")")
-else:
-	sys.exit(colored("Error: Could not find Most Recent Steam User! Have you ever launched Steam?" + contactInfo, "red"))
-
-# Find GMod
-# TODO: Figure out what install Steam is referencing in its Library and just use that one instead of asking users to do something potentially dangerous
-foundGMod = False
-gmodPath = ""
-possibleGModPaths = [
-	["steamapps", "common", "GarrysMod"],
-	["steamapps", steamUser["AccountName"], "GarrysMod"]
-]
-for path in steamLibraries:
-	for curGModPath in possibleGModPaths:
-		curGModPath = os.path.join(path, *curGModPath)
-		if os.path.isdir(curGModPath):
-			if foundGMod:
-				sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n\t" + gmodPath + "\n\t" + curGModPath + "\nYou will also have to delete steamapps/appmanifest_4000.acf ON THE SAME DRIVE AS THE GMOD YOU DELETE." + contactInfo, "red"))
-			else:
-				foundGMod = True
-				gmodPath = curGModPath
-
-if foundGMod:
-	print("\nFound Garry's Mod:\n" + gmodPath + "\n")
-else:
-	sys.exit(colored("Error: Could Not Find Garry's Mod!" + contactInfo, "red"))
+print("") # Newline
 
 # Find GMod Manifest
 foundGModManifest = False
 gmodManifestPath = ""
 gmodManifestStr = ""
+gmodSteamLibraryPath = None
 possibleGModManifestPaths = [
-	["steamapps", "appmanifest_4000.acf"],
-	["appmanifest_4000.acf"]
+	["steamapps", "appmanifest_4000.acf"]
 ]
 for path in steamLibraries:
 	for curGModManifestPath in possibleGModManifestPaths:
@@ -320,19 +308,52 @@ for path in steamLibraries:
 			curGModManifestStr = ""
 			with open(curGModManifestPath, "r", encoding="UTF-8", errors="ignore") as gmodManifestFile:
 				curGModManifestStr = gmodManifestFile.read().strip().replace("\x00", "")
-
 			if curGModManifestStr:
 				if foundGModManifest:
-					sys.exit(colored("Error: Multiple Garry's Mod App Manifests Detected!\nPlease manually remove the unused version(s):\n\t" + gmodManifestPath + "\n\t" + curGModManifestPath + contactInfo, "red"))
+					# Assume the GMod paths are where they're supposed to be
+					install1 = "\n\tGMod Install #1:\n\t\t" + gmodManifestPath
+					install1GModPath = os.path.join(gmodSteamLibraryPath, "steamapps", "common", "GarrysMod")
+					if os.path.isdir(install1GModPath):
+						install1 += "\n\t\t" + install1GModPath
+
+					install2 = "\n\tGMod Install #2:\n\t\t" + curGModManifestPath
+					install2GModPath = os.path.join(path, "steamapps", "common", "GarrysMod")
+					if os.path.isdir(install2GModPath):
+						install2 += "\n\t\t" + install2GModPath
+
+					sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version:", "red") + colored(install1 + "\n" + install2, "yellow") + colored(contactInfo, "red"))
 				else:
 					foundGModManifest = True
 					gmodManifestPath = curGModManifestPath
 					gmodManifestStr = curGModManifestStr
+					gmodSteamLibraryPath = path
 
 if foundGModManifest:
 	print("Found Garry's Mod Manifest:\n" + gmodManifestPath + "\n")
 else:
-	sys.exit(colored("Error: Could Not Find Valid Garry's Mod Manifest!" + contactInfo, "red"))
+	sys.exit(colored("Error: Could Not Find Valid Garry's Mod Manifest! Is Garry's Mod Installed?" + contactInfo, "red"))
+
+# Find GMod
+# TODO: Do something if their steamapps folder has non-lowercase capitalization on a case-sensitive filesystem
+foundGMod = False
+gmodPath = ""
+possibleGModPaths = [
+	["steamapps", "common", "GarrysMod"],
+	["steamapps", steamUser["AccountName"], "GarrysMod"]
+]
+for curGModPath in possibleGModPaths:
+	curGModPath = os.path.join(gmodSteamLibraryPath, *curGModPath)
+	if os.path.isdir(curGModPath):
+		if foundGMod:
+			sys.exit(colored("Error: Multiple Garry's Mod Installations Detected!\nPlease manually remove the unused version(s):\n\t" + gmodPath + "\n\t" + curGModPath + contactInfo, "red"))
+		else:
+			foundGMod = True
+			gmodPath = curGModPath
+
+if foundGMod:
+	print("Found Garry's Mod:\n" + gmodPath + "\n")
+else:
+	sys.exit(colored("Error: Could Not Find Garry's Mod!" + contactInfo, "red"))
 
 # Get GMod Branch
 gmodManifest = vdf.loads(gmodManifestStr, mapper=CaseInsensitiveDict)
@@ -404,6 +425,8 @@ with open(steamAppInfoPath, "rb") as steamAppInfoFile:
 
 	if sys.platform == "linux":
 		print("\tIs Using Proton: " + ("Yes" if sysPlatformProtonMasked != sys.platform else "No"))
+		# TODO
+		#print("\tIs Using Steam Runtime: " + ("Yes" if sysPlatformProtonMasked != sys.platform else "No"))
 
 	for option in gmodLaunchConfig:
 		option = gmodLaunchConfig[option]
@@ -459,7 +482,7 @@ if "-nochromium" in gmodUserLaunchOptions:
 
 # Get CEFCodecFix Manifest
 try:
-	manifestRequest = requests.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/manifest.json", proxies=systemProxies)
+	manifestRequest = httpx.get("https://raw.githubusercontent.com/solsticegamestudios/GModCEFCodecFix/master/manifest.json", follow_redirects=True, timeout=60)
 
 	if manifestRequest.status_code != 200:
 		sys.exit(colored("Error: CEFCodecFix Manifest Failed to Load! Status Code: " + str(manifestRequest.status_code) + contactInfo, "red"))
@@ -580,7 +603,7 @@ if len(filesToUpdate) > 0:
 		if not cachedFileValid:
 			patchURL = manifest[file]["patch-url"]
 			print("\tDownloading: " + patchURL + "...")
-			patchURLRequest = requests.get(patchURL, proxies=systemProxies)
+			patchURLRequest = httpx.get(patchURL, follow_redirects=True)
 
 			if patchURLRequest.status_code != 200:
 				sys.exit(colored("Error: Failed to Download " + file + " | HTTP " + str(patchURLRequest.status_code) + contactInfo, "red"))

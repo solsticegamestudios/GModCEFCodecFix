@@ -6,7 +6,7 @@ Automatically patches [Garry's Mod](https://gmod.facepunch.com/)'s internal [Chr
 - Bring CEF up to date
 - Fix GMod missing menu/launch issues on macOS and Linux
 - Enable [Proprietary Video/Audio codec](https://www.chromium.org/audio-video), like H.264 (MP4) and AAC, support
-- Enable [Widevine](https://www.widevine.com) support, so Netflix, Crunchyroll, etc now work
+- Enable [Widevine](https://www.widevine.com) support (but [no VMP](https://github.com/solsticegamestudios/GModCEFCodecFix/issues/100), so Netflix et al. don't work currently...)
 - Enable Software WebGL
 - Enable partial GPU acceleration
 
@@ -15,12 +15,14 @@ Automatically patches [Garry's Mod](https://gmod.facepunch.com/)'s internal [Chr
 # ❓ Players: How to use
 Download the **[Latest Release](https://github.com/solsticegamestudios/GModCEFCodecFix/releases)** and run the application.
 
-Need a more in-depth guide? Take a look at https://www.solsticegamestudios.com/forums/threads/60/
+Need a more in-depth guide? Take a look at https://www.solsticegamestudios.com/fixmedia/
 
 # 👩‍💻 Developers: How to use
 Direct players to follow the Players' instructions above. This patch is CLIENTSIDE only!
 
 **To Detect CEFCodecFix:** Check out our [Lua detection example](detection_example.lua)
+
+**If you want to go more in-depth:** Check out [our fork of gmod-html](https://github.com/solsticegamestudios/gmod-html), which is how our custom CEF builds work with GMod.
 
 # 📢 Need Help / Contact Us
 * Discord: https://www.solsticegamestudios.com/discord/
