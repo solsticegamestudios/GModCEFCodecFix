@@ -218,7 +218,7 @@ else:
 	elif os.path.isdir(os.path.join(dataDir, "Steam")):
 		steamPath = os.path.join(dataDir, "Steam")
 
-	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(dataDir, "Steam") + " ?"
+	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + ", " + os.path.join(dataDir, "Steam") + " or " + os.path.join(homeDir, "snap", "steam") + " ?"
 
 if steamPath:
 	steamPath = os.path.normcase(os.path.realpath(steamPath))
