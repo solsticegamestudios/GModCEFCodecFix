@@ -208,15 +208,17 @@ elif sys.platform == "darwin":
 else:
 	# Linux
 	dataDir = str(XDG_DATA_HOME)
-
-	if os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
+	# Check Snap dir early to prevent conflicts/errors for users with SteamCMD installed
+	if os.path.isdir(os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")):
+		steamPath = os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")
+	elif os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
 		steamPath = os.path.join(homeDir, ".steam", "steam")
 	elif os.path.isdir(os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")):
 		steamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
 	elif os.path.isdir(os.path.join(dataDir, "Steam")):
 		steamPath = os.path.join(dataDir, "Steam")
 
-	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + " or " + os.path.join(dataDir, "Steam") + " ?"
+	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + ", " + os.path.join(dataDir, "Steam") + " or " + os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam") + " ?"
 
 if steamPath:
 	steamPath = os.path.normcase(os.path.realpath(steamPath))
