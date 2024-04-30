@@ -13,6 +13,7 @@
 
 # TODO: Check if GMod is currently running
 # TODO: Enable HTTP/2 with httpx?
+# TODO: Support patching in an updated version of BASS? Test results: https://discord.com/channels/104385214364536832/459880607120490496/1212241220844392519
 
 import sys
 import os
@@ -207,18 +208,26 @@ elif sys.platform == "darwin":
 	steamPathHints["darwin"] = "Is it installed somewhere other than " + os.path.join(homeDir, "Library", "Application Support", "Steam") + " ?"
 else:
 	# Linux
-	dataDir = str(XDG_DATA_HOME)
-	# Check Snap dir early to prevent conflicts/errors for users with SteamCMD installed
-	if os.path.isdir(os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")):
-		steamPath = os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")
-	elif os.path.isdir(os.path.join(homeDir, ".steam", "steam")):
-		steamPath = os.path.join(homeDir, ".steam", "steam")
-	elif os.path.isdir(os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")):
-		steamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
-	elif os.path.isdir(os.path.join(dataDir, "Steam")):
-		steamPath = os.path.join(dataDir, "Steam")
+	snapSteamPath = os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")
+	flatpakSteamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
+	homeSteamPath = os.path.join(homeDir, ".steam", "steam")
+	xdgSteamPath = os.path.join(str(XDG_DATA_HOME), "Steam")
 
-	steamPathHints["linux"] = "Is it installed somewhere other than " + os.path.join(homeDir, ".steam", "steam") + ", " + os.path.join(dataDir, "Steam") + " or " + os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam") + " ?"
+	# Check for Snap/Flatpak early to prevent conflicts for users with SteamCMD installed
+	if os.path.isdir(snapSteamPath):
+		steamPath = snapSteamPath
+	elif os.path.isdir(flatpakSteamPath):
+		steamPath = flatpakSteamPath
+	elif os.path.isdir(homeSteamPath):
+		steamPath = homeSteamPath
+	elif os.path.isdir(xdgSteamPath):
+		steamPath = xdgSteamPath
+
+	steamPathHints["linux"] = ("Is it installed somewhere other than the following paths?" +
+		"\n\t- " + snapSteamPath +
+		"\n\t- " + flatpakSteamPath +
+		"\n\t- " + homeSteamPath +
+		"\n\t- " + xdgSteamPath)
 
 if steamPath:
 	steamPath = os.path.normcase(os.path.realpath(steamPath))
