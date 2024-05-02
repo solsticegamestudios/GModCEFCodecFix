@@ -108,7 +108,7 @@ from socket import gaierror
 colorama.init()
 
 # Spit out the Software Info
-print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide:\n\thttps://www.solsticegamestudios.com/fixmedia/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/discord/\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
+print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide/FAQ:\n\thttps://www.solsticegamestudios.com/fixmedia/\nContact Us:\n\tDiscord: https://www.solsticegamestudios.com/discord/\n\tEmail: contact@solsticegamestudios.com\n", "cyan"))
 
 contactInfo = "\n\nIf you need help, look at the Guide/FAQ first:\n- https://www.solsticegamestudios.com/fixmedia/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/discord/\n- Email: contact@solsticegamestudios.com\n"
 
