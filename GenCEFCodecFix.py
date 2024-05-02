@@ -57,6 +57,8 @@ filesToDiff = {
 
 			"bin/win64/chrome_elf.dll",
 			"bin/win64/d3dcompiler_47.dll",
+			"bin/win64/dxcompiler.dll",
+			"bin/win64/dxil.dll",
 			"bin/win64/gmod.exe",
 			"bin/win64/html_chromium.dll",
 			"bin/win64/icudtl.dat",
