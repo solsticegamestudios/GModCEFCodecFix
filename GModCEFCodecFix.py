@@ -614,7 +614,7 @@ if len(filesToUpdate) > 0:
 		if not cachedFileValid:
 			patchURL = manifest[file]["patch-url"]
 			print("\tDownloading: " + patchURL + "...")
-			patchURLRequest = httpx.get(patchURL, follow_redirects=True)
+			patchURLRequest = httpx.get(patchURL, follow_redirects=True, timeout=None)
 
 			if patchURLRequest.status_code != 200:
 				sys.exit(colored("Error: Failed to Download " + file + " | HTTP " + str(patchURLRequest.status_code) + contactInfo, "red"))
