@@ -7,3 +7,15 @@ mv "./GModCEFCodecFix.app/Contents/MacOS/GModCEFCodecFix" "./dist/GModCEFCodecFi
 rm -R "./dist/GModCEFCodecFix.app/Contents/_CodeSignature" && rm -R "./GModCEFCodecFix.app"
 
 // We've now created a functional .app package for GModCEFCodecFix located in "./dist/GModCEFCodecFix.app"
+
+// Creating the DMG
+
+- Create a new folder named "GModCEFCodecFix-macOS"
+- Move the newly created GModCEFCodecFix.app into the new folder
+- Create an alias to the "Applications" folder next to GModCEFCodecFix.app
+- Open Disk Utility, and select File -> New -> Image from folder
+- Browse to the folder you created in step 1 and select it
+- Change Image Format to read/write (this allows us to ensure our customization to the image can be finalized and persist)
+- Mount the newly created DMG to begin the customization process.
+- Using view options, customize DMG. By default we increase icon size to 128x128, font to 16, and slightly reduce icon spacing from max (there shouldn't be a scrollbar visible in most cases if done correctly, then set the background to "Color" and select a light blue color.
+- Open Disk Utility again when changes are complete, and select "Images -> Convert", and change Image Format to read-only. Remove "converted" from the filename, select a different location to save the file, and click Convert.
