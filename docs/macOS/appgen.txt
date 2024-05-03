@@ -12,7 +12,7 @@ rm -R "./dist/GModCEFCodecFix.app/Contents/_CodeSignature" && rm -R "./GModCEFCo
 
 - Create a new folder named "GModCEFCodecFix-macOS"
 - Move the newly created GModCEFCodecFix.app into the new folder
-- Create an alias to the "Applications folder next to GModCEFCodecFix.app
+- Create an alias to the "Applications" folder next to GModCEFCodecFix.app
 - Open Disk Utility, and select File -> New -> Image from folder
 - Browse to the folder you created in step 1 and select it
 - Change Image Format to read/write (this allows us to ensure our customization to the image can be finalized and persist)
