@@ -2,6 +2,8 @@
 
 ![GModPatchTool](GModPatchToolLogo.png)
 
+***GModPatchTool** does what Facepunch [don't](https://github.com/Facepunch/gmod-html/pull/3)!*
+
 Automatically patches [Garry's Mod](https://gmod.facepunch.com/)'s internal [Chromium Embedded Framework](https://en.wikipedia.org/wiki/Chromium_Embedded_Framework) to:
 - Bring CEF up to date
 - Fix GMod missing menu/launch issues on macOS and Linux
