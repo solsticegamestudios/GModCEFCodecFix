@@ -1,6 +1,6 @@
 # GModPatchTool
 
-![GModPatchTool](GModPatchToolLogo.svg)
+![GModPatchTool](GModPatchToolLogo.png)
 
 Automatically patches [Garry's Mod](https://gmod.facepunch.com/)'s internal [Chromium Embedded Framework](https://en.wikipedia.org/wiki/Chromium_Embedded_Framework) to:
 - Bring CEF up to date
