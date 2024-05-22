@@ -214,14 +214,35 @@ else:
 	xdgSteamPath = os.path.join(str(XDG_DATA_HOME), "Steam")
 
 	# Check for Snap/Flatpak early to prevent conflicts for users with SteamCMD installed
+	linuxSteamPaths = []
 	if os.path.isdir(snapSteamPath):
-		steamPath = snapSteamPath
-	elif os.path.isdir(flatpakSteamPath):
-		steamPath = flatpakSteamPath
-	elif os.path.isdir(homeSteamPath):
-		steamPath = homeSteamPath
-	elif os.path.isdir(xdgSteamPath):
-		steamPath = xdgSteamPath
+		linuxSteamPaths.append(snapSteamPath)
+
+	if os.path.isdir(flatpakSteamPath):
+		linuxSteamPaths.append(flatpakSteamPath)
+
+	if os.path.isdir(homeSteamPath):
+		linuxSteamPaths.append(homeSteamPath)
+
+	if os.path.isdir(xdgSteamPath):
+		linuxSteamPaths.append(xdgSteamPath)
+
+	linuxSteamPathsLen = len(linuxSteamPaths)
+	if linuxSteamPathsLen > 1:
+		listOfLinuxSteamPaths = ""
+		for path in linuxSteamPaths:
+			listOfLinuxSteamPaths += "\n\t- " + path
+
+		print(colored("Warning: Multiple Steam Installations Detected! This may cause issues:" + listOfLinuxSteamPaths + "\n", "yellow"))
+
+		secsToContinue = 5
+		while secsToContinue:
+			print(colored("\tContinuing in " + str(secsToContinue) + " seconds...", "yellow"), end="\r")
+			sleep(1)
+			secsToContinue -= 1
+		sys.stdout.write("\033[K\n")
+
+	steamPath = linuxSteamPaths[0] if linuxSteamPathsLen > 0 else None
 
 	steamPathHints["linux"] = ("Is it installed somewhere other than the following paths?" +
 		"\n\t- " + snapSteamPath +
@@ -399,7 +420,7 @@ if sys.platform == "linux":
 			if "4000" in steamCompatToolMapping and "proton" in steamCompatToolMapping["4000"]["name"].lower():
 				sysPlatformProtonMasked = "win32"
 
-				print(colored("WARNING: Using Proton with Garry's Mod is not recommended.\n\t- Please consider going to Steam > Garry's Mod > Properties > Compatibility and turning off Compatibility Tools to use the Native Linux build.\n\t- If you MUST use Proton, you will likely need to add the following to GMod's Launch Options:\n\tPROTON_SET_GAME_DRIVE=1 %command%\n", "yellow"))
+				print(colored("Warning: Using Proton with Garry's Mod is not recommended.\n\t- Please consider going to Steam > Garry's Mod > Properties > Compatibility and turning off Compatibility Tools to use the Native Linux build.\n\t- If you MUST use Proton, use Proton 8.0-3 or newer for best compatibility.\n", "yellow"))
 
 				secsToContinue = 5
 				while secsToContinue:
