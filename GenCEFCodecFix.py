@@ -145,7 +145,7 @@ filesToDiff = {
 
 			"bin/linux64/chrome-sandbox",
 			"bin/linux64/chromium_process",
-			#"bin/linux64/gmod",
+			"bin/linux64/gmod",
 			"bin/linux64/html_chromium_client.so",
 			"bin/linux64/icudtl.dat",
 			"bin/linux64/libcef.so",
