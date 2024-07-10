@@ -22,9 +22,9 @@ Need a more in-depth guide? Take a look at https://www.solsticegamestudios.com/f
 # 👩‍💻 Developers: How to use
 Direct players to follow the Players' instructions above. This patch is CLIENTSIDE only!
 
-**To Detect Patched CEF:** Check out our [Lua detection example](detection_example.lua)
+**To Detect Patched CEF:** Check out our [Lua detection example](detection_example.lua).
 
-**If you want to go more in-depth:** Check out [our fork of gmod-html](https://github.com/solsticegamestudios/gmod-html), which is how our custom CEF builds work with GMod.
+**If you want to go more in-depth:** Check out [our fork of gmod-html](https://github.com/solsticegamestudios/gmod-html) and [our CEF build scripts](cef_build).
 
 # 📢 Need Help / Contact Us
 * Discord: https://www.solsticegamestudios.com/discord/
