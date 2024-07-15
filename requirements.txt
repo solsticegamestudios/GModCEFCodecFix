@@ -1,9 +1,9 @@
 colorama
 termcolor
-vdf
+vdf @ git+https://github.com/solsticegamestudios/vdf
 requests
 httpx[brotli]
-steam
+steam @ git+https://github.com/solsticegamestudios/steam
 steamid
 bsdiff4
 psutil; sys_platform == 'linux'
