@@ -32,13 +32,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade wheel
           pip install --upgrade -r requirements.txt
-          pip install pyinstaller==6.5.0
+          pip install pyinstaller==6.9.0
 
         # Windows Defender is throwing false-positive matches
       - name: Build PyInstaller Bootloader
         if: ${{ runner.os == 'Windows' }}
         run: |
-          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v6.5.0"
+          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v6.9.0"
           cd pyinstaller/bootloader
           python ./waf all
           rm -r "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
