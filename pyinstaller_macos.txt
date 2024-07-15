@@ -1,1 +1,1 @@
-pyinstaller --add-data version.txt:. --add-data LICENSE.txt:. --add-data README.md:. --onefile GModCEFCodecFix.py --icon=GModCEFCodecFixIcon.icns
+pyinstaller --add-data version.txt:. --add-data LICENSE.txt:. --add-data README.md:. --onefile GModCEFCodecFix.py --icon=GModPatchToolIcon.icns
