@@ -420,7 +420,7 @@ if sys.platform == "linux":
 			if "4000" in steamCompatToolMapping and "proton" in steamCompatToolMapping["4000"]["name"].lower():
 				sysPlatformProtonMasked = "win32"
 
-				print(colored("Warning: Using Proton with Garry's Mod is not recommended.\n\t- Please consider going to Steam > Garry's Mod > Properties > Compatibility and turning off Compatibility Tools to use the Native Linux build.\n\t- If you MUST use Proton, use Proton 8.0-3 or newer for best compatibility.\n", "yellow"))
+				print(colored("Warning: Using Proton with Garry's Mod is not recommended.\n\t- Please consider going to Steam > Garry's Mod > Properties > Compatibility and turning off Compatibility Tools to use the Native Linux build.\n\t- If you MUST use Proton, use Proton 8.0-4 or newer for best compatibility.\n", "yellow"))
 
 				secsToContinue = 5
 				while secsToContinue:
@@ -622,6 +622,7 @@ if len(filesToUpdate) > 0:
 
 	for file in filesToUpdate:
 		# Download needed patch files to local cache
+		# TODO: Multithreading?
 		cachedFileValid = False
 		patchFilePath = os.path.normcase(os.path.realpath(os.path.join(cacheDir, file + ".bsdiff")))
 
