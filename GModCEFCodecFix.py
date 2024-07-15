@@ -152,6 +152,7 @@ except Exception as e:
 	sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tException: " + str(e) + contactInfo, "red"))
 
 # Let's start the show
+import argparse
 from time import perf_counter
 import vdf
 from requests.structures import CaseInsensitiveDict # TODO: Replace this so we don't need to require requests anymore
@@ -171,95 +172,102 @@ if sys.platform == "linux":
 	from xdg import XDG_DATA_HOME
 	from xdg import XDG_CACHE_HOME
 
-if len(sys.argv) >= 3:
-	# sys.argv[0] is always the script/exe path
-	if sys.argv[1] == "-a":
-		try:
-			autoMode = int(sys.argv[2])
-			print(colored("AUTO MODE: Enabled\n", "cyan"))
-		except ValueError:
-			print(colored("Warning: Auto Mode switch present but option invalid! Please specify a Launch Option Number.\n", "yellow"))
+# Optional command line arguments
+parser = argparse.ArgumentParser(prog="GModCEFCodecFix")
+parser.add_argument("-a", required=False, type=int, metavar="LAUNCH_OPTION", help="Force a specific GMod launch option (auto mode)")
+parser.add_argument("-steam_path", required=False, help="Force a specific Steam path")
+args = parser.parse_args()
+
+if args.a:
+	autoMode = int(args.a)
+	print(colored("AUTO MODE: Enabled - Option " + str(autoMode) + "\n", "cyan"))
 
 timeStart = perf_counter()
 
-# Get Home Dir (used for finding Steam and storing cached BSDIFFs)
+# Get Home Dir (used for finding Steam if necessary)
 homeDir = str(Path.home())
 
 # Find Steam
-steamPath = None
+steamPath = args.steam_path
 steamPathHints = {}
-if sys.platform == "win32":
-	# Windows
-	try:
-		reg = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
-		steamKey = winreg.OpenKey(reg, "Software\\Valve\\Steam")
-		steamPathValue = winreg.QueryValueEx(steamKey, "SteamPath")
-		steamPath = steamPathValue[0].replace("/", "\\")
-	except:
-		# We wanna make sure it doesn't crash and burn while looking for the Registry Key, but we also wanna handle it below
-		pass
 
-	steamPathHints["win32"] = "Is it installed properly and been run at least once?"
-elif sys.platform == "darwin":
-	# macOS
-	if os.path.isdir(os.path.join(homeDir, "Library", "Application Support", "Steam")):
-		steamPath = os.path.join(homeDir, "Library", "Application Support", "Steam")
-
-	steamPathHints["darwin"] = "Is it installed somewhere other than " + os.path.join(homeDir, "Library", "Application Support", "Steam") + " ?"
+if steamPath:
+	# Make sure the path they're forcing actually exists
+	if not os.path.isdir(steamPath):
+		sys.exit(colored("Error: Forced Steam Path Does Not Exist!\nPlease check the -steam_path argument is pointing to a valid path:\n\t" + steamPath + contactInfo, "red"))
 else:
-	# Linux
-	snapSteamPath = os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")
-	flatpakSteamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
-	homeSteamPath = os.path.join(homeDir, ".steam", "steam")
-	xdgSteamPath = os.path.join(str(XDG_DATA_HOME), "Steam")
+	if sys.platform == "win32":
+		# Windows
+		try:
+			reg = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
+			steamKey = winreg.OpenKey(reg, "Software\\Valve\\Steam")
+			steamPathValue = winreg.QueryValueEx(steamKey, "SteamPath")
+			steamPath = steamPathValue[0].replace("/", "\\")
+		except:
+			# We wanna make sure it doesn't crash and burn while looking for the Registry Key, but we also wanna handle it below
+			pass
 
-	# Check for Snap/Flatpak early to prevent conflicts for users with SteamCMD installed
-	linuxSteamPaths = []
-	if os.path.isdir(snapSteamPath):
-		linuxSteamPaths.append(snapSteamPath)
+		steamPathHints["win32"] = "Is it installed properly and been run at least once?"
+	elif sys.platform == "darwin":
+		# macOS
+		if os.path.isdir(os.path.join(homeDir, "Library", "Application Support", "Steam")):
+			steamPath = os.path.join(homeDir, "Library", "Application Support", "Steam")
 
-	if os.path.isdir(flatpakSteamPath):
-		linuxSteamPaths.append(flatpakSteamPath)
+		steamPathHints["darwin"] = "Is it installed somewhere other than " + os.path.join(homeDir, "Library", "Application Support", "Steam") + " ?"
+	else:
+		# Linux
+		snapSteamPath = os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")
+		flatpakSteamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
+		homeSteamPath = os.path.join(homeDir, ".steam", "steam")
+		xdgSteamPath = os.path.join(str(XDG_DATA_HOME), "Steam")
 
-	if os.path.isdir(homeSteamPath):
-		linuxSteamPaths.append(homeSteamPath)
+		# Check for Snap/Flatpak early to prevent conflicts for users with SteamCMD installed
+		linuxSteamPaths = []
+		if os.path.isdir(snapSteamPath):
+			linuxSteamPaths.append(snapSteamPath)
 
-	if os.path.isdir(xdgSteamPath):
-		linuxSteamPaths.append(xdgSteamPath)
+		if os.path.isdir(flatpakSteamPath):
+			linuxSteamPaths.append(flatpakSteamPath)
 
-	linuxSteamPathsLen = len(linuxSteamPaths)
-	if linuxSteamPathsLen > 1:
-		listOfLinuxSteamPaths = ""
-		for path in linuxSteamPaths:
-			listOfLinuxSteamPaths += "\n\t- " + path
+		if os.path.isdir(homeSteamPath):
+			linuxSteamPaths.append(homeSteamPath)
 
-		print(colored("Warning: Multiple Steam Installations Detected! This may cause issues:" + listOfLinuxSteamPaths + "\n", "yellow"))
+		if os.path.isdir(xdgSteamPath):
+			linuxSteamPaths.append(xdgSteamPath)
 
-		secsToContinue = 5
-		while secsToContinue:
-			print(colored("\tContinuing in " + str(secsToContinue) + " seconds...", "yellow"), end="\r")
-			sleep(1)
-			secsToContinue -= 1
-		sys.stdout.write("\033[K\n")
+		linuxSteamPathsLen = len(linuxSteamPaths)
+		if linuxSteamPathsLen > 1:
+			listOfLinuxSteamPaths = ""
+			for path in linuxSteamPaths:
+				listOfLinuxSteamPaths += "\n\t- " + path
 
-	steamPath = linuxSteamPaths[0] if linuxSteamPathsLen > 0 else None
+			print(colored("Warning: Multiple Steam Installations Detected! This may cause issues:" + listOfLinuxSteamPaths + "\n", "yellow"))
 
-	steamPathHints["linux"] = ("Is it installed somewhere other than the following paths?" +
-		"\n\t- " + snapSteamPath +
-		"\n\t- " + flatpakSteamPath +
-		"\n\t- " + homeSteamPath +
-		"\n\t- " + xdgSteamPath)
+			secsToContinue = 5
+			while secsToContinue:
+				print(colored("\tContinuing in " + str(secsToContinue) + " seconds...", "yellow"), end="\r")
+				sleep(1)
+				secsToContinue -= 1
+			sys.stdout.write("\033[K\n")
+
+		steamPath = linuxSteamPaths[0] if linuxSteamPathsLen > 0 else None
+
+		steamPathHints["linux"] = ("Is it installed somewhere other than the following paths?" +
+			"\n\t- " + snapSteamPath +
+			"\n\t- " + flatpakSteamPath +
+			"\n\t- " + homeSteamPath +
+			"\n\t- " + xdgSteamPath)
 
 if steamPath:
 	steamPath = os.path.normcase(os.path.realpath(steamPath))
-	print("Steam Path:\n" + steamPath)
+	print("Steam Path:\n" + steamPath + "\n")
 else:
 	sys.exit(colored("Error: Steam Path Not Found!\n" + steamPathHints[sys.platform] + contactInfo, "red"))
 
 # Find most recent Steam User, which is probably the one they're using/want
 steamLoginUsersPath = os.path.join(steamPath, "config", "loginusers.vdf")
 if not os.path.isfile(steamLoginUsersPath):
-	sys.exit(colored("Error: Steam LoginUsers File Not Found! Have you ever launched Steam?" + contactInfo, "red"))
+	sys.exit(colored("Error: Steam LoginUsers File Not Found! Is the Steam Path valid? Have you ever launched Steam?" + contactInfo, "red"))
 
 steamUser = {"Timestamp": 0}
 with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamLoginUsersFile:
@@ -277,7 +285,7 @@ with open(steamLoginUsersPath, "r", encoding="UTF-8", errors="ignore") as steamL
 
 if steamUser["Timestamp"] > 0:
 	steamUser["steamID3"] = SteamID(steamUser["steamID64"]).steam3()
-	print("\nGot Most Recent Steam User: " + steamUser["PersonaName"] + " (" + steamUser["steamID64"] + " / " + steamUser["steamID3"] + ")" + "\n")
+	print("Got Most Recent Steam User: " + steamUser["PersonaName"] + " (" + steamUser["steamID64"] + " / " + steamUser["steamID3"] + ")" + "\n")
 else:
 	sys.exit(colored("Error: Could not find Most Recent Steam User! Have you ever launched Steam?" + contactInfo, "red"))
 
@@ -445,7 +453,7 @@ if not os.path.isfile(steamAppInfoPath):
 # Get GMod Executable Paths
 gmodEXELaunchOptions = []
 with open(steamAppInfoPath, "rb") as steamAppInfoFile:
-	_, steamAppInfo = parse_appinfo(steamAppInfoFile)
+	_, steamAppInfo = parse_appinfo(steamAppInfoFile, mapper=CaseInsensitiveDict)
 
 	gmodLaunchConfig = None
 	for app in steamAppInfo:
@@ -753,14 +761,14 @@ print(colored("\nLaunching Garry's Mod:", "green"))
 
 if sys.platform == "win32":
 	gmodEXE = os.path.join(gmodPath, gmodEXELaunchOptions[gmodEXESelected]["executable"]) + " " + gmodEXELaunchOptions[gmodEXESelected]["arguments"]
-	print(gmodEXE + gmodUserLaunchOptions)
+	print(gmodEXE + gmodUserLaunchOptions + "\n")
 	Popen(gmodEXE + gmodUserLaunchOptions, stdin=None, stdout=None, stderr=None, close_fds=True)
 elif sys.platform == "darwin":
-	print("open steam://rungameid/4000")
+	print("open steam://rungameid/4000\n")
 	Popen(["open", "steam://rungameid/4000"], stdin=None, stdout=None, stderr=None, close_fds=True)
 else:
 	linuxGModLaunchCommand = "xdg-open steam://rungameid/4000 >/dev/null 2>&1 &"
-	print(linuxGModLaunchCommand)
+	print(linuxGModLaunchCommand + "\n")
 	Popen(linuxGModLaunchCommand, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 
 launchSuccess = True
