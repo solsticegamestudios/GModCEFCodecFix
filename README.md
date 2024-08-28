@@ -27,6 +27,7 @@ Direct players to follow the Players' instructions above. This patch is CLIENTSI
 **If you want to go more in-depth:** Check out [our fork of gmod-html](https://github.com/solsticegamestudios/gmod-html) and [our CEF build scripts](cef_build).
 
 # 📢 Need Help / Contact Us
+* Read the FAQ: https://www.solsticegamestudios.com/fixmedia/faq/
 * Discord: https://www.solsticegamestudios.com/discord/
 * Email: contact@solsticegamestudios.com
 
