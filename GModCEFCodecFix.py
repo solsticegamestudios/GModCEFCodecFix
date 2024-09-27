@@ -15,6 +15,9 @@
 # TODO: Enable HTTP/2 with httpx?
 # TODO: Support patching in an updated version of BASS? Test results: https://discord.com/channels/104385214364536832/459880607120490496/1212241220844392519
 
+# NOTE: Update everytime we release!
+VERSION = 20240926
+
 import sys
 import os
 from subprocess import Popen
@@ -114,15 +117,11 @@ print(colored("GModCEFCodecFix\nCreated by: Solstice Game Studios\nHow To Guide/
 contactInfo = "\n\nIf you need help, look at the Guide/FAQ first:\n- https://www.solsticegamestudios.com/fixmedia/\n\nIf that doesn't work, contact us:\n- Discord: https://www.solsticegamestudios.com/discord/\n- Email: contact@solsticegamestudios.com\n"
 
 # Get CEFCodecFix's version and compare it with the version we have on the website
-localVersion = 0
 remoteVersion = 0
 systemProxies = urllib.request.getproxies()
 
 if systemProxies:
 	print("System Proxies:\n" + str(systemProxies) + "\n")
-
-with open(getattr(sys, "frozen", False) and os.path.join(sys._MEIPASS, "version.txt") or "version.txt", "r") as versionFile:
-	localVersion = int(versionFile.read())
 
 try:
 	print("Getting remote version...")
@@ -131,7 +130,7 @@ try:
 	if versionRequest.status_code == 200:
 		remoteVersion = int(versionRequest.text)
 
-		if remoteVersion > localVersion:
+		if remoteVersion > VERSION:
 			print(colored("WARNING: CEFCodecFix is out of date! Please get the latest version at\nhttps://github.com/solsticegamestudios/GModCEFCodecFix/releases", "red"))
 
 			secsToContinue = 5
@@ -142,7 +141,7 @@ try:
 
 			sys.stdout.write("\033[K\n")
 		else:
-			print(colored("You are running the latest version of CEFCodecFix [Local: " + str(localVersion) + " / Remote: " + str(remoteVersion) + "]!\n", "green"))
+			print(colored("You are running the latest version of CEFCodecFix [Local: " + str(VERSION) + " / Remote: " + str(remoteVersion) + "]!\n", "green"))
 	else:
 		sys.exit(colored("Error: Could not get CEFCodecFix remote version!\n\tStatus Code: " + str(versionRequest.status_code) + contactInfo, "red"))
 except gaierror as e:
@@ -176,7 +175,7 @@ if sys.platform == "linux":
 # Optional command line arguments
 parser = argparse.ArgumentParser(prog="GModCEFCodecFix")
 parser.add_argument("-a", required=False, type=int, metavar="LAUNCH_OPTION", help="Force a specific GMod launch option (auto mode)")
-parser.add_argument("-steam_path", required=False, help="Force a specific Steam path")
+parser.add_argument("-steam_path", required=False, help="Force a specific Steam install path (NOT a Steam library path)")
 args = parser.parse_args()
 
 if args.a:
@@ -217,23 +216,23 @@ else:
 		steamPathHints["darwin"] = "Is it installed somewhere other than " + os.path.join(homeDir, "Library", "Application Support", "Steam") + " ?"
 	else:
 		# Linux
-		snapSteamPath = os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam")
-		flatpakSteamPath = os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam")
-		homeSteamPath = os.path.join(homeDir, ".steam", "steam")
-		xdgSteamPath = os.path.join(str(XDG_DATA_HOME), "Steam")
+		snapSteamPath = os.path.realpath(os.path.join(homeDir, "snap", "steam", "common", ".local", "share", "Steam"))
+		flatpakSteamPath = os.path.realpath(os.path.join(homeDir, ".var", "app", "com.valvesoftware.Steam", ".local", "share", "Steam"))
+		homeSteamPath = os.path.realpath(os.path.join(homeDir, ".steam", "steam"))
+		xdgSteamPath = os.path.realpath(os.path.join(str(XDG_DATA_HOME), "Steam"))
 
 		# Check for Snap/Flatpak early to prevent conflicts for users with SteamCMD installed
 		linuxSteamPaths = []
 		if os.path.isdir(snapSteamPath):
 			linuxSteamPaths.append(snapSteamPath)
 
-		if os.path.isdir(flatpakSteamPath):
+		if os.path.isdir(flatpakSteamPath) and flatpakSteamPath not in linuxSteamPaths:
 			linuxSteamPaths.append(flatpakSteamPath)
 
-		if os.path.isdir(homeSteamPath):
+		if os.path.isdir(homeSteamPath) and homeSteamPath not in linuxSteamPaths:
 			linuxSteamPaths.append(homeSteamPath)
 
-		if os.path.isdir(xdgSteamPath):
+		if os.path.isdir(xdgSteamPath) and xdgSteamPath not in linuxSteamPaths:
 			linuxSteamPaths.append(xdgSteamPath)
 
 		linuxSteamPathsLen = len(linuxSteamPaths)
@@ -289,15 +288,6 @@ if steamUser["Timestamp"] > 0:
 	print("Got Most Recent Steam User: " + steamUser["PersonaName"] + " (" + steamUser["steamID64"] + " / " + steamUser["steamID3"] + ")" + "\n")
 else:
 	sys.exit(colored("Error: Could not find Most Recent Steam User! Have you ever launched Steam?" + contactInfo, "red"))
-
-# Find Steam Library Folders Config
-steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
-if not os.path.isfile(steamLibraryFoldersConfigPath):
-	sys.exit(colored("Error: Steam Library Folders Config File Not Found!" + contactInfo, "red"))
-
-with open(steamLibraryFoldersConfigPath, "r", encoding="UTF-8", errors="ignore") as steamLibraryFoldersConfigFile:
-	steamLibraryFoldersConfig = vdf.load(steamLibraryFoldersConfigFile, mapper=CaseInsensitiveDict)
-	steamLibraryFoldersConfig = steamLibraryFoldersConfig["LibraryFolders"]
 
 # Find Steam Library Folders Config
 steamLibraryFoldersConfigPath = os.path.join(steamPath, "steamapps", "libraryfolders.vdf")
