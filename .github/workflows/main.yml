@@ -32,17 +32,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade wheel
           pip install --upgrade -r requirements.txt
-          pip install pyinstaller==6.9.0
+          pip install pyinstaller==6.10.0
 
-        # Windows Defender is throwing false-positive matches
-      - name: Build PyInstaller Bootloader
-        if: ${{ runner.os == 'Windows' }}
-        run: |
-          git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v6.9.0"
-          cd pyinstaller/bootloader
-          python ./waf all
-          rm -r "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
-          cp -r "../PyInstaller/bootloader" "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller"
+      # Windows Defender is throwing false-positive matches
+      #- name: Build PyInstaller Bootloader
+      #  if: ${{ runner.os == 'Windows' }}
+      #  run: |
+      #    git clone https://github.com/pyinstaller/pyinstaller.git --depth 1 --branch "v6.10.0"
+      #    cd pyinstaller/bootloader
+      #    python ./waf all
+      #    rm -r "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller/bootloader"
+      #    cp -r "../PyInstaller/bootloader" "$(python -c "import os, sys; print(os.path.dirname(sys.executable))")/Lib/site-packages/PyInstaller"
 
       - name: Install Tkinter
         if: ${{ runner.os == 'macOS' }}
@@ -61,12 +61,13 @@ jobs:
               repo: context.repo.repo,
             })
 
+      # TODO: Use https://github.com/softprops/action-gh-release instead (is it drop-in or do we have to do stuff?)
       - name: Upload Release Binary
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ fromJSON(steps.latest-release.outputs.result).data.upload_url }}
-          asset_path: ./dist/GModCEFCodecFix${{ runner.os == 'Windows' && '.exe' || '' }}
-          asset_name: GModCEFCodecFix-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}
+          asset_path: ./dist/GModCEFCodecFix${{ runner.os == 'Windows' && '.zip' || '' }}
+          asset_name: GModCEFCodecFix-${{ runner.os }}${{ runner.os == 'Windows' && '.zip' || '' }}
           asset_content_type: application/octet-stream
