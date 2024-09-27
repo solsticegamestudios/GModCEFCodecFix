@@ -51,6 +51,10 @@ jobs:
       - name: PyInstaller Build
         run: ${{ runner.os == 'Windows' && 'iex ' || ''}}$(cat pyinstaller_${{ runner.os == 'Windows' && 'windows' || runner.os == 'Linux' && 'linux' || 'macos' }}.txt)
 
+      - name: PyInstaller Build (ZIP)
+        if: ${{ runner.os == 'Windows' }}
+        run: Compress-Archive "dist/GModCEFCodecFix" "GModCEFCodecFix.zip"
+
       - name: Get Latest Release Info
         id: latest-release
         uses: actions/github-script@main
