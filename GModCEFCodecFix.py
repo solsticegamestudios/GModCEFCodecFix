@@ -92,11 +92,13 @@ import atexit
 
 launchSuccess = False
 autoMode = False
+skipPrompt = False
 
 @atexit.register
 def exitHandler():
 	if not launchSuccess or autoMode is False:
-		input("Press Enter to continue...")
+		if not skipPrompt:
+			input("Press Enter to continue...")
 
 # Set the title so it's not just some boring path
 if sys.platform == "win32":
@@ -177,12 +179,17 @@ if sys.platform == "linux":
 # Optional command line arguments
 parser = argparse.ArgumentParser(prog="GModCEFCodecFix")
 parser.add_argument("-a", required=False, type=int, metavar="LAUNCH_OPTION", help="Force a specific GMod launch option (auto mode)")
+parser.add_argument("-s", required=False, action='store_true', help="Skip the prompt to launch GMod, preventing automatic launch")
 parser.add_argument("-steam_path", required=False, help="Force a specific Steam install path (NOT a Steam library path)")
 args = parser.parse_args()
 
 if args.a:
 	autoMode = int(args.a)
 	print(colored("AUTO MODE: Enabled - Option " + str(autoMode) + "\n", "cyan"))
+
+if args.s:
+	skipPrompt = True
+	print(colored("SKIP PROMPT: Enabled\n", "cyan"))
 
 timeStart = perf_counter()
 
@@ -697,7 +704,7 @@ print(colored("\nCEFCodecFix applied successfully! Took " + str(round(perf_count
 if gmodEXELaunchOptionsLen == 1:
 	gmodEXESelected = 0
 
-	validShouldLaunch = False
+	validShouldLaunch = skipPrompt
 	while validShouldLaunch == False:
 		print("\nDo you want to Launch Garry's Mod now? (yes/no)")
 
@@ -720,7 +727,7 @@ if gmodEXELaunchOptionsLen == 1:
 			print("That's not a valid option.")
 			autoMode = False
 
-	if not shouldLaunch:
+	if skipPrompt or not shouldLaunch:
 		sys.exit()
 
 elif sys.platform == "win32":
