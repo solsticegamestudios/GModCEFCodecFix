@@ -1,8 +1,8 @@
 // To generate .app version, use the following process from the repository's root instead of the normal pyinstaller script. This method creates a .app release which we modify to our needs.
 
-pyinstaller --add-data version.txt:. --add-data LICENSE.txt:. --add-data README.md:. --onefile GModCEFCodecFix.py --windowed --icon=GModCEFCodecFixIcon.icns
+pyinstaller --add-data LICENSE.txt:. --add-data README.md:. --onefile GModCEFCodecFix.py --windowed --icon=GModPatchToolLogo.icns
 mv "./dist/GModCEFCodecFix.app/Contents/MacOS/GModCEFCodecFix" "./dist/GModCEFCodecFix.app/Contents/MacOS/GModCEFCodecFix-macOS"
-./docs/macOS/scripts/appify.sh ./docs/macOS/scripts/launcher.sh "GModCEFCodecFix"
+sh ./docs/macOS/scripts/appify.sh ./docs/macOS/scripts/launcher.sh "GModCEFCodecFix"
 mv "./GModCEFCodecFix.app/Contents/MacOS/GModCEFCodecFix" "./dist/GModCEFCodecFix.app/Contents/MacOS/GModCEFCodecFix"
 rm -R "./dist/GModCEFCodecFix.app/Contents/_CodeSignature" && rm -R "./GModCEFCodecFix.app"
 
