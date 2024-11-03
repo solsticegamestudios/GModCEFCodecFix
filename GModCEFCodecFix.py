@@ -60,7 +60,8 @@ possibleTerminals = [
 	"hyper",
 	"foot",
 	"kgx",
-	"cosmic-term"
+	"cosmic-term",
+	"ptyxis"
 ]
 termNotFoundError = "GModCEFCodecFix could not find a suitable Terminal Emulator!\n\tIf one is installed, Contact Us about this:\n- Discord: https://www.solsticegamestudios.com/chat.html\n- Email: contact@solsticegamestudios.com"
 
