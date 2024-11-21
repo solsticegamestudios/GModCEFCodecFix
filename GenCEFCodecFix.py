@@ -9,15 +9,16 @@
 # Copyright 2020-2024, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 
-from time import process_time
+from time import time
 import sys
 import os
 import http.client
 import bsdiff4
 from hashlib import sha256
 import json
+from concurrent.futures import ThreadPoolExecutor
 
-timeStart = process_time()
+timeStart = time()
 
 originalPathRoot = os.path.join(sys.argv[-2], "release_original")
 fixedPathRoot = os.path.join(sys.argv[-2], "release_fixed")
@@ -194,6 +195,41 @@ print("Generating BSDIFF patches...")
 manifest = {}
 fileHashes = {}
 filesToSkip = {}
+def hashAndDiffFile(file):
+	output = "\t" + os.path.join(platform, branch, file)
+
+	fileHashes[platform][branch][file] = {}
+
+	originalFilePath = os.path.join(originalPathRoot, platform, branch, file)
+	fixedFilePath = os.path.join(fixedPathRoot, platform, "x86-64" if branch == "x86-64-temp" else branch, file) # x86-64-temp is the same as x86-64, but with different original files
+	patchFilePath = os.path.join(patchTargetPathRoot, platform, branch, file + ".bsdiff")
+
+	originalHash = getFileSHA256(originalFilePath)
+	fixedHash = getFileSHA256(fixedFilePath)
+
+	fileHashes[platform][branch][file]["original"] = originalHash
+	fileHashes[platform][branch][file]["fixed"] = fixedHash
+
+	if originalHash != fixedHash:
+		fileTimeStart = time()
+
+		os.makedirs(os.path.dirname(patchFilePath), exist_ok=True)
+
+		if not os.path.isfile(originalFilePath):
+			output += "\n\t\tOriginal doesn't exist, setting to NULL"
+			originalFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
+		elif not os.path.isfile(fixedFilePath):
+			output += "\n\t\tFixed doesn't exist, setting to NULL"
+			fixedFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
+
+		bsdiff4.file_diff(originalFilePath, fixedFilePath, patchFilePath)
+
+		output += "\n\t\tTook " + str(time() - fileTimeStart) + " second(s)"
+	else:
+		output += "\n\t\tSkipped: Original matches Fixed hash" + (" (Files Not Found!)" if originalHash == "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855" else "")
+		filesToSkip[platform][branch].append(file)
+
+	return output
 
 for platform in filesToDiff:
 	manifest[platform] = platform in manifest and manifest[platform] or {}
@@ -205,43 +241,17 @@ for platform in filesToDiff:
 		fileHashes[platform][branch] = branch in fileHashes[platform] and fileHashes[platform][branch] or {}
 		filesToSkip[platform][branch] = branch in filesToSkip[platform] and filesToSkip[platform][branch] or []
 
-		for file in filesToDiff[platform][branch]:
-			print("\t" + os.path.join(platform, branch, file))
+		# Legacy single-threaded approach
+		#for file in filesToDiff[platform][branch]:
+		#	print(hashAndDiffFile(file))
 
-			fileHashes[platform][branch][file] = {}
-
-			originalFilePath = os.path.join(originalPathRoot, platform, branch, file)
-			fixedFilePath = os.path.join(fixedPathRoot, platform, "x86-64" if branch == "x86-64-temp" else branch, file) # x86-64-temp is the same as x86-64, but with different original files
-			patchFilePath = os.path.join(patchTargetPathRoot, platform, branch, file + ".bsdiff")
-
-			originalHash = getFileSHA256(originalFilePath)
-			fixedHash = getFileSHA256(fixedFilePath)
-
-			fileHashes[platform][branch][file]["original"] = originalHash
-			fileHashes[platform][branch][file]["fixed"] = fixedHash
-
-			if originalHash != fixedHash:
-				fileTimeStart = process_time()
-
-				os.makedirs(os.path.dirname(patchFilePath), exist_ok=True)
-
-				if not os.path.isfile(originalFilePath):
-					print("\t\tOriginal doesn't exist, setting to NULL")
-					originalFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
-				elif not os.path.isfile(fixedFilePath):
-					print("\t\tFixed doesn't exist, setting to NULL")
-					fixedFilePath = "NUL" if sys.platform == "win32" else "/dev/null"
-
-				# TODO: Multithreading
-				bsdiff4.file_diff(originalFilePath, fixedFilePath, patchFilePath)
-
-				print("\t\tTook " + str(process_time() - fileTimeStart) + " second(s)")
-			else:
-				print("\t\tSkipped: Original matches Fixed hash" + (" (Files Not Found!)" if originalHash == "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855" else ""))
-				filesToSkip[platform][branch].append(file)
+		# Multithreaded hashing/diffing
+		with ThreadPoolExecutor() as executor:
+			for output in executor.map(hashAndDiffFile, filesToDiff[platform][branch]):
+				print(output)
 
 print("\nGenerating New Manifest...")
-manifestTimeStart = process_time()
+manifestTimeStart = time()
 
 for platform in filesToDiff:
 	for branch in filesToDiff[platform]:
@@ -259,6 +269,6 @@ for platform in filesToDiff:
 with open(manifestDest, "w+") as manifestFile:
 	json.dump(manifest, manifestFile, indent=4)
 
-print("\tTook " + str(process_time() - manifestTimeStart) + " second(s)")
+print("\tTook " + str(time() - manifestTimeStart) + " second(s)")
 
-print("\nCEFCodecFix Generation Complete, took " + str(process_time() - timeStart) + " second(s). NOTE: Remember to update GitHub with all of this!")
+print("\nCEFCodecFix Generation Complete, took " + str(time() - timeStart) + " second(s). NOTE: Remember to update GitHub with all of this!")
