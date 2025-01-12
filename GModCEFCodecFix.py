@@ -14,6 +14,7 @@
 # TODO: Check if GMod is currently running
 # TODO: Enable HTTP/2 with httpx?
 # TODO: Support patching in an updated version of BASS? Test results: https://discord.com/channels/104385214364536832/459880607120490496/1212241220844392519
+# TODO: Make "READ THE FAQ FIRST" more obvious
 
 # NOTE: Update everytime we release!
 VERSION = 20240926
@@ -636,6 +637,8 @@ if len(filesToUpdate) > 0:
 		if not cachedFileValid:
 			patchURL = manifest[file]["patch-url"]
 			print("\tDownloading: " + patchURL + "...")
+
+			# TODO: Retry up to 3 times in case of shenanigans
 			patchURLRequest = httpx.get(patchURL, follow_redirects=True, timeout=None)
 
 			if patchURLRequest.status_code != 200:
