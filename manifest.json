@@ -751,9 +751,9 @@
             },
             "garrysmod/html/js/menu/control.Menu.js": {
                 "original": "F31DFCEC64CBF53BB5AE7D8976E218F0B427D1A9F93A35AD0252726AA13CF188",
-                "patch": "08977046ABC3BF41AB038A9C949E812CBF5463AE46EE19D476EEEE73992FF3BE",
+                "patch": "AFF69B14343092150BBF26B0DECD0D89FE14FF0D777BC0520A80BE8921C9F2B2",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/darwin/x86-64/garrysmod/html/js/menu/control.Menu.js.bsdiff",
-                "fixed": "2EC4363892B49D3F30E1E18C23E0330FA0AE91DA7C0638396FC544A904F33D86"
+                "fixed": "45FF4183AD146FCD5EC087F4D1CC8D0BE5218D01DF41A37356618357C36687DF"
             },
             "garrysmod/lua/menu/mainmenu.lua": {
                 "original": "2B903DFC5C323745F4A87EADDE1D54103FB7885FFE19467BC8184995450B6AF3",
