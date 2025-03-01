@@ -1,0 +1,24 @@
+[package]
+name = "gmodpatchtool"
+version = "20250112.0.0"
+authors = ["Solstice Game Studios <contact@solsticegamestudios.com>"]
+license = "GNU General Public License v3.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.31", features = ["derive"] }
+dirs = "6.0.0"
+eframe = "0.31.0"
+keyvalues-parser = "0.2.0"
+phf = { version = "0.11.3", features = ["macros"] }
+reqwest = { version = "0.12.12", default-features = false, features = ["http2", "rustls-tls-native-roots", "json", "gzip", "brotli", "zstd", "socks"] }
+steamid = { version = "0.1.2", git = "https://github.com/JohnPeel/steamid" }
+sysinfo = "0.33.1"
+thiserror = "2.0.11"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter", "tracing-log"] }
+windows-registry = "0.5.0"
+
+[build-dependencies]
+winresource = "0.1.19"
