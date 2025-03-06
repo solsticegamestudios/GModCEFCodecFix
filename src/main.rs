@@ -84,9 +84,41 @@ enum AlmightyError {
 	Generic(String)
 }
 
-fn path_exists_and_dir_not_empty(path: &Path) -> bool {
-	let path_dir = path.read_dir().ok();
-	return if path.exists() && path_dir.is_some() && path_dir.unwrap().next().is_some() { true } else { false }
+fn pathbuf_dir_not_empty(pathbuf: &PathBuf) -> bool {
+	let pathbuf_dir = pathbuf.read_dir();
+	return if pathbuf_dir.is_ok() && pathbuf_dir.unwrap().next().is_some() { true } else { false };
+}
+
+fn pathbuf_to_canonical_pathbuf(pathbuf: PathBuf) -> Option<PathBuf> {
+	let pathbuf_result = pathbuf.canonicalize();
+
+	if pathbuf_result.is_ok() {
+		let pathbuf = pathbuf_result.unwrap();
+
+		if pathbuf_dir_not_empty(&pathbuf) {
+			Some(pathbuf)
+		} else {
+			None
+		}
+	} else {
+		None
+	}
+}
+
+fn string_to_canonical_pathbuf(path_str: String) -> Option<PathBuf> {
+	let pathbuf_result = Path::new(&path_str).canonicalize();
+
+	if pathbuf_result.is_ok() {
+		let pathbuf = pathbuf_result.unwrap();
+
+		if pathbuf_dir_not_empty(&pathbuf) {
+			Some(pathbuf)
+		} else {
+			None
+		}
+	} else {
+		None
+	}
 }
 
 fn extend_pathbuf_and_return(mut pathbuf: PathBuf, segments: &[&str]) -> PathBuf {
@@ -173,10 +205,10 @@ where
 	if args.steam_path.is_some() {
 		// Make sure the path the user is forcing actually exists
 		let steam_path_arg = args.steam_path.unwrap();
-		let steam_path_arg_path = Path::new(&steam_path_arg);
+		let steam_path_arg_pathbuf = string_to_canonical_pathbuf(steam_path_arg.clone());
 
-		if path_exists_and_dir_not_empty(steam_path_arg_path) {
-			steam_path = Some(steam_path_arg);
+		if steam_path_arg_pathbuf.is_some() {
+			steam_path = steam_path_arg_pathbuf;
 		} else {
 			return Err(AlmightyError::Generic(format!("Please check the --steam_path argument is pointing to a valid path:\n\t{steam_path_arg}")));
 		}
@@ -189,21 +221,21 @@ where
 				let steam_reg_path = steam_reg_key.unwrap().get_string("SteamPath");
 
 				if steam_reg_path.is_ok() {
-					steam_path = Some(steam_reg_path.unwrap());
+					steam_path = string_to_canonical_pathbuf(steam_reg_path.unwrap());
 				}
 			}
 		}
+
 		// macOS
 		#[cfg(target_os = "macos")]
 		{
 			// $HOME/Library/Application Support/Steam
 			let mut steam_data_path = dirs::data_dir().unwrap();
 			steam_data_path.push("Steam");
-
-			steam_path = Some(steam_data_path.to_str().unwrap().to_string());
+			steam_path = pathbuf_to_canonical_pathbuf(steam_data_path);
 		}
 
-		// Anything else (we assume *nix)
+		// Anything else (we assume Linux)
 		#[cfg(not(any(windows, target_os = "macos")))]
 		{
 			let home_dir = dirs::home_dir().unwrap();
@@ -216,23 +248,23 @@ where
 				extend_pathbuf_and_return(home_dir.clone(), &[".var", "app", "com.valvesoftware.Steam", ".steam", "steam"]),
 				// Home
 				extend_pathbuf_and_return(home_dir.clone(), &[".steam", "steam"]),
-				extend_pathbuf_and_return(home_dir.clone(), &[".steam"]),
+				//extend_pathbuf_and_return(home_dir.clone(), &[".steam"]),
 			];
 			let mut valid_steam_paths = vec![];
 
 			for pathbuf in possible_steam_paths {
-				if path_exists_and_dir_not_empty(&*pathbuf) {
-					valid_steam_paths.push((*pathbuf).to_str().unwrap().to_string());
+				let pathbuf = pathbuf_to_canonical_pathbuf(pathbuf);
+				if pathbuf.is_some() {
+					valid_steam_paths.push(pathbuf.unwrap());
 				}
 			}
 
 			// $XDG_DATA_HOME/Steam
 			let steam_xdg_path = dirs::data_dir();
 			if steam_xdg_path.is_some() {
-				let steam_xdg_path = extend_pathbuf_and_return(steam_xdg_path.unwrap(), &["Steam"]);
-
-				if path_exists_and_dir_not_empty(&*steam_xdg_path) {
-					valid_steam_paths.push((*steam_xdg_path).to_str().unwrap().to_string());
+				let steam_xdg_pathbuf = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_xdg_path.unwrap(), &["Steam"]));
+				if steam_xdg_pathbuf.is_some() {
+					valid_steam_paths.push(steam_xdg_pathbuf.unwrap());
 				}
 			}
 
@@ -240,7 +272,11 @@ where
 			// Warn if there's more than one
 			if valid_steam_paths.len() >= 1 {
 				if valid_steam_paths.len() > 1 {
-					let valid_steam_paths_str: String = "\n\t- ".to_owned() + &valid_steam_paths.join("\n\t- ");
+					let mut valid_steam_paths_str: String = "".to_string();
+					for pathbuf in &valid_steam_paths {
+						valid_steam_paths_str += "\n\t- ";
+						valid_steam_paths_str += &pathbuf.to_string_lossy().to_string();
+					}
 
 					terminal_write(writer, format!("Warning: Multiple Steam Installations Detected! This may cause issues:{valid_steam_paths_str}").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
 
@@ -267,13 +303,13 @@ where
 		return Err(AlmightyError::Generic("Couldn't find Steam. If it's installed, try using the --steam_path argument to force a specific path.".to_string()));
 	}
 
-	let steam_path_str = &steam_path.clone().unwrap();
-	let steam_path = Path::new(steam_path_str);
+	let steam_path = steam_path.unwrap();
+	let steam_path_str = steam_path.to_string_lossy();
 
 	terminal_write(writer, format!("Steam Path: {steam_path_str}\n").as_str(), true, None);
 
 	// Get most recent Steam User, which is probably the one they're using/want
-	let steam_loginusers_path = extend_pathbuf_and_return(steam_path.to_path_buf(), &["config", "loginusers.vdf"]);
+	let steam_loginusers_path = extend_pathbuf_and_return(steam_path.clone(), &["config", "loginusers.vdf"]);
 	let steam_loginusers_str = read_to_string(steam_loginusers_path);
 
 	if steam_loginusers_str.is_err() {
@@ -319,7 +355,7 @@ where
 	terminal_write(writer, format!("Steam User: {} ({} / {})\n", steam_user.get("PersonaName").unwrap(), steam_user.get("SteamID64").unwrap(), steam_user.get("SteamID3").unwrap()).as_str(), true, None);
 
 	// Get Steam Libraries
-	let steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.to_path_buf(), &["steamapps", "libraryfolders.vdf"]);
+	let steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "libraryfolders.vdf"]);
 	let steam_libraryfolders_str = read_to_string(steam_libraryfolders_path);
 
 	if steam_libraryfolders_str.is_err() {
@@ -342,11 +378,7 @@ where
 
 		if steam_library_apps.get(GMOD_STEAM_APPID).is_some() {
 			let steam_library_path = steam_library.get("path").unwrap()[0].clone();
-			let steam_library_path = steam_library_path.unwrap_str();
-
-			if Path::new(steam_library_path.as_str()).exists() {
-				gmod_steam_library_path = Some(steam_library_path);
-			}
+			gmod_steam_library_path = string_to_canonical_pathbuf(steam_library_path.unwrap_str().to_string());
 		}
 	}
 
@@ -354,8 +386,8 @@ where
 		return Err(AlmightyError::Generic("Couldn't find Garry's Mod app registration. Is Garry's Mod installed?".to_string()));
 	}
 
-	let gmod_steam_library_path_str = &gmod_steam_library_path.clone().unwrap();
-	let gmod_steam_library_path = Path::new(gmod_steam_library_path_str.as_str());
+	let gmod_steam_library_path = gmod_steam_library_path.unwrap();
+	let gmod_steam_library_path_str = gmod_steam_library_path.to_string_lossy();
 
 	terminal_write(writer, format!("GMod Steam Library: {gmod_steam_library_path_str}\n").as_str(), true, None);
 
@@ -381,7 +413,7 @@ where
 	let gmod_stateflags = gmod_manifest.get("StateFlags").unwrap()[0].clone().unwrap_str();
 	let gmod_scheduledautoupdate = gmod_manifest.get("ScheduledAutoUpdate").unwrap()[0].clone().unwrap_str();
 	if gmod_stateflags != "4" || gmod_scheduledautoupdate != "0" {
-		return Err(AlmightyError::Generic("Garry's Mod isn't Ready. Please make sure it is fully installed and up to date (check Steam > Downloads for pending updates).".to_string()));
+		return Err(AlmightyError::Generic("Garry's Mod isn't Ready. Check Steam > Downloads and make sure it is fully installed and up to date.".to_string()));
 	}
 
 	terminal_write(writer, format!("GMod App State: {gmod_stateflags} / {gmod_scheduledautoupdate}\n").as_str(), true, None);
@@ -394,16 +426,32 @@ where
 
 	terminal_write(writer, format!("GMod Beta Branch: {gmod_branch}\n").as_str(), true, None);
 
+	// Get GMod path
+	// TODO: What about case-sensitive filesystems where it's named SteamApps or something
+	// TODO: What about `steamapps/<username>/GarrysMod`? Is that still a thing, or did SteamPipe kill/migrate it completely?
+	let gmod_path = gmod_manifest.get("installdir").unwrap()[0].clone().unwrap_str();
+	let gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "common", &gmod_path]));
+
+	if gmod_path.is_none() {
+		return Err(AlmightyError::Generic("Couldn't find Garry's Mod directory. Is Garry's Mod installed?".to_string()));
+	}
+
+	let gmod_path = gmod_path.unwrap();
+	let gmod_path_str = gmod_path.to_string_lossy();
+
+	terminal_write(writer, format!("GMod Path: {gmod_path_str}\n").as_str(), true, None);
+
 	// Determine target platform
 	// Get GMod CompatTool config (Steam Linux Runtime, Proton, etc) on Linux
 	// NOTE: platform_masked is specifically for Proton
 	let platform = if cfg!(windows) { "windows" } else if cfg!(target_os = "macos") { "macos" } else { "linux" };
 	let mut platform_masked = platform;
+	let mut gmod_compattool = "none".to_string();
 
 	#[cfg(not(any(windows, target_os = "macos")))]
 	{
 		// Get Steam config
-		let steam_config_path = extend_pathbuf_and_return(steam_path.to_path_buf(), &["config", "config.vdf"]);
+		let steam_config_path = extend_pathbuf_and_return(steam_path.clone(), &["config", "config.vdf"]);
 		let steam_config_str = read_to_string(steam_config_path);
 
 		if steam_config_str.is_err() {
@@ -427,16 +475,23 @@ where
 		if steam_config_compattoolmapping.is_some() {
 			let steam_config_compattoolmapping = steam_config_compattoolmapping.clone().unwrap()[0].clone().unwrap_obj();
 			if steam_config_compattoolmapping.contains_key(GMOD_STEAM_APPID) {
-				let gmod_compattool = steam_config_compattoolmapping.get(GMOD_STEAM_APPID).unwrap()[0].clone().unwrap_obj().get("name").unwrap()[0].clone().unwrap_str().to_lowercase();
+				let compattool = steam_config_compattoolmapping.get(GMOD_STEAM_APPID).unwrap()[0].clone().unwrap_obj().get("name").unwrap()[0].clone().unwrap_str().to_lowercase();
 
-				if gmod_compattool.contains("proton") {
+				if compattool.contains("proton") {
 					platform_masked = "windows";
 				}
+
+				gmod_compattool = compattool;
 			}
 		}
 	}
 
-	// TODO: The rest of the owl
+	terminal_write(writer, format!("Target Platform: {platform_masked} ({gmod_compattool})\n").as_str(), true, None);
+
+	// TODO: Check user launch options for -nochromium
+	// TODO: AppInfo launch options for auto-starting GMod? What if we just relied on steam://rungameid/4000 instead?
+	// TODO: Get remote manifest
+	// TODO: Patch files, etc
 
 	Ok(())
 }
