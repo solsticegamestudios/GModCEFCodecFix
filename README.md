@@ -31,7 +31,7 @@ Direct players to follow the Players' instructions above. This patch is CLIENTSI
 >
 > Site Isolation destroys JavaScript state is on navigation like how real web browsers work.
 >
-> This tool includes a patch for mainmenu.lua that addresses GMod's own issues with the new approach, but **this is a breaking change** for any addon that doesn't handle HTML panel states properly for JS.
+> This tool includes a patch for mainmenu.lua that addresses GMod's own issues not using the correct approach, but **this is a breaking change** for any addon that doesn't handle HTML panel states properly for JS.
 
 **If you want to go more in-depth:** Check out [our fork of gmod-html](https://github.com/solsticegamestudios/gmod-html) and [our CEF build scripts](cef_build).
 
