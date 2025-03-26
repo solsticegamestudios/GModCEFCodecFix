@@ -24,6 +24,15 @@ Direct players to follow the Players' instructions above. This patch is CLIENTSI
 
 **To Detect Patched CEF:** Check out our [Lua detection example](detection_example.lua).
 
+> [!WARNING]
+> Our  CEF builds have Site Isolation enabled, which means **you must pay attention to where you're calling JavaScript-related DHTML functions!**
+>
+> If you call [DHTML.AddFunction](https://wiki.facepunch.com/gmod/DHTML:AddFunction), [DHTML.QueueJavascript](https://wiki.facepunch.com/gmod/DHTML:QueueJavascript), or [DHTML.RunJavascript](https://wiki.facepunch.com/gmod/Panel:RunJavascript) before the page begins loading, it WILL NOT WORK! Make sure you're calling them in [DHTML.OnBeginLoadingDocument](https://wiki.facepunch.com/gmod/Panel:OnBeginLoadingDocument) or later.
+>
+> Site Isolation destroys JavaScript state is on navigation like how real web browsers work.
+>
+> This tool includes a patch for mainmenu.lua that addresses GMod's own issues with the new approach, but **this is a breaking change** for any addon that doesn't handle HTML panel states properly for JS.
+
 **If you want to go more in-depth:** Check out [our fork of gmod-html](https://github.com/solsticegamestudios/gmod-html) and [our CEF build scripts](cef_build).
 
 # 📢 Need Help / Contact Us
