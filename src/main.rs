@@ -12,7 +12,19 @@ FAQ/Common Issues: https://www.solsticegamestudios.com/fixmedia/faq/
 Discord: https://www.solsticegamestudios.com/discord/
 Email: contact@solsticegamestudios.com\n";
 
+// TODO: Change from master to files branch
+const TXT_SERVER_ROOTS: [&str; 2] = [
+	"https://raw.githubusercontent.com/solsticegamestudios/GModPatchTool/refs/heads/master/",
+	"https://www.solsticegamestudios.com/gmodpatchtool/"
+];
+
+const PATCH_SERVER_ROOTS: [&str; 2] = [
+	"https://media.githubusercontent.com/media/solsticegamestudios/GModPatchTool/refs/heads/files/",
+	"https://www.solsticegamestudios.com/gmodpatchtool/"
+];
+
 const GMOD_STEAM_APPID: &str = "4000";
+const BLANK_FILE_SHA256: &str = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855";
 
 mod gui;
 
@@ -33,6 +45,11 @@ use keyvalues_parser::Vdf;
 use std::collections::HashMap;
 use steamid::SteamId;
 use sysinfo::System;
+use sha2::{Sha256, Digest};
+use std::fs::File;
+use std::io;
+use rayon::prelude::*;
+use std::sync::mpsc;
 
 #[derive(Parser)]
 #[command(version)]
@@ -85,6 +102,11 @@ enum AlmightyError {
 }
 
 fn pathbuf_dir_not_empty(pathbuf: &PathBuf) -> bool {
+	// If this is a valid file in the directory, the directory isn't empty
+	if pathbuf.is_file() {
+		return true;
+	}
+
 	let pathbuf_dir = pathbuf.read_dir();
 	return if pathbuf_dir.is_ok() && pathbuf_dir.unwrap().next().is_some() { true } else { false };
 }
@@ -126,6 +148,50 @@ fn extend_pathbuf_and_return(mut pathbuf: PathBuf, segments: &[&str]) -> PathBuf
 	return pathbuf;
 }
 
+#[derive(PartialEq, Eq, Hash, Clone, Debug)]
+enum IntegrityStatus {
+	NeedOriginal = 0,
+	NeedWipeFix = 1,
+	NeedFix = 2,
+	Fixed = 3
+}
+
+fn determine_file_integrity_status(gmod_path: PathBuf, filename: &String, hashes: &HashMap<String, String>) -> Result<IntegrityStatus, String> {
+	let file_parts: Vec<&str> = filename.split("/").collect();
+	let file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path, &file_parts[..]));
+	let mut file_hash = BLANK_FILE_SHA256.to_string();
+
+	if file_path.is_some() {
+		let file = File::open(&file_path.unwrap());
+		if file.is_ok() {
+			let mut file = file.unwrap();
+			let mut hasher = Sha256::new();
+			let copy_result = io::copy(&mut file, &mut hasher);
+			if copy_result.is_ok() {
+				file_hash = format!("{:X}", hasher.finalize());
+			}
+		} else {
+			return Err(file.unwrap_err().to_string());
+		}
+	}
+
+	if file_hash == hashes["fixed"] {
+		return Ok(IntegrityStatus::Fixed);
+	} else {
+		// File needs to be fixed...
+		if file_hash == hashes["original"] {
+			// The file is the original, so we just to apply the patch
+			return Ok(IntegrityStatus::NeedFix);
+		} else if hashes["original"] == BLANK_FILE_SHA256 {
+			// The original file was empty, so we need to wipe the file, then patch it
+			return Ok(IntegrityStatus::NeedWipeFix);
+		} else {
+			// We don't recognize the hash, so we need to first replace the file with the original (which we'll download), then apply the patch to that file
+			return Ok(IntegrityStatus::NeedOriginal);
+		}
+	}
+}
+
 async fn main_script_internal<W>(writer: fn() -> W, writer_is_interactive: bool, args: Args) -> Result<(), AlmightyError>
 where
 	W: std::io::Write + 'static
@@ -136,14 +202,36 @@ where
 	// Get remote version
 	terminal_write(writer, "Getting remote version...", true, None);
 
-	let remote_version_response = reqwest::get("https://raw.githubusercontent.com/solsticegamestudios/GModPatchTool/refs/heads/master/version.txt")
-	.await?;
+	let mut txt_server_id: u8 = 0;
+	let mut remote_version_response = None;
+	while (txt_server_id as usize) < TXT_SERVER_ROOTS.len() {
+		let url = TXT_SERVER_ROOTS[txt_server_id as usize].to_string() + "version.txt";
+		let remote_version_response_result = reqwest::get(url.clone()).await;
 
-	let remote_version_status_code = remote_version_response.status().as_u16();
-	if remote_version_status_code != 200 {
-		return Err(AlmightyError::Generic(format!("Bad HTTP Status Code: {remote_version_status_code}")));
+		if remote_version_response_result.is_ok() {
+			remote_version_response = remote_version_response_result.ok();
+
+			let remote_version_status_code = remote_version_response.as_ref().unwrap().status().as_u16();
+			if remote_version_status_code == 200 {
+				break;
+			} else {
+				terminal_write(writer, format!("\n{url}\n\tBad HTTP Status Code: {remote_version_status_code}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				remote_version_response = None;
+				txt_server_id += 1;
+			}
+		} else {
+			let error = remote_version_response_result.unwrap_err().without_url();
+			terminal_write(writer, format!("\n{url}\n\tHTTP Error: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+			remote_version_response = None;
+			txt_server_id += 1;
+		}
 	}
 
+	if remote_version_response.is_none() {
+		return Err(AlmightyError::Generic(format!("Couldn't get remote version. Please check your internet connection!")));
+	}
+
+	let remote_version_response = remote_version_response.unwrap();
 	let remote_version: u32 = remote_version_response.text()
 	.await?
 	.trim()
@@ -164,11 +252,12 @@ where
 
 		// Clear continuing line
 		if writer_is_interactive {
-			terminal_write(writer, "\x1B[0K\n", false, if writer_is_interactive { Some("yellow") } else { None });
+			terminal_write(writer, "\x1B[0K\n", false, None);
 		}
 	}
 
 	// TODO: Warn about running as root
+	// TODO: Force confirmation? Tell them how to abort (CTRL+C)?
 	let root = false;
 	if root {
 		terminal_write(writer, "WARNING: You are running GModPatchTool as root/with admin privileges. This may cause issues and is not typically necessary.", true, if writer_is_interactive { Some("red") } else { None });
@@ -183,7 +272,7 @@ where
 
 		// Clear continuing line
 		if writer_is_interactive {
-			terminal_write(writer, "\x1B[0K\n", false, if writer_is_interactive { Some("yellow") } else { None });
+			terminal_write(writer, "\x1B[0K\n", false, None);
 		}
 	}
 
@@ -192,12 +281,12 @@ where
 
 	// Windows
 	for _ in sys.processes_by_exact_name("gmod.exe".as_ref()) {
-		return Err(AlmightyError::Generic(format!("Garry's Mod is currently running. Please close it before running this tool.")));
+		return Err(AlmightyError::Generic("Garry's Mod is currently running. Please close it before running this tool.".to_string()));
 	}
 
 	// Linux / macOS
 	for _ in sys.processes_by_exact_name("gmod".as_ref()) {
-		return Err(AlmightyError::Generic(format!("Garry's Mod is currently running. Please close it before running this tool.")));
+		return Err(AlmightyError::Generic("Garry's Mod is currently running. Please close it before running this tool.".to_string()));
 	}
 
 	// Find Steam
@@ -290,7 +379,7 @@ where
 
 					// Clear continuing line
 					if writer_is_interactive {
-						terminal_write(writer, "\x1B[0K\n", false, if writer_is_interactive { Some("yellow") } else { None });
+						terminal_write(writer, "\x1B[0K\n", false, None);
 					}
 				}
 
@@ -350,9 +439,8 @@ where
 	}
 
 	let steam_id = SteamId::new(steam_user.get("SteamID64").unwrap().parse::<u64>().unwrap()).unwrap();
-	steam_user.insert("SteamID3", steam_id.steam3id());
 
-	terminal_write(writer, format!("Steam User: {} ({} / {})\n", steam_user.get("PersonaName").unwrap(), steam_user.get("SteamID64").unwrap(), steam_user.get("SteamID3").unwrap()).as_str(), true, None);
+	terminal_write(writer, format!("Steam User: {} ({} / {})\n", steam_user.get("PersonaName").unwrap(), steam_user.get("SteamID64").unwrap(), steam_id.steam3id()).as_str(), true, None);
 
 	// Get Steam Libraries
 	let steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "libraryfolders.vdf"]);
@@ -441,6 +529,19 @@ where
 
 	terminal_write(writer, format!("GMod Path: {gmod_path_str}\n").as_str(), true, None);
 
+	// Abort if they're running as root AND the GMod directory isn't owned by root
+	// Will hopefully prevent broken installs/updating
+	#[cfg(not(any(windows, target_os = "macos")))]
+	if root {
+		let gmod_dir_meta = std::fs::metadata(gmod_path);
+		if gmod_dir_meta.is_ok() {
+			let gmod_dir_meta = gmod_dir_meta.unwrap();
+			if gmod_dir_meta.uid() != 0 {
+				return Err(AlmightyError::Generic("You are running GModPatchTool as root, but the Garry's Mod directory isn't owned by root. Either fix your permissions or don't run as root! Aborting...".to_string()));
+			}
+		}
+	}
+
 	// Determine target platform
 	// Get GMod CompatTool config (Steam Linux Runtime, Proton, etc) on Linux
 	// NOTE: platform_masked is specifically for Proton
@@ -488,10 +589,184 @@ where
 
 	terminal_write(writer, format!("Target Platform: {platform_masked} ({gmod_compattool})\n").as_str(), true, None);
 
-	// TODO: Check user launch options for -nochromium
-	// TODO: AppInfo launch options for auto-starting GMod? What if we just relied on steam://rungameid/4000 instead?
-	// TODO: Get remote manifest
+	// Warn if -nochromium is in launch options
+	// Some GMod "menu error fix" guides include it + gmod-lua-menu
+	let steam_user_localconfig_path = extend_pathbuf_and_return(steam_path.clone(), &["userdata", steam_id.account_id().into_u32().to_string().as_str(), "config", "localconfig.vdf"]);
+	let steam_user_localconfig_str = read_to_string(steam_user_localconfig_path);
+
+	if steam_user_localconfig_str.is_err() {
+		return Err(AlmightyError::Generic("Couldn't find Steam localconfig.vdf. Have you ever launched/signed in to Steam?".to_string()));
+	}
+
+	let steam_user_localconfig_str = steam_user_localconfig_str.unwrap();
+	let steam_user_localconfig = Vdf::parse(steam_user_localconfig_str.as_str());
+
+	if steam_user_localconfig.is_err() {
+		return Err(AlmightyError::Generic("Couldn't parse Steam localconfig.vdf. Is the file corrupt?".to_string()));
+	}
+
+	let steam_user_localconfig = steam_user_localconfig.unwrap();
+	let steam_user_localconfig = steam_user_localconfig.value.unwrap_obj();
+	let steam_user_localconfig_apps = steam_user_localconfig.get("Software").unwrap()[0].clone().unwrap_obj()
+		.get("Valve").unwrap()[0].clone().unwrap_obj()
+		.get("Steam").unwrap()[0].clone().unwrap_obj()
+		.get("apps").unwrap()[0].clone().unwrap_obj();
+	let steam_user_localconfig_gmod = steam_user_localconfig_apps.get(GMOD_STEAM_APPID);
+
+	if steam_user_localconfig_gmod.is_some() {
+		let steam_user_localconfig_gmod = steam_user_localconfig_gmod.clone().unwrap()[0].clone().unwrap_obj();
+		let steam_user_localconfig_gmod_launchopts = steam_user_localconfig_gmod.get("LaunchOptions");
+
+		if steam_user_localconfig_gmod_launchopts.is_some() {
+			let steam_user_localconfig_gmod_launchopts = steam_user_localconfig_gmod_launchopts.clone().unwrap()[0].clone().unwrap_str();
+			if steam_user_localconfig_gmod_launchopts.contains("-nochromium") {
+				terminal_write(writer, "WARNING: -nochromium is in GMod's Launch Options! CEF will not work with this.\n\tPlease go to Steam > Garry's Mod > Properties > General and remove it.\n\tAdditionally, if you have gmod-lua-menu installed, uninstall it.", true, if writer_is_interactive { Some("yellow") } else { None });
+
+				let mut secs_to_continue: u8 = 5;
+				while secs_to_continue > 0 {
+					terminal_write(writer, format!("\tContinuing in {secs_to_continue} second(s)...\r").as_str(), false, if writer_is_interactive { Some("yellow") } else { None });
+					writer().flush().unwrap();
+					tokio::time::sleep(time::Duration::from_secs(1)).await;
+					secs_to_continue -= 1;
+				}
+		
+				// Clear continuing line
+				if writer_is_interactive {
+					terminal_write(writer, "\x1B[0K\n", false, None);
+				}
+			}
+		}
+	} else {
+		return Err(AlmightyError::Generic("Couldn't find Garry's Mod in user localconfig.vdf. Is Garry's Mod installed?".to_string()));
+	}
+
+	// Get remote manifest
+	terminal_write(writer, "Getting remote manifest...", true, None);
+
+	let mut txt_server_id: u8 = 0;
+	let mut remote_manifest_response = None;
+	while (txt_server_id as usize) < TXT_SERVER_ROOTS.len() {
+		let url = TXT_SERVER_ROOTS[txt_server_id as usize].to_string() + "manifest.json";
+		let remote_manifest_response_result = reqwest::get(url.clone()).await;
+
+		if remote_manifest_response_result.is_ok() {
+			remote_manifest_response = remote_manifest_response_result.ok();
+
+			let remote_version_status_code = remote_manifest_response.as_ref().unwrap().status().as_u16();
+			if remote_version_status_code == 200 {
+				break;
+			} else {
+				terminal_write(writer, format!("{url}\n\tBad HTTP Status Code: {remote_version_status_code}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				remote_manifest_response = None;
+				txt_server_id += 1;
+			}
+		} else {
+			let error = remote_manifest_response_result.unwrap_err().without_url();
+			terminal_write(writer, format!("{url}\n\tHTTP Error: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+			remote_manifest_response = None;
+			txt_server_id += 1;
+		}
+	}
+
+	if remote_manifest_response.is_none() {
+		terminal_write(writer, "", true, None); // Newline
+		return Err(AlmightyError::Generic("Couldn't get remote manifest. Please check your internet connection!".to_string()));
+	}
+
+	let remote_manifest_response = remote_manifest_response.unwrap();
+	let remote_manifest = remote_manifest_response.json::<HashMap<String, HashMap<String, HashMap<String, HashMap<String, String>>>>>()
+	.await?;
+
+	terminal_write(writer, "GModPatchTool Manifest Loaded!\n", true, None);
+
+	// HACK: REMOVE ME!!
+	let platform_masked = "win32";
+	let test_remote_manifest = r#"
+	{
+		"windows": {
+			"x86-64": {
+				"bin/chrome_elf.dll": {
+					"original": "31CB72D373FE4B6D4B06F75442B983223016D1FD1550C799B5C9583567CE1A8E",
+					"patch": "685E1F915724159D3ADB8F9091629BF6CF4C63D541733015E7AB77E7BC9A6383",
+					"fixed": "0DDE88487A4CAD9FC606CA895A38DF362F69828545BF407B2081928EA8962B2A"
+				}
+			}
+		},
+		"macos": {
+			"x86-64": {
+				"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework": {
+					"original": "5AAA46AF0469FEE56C3D3CA9AA08CC0B3D8D54C8C1BEA267D4E3A3ADAD8DB71C",
+					"patch": "6B290562C9403BF5D8DA7D334F900FBC5CA44A9F373701F372009F36AA715DD2",
+					"fixed": "032AEFFA9B7562E8D59069017684F172578BF9EB55808463F7CABAD5F3C4CD5E"
+				}
+			}
+		},
+		"linux": {
+			"x86-64": {
+				"bin/linux32/chromium/locales/zh-TW.pak": {
+					"original": "0347DE149FA81F961D1658CFA332E315A231158A56F81247AE5FE7B930D8D81F",
+					"patch": "F1AE892AADD4F5D27951078E04DA22657CF46C767297F1A456A6FAB160CA8AF7",
+					"fixed": "C07FF3E19D202E37BA8E80A6FA3C71F30E4F4624BFFB1D65A004CD3AB31B4AB7"
+				}
+			}
+		}
+	}
+	"#;
+	// ENDHACK
+
+	let platform_branches = remote_manifest.get(platform_masked);
+	if platform_branches.is_none() {
+		return Err(AlmightyError::Generic(format!("This operating system ({platform_masked}) is not supported!")));
+	}
+
+	let platform_branch_files = platform_branches.unwrap().get(&gmod_branch);
+	if platform_branch_files.is_none() {
+		return Err(AlmightyError::Generic(format!("This Beta Branch of Garry's Mod ({gmod_branch}) is not supported! Please go to Steam > Garry's Mod > Properties > Betas, select the x86-64 beta, then try again.")));
+	}
+
+	let platform_branch_files = platform_branch_files.unwrap();
+
+	// Determine file integrity status
+	terminal_write(writer, "Determining file integrity status...", true, None);
+
+	// TODO: phf_map for these
+	let integrity_status_strings = HashMap::from([
+		(IntegrityStatus::NeedOriginal, "Needs Original + Fix"),
+		(IntegrityStatus::NeedWipeFix, "Needs Wipe + Fix"),
+		(IntegrityStatus::NeedFix, "Needs Fix"),
+		(IntegrityStatus::Fixed, "Already Fixed")
+	]);
+
+	let (tx, rx) = mpsc::channel();
+	let integrity_results: Vec<(&String, Result<IntegrityStatus, String>)> = platform_branch_files.par_iter()
+	.map(|(filename, hashes)| {
+		let integrity_result = determine_file_integrity_status(gmod_path.clone(), filename, hashes);
+		let integrity_result_clone = integrity_result.clone();
+
+		if integrity_result_clone.is_ok() {
+			let integrity_status_string = integrity_status_strings[&integrity_result_clone.unwrap()];
+			terminal_write(writer, format!("\t{filename}: {integrity_status_string}").as_str(), true, None);
+		} else {
+			let integrity_status_string = integrity_result_clone.unwrap_err();
+			terminal_write(writer, format!("\t{filename}: {integrity_status_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+		}
+
+		tx.send(integrity_result.is_err()).unwrap();
+
+		return (filename, integrity_result);
+	}).collect();
+
+	let integrity_fatal_error = rx.recv().unwrap();
+	if integrity_fatal_error {
+		return Err(AlmightyError::Generic(format!("Couldn't check integrity of one or more files! Please try again.")));
+	}
+
+	for (filename, result) in integrity_results {
+		//println!("{filename}: {:#?}", result);
+	}
+
 	// TODO: Patch files, etc
+	// TODO: AppInfo launch options for auto-starting GMod? What if we just relied on steam://rungameid/4000 instead?
 
 	Ok(())
 }
@@ -500,9 +775,9 @@ pub fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool) -> JoinHan
 where
 	W: std::io::Write + 'static
 {
-	// HACK: Default is typically 2 MiB, but Vdf parsing can sometimes overflow the stack on Windows?
-	// TODO: Report config.vdf overflow (maybe related to Issue #54?): https://github.com/CosmicHorrorDev/vdf-rs/issues
-	let builder = thread::Builder::new().stack_size(4194304); // 4 MiB
+	// HACK: Default is typically 2 MiB, but Vdf parsing can sometimes overflow the stack...
+	// TODO: Report localconfig.vdf/config.vdf overflow (maybe related to Issue #54?): https://github.com/CosmicHorrorDev/vdf-rs/issues
+	let builder = thread::Builder::new().stack_size(8388608); // 8 MiB
 
 	// This is a separate thread because the GUI (if it exists) blocks the main thread
 	builder.spawn(move || {
