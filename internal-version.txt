@@ -1,5 +1,0 @@
-Last Updated: 2020-03-05, using values taken from the x86-64 branch
-
-CEF: Release Branch 3987
-Chromium: 80.0.3987.122
-depot_tools: Commit Unknown (Unknown Date)
