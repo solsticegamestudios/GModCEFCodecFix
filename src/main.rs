@@ -12,14 +12,20 @@ FAQ/Common Issues: https://www.solsticegamestudios.com/fixmedia/faq/
 Discord: https://www.solsticegamestudios.com/discord/
 Email: contact@solsticegamestudios.com\n";
 
-// TODO: Change from master to files branch
-const TXT_SERVER_ROOTS: [&str; 2] = [
+const VERSION_SERVER_ROOTS: [&str; 2] = [
 	"https://raw.githubusercontent.com/solsticegamestudios/GModPatchTool/refs/heads/master/",
 	"https://www.solsticegamestudios.com/gmodpatchtool/"
 ];
 
+const MANIFEST_SERVER_ROOTS: [&str; 2] = [
+	"https://raw.githubusercontent.com/solsticegamestudios/GModPatchTool/refs/heads/files/",
+	"https://www.solsticegamestudios.com/gmodpatchtool/"
+];
+
+// TODO: Compress patch/original files on these servers (GitHub does not serve them with Content-Encoding, + Bandwidth/Storage costs!!!)
 const PATCH_SERVER_ROOTS: [&str; 2] = [
-	"https://media.githubusercontent.com/media/solsticegamestudios/GModPatchTool/refs/heads/files/",
+	//"https://media.githubusercontent.com/media/solsticegamestudios/GModPatchTool/refs/heads/files/",
+	"https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/refs/heads/files/",
 	"https://www.solsticegamestudios.com/gmodpatchtool/"
 ];
 
@@ -30,7 +36,7 @@ mod gui;
 
 use eframe::egui::TextBuffer;
 use tokio;
-use tracing::{debug, error, info, warn};
+use tracing::error;
 use tracing_subscriber::filter::EnvFilter;
 use clap::Parser;
 use std::io::IsTerminal;
@@ -49,7 +55,9 @@ use sha2::{Sha256, Digest};
 use std::fs::File;
 use std::io;
 use rayon::prelude::*;
-use std::sync::mpsc;
+use reqwest::Response;
+use tokio::time::Instant;
+use tokio::task::JoinSet;
 
 #[derive(Parser)]
 #[command(version)]
@@ -111,13 +119,14 @@ fn pathbuf_dir_not_empty(pathbuf: &PathBuf) -> bool {
 	return if pathbuf_dir.is_ok() && pathbuf_dir.unwrap().next().is_some() { true } else { false };
 }
 
-fn pathbuf_to_canonical_pathbuf(pathbuf: PathBuf) -> Option<PathBuf> {
+// TODO: Make this return a Result<PathBuf, Error>
+fn pathbuf_to_canonical_pathbuf(pathbuf: PathBuf, checkdirempty: bool) -> Option<PathBuf> {
 	let pathbuf_result = pathbuf.canonicalize();
 
 	if pathbuf_result.is_ok() {
 		let pathbuf = pathbuf_result.unwrap();
 
-		if pathbuf_dir_not_empty(&pathbuf) {
+		if !checkdirempty || pathbuf_dir_not_empty(&pathbuf) {
 			Some(pathbuf)
 		} else {
 			None
@@ -148,30 +157,81 @@ fn extend_pathbuf_and_return(mut pathbuf: PathBuf, segments: &[&str]) -> PathBuf
 	return pathbuf;
 }
 
+async fn get_http_response<W>(writer: fn() -> W, writer_is_interactive: bool, servers: &[&str], filename: &str) -> Option<Response>
+where
+	W: std::io::Write + 'static
+{
+	let mut server_id: u8 = 0;
+	let mut try_count: u8 = 0;
+	let mut response = None;
+	while (server_id as usize) < servers.len() {
+		let url = servers[server_id as usize].to_string() + filename;
+		let response_result = reqwest::get(url.clone()).await;
+
+		if response_result.is_ok() {
+			response = response_result.ok();
+
+			let response_status_code = response.as_ref().unwrap().status().as_u16();
+			if response_status_code == 200 {
+				break;
+			} else {
+				terminal_write(writer, format!("\n{url}\n\tBad HTTP Status Code: {response_status_code}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				response = None;
+				server_id += 1;
+			}
+		} else {
+			let error = response_result.unwrap_err().without_url();
+			terminal_write(writer, format!("\n{url}\n\tHTTP Error: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+			response = None;
+			try_count += 1;
+
+			// Try 3 times with full HTTP errors (Anti-DDoS, etc)
+			if try_count >= 3 {
+				server_id += 1;
+				try_count = 0;
+			}
+		}
+	}
+
+	return response;
+}
+
+fn get_file_sha256(file_path: &PathBuf) -> Result<String, String> {
+	let file = File::open(file_path);
+	if file.is_ok() {
+		let mut file = file.unwrap();
+		let mut hasher = Sha256::new();
+		let copy_result = io::copy(&mut file, &mut hasher);
+		if copy_result.is_ok() {
+			return Ok(format!("{:X}", hasher.finalize()));
+		} else {
+			return Err(copy_result.unwrap_err().to_string())
+		}
+	} else {
+		return Err(file.unwrap_err().to_string());
+	}
+}
+
 #[derive(PartialEq, Eq, Hash, Clone, Debug)]
 enum IntegrityStatus {
-	NeedOriginal = 0,
-	NeedWipeFix = 1,
-	NeedFix = 2,
-	Fixed = 3
+	NeedDelete = 0,
+	NeedOriginal = 1,
+	NeedWipeFix = 2,
+	NeedFix = 3,
+	Fixed = 4
 }
 
 fn determine_file_integrity_status(gmod_path: PathBuf, filename: &String, hashes: &HashMap<String, String>) -> Result<IntegrityStatus, String> {
 	let file_parts: Vec<&str> = filename.split("/").collect();
-	let file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path, &file_parts[..]));
+	let file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path, &file_parts[..]), false);
 	let mut file_hash = BLANK_FILE_SHA256.to_string();
 
 	if file_path.is_some() {
-		let file = File::open(&file_path.unwrap());
-		if file.is_ok() {
-			let mut file = file.unwrap();
-			let mut hasher = Sha256::new();
-			let copy_result = io::copy(&mut file, &mut hasher);
-			if copy_result.is_ok() {
-				file_hash = format!("{:X}", hasher.finalize());
-			}
+		let file_hash_result = get_file_sha256(&file_path.unwrap());
+		if file_hash_result.is_ok() {
+			file_hash = file_hash_result.unwrap();
 		} else {
-			return Err(file.unwrap_err().to_string());
+			return Err(file_hash_result.unwrap_err());
 		}
 	}
 
@@ -179,12 +239,15 @@ fn determine_file_integrity_status(gmod_path: PathBuf, filename: &String, hashes
 		return Ok(IntegrityStatus::Fixed);
 	} else {
 		// File needs to be fixed...
-		if file_hash == hashes["original"] {
+		if hashes["fixed"] == BLANK_FILE_SHA256 {
+			// This is a file that doesn't exist anymore after patching
+			return Ok(IntegrityStatus::NeedDelete);
+		} else if hashes["original"] == BLANK_FILE_SHA256 {
+			// The original file didn't exist, so we need to wipe/create the file, then patch it
+			return Ok(IntegrityStatus::NeedWipeFix);
+		} else if file_hash == hashes["original"] {
 			// The file is the original, so we just to apply the patch
 			return Ok(IntegrityStatus::NeedFix);
-		} else if hashes["original"] == BLANK_FILE_SHA256 {
-			// The original file was empty, so we need to wipe the file, then patch it
-			return Ok(IntegrityStatus::NeedWipeFix);
 		} else {
 			// We don't recognize the hash, so we need to first replace the file with the original (which we'll download), then apply the patch to that file
 			return Ok(IntegrityStatus::NeedOriginal);
@@ -192,40 +255,91 @@ fn determine_file_integrity_status(gmod_path: PathBuf, filename: &String, hashes
 	}
 }
 
+async fn download_file_to_cache<W>(writer: fn() -> W, writer_is_interactive: bool, cache_dir: PathBuf, filename: String, target_hash: String) -> Result<(), ()>
+where
+	W: std::io::Write + 'static
+{
+	let file_parts: Vec<&str> = filename.split("/").collect();
+	let cache_file_path = extend_pathbuf_and_return(cache_dir, &file_parts[..]);
+	let cache_file_path_result = pathbuf_to_canonical_pathbuf(cache_file_path.clone(), false);
+
+	terminal_write(writer, format!("\tDownloading: {filename} ...").as_str(), true, None);
+
+	// Look in the cache to see if the file already exists
+	if cache_file_path_result.is_some() {
+		let file_hash_result = get_file_sha256(&cache_file_path);
+		if file_hash_result.is_ok() {
+			let file_hash = file_hash_result.unwrap();
+
+			if file_hash == target_hash {
+				terminal_write(writer, format!("\tDownloaded (From Cache): {filename}").as_str(), true, None);
+				return Ok(());
+			}
+		}
+	}
+
+	// If it's not in the cache, or there's a checksum mismatch with the version in the cache, (re-)download it
+	let response = get_http_response(writer, writer_is_interactive, &PATCH_SERVER_ROOTS, filename.as_str()).await;
+	if response.is_some() {
+		let response = response.unwrap();
+		let bytes = response.bytes().await;
+
+		if bytes.is_ok() {
+			let mut cache_file_path_dir = cache_file_path.clone();
+			cache_file_path_dir.pop();
+			let cache_file_path_dir_canonical = pathbuf_to_canonical_pathbuf(cache_file_path_dir.clone(), false);
+
+			if cache_file_path_dir_canonical.is_none() {
+				let create_dir_result = std::fs::create_dir_all(cache_file_path_dir);
+				if create_dir_result.is_err() {
+					let error_string = create_dir_result.unwrap_err().to_string();
+					terminal_write(writer, format!("\tFailed to Download: {filename} | Step 2: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				}
+			}
+
+			let write_result = std::fs::write(cache_file_path.clone(), bytes.unwrap());
+			if write_result.is_ok() {
+				let file_hash_result = get_file_sha256(&cache_file_path);
+				if file_hash_result.is_ok() {
+					let file_hash = file_hash_result.unwrap();
+
+					if file_hash == target_hash {
+						terminal_write(writer, format!("\tDownloaded: {filename}").as_str(), true, None);
+						return Ok(());
+					} else {
+						terminal_write(writer, format!("\tFailed to Download: {filename} | Step 4: Checksum mismatch").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+					}
+				} else {
+					let error_string = file_hash_result.unwrap_err().to_string();
+					terminal_write(writer, format!("\tFailed to Download: {filename} | Step 3: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				}
+			} else {
+				let error_string = write_result.unwrap_err().to_string();
+				terminal_write(writer, format!("\tFailed to Download: {filename} | Step 2: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+			}
+		} else {
+			let error_string = bytes.unwrap_err().to_string();
+			terminal_write(writer, format!("\tFailed to Download: {filename} | Step 1: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+		}
+	}
+
+	return Err(());
+}
+
+
 async fn main_script_internal<W>(writer: fn() -> W, writer_is_interactive: bool, args: Args) -> Result<(), AlmightyError>
 where
 	W: std::io::Write + 'static
 {
+	let now = Instant::now();
+
 	// Get local version
 	let local_version: u32 = env!("CARGO_PKG_VERSION_MAJOR").parse().unwrap();
 
 	// Get remote version
 	terminal_write(writer, "Getting remote version...", true, None);
 
-	let mut txt_server_id: u8 = 0;
-	let mut remote_version_response = None;
-	while (txt_server_id as usize) < TXT_SERVER_ROOTS.len() {
-		let url = TXT_SERVER_ROOTS[txt_server_id as usize].to_string() + "version.txt";
-		let remote_version_response_result = reqwest::get(url.clone()).await;
-
-		if remote_version_response_result.is_ok() {
-			remote_version_response = remote_version_response_result.ok();
-
-			let remote_version_status_code = remote_version_response.as_ref().unwrap().status().as_u16();
-			if remote_version_status_code == 200 {
-				break;
-			} else {
-				terminal_write(writer, format!("\n{url}\n\tBad HTTP Status Code: {remote_version_status_code}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
-				remote_version_response = None;
-				txt_server_id += 1;
-			}
-		} else {
-			let error = remote_version_response_result.unwrap_err().without_url();
-			terminal_write(writer, format!("\n{url}\n\tHTTP Error: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
-			remote_version_response = None;
-			txt_server_id += 1;
-		}
-	}
+	let remote_version_response = get_http_response(writer, writer_is_interactive, &VERSION_SERVER_ROOTS, "version.txt").await;
 
 	if remote_version_response.is_none() {
 		return Err(AlmightyError::Generic(format!("Couldn't get remote version. Please check your internet connection!")));
@@ -321,7 +435,7 @@ where
 			// $HOME/Library/Application Support/Steam
 			let mut steam_data_path = dirs::data_dir().unwrap();
 			steam_data_path.push("Steam");
-			steam_path = pathbuf_to_canonical_pathbuf(steam_data_path);
+			steam_path = pathbuf_to_canonical_pathbuf(steam_data_path, true);
 		}
 
 		// Anything else (we assume Linux)
@@ -342,7 +456,7 @@ where
 			let mut valid_steam_paths = vec![];
 
 			for pathbuf in possible_steam_paths {
-				let pathbuf = pathbuf_to_canonical_pathbuf(pathbuf);
+				let pathbuf = pathbuf_to_canonical_pathbuf(pathbuf, true);
 				if pathbuf.is_some() {
 					valid_steam_paths.push(pathbuf.unwrap());
 				}
@@ -351,7 +465,7 @@ where
 			// $XDG_DATA_HOME/Steam
 			let steam_xdg_path = dirs::data_dir();
 			if steam_xdg_path.is_some() {
-				let steam_xdg_pathbuf = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_xdg_path.unwrap(), &["Steam"]));
+				let steam_xdg_pathbuf = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_xdg_path.unwrap(), &["Steam"]), true);
 				if steam_xdg_pathbuf.is_some() {
 					valid_steam_paths.push(steam_xdg_pathbuf.unwrap());
 				}
@@ -518,7 +632,7 @@ where
 	// TODO: What about case-sensitive filesystems where it's named SteamApps or something
 	// TODO: What about `steamapps/<username>/GarrysMod`? Is that still a thing, or did SteamPipe kill/migrate it completely?
 	let gmod_path = gmod_manifest.get("installdir").unwrap()[0].clone().unwrap_str();
-	let gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "common", &gmod_path]));
+	let gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "common", &gmod_path]), true);
 
 	if gmod_path.is_none() {
 		return Err(AlmightyError::Generic("Couldn't find Garry's Mod directory. Is Garry's Mod installed?".to_string()));
@@ -643,30 +757,7 @@ where
 	// Get remote manifest
 	terminal_write(writer, "Getting remote manifest...", true, None);
 
-	let mut txt_server_id: u8 = 0;
-	let mut remote_manifest_response = None;
-	while (txt_server_id as usize) < TXT_SERVER_ROOTS.len() {
-		let url = TXT_SERVER_ROOTS[txt_server_id as usize].to_string() + "manifest.json";
-		let remote_manifest_response_result = reqwest::get(url.clone()).await;
-
-		if remote_manifest_response_result.is_ok() {
-			remote_manifest_response = remote_manifest_response_result.ok();
-
-			let remote_version_status_code = remote_manifest_response.as_ref().unwrap().status().as_u16();
-			if remote_version_status_code == 200 {
-				break;
-			} else {
-				terminal_write(writer, format!("{url}\n\tBad HTTP Status Code: {remote_version_status_code}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
-				remote_manifest_response = None;
-				txt_server_id += 1;
-			}
-		} else {
-			let error = remote_manifest_response_result.unwrap_err().without_url();
-			terminal_write(writer, format!("{url}\n\tHTTP Error: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
-			remote_manifest_response = None;
-			txt_server_id += 1;
-		}
-	}
+	let remote_manifest_response = get_http_response(writer, writer_is_interactive, &MANIFEST_SERVER_ROOTS, "manifest.json").await;
 
 	if remote_manifest_response.is_none() {
 		terminal_write(writer, "", true, None); // Newline
@@ -678,41 +769,6 @@ where
 	.await?;
 
 	terminal_write(writer, "GModPatchTool Manifest Loaded!\n", true, None);
-
-	// HACK: REMOVE ME!!
-	let platform_masked = "win32";
-	let test_remote_manifest = r#"
-	{
-		"windows": {
-			"x86-64": {
-				"bin/chrome_elf.dll": {
-					"original": "31CB72D373FE4B6D4B06F75442B983223016D1FD1550C799B5C9583567CE1A8E",
-					"patch": "685E1F915724159D3ADB8F9091629BF6CF4C63D541733015E7AB77E7BC9A6383",
-					"fixed": "0DDE88487A4CAD9FC606CA895A38DF362F69828545BF407B2081928EA8962B2A"
-				}
-			}
-		},
-		"macos": {
-			"x86-64": {
-				"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework": {
-					"original": "5AAA46AF0469FEE56C3D3CA9AA08CC0B3D8D54C8C1BEA267D4E3A3ADAD8DB71C",
-					"patch": "6B290562C9403BF5D8DA7D334F900FBC5CA44A9F373701F372009F36AA715DD2",
-					"fixed": "032AEFFA9B7562E8D59069017684F172578BF9EB55808463F7CABAD5F3C4CD5E"
-				}
-			}
-		},
-		"linux": {
-			"x86-64": {
-				"bin/linux32/chromium/locales/zh-TW.pak": {
-					"original": "0347DE149FA81F961D1658CFA332E315A231158A56F81247AE5FE7B930D8D81F",
-					"patch": "F1AE892AADD4F5D27951078E04DA22657CF46C767297F1A456A6FAB160CA8AF7",
-					"fixed": "C07FF3E19D202E37BA8E80A6FA3C71F30E4F4624BFFB1D65A004CD3AB31B4AB7"
-				}
-			}
-		}
-	}
-	"#;
-	// ENDHACK
 
 	let platform_branches = remote_manifest.get(platform_masked);
 	if platform_branches.is_none() {
@@ -731,14 +787,14 @@ where
 
 	// TODO: phf_map for these
 	let integrity_status_strings = HashMap::from([
+		(IntegrityStatus::NeedDelete, "Needs Delete"),
 		(IntegrityStatus::NeedOriginal, "Needs Original + Fix"),
 		(IntegrityStatus::NeedWipeFix, "Needs Wipe + Fix"),
 		(IntegrityStatus::NeedFix, "Needs Fix"),
 		(IntegrityStatus::Fixed, "Already Fixed")
 	]);
 
-	let (tx, rx) = mpsc::channel();
-	let integrity_results: Vec<(&String, Result<IntegrityStatus, String>)> = platform_branch_files.par_iter()
+	let integrity_results: Vec<(&String, Result<IntegrityStatus, String>, &HashMap<String, String>)> = platform_branch_files.par_iter()
 	.map(|(filename, hashes)| {
 		let integrity_result = determine_file_integrity_status(gmod_path.clone(), filename, hashes);
 		let integrity_result_clone = integrity_result.clone();
@@ -751,21 +807,229 @@ where
 			terminal_write(writer, format!("\t{filename}: {integrity_status_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 		}
 
-		tx.send(integrity_result.is_err()).unwrap();
-
-		return (filename, integrity_result);
+		return (filename, integrity_result, hashes);
 	}).collect();
 
-	let integrity_fatal_error = rx.recv().unwrap();
-	if integrity_fatal_error {
-		return Err(AlmightyError::Generic(format!("Couldn't check integrity of one or more files! Please try again.")));
+	// Filter out fixed files, and if there were any i/o errors getting the hash, exit early
+	let mut pending_files: Vec<(&String, IntegrityStatus, &HashMap<String, String>)> = vec![];
+	for (filename, result, hashes) in integrity_results {
+		if result.is_ok() {
+			let result = result.unwrap();
+			if result != IntegrityStatus::Fixed {
+				pending_files.push((filename, result, hashes));
+			}
+		} else {
+			return Err(AlmightyError::Generic(format!("Failed to get integrity status of one or more files!")));
+		}
 	}
 
-	for (filename, result) in integrity_results {
-		//println!("{filename}: {:#?}", result);
+	let pending_files_len = pending_files.len();
+	if pending_files_len > 0 {
+		// Delete old GModCEFCodecFix cache directory
+		let old_cache_dir = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(std::env::temp_dir(), &["GModCEFCodecFix"]), false);
+		if old_cache_dir.is_some() {
+			let old_cache_dir_result = std::fs::remove_dir_all(old_cache_dir.unwrap());
+			if old_cache_dir_result.is_ok() {
+				terminal_write(writer,"Successfully removed old GModCEFCodecFix cache directory.", true, None);
+			} else {
+				let old_cache_dir_error_str = old_cache_dir_result.unwrap_err().to_string();
+				terminal_write(writer, format!("Failed to remove old GModCEFCodecFix cache directory: {old_cache_dir_error_str}").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
+			}
+		}
+
+		// Create new GModPatchTool cache directory if it doesn't exist
+		let cache_path = extend_pathbuf_and_return(std::env::temp_dir(), &["GModPatchTool"]);
+		let mut cache_path_str = cache_path.to_string_lossy();
+		let mut cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
+		if cache_dir.is_none() {
+			let _ = std::fs::create_dir(cache_path.clone());
+			cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
+		}
+
+		// Can't access or create the cache directory!
+		if cache_dir.is_none() {
+			return Err(AlmightyError::Generic(format!("Failed to create cache directory:\n\t{cache_path_str}")));
+		}
+
+		let cache_dir = cache_dir.unwrap();
+		cache_path_str = cache_dir.to_string_lossy();
+
+		terminal_write(writer,format!("\nGModPatchTool Cache Directory: {cache_path_str}\n").as_str(), true, None);
+
+		// Download what we need
+		terminal_write(writer, format!("Downloading patch files...").as_str(), true, None);
+
+		let mut download_futures = JoinSet::new();
+		for (filename, integrity_status, hashes) in &pending_files {
+			// Need Original
+			if *integrity_status == IntegrityStatus::NeedOriginal {
+				download_futures.spawn(download_file_to_cache(writer, writer_is_interactive, cache_dir.clone(), format!("originals/{platform_masked}/{gmod_branch}/{filename}"), hashes["original"].clone()));
+			}
+
+			// Need Fix (we filtered out IntegrityStatus::Fixed above, but we still need IntegrityStatus::NeedDelete for later)
+			if *integrity_status != IntegrityStatus::NeedDelete {
+				download_futures.spawn(download_file_to_cache(writer, writer_is_interactive, cache_dir.clone(), format!("patches/{platform_masked}/{gmod_branch}/{filename}.bsdiff"), hashes["patch"].clone()));
+			}
+		}
+
+		while let Some(download_result) = download_futures.join_next().await {
+			if download_result.is_err() {
+				return Err(AlmightyError::Generic(format!("Failed to download one or more patch files!")));
+			}
+		}
+
+		// Patch the files
+		terminal_write(writer, format!("\nPatching {pending_files_len} file(s)...").as_str(), true, None);
+
+		// TODO: Early exit if any patches fail
+		let patch_results: Vec<(&String, IntegrityStatus)> = pending_files.par_iter()
+		.map(|(filename, integrity_status, hashes)| {
+			terminal_write(writer, format!("\tPatching: {filename} ...").as_str(), true, None);
+
+			let mut new_integrity_status: IntegrityStatus = integrity_status.clone();
+			let integrity_status_string = integrity_status_strings[&new_integrity_status];
+			let gmod_file_parts: Vec<&str> = filename.split("/").collect();
+			let gmod_file_path = extend_pathbuf_and_return(gmod_path.clone(), &gmod_file_parts[..]);
+
+			// Delete the file since it's not used anymore
+			// If we can't delete it outright, try and truncate it
+			// We could alternatively "patch" it into being empty...but that's a waste of CPU cycles, and if truncating doesn't work, that won't work either
+			if new_integrity_status == IntegrityStatus::NeedDelete {
+				let delete_result = std::fs::remove_file(&gmod_file_path);
+				if delete_result.is_ok() {
+					terminal_write(writer, format!("\tPatched: {filename}").as_str(), true, None);
+					new_integrity_status = IntegrityStatus::Fixed;
+				} else {
+					let truncate_result = File::create(&gmod_file_path);
+					if truncate_result.is_ok() {
+						terminal_write(writer, format!("\tPatched: {filename}").as_str(), true, None);
+						new_integrity_status = IntegrityStatus::Fixed;
+					} else {
+						let error_string = truncate_result.unwrap_err().to_string();
+						terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string}: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+					}
+				}
+			}
+
+			// Copy/overwrite the target gmod file with original copy we have
+			if new_integrity_status == IntegrityStatus::NeedOriginal {
+				let original_filename = format!("originals/{platform_masked}/{gmod_branch}/{filename}");
+				let original_file_parts: Vec<&str> = original_filename.split("/").collect();
+				let original_cache_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &original_file_parts[..]), false);
+
+				if original_cache_file_path.is_some() {
+					let original_cache_file_path = original_cache_file_path.unwrap();
+					let copy_result = std::fs::copy(original_cache_file_path, &gmod_file_path);
+
+					if copy_result.is_ok() {
+						new_integrity_status = IntegrityStatus::NeedFix;
+					} else {
+						let error_string = copy_result.unwrap_err().to_string();
+						terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string}: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+					}
+				}
+			}
+
+			// Create/truncate original file (it doesn't exist without patches applied)
+			if new_integrity_status == IntegrityStatus::NeedWipeFix {
+				let create_result = File::create(&gmod_file_path);
+
+				if create_result.is_ok() {
+					new_integrity_status = IntegrityStatus::NeedFix;
+				} else {
+					let error_string = create_result.unwrap_err().to_string();
+					terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string}: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				}
+			}
+
+			// Patch the original file into the fixed one!
+			if new_integrity_status == IntegrityStatus::NeedFix {
+				let gmod_file_path = pathbuf_to_canonical_pathbuf(gmod_file_path, false);
+
+				if gmod_file_path.is_some() {
+					let gmod_file_path = gmod_file_path.unwrap();
+					let patch_filename = format!("patches/{platform_masked}/{gmod_branch}/{filename}.bsdiff");
+					let patch_file_parts: Vec<&str> = patch_filename.split("/").collect();
+					let patch_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &patch_file_parts[..]), false);
+
+					if patch_file_path.is_some() {
+						let patch_file_path = patch_file_path.unwrap();
+						let gmod_file = std::fs::read(gmod_file_path.clone());
+
+						if gmod_file.is_ok() {
+							let gmod_file = gmod_file.unwrap();
+							let patch_file = std::fs::read(patch_file_path);
+
+							if patch_file.is_ok() {
+								let patch_file = patch_file.unwrap();
+								let mut new_gmod_file = vec![];
+								let patch_result = bsdiff::patch(&gmod_file, &mut patch_file.as_slice(), &mut new_gmod_file);
+
+								if patch_result.is_ok() {
+									let write_result = std::fs::write(&gmod_file_path, &new_gmod_file);
+
+									if write_result.is_ok() {
+										// Sanity check the final checksum
+										let file_hash_result = get_file_sha256(&gmod_file_path);
+
+										if file_hash_result.is_ok() {
+											let file_hash = file_hash_result.unwrap();
+
+											if file_hash == hashes["fixed"] {
+												terminal_write(writer, format!("\tPatched: {filename}").as_str(), true, None);
+												new_integrity_status = IntegrityStatus::Fixed;
+											} else {
+												terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 8: Checksum mismatch").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+											}
+										} else {
+											let error_string = file_hash_result.unwrap_err().to_string();
+											terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 7: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+										}
+									} else {
+										let error_string = write_result.unwrap_err().to_string();
+										terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 6: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+									}
+								} else {
+									let error_string = patch_result.unwrap_err().to_string();
+									terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 5: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+								}
+							} else {
+								let error_string = patch_file.unwrap_err().to_string();
+								terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 4: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+							}
+						} else {
+							let error_string = gmod_file.unwrap_err().to_string();
+							terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 3: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+						}
+					} else {
+						// TODO
+						//let error_string = patch_file_path.unwrap_err().to_string();
+						let error_string = "TODO: Error";
+						terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 2: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+					}
+				} else {
+					// TODO
+					//let error_string = gmod_file_path.unwrap_err().to_string();
+					let error_string = "TODO: Error";
+					terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 1: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				}
+			}
+
+			return (*filename, new_integrity_status)
+		}).collect();
+
+		for (_, integrity_status) in patch_results {
+			if integrity_status != IntegrityStatus::Fixed {
+				return Err(AlmightyError::Generic(format!("Failed to patch one or more files!")));
+			}
+		}
+	} else {
+		terminal_write(writer, "No files need patching!", true, None);
 	}
 
-	// TODO: Patch files, etc
+	let now = now.elapsed().as_secs_f64();
+	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).").as_str(), true, if writer_is_interactive { Some("green") } else { None });
+
 	// TODO: AppInfo launch options for auto-starting GMod? What if we just relied on steam://rungameid/4000 instead?
 
 	Ok(())
