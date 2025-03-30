@@ -178,6 +178,7 @@ where
 				terminal_write(writer, format!("\n{url}\n\tBad HTTP Status Code: {response_status_code}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 				response = None;
 				server_id += 1;
+				try_count = 0;
 			}
 		} else {
 			let error = response_result.unwrap_err().without_url();
