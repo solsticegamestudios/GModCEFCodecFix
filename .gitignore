@@ -1,6 +1,3 @@
-GModCEFCodecFix.spec
-__pycache__/**
-build/**
-dist/**
+debug/**
 target/**
-GModCEFCodecFixFiles/**
+.vscode/**
