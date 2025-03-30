@@ -15,6 +15,7 @@
 # TODO: Enable HTTP/2 with httpx?
 # TODO: Support patching in an updated version of BASS? Test results: https://discord.com/channels/104385214364536832/459880607120490496/1212241220844392519
 # TODO: Make "READ THE FAQ FIRST" more obvious
+# TODO: Switch to x86-64 beta automatically before patching
 
 # NOTE: Update everytime we release!
 VERSION = 20240926
@@ -31,6 +32,7 @@ if sys.platform == "linux":
 	import shutil
 
 # Hold up, gotta check if it's running in a Terminal or not on Linux
+# TODO: Auto Mode shouldn't require a TTY (still need to notify about errors!)
 possibleTerminals = [
 	"x-terminal-emulator",
 	"gnome-terminal",
@@ -594,6 +596,7 @@ with ThreadPoolExecutor() as executor:
 			print(colored(fileIntegrityResult, "yellow"))
 			sys.exit(colored(gmodFileFailed, "red"))
 
+# TODO: Download the original file WE have and overwrite, then patch into the Fixed file (solves the 1-3h timelag for patch updates, since we can't ship Fixed files wholesale)
 # Something's wrong; bail before we break their installation or something
 if fileNoMatchOriginal:
 	sys.exit(colored("\nError: One or More Files failed to match the Original Checksum!\n\tPlease go to Steam > Garry's Mod > Properties > Installed Files, Verify Integrity, then try again!" + contactInfo, "red"))
