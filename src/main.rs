@@ -676,7 +676,7 @@ where
 
 		let steam_config_str = steam_config_str.unwrap();
 		let steam_config = Vdf::parse(steam_config_str.as_str());
-	
+
 		if steam_config.is_err() {
 			return Err(AlmightyError::Generic("Couldn't parse Steam config.vdf. Is the file corrupt?".to_string()));
 		}
@@ -744,7 +744,7 @@ where
 					tokio::time::sleep(time::Duration::from_secs(1)).await;
 					secs_to_continue -= 1;
 				}
-		
+
 				// Clear continuing line
 				if writer_is_interactive {
 					terminal_write(writer, "\x1B[0K\n", false, None);
