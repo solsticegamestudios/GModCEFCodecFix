@@ -1,4 +1,4 @@
-# GModPatchTool (formerly GModCEFCodecFix)
+# GModPatchTool <sub>_Formerly GModCEFCodecFix_</sub>
 
 ![GModPatchTool](GModPatchToolLogo.png)
 
