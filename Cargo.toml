@@ -2,7 +2,7 @@
 name = "gmodpatchtool"
 version = "20250112.0.0"
 authors = ["Solstice Game Studios <contact@solsticegamestudios.com>"]
-license = "GNU General Public License v3.0"
+license = "GPL-3.0-only"
 edition = "2021"
 
 [dependencies]
