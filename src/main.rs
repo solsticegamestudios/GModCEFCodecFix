@@ -5,7 +5,7 @@ Formerly: GModCEFCodecFix
 Copyright 2020-2025, Solstice Game Studios (www.solsticegamestudios.com)
 LICENSE: GNU General Public License v3.0
 
-Purpose: Patches Garry's Mod to resolve common launch/performance issues, Update Chromium Embedded Framework (CEF), and Enable proprietary codecs in CEF.
+Purpose: Patches Garry's Mod to resolve common launch/performance issues, Updates Chromium Embedded Framework (CEF), and Enables proprietary codecs in CEF.
 
 Guide: https://www.solsticegamestudios.com/fixmedia/
 FAQ/Common Issues: https://www.solsticegamestudios.com/fixmedia/faq/
@@ -51,13 +51,14 @@ use keyvalues_parser::Vdf;
 use std::collections::HashMap;
 use steamid::SteamId;
 use sysinfo::System;
-use sha2::{Sha256, Digest};
+use sha2::{Sha256, Digest}; // TODO: Switch to Blake3
 use std::fs::File;
 use std::io;
 use rayon::prelude::*;
 use reqwest::Response;
 use tokio::time::Instant;
 use tokio::task::JoinSet;
+use qbsdiff::Bspatch;
 
 #[derive(Parser)]
 #[command(version)]
@@ -963,35 +964,43 @@ where
 
 							if patch_file.is_ok() {
 								let patch_file = patch_file.unwrap();
-								let mut new_gmod_file = vec![];
-								let patch_result = bsdiff::patch(&gmod_file, &mut patch_file.as_slice(), &mut new_gmod_file);
+								let patcher = Bspatch::new(&patch_file);
 
-								if patch_result.is_ok() {
-									let write_result = std::fs::write(&gmod_file_path, &new_gmod_file);
+								if patcher.is_ok() {
+									let patcher = patcher.unwrap();
+									let mut new_gmod_file = Vec::with_capacity(patcher.hint_target_size() as usize);
+									let patch_result = patcher.apply(&gmod_file, io::Cursor::new(&mut new_gmod_file));
 
-									if write_result.is_ok() {
-										// Sanity check the final checksum
-										let file_hash_result = get_file_sha256(&gmod_file_path);
+									if patch_result.is_ok() {
+										let write_result = std::fs::write(&gmod_file_path, &new_gmod_file);
 
-										if file_hash_result.is_ok() {
-											let file_hash = file_hash_result.unwrap();
+										if write_result.is_ok() {
+											// Sanity check the final checksum
+											let file_hash_result = get_file_sha256(&gmod_file_path);
 
-											if file_hash == hashes["fixed"] {
-												terminal_write(writer, format!("\tPatched: {filename}").as_str(), true, None);
-												new_integrity_status = IntegrityStatus::Fixed;
+											if file_hash_result.is_ok() {
+												let file_hash = file_hash_result.unwrap();
+
+												if file_hash == hashes["fixed"] {
+													terminal_write(writer, format!("\tPatched: {filename}").as_str(), true, None);
+													new_integrity_status = IntegrityStatus::Fixed;
+												} else {
+													terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 9: Checksum mismatch").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+												}
 											} else {
-												terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 8: Checksum mismatch").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+												let error_string = file_hash_result.unwrap_err().to_string();
+												terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 8: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 											}
 										} else {
-											let error_string = file_hash_result.unwrap_err().to_string();
+											let error_string = write_result.unwrap_err().to_string();
 											terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 7: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 										}
 									} else {
-										let error_string = write_result.unwrap_err().to_string();
+										let error_string = patch_result.unwrap_err().to_string();
 										terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 6: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 									}
-								} else {
-									let error_string = patch_result.unwrap_err().to_string();
+								} else if let Err(patcher) = patcher {
+									let error_string = patcher.to_string();
 									terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 5: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 								}
 							} else {
@@ -1027,6 +1036,10 @@ where
 	} else {
 		terminal_write(writer, "No files need patching!", true, None);
 	}
+
+	// TODO: Incorporate some of this: https://github.com/ret-0/gmod-linux-patcher/blob/master/gmod-linux-patcher.sh
+	// TODO: Consider this: https://www.protondb.com/app/4000#vZBBKPhbFd
+	// TODO: Bass updates?
 
 	let now = now.elapsed().as_secs_f64();
 	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).").as_str(), true, if writer_is_interactive { Some("green") } else { None });
