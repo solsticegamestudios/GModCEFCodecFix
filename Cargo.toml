@@ -7,21 +7,28 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.31", features = ["derive"] }
-dirs = "6.0.0"
-eframe = "0.31.0"
-keyvalues-parser = "0.2.0"
-phf = { version = "0.11.3", features = ["macros"] }
 qbsdiff = "1.4.2"
-rayon = "1.10.0"
-reqwest = { version = "0.12.12", default-features = false, features = ["http2", "rustls-tls-native-roots", "json", "gzip", "brotli", "zstd", "socks"] }
-sha2 = "0.10.8"
-steamid = { version = "0.1.2", git = "https://github.com/JohnPeel/steamid" }
-sysinfo = "0.33.1"
-thiserror = "2.0.11"
-tokio = { version = "1", features = ["full"] }
-tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter", "tracing-log"] }
-windows-registry = "0.5.0"
+blake3 = { version = "1.8.1", features = ["mmap", "rayon"] }
+serde_json = { version = "1.0.140", optional = true }
+dirs = { version = "6.0.0", optional = true }
+eframe = { version = "0.31.0", optional = true }
+keyvalues-parser = { version = "0.2.0", optional = true }
+phf = { version = "0.11.3", features = ["macros"], optional = true }
+rayon = { version = "1.10.0", optional = true }
+reqwest = { version = "0.12.12", default-features = false, features = ["http2", "rustls-tls-native-roots", "json", "gzip", "brotli", "zstd", "socks"], optional = true }
+steamid = { version = "0.1.2", git = "https://github.com/JohnPeel/steamid", optional = true }
+sysinfo = { version = "0.33.1", optional = true }
+thiserror = { version = "2.0.11", optional = true }
+tokio = { version = "1", features = ["full"], optional = true }
+tracing = { version = "0.1.41", optional = true }
+tracing-subscriber = { version = "0.3.19", features = ["env-filter", "tracing-log"], optional = true }
+windows-registry = { version = "0.5.0", optional = true }
 
 [target.'cfg(windows)'.build-dependencies]
 winresource = "0.1.19"
+
+[features]
+default = ["patch"]
+#default = ["generate"]
+patch = ["dep:serde_json", "dep:dirs", "dep:eframe", "dep:keyvalues-parser", "dep:phf", "dep:rayon", "dep:reqwest", "dep:steamid", "dep:sysinfo", "dep:thiserror", "dep:tokio", "dep:tracing", "dep:tracing-subscriber", "dep:windows-registry"]
+generate = []
