@@ -47,7 +47,7 @@ pub fn main() -> eframe::Result {
 		inner_size: Some([640.0, 240.0].into()),
 		resizable: Some(false),
 		maximize_button: Some(false),
-		icon: Some(eframe::icon_data::from_png_bytes(&include_bytes!("../GModPatchToolLogo.png")[..]).unwrap().into()), // Needed for Taskbar/GUI App Icon
+		icon: Some(eframe::icon_data::from_png_bytes(&include_bytes!("../../GModPatchToolLogo.png")[..]).unwrap().into()), // Needed for Taskbar/GUI App Icon
 		..Default::default()
 	};
 

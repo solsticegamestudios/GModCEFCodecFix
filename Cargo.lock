@@ -569,6 +569,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "blake3"
+version = "1.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "389a099b34312839e16420d499a9cad9650541715937ffbdd40d36f49e77eeb3"
+dependencies = [
+ "arrayref",
+ "arrayvec",
+ "cc",
+ "cfg-if",
+ "constant_time_eq",
+ "memmap2",
+ "rayon-core",
+]
+
+[[package]]
 name = "block"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -846,6 +861,12 @@ checksum = "4ca0197aee26d1ae37445ee532fefce43251d24cc7c166799f4d46817f1d3973"
 dependencies = [
  "crossbeam-utils",
 ]
+
+[[package]]
+name = "constant_time_eq"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7c74b8349d32d297c9134b8c88677813a227df8f779daa29bfc29c183fe3dca6"
 
 [[package]]
 name = "core-foundation"
@@ -1556,6 +1577,7 @@ dependencies = [
 name = "gmodpatchtool"
 version = "20250112.0.0"
 dependencies = [
+ "blake3",
  "clap",
  "dirs",
  "eframe",
@@ -1564,7 +1586,7 @@ dependencies = [
  "qbsdiff",
  "rayon",
  "reqwest",
- "sha2",
+ "serde_json",
  "steamid",
  "sysinfo",
  "thiserror 2.0.12",
