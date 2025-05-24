@@ -6,7 +6,7 @@
 #
 # EXAMPLE: python GenCEFCodecFix.py "D:\GModCEFCodecFixDev\Internal" "D:\GModCEFCodecFixDev\External"
 #
-# Copyright 2020-2024, Solstice Game Studios (www.solsticegamestudios.com)
+# Copyright 2020-2025, Solstice Game Studios (www.solsticegamestudios.com)
 # LICENSE: GNU General Public License v3.0
 
 from time import time
@@ -33,6 +33,10 @@ filesToDiff = {
 	"win32": {
 		#"chromium": [],
 		"x86-64": [
+			"bin/chrome_100_percent.pak",
+			"bin/chrome_200_percent.pak",
+			"bin/resources.pak",
+
 			"bin/chrome_elf.dll",
 			"bin/d3dcompiler_47.dll",
 			"bin/gmod.exe",
@@ -51,10 +55,11 @@ filesToDiff = {
 			"bin/chromium/cef_100_percent.pak",
 			"bin/chromium/cef_200_percent.pak",
 			"bin/chromium/cef_extensions.pak",
-			"bin/chromium/chrome_100_percent.pak",
-			"bin/chromium/chrome_200_percent.pak",
 			"bin/chromium/devtools_resources.pak",
-			"bin/chromium/resources.pak",
+
+			"bin/win64/chrome_100_percent.pak",
+			"bin/win64/chrome_200_percent.pak",
+			"bin/win64/resources.pak",
 
 			"bin/win64/chrome_elf.dll",
 			"bin/win64/d3dcompiler_47.dll",
@@ -139,10 +144,11 @@ filesToDiff = {
 			"bin/linux32/chromium/cef_100_percent.pak",
 			"bin/linux32/chromium/cef_200_percent.pak",
 			"bin/linux32/chromium/cef_extensions.pak",
-			"bin/linux32/chromium/chrome_100_percent.pak",
-			"bin/linux32/chromium/chrome_200_percent.pak",
 			"bin/linux32/chromium/devtools_resources.pak",
-			"bin/linux32/chromium/resources.pak",
+
+			"bin/linux64/chrome_100_percent.pak",
+			"bin/linux64/chrome_200_percent.pak",
+			"bin/linux64/resources.pak",
 
 			"bin/linux64/chrome-sandbox",
 			"bin/linux64/chromium_process",
@@ -165,7 +171,10 @@ filesToDiff = {
 
 for locale in locales:
 	filesToDiff["win32"]["x86-64"].append("bin/chromium/locales/" + locale + ".pak")
+	filesToDiff["win32"]["x86-64"].append("bin/locales/" + locale + ".pak")
+	filesToDiff["win32"]["x86-64"].append("bin/win64/locales/" + locale + ".pak")
 	filesToDiff["linux"]["x86-64"].append("bin/linux32/chromium/locales/" + locale + ".pak")
+	filesToDiff["linux"]["x86-64"].append("bin/linux64/locales/" + locale + ".pak")
 	filesToDiff["darwin"]["x86-64"].append("GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/" + locale.replace("-", "_") + ".lproj/locale.pak")
 
 # macOS has gotta be special
