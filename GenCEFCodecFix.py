@@ -131,7 +131,7 @@ filesToDiff = {
 			#"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/PkgInfo",
 			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/MacOS/gmod Helper",
 
-			#"GarrysMod_Signed.app/Contents/MacOS/gmod",
+			"GarrysMod_Signed.app/Contents/MacOS/gmod",
 			"GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib",
 
 			"garrysmod/html/js/menu/control.Menu.js",
