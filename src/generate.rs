@@ -35,7 +35,7 @@ fn get_files_recursive(source: &str, path_base: String, files: &mut HashMap<Stri
 		// TODO: Just remove gmod-update.txt from the directory
 		// TODO: .sym files
 		if entry_filename != "gmod-update.txt" {
-			let entry_relative_path_str = if path_base == "" { entry_filename } else { format!("{path_base}/{entry_filename}") };
+			let entry_relative_path_str = if path_base.is_empty() { entry_filename } else { format!("{path_base}/{entry_filename}") };
 
 			if entry_path.is_dir() {
 				get_files_recursive(source, entry_relative_path_str, files, entry_path);
@@ -61,18 +61,15 @@ fn hash_and_diff_file(patch_path: PathBuf, filename: &String, file_paths: &HashM
 
 	let original_path = file_paths.get("original");
 	let fixed_path = file_paths.get("fixed");
-	let original_hash = if original_path.is_some() { get_file_hash(&original_path.unwrap()) } else { Ok("null".to_string()) };
-	let fixed_hash = if fixed_path.is_some() { get_file_hash(&fixed_path.unwrap()) } else { Ok("null".to_string()) };
 
-	if original_hash.is_err() {
-		return Err((now.elapsed().as_secs_f64(), original_hash.unwrap_err()));
-	}
-	if fixed_hash.is_err() {
-		return Err((now.elapsed().as_secs_f64(), fixed_hash.unwrap_err()));
-	}
-
-	let original_hash = original_hash.unwrap();
-	let fixed_hash = fixed_hash.unwrap();
+	let original_hash = match original_path.map(get_file_hash).unwrap_or_else(|| Ok("null".to_string())) {
+		Ok(original_hash) => original_hash,
+		Err(error) => return Err((now.elapsed().as_secs_f64(), error)),
+	};
+	let fixed_hash =  match fixed_path.map(get_file_hash).unwrap_or_else(|| Ok("null".to_string())) {
+		Ok(fixed_hash) => fixed_hash,
+		Err(error) => return Err((now.elapsed().as_secs_f64(), error)),
+	};
 
 	if original_hash == fixed_hash {
 		return Err((now.elapsed().as_secs_f64(), "Skipped: Original hash matches Fixed hash".to_string()));
@@ -82,41 +79,32 @@ fn hash_and_diff_file(patch_path: PathBuf, filename: &String, file_paths: &HashM
 	// Skip entirely if the "fixed" version is just deleting the file
 	// If the original file doesn't exist, we "generate" the patch against an empty file
 	if fixed_hash != "null" {
-		let original = if original_path.is_some() { std::fs::read(original_path.unwrap()) } else { Ok(Vec::new()) };
-		let fixed = if fixed_path.is_some() { std::fs::read(fixed_path.unwrap()) } else { Ok(Vec::new()) };
+		let original = match original_path.map(std::fs::read).unwrap_or(Ok(Vec::new())) {
+			Ok(original) => original,
+			Err(error) => return Err((now.elapsed().as_secs_f64(), error.to_string()))
+		};
+		let fixed = match fixed_path.map(std::fs::read).unwrap_or(Ok(Vec::new())) {
+			Ok(fixed) => fixed,
+			Err(error) => return Err((now.elapsed().as_secs_f64(), error.to_string()))
+		};
 
-		if original.is_err() {
-			return Err((now.elapsed().as_secs_f64(), original.unwrap_err().to_string()));
+		let mut patch = io::Cursor::new(Vec::new());
+		if let Err(error) = Bsdiff::new(&original, &fixed).compare(&mut patch) {
+			return Err((now.elapsed().as_secs_f64(), error.to_string()));
 		}
-		if fixed.is_err() {
-			return Err((now.elapsed().as_secs_f64(), fixed.unwrap_err().to_string()));
-		}
-
-		let original = original.unwrap();
-		let fixed = fixed.unwrap();
-
-		let mut patch = Vec::new();
-		let diff_result = Bsdiff::new(&original, &fixed).compare(std::io::Cursor::new(&mut patch));
-
-		if diff_result.is_err() {
-			return Err((now.elapsed().as_secs_f64(), diff_result.unwrap_err().to_string()));
-		}
+		let patch = patch.into_inner();
 
 		// Copy patch to patch file
 		let filename = format!("{filename}.bsdiff");
-		let file_parts: Vec<&str> = filename.split("/").collect();
-		let patch_file_path = extend_pathbuf_and_return(patch_path, &file_parts[..]);
-		let mut patch_file_path_dir = patch_file_path.clone();
-		patch_file_path_dir.pop();
-
-		let create_dir_result = std::fs::create_dir_all(patch_file_path_dir);
-		if create_dir_result.is_err() {
-			return Err((now.elapsed().as_secs_f64(), create_dir_result.unwrap_err().to_string()));
+		let patch_file_path = patch_path.extend_and_return(filename.split("/"));
+		if let Some(parent) = patch_file_path.parent() {
+			if let Err(error) = std::fs::create_dir_all(parent) {
+				return Err((now.elapsed().as_secs_f64(), error.to_string()));
+			}
 		}
 
-		let write_result = std::fs::write(patch_file_path.clone(), &patch);
-		if write_result.is_err() {
-			return Err((now.elapsed().as_secs_f64(), write_result.unwrap_err().to_string()));
+		if let Err(error) = std::fs::write(&patch_file_path, &patch) {
+			return Err((now.elapsed().as_secs_f64(), error.to_string()));
 		}
 
 		// Hash patch file (BEFORE compression)
@@ -161,46 +149,35 @@ pub fn main() {
 	// Parse the args (will also exit if something's wrong with them)
 	let args = Args::parse();
 
-	let original_path = pathbuf_to_canonical_pathbuf(args.original_path.clone(), true);
-	let fixed_path = pathbuf_to_canonical_pathbuf(args.fixed_path.clone(), true);
-	let patch_path = pathbuf_to_canonical_pathbuf(args.patch_path.clone(), false);
-
 	let mut cmd = Args::command();
-	if original_path.is_err() {
-		cmd.error(
+	let original_path = match args.original_path.to_canonical_pathbuf(true) {
+		Ok(original_path) => original_path,
+		Err(error) => cmd.error(
 			ErrorKind::InvalidValue,
-			format!("Original Path: {}", original_path.unwrap_err().to_string()),
+			format!("Original Path: {error}"),
 		)
-		.exit();
-	}
-
-	let original_path = original_path.unwrap();
-	let original_path_str = original_path.to_string_lossy();
-	println!("Original Path: {}\n", original_path_str);
-
-	if fixed_path.is_err() {
-		cmd.error(
+		.exit(),
+	};
+	let fixed_path = match args.fixed_path.to_canonical_pathbuf(true) {
+		Ok(fixed_path) => fixed_path,
+		Err(error) => cmd.error(
 			ErrorKind::InvalidValue,
-			format!("Fixed Path: {}", fixed_path.unwrap_err().to_string()),
+			format!("Fixed Path: {error}"),
 		)
-		.exit();
-	}
-
-	let fixed_path = fixed_path.unwrap();
-	let fixed_path_str = fixed_path.to_string_lossy();
-	println!("Fixed Path: {}\n", fixed_path_str);
-
-	if patch_path.is_err() {
-		cmd.error(
+		.exit(),
+	};
+	let patch_path = match args.patch_path.to_canonical_pathbuf(false) {
+		Ok(patch_path) => patch_path,
+		Err(error) => cmd.error(
 			ErrorKind::InvalidValue,
-			format!("Patch Path: {}", patch_path.unwrap_err().to_string()),
+			format!("Patch Path: {error}"),
 		)
-		.exit();
-	}
+		.exit(),
+	};
 
-	let patch_path = patch_path.unwrap();
-	let patch_path_str = patch_path.to_string_lossy();
-	println!("Patch Path: {}\n", patch_path_str);
+	println!("Original Path: {}\n", original_path.display());
+	println!("Fixed Path: {}\n", fixed_path.display());
+	println!("Patch Path: {}\n", patch_path.display());
 
 	if original_path == fixed_path {
 		cmd.error(
@@ -220,7 +197,8 @@ pub fn main() {
 
 	//println!("{:#?}", files);
 
-	let mut manifest: HashMap<String, HashMap<String, HashMap<String, HashMap<String, String>>>> = HashMap::new();
+	#[allow(clippy::type_complexity)]
+	let _manifest: HashMap<String, HashMap<String, HashMap<String, HashMap<String, String>>>> = HashMap::new();
 
 	// TODO: Early exit if any diffs/hashes fail
 	files.par_iter().for_each(|(filename, file_paths)| {
@@ -231,5 +209,5 @@ pub fn main() {
 
 	// TODO
 
-	let now = now.elapsed().as_secs_f64();
+	let _now = now.elapsed().as_secs_f64();
 }
