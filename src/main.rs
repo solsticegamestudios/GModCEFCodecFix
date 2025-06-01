@@ -57,6 +57,11 @@ pub fn string_to_canonical_pathbuf(path_str: String) -> Option<PathBuf> {
 	}
 }
 
+pub fn extend_pathbuf_and_return(mut pathbuf: PathBuf, segments: &[&str]) -> PathBuf {
+	pathbuf.extend(segments);
+	return pathbuf;
+}
+
 pub fn get_file_hash(file_path: &PathBuf) -> Result<String, String> {
 	let mut hasher = blake3::Hasher::new();
 	let hash_result = hasher.update_mmap_rayon(file_path);

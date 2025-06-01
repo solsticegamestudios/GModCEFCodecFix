@@ -18,7 +18,7 @@ const PATCH_SERVER_ROOTS: [&str; 2] = [
 const GMOD_STEAM_APPID: &str = "4000";
 const BLANK_FILE_HASH: &str = "null";
 
-use crate as root;
+use crate::*;
 mod gui;
 
 use eframe::egui::TextBuffer;
@@ -95,11 +95,6 @@ enum AlmightyError {
 	Generic(String)
 }
 
-fn extend_pathbuf_and_return(mut pathbuf: PathBuf, segments: &[&str]) -> PathBuf {
-	pathbuf.extend(segments);
-	return pathbuf;
-}
-
 async fn get_http_response<W>(writer: fn() -> W, writer_is_interactive: bool, servers: &[&str], filename: &str) -> Option<Response>
 where
 	W: std::io::Write + 'static
@@ -109,7 +104,7 @@ where
 	let mut response = None;
 	while (server_id as usize) < servers.len() {
 		let url = servers[server_id as usize].to_string() + filename;
-		let response_result = reqwest::get(url.clone()).await;
+		let response_result = reqwest::get(url.clone()).await; // TODO: Timeout check
 
 		if response_result.is_ok() {
 			response = response_result.ok();
@@ -129,7 +124,7 @@ where
 			response = None;
 			try_count += 1;
 
-			// Try 3 times with full HTTP errors (Anti-DDoS, etc)
+			// Try each server 3 times for full HTTP errors (Anti-DDoS, etc)
 			if try_count >= 3 {
 				server_id += 1;
 				try_count = 0;
@@ -151,11 +146,11 @@ enum IntegrityStatus {
 
 fn determine_file_integrity_status(gmod_path: PathBuf, filename: &String, hashes: &HashMap<String, String>) -> Result<IntegrityStatus, String> {
 	let file_parts: Vec<&str> = filename.split("/").collect();
-	let file_path = root::pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path, &file_parts[..]), false);
+	let file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path, &file_parts[..]), false);
 	let mut file_hash = BLANK_FILE_HASH.to_string();
 
 	if file_path.is_ok() {
-		let file_hash_result = root::get_file_hash(&file_path.unwrap());
+		let file_hash_result = get_file_hash(&file_path.unwrap());
 		if file_hash_result.is_ok() {
 			file_hash = file_hash_result.unwrap();
 		} else {
@@ -189,13 +184,13 @@ where
 {
 	let file_parts: Vec<&str> = filename.split("/").collect();
 	let cache_file_path = extend_pathbuf_and_return(cache_dir, &file_parts[..]);
-	let cache_file_path_result = root::pathbuf_to_canonical_pathbuf(cache_file_path.clone(), false);
+	let cache_file_path_result = pathbuf_to_canonical_pathbuf(cache_file_path.clone(), false);
 
 	terminal_write(writer, format!("\tDownloading: {filename} ...").as_str(), true, None);
 
 	// Look in the cache to see if the file already exists
 	if cache_file_path_result.is_ok() {
-		let file_hash_result = root::get_file_hash(&cache_file_path);
+		let file_hash_result = get_file_hash(&cache_file_path);
 		if file_hash_result.is_ok() {
 			let file_hash = file_hash_result.unwrap();
 
@@ -215,7 +210,7 @@ where
 		if bytes.is_ok() {
 			let mut cache_file_path_dir = cache_file_path.clone();
 			cache_file_path_dir.pop();
-			let cache_file_path_dir_canonical = root::pathbuf_to_canonical_pathbuf(cache_file_path_dir.clone(), false);
+			let cache_file_path_dir_canonical = pathbuf_to_canonical_pathbuf(cache_file_path_dir.clone(), false);
 
 			if cache_file_path_dir_canonical.is_ok() {
 				let create_dir_result = std::fs::create_dir_all(cache_file_path_dir);
@@ -227,7 +222,7 @@ where
 
 			let write_result = std::fs::write(cache_file_path.clone(), bytes.unwrap());
 			if write_result.is_ok() {
-				let file_hash_result = root::get_file_hash(&cache_file_path);
+				let file_hash_result = get_file_hash(&cache_file_path);
 				if file_hash_result.is_ok() {
 					let file_hash = file_hash_result.unwrap();
 
@@ -336,7 +331,7 @@ where
 	if args.steam_path.is_some() {
 		// Make sure the path the user is forcing actually exists
 		let steam_path_arg = args.steam_path.unwrap();
-		let steam_path_arg_pathbuf = root::string_to_canonical_pathbuf(steam_path_arg.clone());
+		let steam_path_arg_pathbuf = string_to_canonical_pathbuf(steam_path_arg.clone());
 
 		if steam_path_arg_pathbuf.is_some() {
 			steam_path = steam_path_arg_pathbuf;
@@ -352,7 +347,7 @@ where
 				let steam_reg_path = steam_reg_key.unwrap().get_string("SteamPath");
 
 				if steam_reg_path.is_ok() {
-					steam_path = root::string_to_canonical_pathbuf(steam_reg_path.unwrap());
+					steam_path = string_to_canonical_pathbuf(steam_reg_path.unwrap());
 				}
 			}
 		}
@@ -508,7 +503,7 @@ where
 
 		if steam_library_apps.get(GMOD_STEAM_APPID).is_some() {
 			let steam_library_path = steam_library.get("path").unwrap()[0].clone();
-			gmod_steam_library_path = root::string_to_canonical_pathbuf(steam_library_path.unwrap_str().to_string());
+			gmod_steam_library_path = string_to_canonical_pathbuf(steam_library_path.unwrap_str().to_string());
 		}
 	}
 
@@ -562,7 +557,7 @@ where
 	// TODO: What about case-sensitive filesystems where it's named SteamApps or something
 	// TODO: What about `steamapps/<username>/GarrysMod`? Is that still a thing, or did SteamPipe kill/migrate it completely?
 	let gmod_path = gmod_manifest.get("installdir").unwrap()[0].clone().unwrap_str();
-	let gmod_path = root::pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "common", &gmod_path]), true);
+	let gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "common", &gmod_path]), true);
 
 	if gmod_path.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find Garry's Mod directory. Is Garry's Mod installed?".to_string()));
@@ -756,7 +751,7 @@ where
 	let pending_files_len = pending_files.len();
 	if pending_files_len > 0 {
 		// Delete old GModCEFCodecFix cache directory
-		let old_cache_dir = root::pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(std::env::temp_dir(), &["GModCEFCodecFix"]), false);
+		let old_cache_dir = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(std::env::temp_dir(), &["GModCEFCodecFix"]), false);
 		if old_cache_dir.is_ok() {
 			let old_cache_dir_result = std::fs::remove_dir_all(old_cache_dir.unwrap());
 			if old_cache_dir_result.is_ok() {
@@ -770,10 +765,10 @@ where
 		// Create new GModPatchTool cache directory if it doesn't exist
 		let cache_path = extend_pathbuf_and_return(std::env::temp_dir(), &["GModPatchTool"]);
 		let mut cache_path_str = cache_path.to_string_lossy();
-		let mut cache_dir = root::pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
+		let mut cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
 		if cache_dir.is_ok() {
 			let _ = std::fs::create_dir(cache_path.clone());
-			cache_dir = root::pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
+			cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
 		}
 
 		// Can't access or create the cache directory!
@@ -785,7 +780,7 @@ where
 		let cache_dir = cache_dir.unwrap();
 		cache_path_str = cache_dir.to_string_lossy();
 
-		terminal_write(writer,format!("\nGModPatchTool Cache Directory: {cache_path_str}\n").as_str(), true, None);
+		terminal_write(writer, format!("\nGModPatchTool Cache Directory: {cache_path_str}\n").as_str(), true, None);
 
 		// Download what we need
 		terminal_write(writer, format!("Downloading patch files...").as_str(), true, None);
@@ -846,7 +841,7 @@ where
 			if new_integrity_status == IntegrityStatus::NeedOriginal {
 				let original_filename = format!("originals/{platform_masked}/{gmod_branch}/{filename}");
 				let original_file_parts: Vec<&str> = original_filename.split("/").collect();
-				let original_cache_file_path = root::pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &original_file_parts[..]), false);
+				let original_cache_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &original_file_parts[..]), false);
 
 				if original_cache_file_path.is_ok() {
 					let original_cache_file_path = original_cache_file_path.unwrap();
@@ -875,13 +870,13 @@ where
 
 			// Patch the original file into the fixed one!
 			if new_integrity_status == IntegrityStatus::NeedFix {
-				let gmod_file_path = root::pathbuf_to_canonical_pathbuf(gmod_file_path, false);
+				let gmod_file_path = pathbuf_to_canonical_pathbuf(gmod_file_path, false);
 
 				if gmod_file_path.is_ok() {
 					let gmod_file_path = gmod_file_path.unwrap();
 					let patch_filename = format!("patches/{platform_masked}/{gmod_branch}/{filename}.bsdiff");
 					let patch_file_parts: Vec<&str> = patch_filename.split("/").collect();
-					let patch_file_path = root::pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &patch_file_parts[..]), false);
+					let patch_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &patch_file_parts[..]), false);
 
 					if patch_file_path.is_ok() {
 						let patch_file_path = patch_file_path.unwrap();
@@ -905,7 +900,7 @@ where
 
 										if write_result.is_ok() {
 											// Sanity check the final checksum
-											let file_hash_result = root::get_file_hash(&gmod_file_path);
+											let file_hash_result = get_file_hash(&gmod_file_path);
 
 											if file_hash_result.is_ok() {
 												let file_hash = file_hash_result.unwrap();
@@ -962,6 +957,7 @@ where
 		terminal_write(writer, "No files need patching!", true, None);
 	}
 
+	// TODO: chmod +x gmod (and other executables, chromium_process etc) on macOS/Linux after patching
 	// TODO: Incorporate some of this: https://github.com/ret-0/gmod-linux-patcher/blob/master/gmod-linux-patcher.sh
 	// TODO: Consider this: https://www.protondb.com/app/4000#vZBBKPhbFd
 	// TODO: Bass updates?
@@ -984,7 +980,7 @@ where
 
 	// This is a separate thread because the GUI (if it exists) blocks the main thread
 	builder.spawn(move || {
-		terminal_write(writer, root::ABOUT, true, if writer_is_interactive { Some("cyan") } else { None });
+		terminal_write(writer, ABOUT, true, if writer_is_interactive { Some("cyan") } else { None });
 
 		// Parse the args (will also exit if something's wrong with them)
 		let args = Args::parse();
