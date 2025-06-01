@@ -1575,7 +1575,7 @@ dependencies = [
 
 [[package]]
 name = "gmodpatchtool"
-version = "20250112.0.0"
+version = "20250412.0.0"
 dependencies = [
  "blake3",
  "clap",

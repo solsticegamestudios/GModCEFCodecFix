@@ -1,6 +1,6 @@
 [package]
 name = "gmodpatchtool"
-version = "20250112.0.0"
+version = "20250412.0.0"
 authors = ["Solstice Game Studios <contact@solsticegamestudios.com>"]
 license = "GPL-3.0-only"
 edition = "2021"
@@ -9,12 +9,12 @@ edition = "2021"
 clap = { version = "4.5.31", features = ["derive"] }
 qbsdiff = "1.4.2"
 blake3 = { version = "1.8.1", features = ["mmap", "rayon"] }
+rayon = { version = "1.10.0" }
 serde_json = { version = "1.0.140", optional = true }
 dirs = { version = "6.0.0", optional = true }
 eframe = { version = "0.31.0", optional = true }
 keyvalues-parser = { version = "0.2.0", optional = true }
 phf = { version = "0.11.3", features = ["macros"], optional = true }
-rayon = { version = "1.10.0", optional = true }
 reqwest = { version = "0.12.12", default-features = false, features = ["http2", "rustls-tls-native-roots", "json", "gzip", "brotli", "zstd", "socks"], optional = true }
 steamid = { version = "0.1.2", git = "https://github.com/JohnPeel/steamid", optional = true }
 sysinfo = { version = "0.33.1", optional = true }
@@ -30,5 +30,5 @@ winresource = "0.1.19"
 [features]
 default = ["patch"]
 #default = ["generate"]
-patch = ["dep:serde_json", "dep:dirs", "dep:eframe", "dep:keyvalues-parser", "dep:phf", "dep:rayon", "dep:reqwest", "dep:steamid", "dep:sysinfo", "dep:thiserror", "dep:tokio", "dep:tracing", "dep:tracing-subscriber", "dep:windows-registry"]
+patch = ["dep:serde_json", "dep:dirs", "dep:eframe", "dep:keyvalues-parser", "dep:phf", "dep:reqwest", "dep:steamid", "dep:sysinfo", "dep:thiserror", "dep:tokio", "dep:tracing", "dep:tracing-subscriber", "dep:windows-registry"]
 generate = []
