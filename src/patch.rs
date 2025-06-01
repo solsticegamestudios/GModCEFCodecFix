@@ -358,7 +358,7 @@ where
 			// $HOME/Library/Application Support/Steam
 			let mut steam_data_path = dirs::data_dir().unwrap();
 			steam_data_path.push("Steam");
-			steam_path = pathbuf_to_canonical_pathbuf(steam_data_path, true);
+			steam_path = pathbuf_to_canonical_pathbuf(steam_data_path, true).ok();
 		}
 
 		// Anything else (we assume Linux)
