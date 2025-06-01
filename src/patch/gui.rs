@@ -1,7 +1,5 @@
 //#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-use tracing::{debug, error, info, warn};
-use eframe;
 use eframe::egui;
 
 struct GUIApp {
@@ -60,7 +58,7 @@ pub fn main() -> eframe::Result {
 	eframe::run_native(
 		"GModPatchTool",
 		options,
-		Box::new(|cc| {
+		Box::new(|_cc| {
 			let handler = Box::<GUIApp>::default();
 
 			// TODO: Is this the right place for this? It should be AFTER any errors should happen during UI init. We can't init the logger more than once!

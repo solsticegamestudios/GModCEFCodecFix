@@ -12,65 +12,81 @@ FAQ/Common Issues: https://www.solsticegamestudios.com/fixmedia/faq/
 Discord: https://www.solsticegamestudios.com/discord/
 Email: contact@solsticegamestudios.com\n";
 
-use std::path::{Path, PathBuf};
-use blake3;
+use std::{
+    io,
+    path::{Path, PathBuf},
+};
 
-fn pathbuf_dir_not_empty(pathbuf: &PathBuf) -> bool {
-	// If this is a valid file in the directory, the directory isn't empty
-	if pathbuf.is_file() {
-		return true;
-	}
+use thiserror::Error;
 
-	let pathbuf_dir = pathbuf.read_dir();
-	return if pathbuf_dir.is_ok() && pathbuf_dir.unwrap().next().is_some() { true } else { false };
+#[derive(Debug, Error)]
+#[error("empty directory: {}", _0.display())]
+struct EmptyDir(PathBuf);
+
+trait PathExt {
+    fn better_canonicalize(&self) -> io::Result<PathBuf>;
+    fn is_dir_and_not_empty(&self) -> bool;
+    fn to_canonical_pathbuf(&self, check_empty_directory: bool) -> io::Result<PathBuf>;
 }
 
-pub fn pathbuf_to_canonical_pathbuf(pathbuf: PathBuf, checkdirempty: bool) -> Result<PathBuf, String> {
-	let pathbuf_result = pathbuf.canonicalize();
+impl<P: AsRef<Path>> PathExt for P {
+    #[inline]
+    fn better_canonicalize(&self) -> io::Result<PathBuf> {
+        #[cfg(windows)]
+        use dunce::canonicalize;
+        #[cfg(not(windows))]
+        let canonicalize = Path::canonicalize;
 
-	if pathbuf_result.is_ok() {
-		let pathbuf = pathbuf_result.unwrap();
+        canonicalize(self.as_ref())
+    }
 
-		if !checkdirempty || pathbuf_dir_not_empty(&pathbuf) {
-			Ok(pathbuf)
-		} else {
-			Err("Directory is empty".to_string())
-		}
-	} else {
-		Err(pathbuf_result.unwrap_err().to_string())
-	}
+    fn is_dir_and_not_empty(&self) -> bool {
+        let path = self.as_ref();
+
+        if !path.is_dir() {
+            return true;
+        }
+
+        path.read_dir()
+            .is_ok_and(|mut read_dir| read_dir.next().is_some())
+    }
+
+    fn to_canonical_pathbuf(&self, check_empty_directory: bool) -> io::Result<PathBuf> {
+        let path = self.better_canonicalize()?;
+
+        if !check_empty_directory || path.is_dir_and_not_empty() {
+            Ok(path)
+        } else {
+            Err(io::Error::other(EmptyDir(path)))
+        }
+    }
 }
 
-pub fn string_to_canonical_pathbuf(path_str: String) -> Option<PathBuf> {
-	let pathbuf_result = Path::new(&path_str).canonicalize();
-
-	if pathbuf_result.is_ok() {
-		let pathbuf = pathbuf_result.unwrap();
-
-		if pathbuf_dir_not_empty(&pathbuf) {
-			Some(pathbuf)
-		} else {
-			None
-		}
-	} else {
-		None
-	}
+trait PathBufExt {
+    fn extend_and_return<P, I>(self, iter: I) -> Self
+    where
+        P: AsRef<Path>,
+        I: IntoIterator<Item = P>;
 }
 
-pub fn extend_pathbuf_and_return(mut pathbuf: PathBuf, segments: &[&str]) -> PathBuf {
-	pathbuf.extend(segments);
-	return pathbuf;
+impl PathBufExt for PathBuf {
+    #[inline]
+    fn extend_and_return<P, I>(mut self, iter: I) -> Self
+    where
+        P: AsRef<Path>,
+        I: IntoIterator<Item = P>,
+    {
+        self.extend(iter);
+        self
+    }
 }
 
-pub fn get_file_hash(file_path: &PathBuf) -> Result<String, String> {
-	let mut hasher = blake3::Hasher::new();
-	let hash_result = hasher.update_mmap_rayon(file_path);
-
-	if hash_result.is_ok() {
-		return Ok(format!("{}", hasher.finalize()));
-	} else {
-		return Err(hash_result.unwrap_err().to_string())
-	}
+pub fn get_file_hash<P: AsRef<Path>>(path: P) -> Result<String, String> {
+    let mut hasher = blake3::Hasher::new();
+    hasher
+        .update_mmap_rayon(path)
+        .map_err(|error| error.to_string())?;
+    Ok(format!("{}", hasher.finalize()))
 }
 
 #[cfg(feature = "generate")]
@@ -80,9 +96,9 @@ mod generate;
 mod patch;
 
 fn main() {
-	#[cfg(feature = "generate")]
-	generate::main();
+    #[cfg(feature = "generate")]
+    generate::main();
 
-	#[cfg(feature = "patch")]
-	patch::main();
+    #[cfg(feature = "patch")]
+    patch::main();
 }
