@@ -1847,9 +1847,9 @@
             },
             "bin/linux64/libcef.so": {
                 "original": "6B5915FF01FB45747C252F0A83A1A625EE72ACBA6116733D1C7210F70B005F4C",
-                "patch": "29E4AF92646FF9DAFE87AC05F7AA6C4339937672CEF558590EEF728D968102ED",
+                "patch": "D41FBD46EB8E280E1CFD7F57971A83083ADD055BA008DC880E3905D7EB12ABD9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/linux/x86-64/bin/linux64/libcef.so.bsdiff",
-                "fixed": "CB868C72390BB7E179EFD4CF18F9CD6B640BCB7C7DE0F00D52D4B1E32259475D"
+                "fixed": "559F3F975D5F3FFCD7449E9246C608215EB37BFE83B25534E58BC3AB28C8E465"
             },
             "bin/linux64/libEGL.so": {
                 "original": "98E9D4E4B824B7E933B430B4AF960B29540D2DD17419867BFCB9E5965B514BE6",
