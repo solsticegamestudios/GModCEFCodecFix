@@ -16,6 +16,7 @@
 if not CLIENT then return end
 
 -- Use these global variables for detection elsewhere in your Lua code
+CEFAvailable = BRANCH == "x86-64" or (BRANCH == "dev" and system.IsWindows())
 CEFCodecFixChecked = false
 CEFCodecFixAvailable = false
 
@@ -25,11 +26,12 @@ hook.Add("PreRender", "CEFCodecFixCheck", function()
 
 	print("Querying CEF Codec Support...")
 
-	-- If the client isn't on the x86-64 beta, it's impossible for them to have CEFCodecFix
-	if BRANCH ~= "x86-64" then
+	-- If the client isn't on a beta that has CEF, it's impossible for them to have CEFCodecFix
+	if not CEFAvailable then
 		CEFCodecFixAvailable = false
 		CEFCodecFixChecked = true
 		print("CEF does not have CEFCodecFix")
+		hook.Run("CEFCodecFixStatus", CEFAvailable, CEFCodecFixAvailable)
 		return
 	end
 
@@ -61,6 +63,7 @@ hook.Add("PreRender", "CEFCodecFixCheck", function()
 					print("CEF does not have CEFCodecFix")
 				end
 
+				hook.Run("CEFCodecFixStatus", CEFAvailable, CEFCodecFixAvailable)
 				self:RemoveWhileHidden()
 			end)
 
