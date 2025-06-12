@@ -1,8 +1,5 @@
-// TODO: Multithread generate bsdiff patches (with qbsdiff crate)
-// TODO: If fixed file is deleted, just write "null" hash to manifest, DON'T generate a patch to get from the original to blank
 // TODO: Compress patch files with zstd (or whatever's best; maybe not in this tool?)
 // TODO: Compress original files too (probably not in this tool)
-// TODO: Generate manifest.json
 
 use crate::*;
 use clap::{CommandFactory, Parser};
@@ -12,6 +9,8 @@ use std::collections::HashMap;
 use rayon::prelude::*;
 use std::time::Instant;
 use qbsdiff::Bsdiff;
+use std::sync::Mutex;
+use std::ops::Deref;
 
 #[derive(Parser, Debug)]
 #[command(version)]
@@ -32,9 +31,8 @@ fn get_files_recursive(source: &str, path_base: String, files: &mut HashMap<Stri
 		let entry_path = entry.path();
 		let entry_filename = entry.file_name().into_string().unwrap();
 
-		// TODO: Just remove gmod-update.txt from the directory
-		// TODO: .sym files
-		if entry_filename != "gmod-update.txt" {
+		// TODO: Move gmod-update.txt and .sym files from these directories
+		if entry_filename != "gmod-update.txt" && !entry_filename.contains(".sym") {
 			let entry_relative_path_str = if path_base == "" { entry_filename } else { format!("{path_base}/{entry_filename}") };
 
 			if entry_path.is_dir() {
@@ -61,8 +59,8 @@ fn hash_and_diff_file(patch_path: PathBuf, filename: &String, file_paths: &HashM
 
 	let original_path = file_paths.get("original");
 	let fixed_path = file_paths.get("fixed");
-	let original_hash = if original_path.is_some() { get_file_hash(&original_path.unwrap()) } else { Ok("null".to_string()) };
-	let fixed_hash = if fixed_path.is_some() { get_file_hash(&fixed_path.unwrap()) } else { Ok("null".to_string()) };
+	let original_hash = if original_path.is_some() { get_file_hash(original_path.unwrap()) } else { Ok("null".to_string()) };
+	let fixed_hash = if fixed_path.is_some() { get_file_hash(fixed_path.unwrap()) } else { Ok("null".to_string()) };
 
 	if original_hash.is_err() {
 		return Err((now.elapsed().as_secs_f64(), original_hash.unwrap_err()));
@@ -210,7 +208,15 @@ pub fn main() {
 		.exit();
 	}
 
-	// TODO: Delete all files in patches path (+WARNING)
+	let mut manifest_file_path = patch_path.clone();
+	manifest_file_path.pop();
+	let manifest_file_path = extend_pathbuf_and_return(manifest_file_path, &["manifest.json"]);
+
+	println!("Deleting Old Patches Directory and Manifest...\n");
+
+	std::fs::remove_dir_all(&patch_path).unwrap();
+	std::fs::create_dir(&patch_path).unwrap();
+	std::fs::remove_file(&manifest_file_path).unwrap();
 
 	println!("*** GENERATING PATCH FILES ***\n");
 
@@ -218,18 +224,57 @@ pub fn main() {
 	get_files_recursive("original", "".to_string(), &mut files, original_path);
 	get_files_recursive("fixed", "".to_string(), &mut files, fixed_path);
 
-	//println!("{:#?}", files);
+	let manifest: Mutex<HashMap<String, HashMap<String, HashMap<String, HashMap<String, String>>>>> = Mutex::new(HashMap::new());
 
-	let mut manifest: HashMap<String, HashMap<String, HashMap<String, HashMap<String, String>>>> = HashMap::new();
-
-	// TODO: Early exit if any diffs/hashes fail
 	files.par_iter().for_each(|(filename, file_paths)| {
 		let result = hash_and_diff_file(patch_path.clone(), filename, file_paths);
-		println!("{:#?}", result);
-		// TODO
+		if result.is_ok() {
+			let (time, hashes) = result.unwrap();
+			println!("\t{filename}\n\t\tTook {time} second(s)");
+
+			let file_parts: Vec<&str> = filename.split("/").collect();
+			let platform = file_parts[0].to_string();
+			let gmod_branch = file_parts[1].to_string();
+			let filename = file_parts[2..].join("/");
+
+			let mut manifest_locked = manifest.lock().unwrap();
+
+			let mut platform_branches = manifest_locked.get_mut(&platform);
+			if platform_branches.is_none() {
+				manifest_locked.insert(platform.clone(), HashMap::new());
+				platform_branches = manifest_locked.get_mut(&platform);
+			}
+			let platform_branches = platform_branches.unwrap();
+
+			let mut platform_branch_files = platform_branches.get_mut(&gmod_branch);
+			if platform_branch_files.is_none() {
+				platform_branches.insert(gmod_branch.clone(), HashMap::new());
+				platform_branch_files = platform_branches.get_mut(&gmod_branch);
+			}
+			let platform_branch_files = platform_branch_files.unwrap();
+
+			platform_branch_files.insert(filename, hashes);
+		} else {
+			// TODO: Early exit if any diffs/hashes fail
+		}
 	});
 
-	// TODO
+	let manifest_guard = manifest.lock().unwrap();
+	let manifest = manifest_guard.deref();
+
+	println!("\n*** GENERATING MANIFEST JSON ***\n");
+
+	// HACK(winter): Replace the stupid double-space indentation with proper tabbed indentation
+	// The correct way to do this is with serde::Serialize, but that requires importing the whole serde library, so I don't care
+	// WARN(winter): This may break at some point!...but it'll probably still work, just with wonky formatting
+	// Also add newline at the end to make Git happy
+	let mut manifest_json = serde_json::to_string_pretty(&manifest).unwrap();
+	manifest_json = manifest_json.replace("  ", "	");
+	manifest_json += "\n";
+
+	let write_result = std::fs::write(manifest_file_path.clone(), &manifest_json);
+	write_result.unwrap();
 
 	let now = now.elapsed().as_secs_f64();
+	println!("Patch generation complete! Took {now} second(s).");
 }
