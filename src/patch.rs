@@ -607,7 +607,7 @@ where
 	// TODO: What about case-sensitive filesystems where it's named SteamApps or something
 	// TODO: What about `steamapps/<username>/GarrysMod`? Is that still a thing, or did SteamPipe kill/migrate it completely?
 	let gmod_path = gmod_manifest.get("installdir").unwrap()[0].clone().unwrap_str();
-	let gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "common", &gmod_path]), true);
+	let gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_steam_library_path.clone(), &["steamapps", "common", &gmod_path]), true);
 
 	if gmod_path.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find Garry's Mod directory. Is Garry's Mod installed?".to_string()));
