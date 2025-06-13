@@ -1,9 +1,0 @@
-// gmod-update.txt
-//
-@ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
-@NoPromptForPassword 1
-@sSteamCmdForcePlatformType STEAM_PLATFORM
-force_install_dir "GMOD_DIR"
-login "STEAM_USER" "STEAM_PASS"
-app_update 4000 -beta "x86-64" validate
-quit

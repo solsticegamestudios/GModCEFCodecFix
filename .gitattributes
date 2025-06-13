@@ -10,10 +10,12 @@ patches/** binary
 *.pak filter=lfs diff=lfs merge=lfs -text
 *.so filter=lfs diff=lfs merge=lfs -text
 *.zip filter=lfs diff=lfs merge=lfs -text
+*.zst filter=lfs diff=lfs merge=lfs -text
 chrome_sandbox filter=lfs diff=lfs merge=lfs -text
 chromium_process filter=lfs diff=lfs merge=lfs -text
 Chromium[[:space:]]Embedded[[:space:]]Framework filter=lfs diff=lfs merge=lfs -text
 gmod[[:space:]]Helper filter=lfs diff=lfs merge=lfs -text
+gmod[[:space:]]Helper[[:space:]](Alerts) filter=lfs diff=lfs merge=lfs -text
 gmod[[:space:]]Helper[[:space:]](GPU) filter=lfs diff=lfs merge=lfs -text
 gmod[[:space:]]Helper[[:space:]](Plugin) filter=lfs diff=lfs merge=lfs -text
 gmod[[:space:]]Helper[[:space:]](Renderer) filter=lfs diff=lfs merge=lfs -text
