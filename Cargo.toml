@@ -23,6 +23,10 @@ tokio = { version = "1.45.1", features = ["full"], optional = true }
 tracing = { version = "0.1.41", optional = true }
 tracing-subscriber = { version = "0.3.19", features = ["env-filter", "tracing-log"], optional = true }
 windows-registry = { version = "0.5.2", optional = true }
+zstd = "0.13.3"
+
+[target.'cfg(windows)'.dependencies]
+is_elevated = "0.1.2"
 
 [target.'cfg(windows)'.build-dependencies]
 winresource = "0.1.22"
