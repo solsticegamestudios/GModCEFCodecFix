@@ -603,7 +603,7 @@
 			}
 		}
 	},
-	"win32": {
+	"windows": {
 		"x86-64": {
 			"bin/resources.pak": {
 				"original": "null",
@@ -1860,7 +1860,7 @@
 			}
 		}
 	},
-	"darwin": {
+	"macos": {
 		"x86-64": {
 			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/te.lproj/locale.pak": {
 				"patch": "dca31aaa3964cbb55478e592987d95ce4f7010fd51411c9e7f59b053f643587b",
