@@ -22,7 +22,6 @@ use crate::*;
 mod gui;
 
 use eframe::egui::TextBuffer;
-use tokio;
 use tracing::error;
 use tracing_subscriber::filter::EnvFilter;
 use clap::Parser;
@@ -45,6 +44,15 @@ use tokio::time::Instant;
 use tokio::task::JoinSet;
 use qbsdiff::Bspatch;
 
+#[cfg(windows)]
+use is_elevated::is_elevated;
+
+#[cfg(unix)]
+use std::os::unix::fs::MetadataExt;
+
+#[cfg(unix)]
+use std::os::unix::fs::PermissionsExt;
+
 #[derive(Parser)]
 #[command(version)]
 struct Args {
@@ -54,7 +62,11 @@ struct Args {
 
 	/// Force a specific Steam install path (NOT a Steam library path)
 	#[arg(short, long)]
-	steam_path: Option<String>, // TODO: PathBuf instead of String
+	steam_path: Option<PathBuf>,
+
+	/// Allow running the tool as root/admin (NOT RECOMMENDED!!!)
+	#[arg(long)]
+	run_as_root_with_security_risk: bool,
 }
 
 const COLOR_LOOKUP: Map<&'static str, &'static str> =
@@ -182,7 +194,13 @@ async fn download_file_to_cache<W>(writer: fn() -> W, writer_is_interactive: boo
 where
 	W: std::io::Write + 'static
 {
-	let file_parts: Vec<&str> = filename.split("/").collect();
+	let filename_no_zst = if filename.ends_with(".zst") {
+		let len = filename.len() - 4;
+		filename[..len].to_string()
+	} else {
+		filename.clone()
+	};
+	let file_parts: Vec<&str> = filename_no_zst.split("/").collect();
 	let cache_file_path = extend_pathbuf_and_return(cache_dir, &file_parts[..]);
 	let cache_file_path_result = pathbuf_to_canonical_pathbuf(cache_file_path.clone(), false);
 
@@ -205,24 +223,44 @@ where
 	let response = get_http_response(writer, writer_is_interactive, &PATCH_SERVER_ROOTS, filename.as_str()).await;
 	if response.is_some() {
 		let response = response.unwrap();
-		let bytes = response.bytes().await;
+		let bytes_raw = response.bytes().await;
 
-		if bytes.is_ok() {
+		if bytes_raw.is_ok() {
+			let bytes_raw = bytes_raw.unwrap();
+
+			// Create directories if needed
 			let mut cache_file_path_dir = cache_file_path.clone();
 			cache_file_path_dir.pop();
 			let cache_file_path_dir_canonical = pathbuf_to_canonical_pathbuf(cache_file_path_dir.clone(), false);
 
-			if cache_file_path_dir_canonical.is_ok() {
+			if cache_file_path_dir_canonical.is_err() {
 				let create_dir_result = std::fs::create_dir_all(cache_file_path_dir);
 				if create_dir_result.is_err() {
 					let error_string = create_dir_result.unwrap_err().to_string();
 					terminal_write(writer, format!("\tFailed to Download: {filename} | Step 2: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+					return Err(());
 				}
 			}
 
-			let write_result = std::fs::write(cache_file_path.clone(), bytes.unwrap());
+			// Decompress Zstandard files
+			let mut bytes: Vec<u8> = if filename.ends_with(".zst") { Vec::new() } else { bytes_raw.to_vec() };
+			if filename.ends_with(".zst") {
+				terminal_write(writer, format!("\tDecompressing: {filename} ...").as_str(), true, None);
+
+				let decompress_result = zstd::stream::copy_decode(&bytes_raw[..], &mut bytes);
+				if decompress_result.is_ok() {
+					terminal_write(writer, format!("\tDecompressed: {filename}").as_str(), true, None);
+				} else {
+					let error_string = decompress_result.unwrap_err().to_string();
+					terminal_write(writer, format!("\tFailed to Decompress: {filename} | {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+					return Err(());
+				}
+			}
+
+			let write_result = std::fs::write(cache_file_path.clone(), bytes);
 			if write_result.is_ok() {
 				let file_hash_result = get_file_hash(&cache_file_path);
+
 				if file_hash_result.is_ok() {
 					let file_hash = file_hash_result.unwrap();
 
@@ -241,7 +279,7 @@ where
 				terminal_write(writer, format!("\tFailed to Download: {filename} | Step 2: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 			}
 		} else {
-			let error_string = bytes.unwrap_err().to_string();
+			let error_string = bytes_raw.unwrap_err().to_string();
 			terminal_write(writer, format!("\tFailed to Download: {filename} | Step 1: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 		}
 	}
@@ -249,6 +287,11 @@ where
 	return Err(());
 }
 
+#[cfg(unix)]
+#[link(name = "c")]
+unsafe extern "C" {
+	safe fn geteuid() -> u32;
+}
 
 async fn main_script_internal<W>(writer: fn() -> W, writer_is_interactive: bool, args: Args) -> Result<(), AlmightyError>
 where
@@ -293,36 +336,37 @@ where
 		}
 	}
 
-	// TODO: Warn about running as root
-	// TODO: Force confirmation? Tell them how to abort (CTRL+C)?
-	let root = false;
+	// Warn/Exit if running as root/admin
+	#[cfg(windows)]
+	let root = is_elevated();
+
+	#[cfg(unix)]
+	let root = geteuid() == 0;
+
 	if root {
-		terminal_write(writer, "WARNING: You are running GModPatchTool as root/with admin privileges. This may cause issues and is not typically necessary.", true, if writer_is_interactive { Some("red") } else { None });
+		if args.run_as_root_with_security_risk {
+			terminal_write(writer, "WARNING: You are running GModPatchTool as root/with admin privileges. This may cause issues and is not typically necessary.", true, if writer_is_interactive { Some("red") } else { None });
 
-		let mut secs_to_continue: u8 = 10;
-		while secs_to_continue > 0 {
-			terminal_write(writer, format!("\tContinuing in {secs_to_continue} second(s)...\r").as_str(), false, if writer_is_interactive { Some("yellow") } else { None });
-			writer().flush().unwrap();
-			tokio::time::sleep(time::Duration::from_secs(1)).await;
-			secs_to_continue -= 1;
-		}
+			let mut secs_to_continue: u8 = 10;
+			while secs_to_continue > 0 {
+				terminal_write(writer, format!("\tContinuing in {secs_to_continue} second(s)...\r").as_str(), false, if writer_is_interactive { Some("yellow") } else { None });
+				writer().flush().unwrap();
+				tokio::time::sleep(time::Duration::from_secs(1)).await;
+				secs_to_continue -= 1;
+			}
 
-		// Clear continuing line
-		if writer_is_interactive {
-			terminal_write(writer, "\x1B[0K\n", false, None);
+			// Clear continuing line
+			if writer_is_interactive {
+				terminal_write(writer, "\x1B[0K\n", false, None);
+			}
+		} else {
+			return Err(AlmightyError::Generic("You are running GModPatchTool as root/with admin privileges. This may cause issues and is not typically necessary.\n\nIF YOU KNOW WHAT YOU'RE DOING, you can allow this using --run-as-root-with-security-risk. Aborting...".to_string()));
 		}
 	}
 
 	// Abort if GMod is currently running
 	let sys = System::new_all();
-
-	// Windows
-	for _ in sys.processes_by_exact_name("gmod.exe".as_ref()) {
-		return Err(AlmightyError::Generic("Garry's Mod is currently running. Please close it before running this tool.".to_string()));
-	}
-
-	// Linux / macOS
-	for _ in sys.processes_by_exact_name("gmod".as_ref()) {
+	if sys.processes_by_exact_name("gmod.exe".as_ref()).next().is_some() || sys.processes_by_exact_name("gmod".as_ref()).next().is_some() {
 		return Err(AlmightyError::Generic("Garry's Mod is currently running. Please close it before running this tool.".to_string()));
 	}
 
@@ -331,12 +375,12 @@ where
 	if args.steam_path.is_some() {
 		// Make sure the path the user is forcing actually exists
 		let steam_path_arg = args.steam_path.unwrap();
-		let steam_path_arg_pathbuf = string_to_canonical_pathbuf(steam_path_arg.clone());
+		let steam_path_arg_pathbuf = pathbuf_to_canonical_pathbuf(steam_path_arg.clone(), true);
 
-		if steam_path_arg_pathbuf.is_some() {
-			steam_path = steam_path_arg_pathbuf;
+		if steam_path_arg_pathbuf.is_ok() {
+			steam_path = Some(steam_path_arg_pathbuf.unwrap());
 		} else {
-			return Err(AlmightyError::Generic(format!("Please check the --steam_path argument is pointing to a valid path:\n\t{steam_path_arg}")));
+			return Err(AlmightyError::Generic(format!("Please check the --steam_path argument is pointing to a valid path:\n\t{}", steam_path_arg_pathbuf.unwrap_err())));
 		}
 	} else {
 		// Windows
@@ -380,8 +424,11 @@ where
 
 			for pathbuf in possible_steam_paths {
 				let pathbuf = pathbuf_to_canonical_pathbuf(pathbuf, true);
-				if pathbuf.is_some() {
-					valid_steam_paths.push(pathbuf.unwrap());
+				if pathbuf.is_ok() {
+					let pathbuf = pathbuf.unwrap();
+					if !valid_steam_paths.contains(&pathbuf) {
+						valid_steam_paths.push(pathbuf);
+					}
 				}
 			}
 
@@ -389,8 +436,11 @@ where
 			let steam_xdg_path = dirs::data_dir();
 			if steam_xdg_path.is_some() {
 				let steam_xdg_pathbuf = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(steam_xdg_path.unwrap(), &["Steam"]), true);
-				if steam_xdg_pathbuf.is_some() {
-					valid_steam_paths.push(steam_xdg_pathbuf.unwrap());
+				if steam_xdg_pathbuf.is_ok() {
+					let steam_xdg_pathbuf = steam_xdg_pathbuf.unwrap();
+					if !valid_steam_paths.contains(&steam_xdg_pathbuf) {
+						valid_steam_paths.push(steam_xdg_pathbuf);
+					}
 				}
 			}
 
@@ -540,7 +590,7 @@ where
 	let gmod_scheduledautoupdate = gmod_manifest.get("ScheduledAutoUpdate").unwrap()[0].clone().unwrap_str();
 	// TODO(?): FullValidateBeforeNextUpdate / FullValidateAfterNextUpdate
 	if gmod_stateflags != "4" || gmod_downloadtype != "2" || gmod_scheduledautoupdate != "0" {
-		return Err(AlmightyError::Generic("Garry's Mod isn't Ready. Check Steam > Downloads and make sure it is fully installed and up to date.".to_string()));
+		return Err(AlmightyError::Generic("Garry's Mod isn't Ready. Check Steam > Downloads and make sure it is fully installed and up to date. If that doesn't work, try launching the game, closing it, then running the tool again.".to_string()));
 	}
 
 	terminal_write(writer, format!("GMod App State: {gmod_stateflags} / {gmod_scheduledautoupdate}\n").as_str(), true, None);
@@ -570,9 +620,9 @@ where
 
 	// Abort if they're running as root AND the GMod directory isn't owned by root
 	// Will hopefully prevent broken installs/updating
-	#[cfg(not(any(windows, target_os = "macos")))]
+	#[cfg(unix)]
 	if root {
-		let gmod_dir_meta = std::fs::metadata(gmod_path);
+		let gmod_dir_meta = std::fs::metadata(&gmod_path);
 		if gmod_dir_meta.is_ok() {
 			let gmod_dir_meta = gmod_dir_meta.unwrap();
 			if gmod_dir_meta.uid() != 0 {
@@ -653,11 +703,11 @@ where
 	let steam_user_localconfig_gmod = steam_user_localconfig_apps.get(GMOD_STEAM_APPID);
 
 	if steam_user_localconfig_gmod.is_some() {
-		let steam_user_localconfig_gmod = steam_user_localconfig_gmod.clone().unwrap()[0].clone().unwrap_obj();
+		let steam_user_localconfig_gmod = steam_user_localconfig_gmod.unwrap()[0].clone().unwrap_obj();
 		let steam_user_localconfig_gmod_launchopts = steam_user_localconfig_gmod.get("LaunchOptions");
 
 		if steam_user_localconfig_gmod_launchopts.is_some() {
-			let steam_user_localconfig_gmod_launchopts = steam_user_localconfig_gmod_launchopts.clone().unwrap()[0].clone().unwrap_str();
+			let steam_user_localconfig_gmod_launchopts = steam_user_localconfig_gmod_launchopts.unwrap()[0].clone().unwrap_str();
 			if steam_user_localconfig_gmod_launchopts.contains("-nochromium") {
 				terminal_write(writer, "WARNING: -nochromium is in GMod's Launch Options! CEF will not work with this.\n\tPlease go to Steam > Garry's Mod > Properties > General and remove it.\n\tAdditionally, if you have gmod-lua-menu installed, uninstall it.", true, if writer_is_interactive { Some("yellow") } else { None });
 
@@ -744,14 +794,23 @@ where
 				pending_files.push((filename, result, hashes));
 			}
 		} else {
-			return Err(AlmightyError::Generic(format!("Failed to get integrity status of one or more files!")));
+			return Err(AlmightyError::Generic("Failed to get integrity status of one or more files!".to_string()));
 		}
 	}
 
 	let pending_files_len = pending_files.len();
 	if pending_files_len > 0 {
+		// Figure out where our cache should go based on OS
+		let dirs_cache_dir = dirs::cache_dir();
+		let os_cache_dir = if dirs_cache_dir.is_some() { dirs_cache_dir.unwrap() } else { std::env::temp_dir() };
+
 		// Delete old GModCEFCodecFix cache directory
-		let old_cache_dir = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(std::env::temp_dir(), &["GModCEFCodecFix"]), false);
+		#[cfg(windows)]
+		let old_cache_dir = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(os_cache_dir.clone(), &["Temp", "GModCEFCodecFix"]), false);
+
+		#[cfg(not(windows))]
+		let old_cache_dir = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(os_cache_dir.clone(), &["GModCEFCodecFix"]), false);
+
 		if old_cache_dir.is_ok() {
 			let old_cache_dir_result = std::fs::remove_dir_all(old_cache_dir.unwrap());
 			if old_cache_dir_result.is_ok() {
@@ -763,10 +822,10 @@ where
 		}
 
 		// Create new GModPatchTool cache directory if it doesn't exist
-		let cache_path = extend_pathbuf_and_return(std::env::temp_dir(), &["GModPatchTool"]);
+		let cache_path = extend_pathbuf_and_return(os_cache_dir, &["GModPatchTool"]);
 		let mut cache_path_str = cache_path.to_string_lossy();
 		let mut cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
-		if cache_dir.is_ok() {
+		if cache_dir.is_err() {
 			let _ = std::fs::create_dir(cache_path.clone());
 			cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
 		}
@@ -783,13 +842,13 @@ where
 		terminal_write(writer, format!("\nGModPatchTool Cache Directory: {cache_path_str}\n").as_str(), true, None);
 
 		// Download what we need
-		terminal_write(writer, format!("Downloading patch files...").as_str(), true, None);
+		terminal_write(writer, "Downloading patch files...", true, None);
 
 		let mut download_futures = JoinSet::new();
 		for (filename, integrity_status, hashes) in &pending_files {
 			// Need Original
 			if *integrity_status == IntegrityStatus::NeedOriginal {
-				download_futures.spawn(download_file_to_cache(writer, writer_is_interactive, cache_dir.clone(), format!("originals/{platform_masked}/{gmod_branch}/{filename}"), hashes["original"].clone()));
+				download_futures.spawn(download_file_to_cache(writer, writer_is_interactive, cache_dir.clone(), format!("originals/{platform_masked}/{gmod_branch}/{filename}.zst"), hashes["original"].clone()));
 			}
 
 			// Need Fix (we filtered out IntegrityStatus::Fixed above, but we still need IntegrityStatus::NeedDelete for later)
@@ -800,7 +859,7 @@ where
 
 		while let Some(download_result) = download_futures.join_next().await {
 			if download_result.is_err() {
-				return Err(AlmightyError::Generic(format!("Failed to download one or more patch files!")));
+				return Err(AlmightyError::Generic("Failed to download one or more patch files!".to_string()));
 			}
 		}
 
@@ -858,6 +917,17 @@ where
 
 			// Create/truncate original file (it doesn't exist without patches applied)
 			if new_integrity_status == IntegrityStatus::NeedWipeFix {
+				let gmod_file_path_dir = gmod_file_path.parent().unwrap().to_path_buf();
+				let gmod_file_path_dir_path = pathbuf_to_canonical_pathbuf(gmod_file_path_dir.clone(), false);
+
+				if gmod_file_path_dir_path.is_err() {
+					let create_dir_result = std::fs::create_dir_all(gmod_file_path_dir);
+					if create_dir_result.is_err() {
+						let error_string = create_dir_result.unwrap_err().to_string();
+						terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string}: {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+					}
+				}
+
 				let create_result = File::create(&gmod_file_path);
 
 				if create_result.is_ok() {
@@ -950,20 +1020,65 @@ where
 
 		for (_, integrity_status) in patch_results {
 			if integrity_status != IntegrityStatus::Fixed {
-				return Err(AlmightyError::Generic(format!("Failed to patch one or more files!")));
+				return Err(AlmightyError::Generic("Failed to patch one or more files!".to_string()));
 			}
 		}
 	} else {
 		terminal_write(writer, "No files need patching!", true, None);
 	}
 
-	// TODO: chmod +x gmod (and other executables, chromium_process etc) on macOS/Linux after patching
+	// Make sure executables are executable on Linux and macOS
+	// TODO: Windows support...but at the time of writing it's not well supported in Rust
+	// This is done separately because we want it to apply to ALL files regardless of if they needed to be patched
+	// https://github.com/solsticegamestudios/GModPatchTool/issues/161
+	#[cfg(unix)]
+	{
+		terminal_write(writer, "\nApplying file permissions...", true, None);
+
+		for (filename, fileinfo) in platform_branch_files {
+			let executable = fileinfo.get("executable");
+
+			if executable.is_some() {
+				let executable = executable.unwrap();
+
+				if executable == "true" {
+					let gmod_file_parts: Vec<&str> = filename.split("/").collect();
+					let gmod_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path.clone(), &gmod_file_parts[..]), true);
+
+					if gmod_file_path.is_ok() {
+						let gmod_file_path = gmod_file_path.unwrap();
+						let metadata = std::fs::metadata(&gmod_file_path);
+
+						if metadata.is_ok() {
+							// Ensure the executable bit is present and apply it to the file
+							let mut perms = metadata.unwrap().permissions();
+							perms.set_mode(perms.mode() | 0o111);
+							let perms_result = std::fs::set_permissions(&gmod_file_path, perms);
+
+							if perms_result.is_ok() {
+								terminal_write(writer, format!("\t{filename}").as_str(), true, None);
+							} else {
+								let error_string = perms_result.unwrap_err().to_string();
+								terminal_write(writer, format!("\tFailed to Apply Permissions: {filename} | {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+								// TODO: Fatal?
+							}
+						} else {
+							let error_string = metadata.unwrap_err().to_string();
+							terminal_write(writer, format!("\tFailed to Apply Permissions: {filename} | {error_string}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+							// TODO: Fatal?
+						}
+					}
+				}
+			}
+		}
+	}
+
 	// TODO: Incorporate some of this: https://github.com/ret-0/gmod-linux-patcher/blob/master/gmod-linux-patcher.sh
 	// TODO: Consider this: https://www.protondb.com/app/4000#vZBBKPhbFd
 	// TODO: Bass updates?
 
 	let now = now.elapsed().as_secs_f64();
-	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).").as_str(), true, if writer_is_interactive { Some("green") } else { None });
+	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).\nYou can now launch Garry's Mod in Steam.\n").as_str(), true, if writer_is_interactive { Some("green") } else { None });
 
 	// TODO: AppInfo launch options for auto-starting GMod? What if we just relied on steam://rungameid/4000 instead?
 
@@ -1004,7 +1119,7 @@ where
 }
 
 fn terminal_exit_handler() {
-	println!("Press Enter to continue...");
+	println!("Press Enter to exit...");
 	std::io::stdin().read_line(&mut String::new()).unwrap();
 }
 

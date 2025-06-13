@@ -13,7 +13,6 @@ Discord: https://www.solsticegamestudios.com/discord/
 Email: contact@solsticegamestudios.com\n";
 
 use std::path::{Path, PathBuf};
-use blake3;
 
 fn pathbuf_dir_not_empty(pathbuf: &PathBuf) -> bool {
 	// If this is a valid file in the directory, the directory isn't empty
