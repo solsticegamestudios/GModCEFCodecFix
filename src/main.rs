@@ -25,7 +25,12 @@ fn pathbuf_dir_not_empty(pathbuf: &PathBuf) -> bool {
 }
 
 pub fn pathbuf_to_canonical_pathbuf(pathbuf: PathBuf, checkdirempty: bool) -> Result<PathBuf, String> {
-	let pathbuf_result = pathbuf.canonicalize();
+	#[cfg(target_os = "windows")]
+	use dunce::canonicalize;
+	#[cfg(not(target_os = "windows"))]
+	let canonicalize = Path::canonicalize;
+
+	let pathbuf_result = canonicalize(pathbuf.as_path());
 
 	if pathbuf_result.is_ok() {
 		let pathbuf = pathbuf_result.unwrap();
