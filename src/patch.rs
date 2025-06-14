@@ -635,10 +635,12 @@ where
 	// Get GMod CompatTool config (Steam Linux Runtime, Proton, etc) on Linux
 	// NOTE: platform_masked is specifically for Proton
 	let platform = if cfg!(windows) { "windows" } else if cfg!(target_os = "macos") { "macos" } else { "linux" };
+	#[cfg_attr(not(target_os = "linux"), expect(unused_mut, reason = "used on linux"))]
 	let mut platform_masked = platform;
+	#[cfg_attr(not(target_os = "linux"), expect(unused_mut, reason = "used on linux"))]
 	let mut gmod_compattool = "none".to_string();
 
-	#[cfg(not(any(windows, target_os = "macos")))]
+	#[cfg(target_os = "linux")]
 	{
 		// Get Steam config
 		let steam_config_path = extend_pathbuf_and_return(steam_path.clone(), &["config", "config.vdf"]);
