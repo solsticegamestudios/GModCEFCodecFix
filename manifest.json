@@ -3,27 +3,27 @@
         "x86-64": {
             "bin/chrome_100_percent.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "86AD0889DF4F64FFA5DD23615921B0BB4559E395656B479916A478D173B8AEE2",
+                "patch": "04638C9718E4E9DB9B06D23DA5B1FB76660581C230B1CDA1C6E1A140E0A3AA40",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/chrome_100_percent.pak.bsdiff",
-                "fixed": "97C747E52B1C9241FB969ED00A685D1EE8B014FB708AFCB1AC27ECADD1C51550"
+                "fixed": "CA3866B50A790A03A347CB7672A661154C02696F60898B95F5C46DD70E8047EB"
             },
             "bin/chrome_200_percent.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B4F7A3ADF2C0C0F62D78FAD7047E56A53AB47ACAF1178682EF7B7CD0E223C863",
+                "patch": "F86219A2B8C8E5CF29E787E6C52AC2D8E41C68A58BD44888C607F86AF75EE445",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/chrome_200_percent.pak.bsdiff",
-                "fixed": "0A2F438D876504598B55B92A5D0340310719C7EECCB8CD10C1AB09FB17033B4F"
+                "fixed": "65272E9BCE65614738A1CC369FCE3295E397DB3C2820CE9881EC7E1013E64E7C"
             },
             "bin/resources.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "73CA5C7ED57635774B9865F1D7260D5CFD7B8D11694FB2C0A7CB950B92836390",
+                "patch": "72C3A51A74770ABB6A541D8CF35B2961229F95366B26833B361449B975505A62",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/resources.pak.bsdiff",
-                "fixed": "9BA5B8995EDC96D1333752F3D2FD7851ED2FCE04021EF50D217CC6311C2C48F0"
+                "fixed": "545D293F1860155621D945B02F41A65CB88A67EFF22952256AC209D714B0FC8E"
             },
             "bin/chrome_elf.dll": {
                 "original": "31CB72D373FE4B6D4B06F75442B983223016D1FD1550C799B5C9583567CE1A8E",
-                "patch": "FE3FE5FB2E317FB82200BD43A138259F63E4E0964C43E7F2C8F1E7621C62CDA1",
+                "patch": "069EBB3187D1C931162876CAC07967F3166A18DFF83C6482ABBEB1CC3E74597F",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/chrome_elf.dll.bsdiff",
-                "fixed": "7B3B2454427C463F9D9A0756929F57CC2434F1AD66D31A77B4CC3D152F0B0008"
+                "fixed": "95C4B00B8A7EBB1CA39C2701BF7A5FAEFE031EE9C2EF8C61C305D8B945417CDC"
             },
             "bin/d3dcompiler_47.dll": {
                 "original": "8BF0EEB5081D8397E2F84F69449C8A80D9C0CDCF82BCEF7A484309046ADCB081",
@@ -33,39 +33,39 @@
             },
             "bin/gmod.exe": {
                 "original": "A51A895F6ED13C124C0048D460C3AA00437E9D1171F1E4EA40EBF1B46ED77F45",
-                "patch": "3BFAB3263F888F397EF28202CBE28AB6F3D82EE6508B3DF3DD5BBF91D1E1CE3F",
+                "patch": "C827B419F602A1CBC327C0D85D1A1E177CFE279104114291704A9257D50613E4",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/gmod.exe.bsdiff",
-                "fixed": "C942FE797DDC818544C72EF80F11FA6E075198F042560B2C05A8FCFFD450F9FD"
+                "fixed": "B669574973EA5D8F40EA70D24170BC2CBA347BF7879E6E286A4840E2AAF2C33A"
             },
             "bin/html_chromium.dll": {
                 "original": "57E30D2769FFC21D59019F32B7D233781775B2E1BA350184CB4AFC3A54EC614F",
-                "patch": "DAD94AAAAAF980F64C157C3013654EF87BCC923386030EC2119D256247E896A1",
+                "patch": "F5B8ED6C6D98BC534FC06D8FB9AEDB29346DA13A39C33E56FE37F751A888DD6E",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/html_chromium.dll.bsdiff",
-                "fixed": "3FE12C4CAA76FF5F154CE3FE7DFAD3C04C8109A8BFD5A35E860EE44A6DA0B05D"
+                "fixed": "BE5F01813E461B46D055BAC0B5E7A9ED031951E1B751AA01A7A65DAC00E8100D"
             },
             "bin/icudtl.dat": {
                 "original": "27993E2079711D5F0F04A72F48FEE88B269604C8E3FBDF50A7F7BB3F5BFC8D8E",
-                "patch": "636B346095797ECF2631114590E2E8A0FCD0BB997DA2D266926BD21C61E65DB1",
+                "patch": "35839929E03AFFD7D4A329DC2E3715BD25AD85D353360885AF9285A9704C69B6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/icudtl.dat.bsdiff",
-                "fixed": "A9F6072E858EA29CB66501847856D403C862F23D03CAC2656D1E0FA2865FDC7B"
+                "fixed": "5070DE99FBD8A48378543511FB7A072F85BF36F94B4F4E1D420D54BE1435D6F1"
             },
             "bin/libcef.dll": {
                 "original": "E623478400F5B960CE53414436EF997722552D317BAB5EC6AD99BBF7FE63F731",
-                "patch": "D5F3FEC42D91239395C4249675BE43D8AFFAE6C7E4C0CF99F633BC6F9624D0CF",
+                "patch": "6688BEDA448164DBAAB081F2E67EFE0948E99B58C9829DD34F307AAB1099E161",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/libcef.dll.bsdiff",
-                "fixed": "BE5262DE2B2B9C03F6A2D888C2DC2AE28A4ACC80C5B77856139697C959FDB479"
+                "fixed": "15D56E754C2166185941EA5383F0F8701BC7AA9487C23B67C7C75EEE8C0E2C13"
             },
             "bin/libEGL.dll": {
                 "original": "D39DD1E5DFCE7E1174B909992BF1864B82E7A30BEB7C936909B8D0305A85899E",
-                "patch": "67668DBD1B2611FE4764F33093172F07473A9E4D351362AC3B6B01EA676C2BE2",
+                "patch": "9BB7003DB52862B1BAC3954C06DEAA376DE8691BA87A6AB7C7621EAD02AD487B",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/libEGL.dll.bsdiff",
-                "fixed": "B5D4BA19967E119916923AB0156003B62EEE2C280BC6DEFCED274EDE9B903FAD"
+                "fixed": "A08518050B96AD3F04B7880A49CC829DAFA5ECCF147D9F685C2B7B91BFA954E4"
             },
             "bin/libGLESv2.dll": {
                 "original": "0CF4CDC4B4CD8C47A8F6F4A9240737D629869539315009D0644501190A36E41B",
-                "patch": "EA7E49920421860097099B9C209585F95D9BDAA26359CC7C455CB08159D9CB4F",
+                "patch": "D04853A154131A29399306C2E834BCC05FF5C14CE55DA3888D0B98C5670CB5AF",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/libGLESv2.dll.bsdiff",
-                "fixed": "E309D0EC7846F2705992ED677690B40671313AF8B32C7C4608627EB9888DEFC7"
+                "fixed": "F503B9F5E3E4E60978F32E7BD5780AF547046895D20D0E777223A34B6868BAC8"
             },
             "bin/snapshot_blob.bin": {
                 "original": "0277DDCAB9928CA71F51484BF499077C09736B144889D75980BD08FAA2B6C857",
@@ -75,15 +75,15 @@
             },
             "bin/v8_context_snapshot.bin": {
                 "original": "96CF07A8885B2F26EAAA7B9D1F744E9E7CFCB257EB2787F5557BC17CCF50D467",
-                "patch": "D81385ADEAD01AF0E734D5925EF4B16D41DC369F6717D32555832FC2DB180A64",
+                "patch": "53485046E38FF791F8E652163104B895181140D889C65557FBDF9B39C89E5079",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/v8_context_snapshot.bin.bsdiff",
-                "fixed": "8A49781C79FBFC6A21036B0F70E1FEDF96F5C8C20634370504E5D1408FDEB531"
+                "fixed": "C75C80DB3DAD8C2D57D0D8568C4732435C7E912E4DF532E94FBDAC4A5A86E9D8"
             },
             "bin/vk_swiftshader.dll": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "0F1975408E57B8DA9B397D27D353489F409686F93336DB95EBF0757C4D77742F",
+                "patch": "DE18BB791E58102D1CEF153559528E5AF81EA59D98BD7D884AB808A82B7CF170",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/vk_swiftshader.dll.bsdiff",
-                "fixed": "3891753C30DC9B0051632CF2DA9E4FD8E20465376D182C23710E8F2456D05662"
+                "fixed": "964DC73D5BBEB37E0D0A07B9745FBEDC859EED32E226F4876AEA1A0630D4CB3C"
             },
             "bin/vk_swiftshader_icd.json": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
@@ -93,9 +93,9 @@
             },
             "bin/vulkan-1.dll": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "320B9E6920794B099760C662B9FD81794737B166B794035EABDC7FE2FEA1391F",
+                "patch": "6CDF1AC056EC8BC79B686BD06DDED985BBC78A7E87EAE7FB376C743CFC70EA7D",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/vulkan-1.dll.bsdiff",
-                "fixed": "653403E4505B04EFFFB96467F7486C7E864A9F457A3B8435962E67FD12E74F8D"
+                "fixed": "41BDA9BBE9B884EB1B9554884245EC5EE96F1BA699DE8E8C11DC17C467F81243"
             },
             "bin/chromium/cef.pak": {
                 "original": "64F2DCF9605E15B8C47ADA932CD13052F0F7CB18D6776C6BA9DE474CB412F3D1",
@@ -129,27 +129,27 @@
             },
             "bin/win64/chrome_100_percent.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "86AD0889DF4F64FFA5DD23615921B0BB4559E395656B479916A478D173B8AEE2",
+                "patch": "04638C9718E4E9DB9B06D23DA5B1FB76660581C230B1CDA1C6E1A140E0A3AA40",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/chrome_100_percent.pak.bsdiff",
-                "fixed": "97C747E52B1C9241FB969ED00A685D1EE8B014FB708AFCB1AC27ECADD1C51550"
+                "fixed": "CA3866B50A790A03A347CB7672A661154C02696F60898B95F5C46DD70E8047EB"
             },
             "bin/win64/chrome_200_percent.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B4F7A3ADF2C0C0F62D78FAD7047E56A53AB47ACAF1178682EF7B7CD0E223C863",
+                "patch": "F86219A2B8C8E5CF29E787E6C52AC2D8E41C68A58BD44888C607F86AF75EE445",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/chrome_200_percent.pak.bsdiff",
-                "fixed": "0A2F438D876504598B55B92A5D0340310719C7EECCB8CD10C1AB09FB17033B4F"
+                "fixed": "65272E9BCE65614738A1CC369FCE3295E397DB3C2820CE9881EC7E1013E64E7C"
             },
             "bin/win64/resources.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "BF71AE0EC9D86AD987696A7FFAF12D5CA2D53542C60D4E72A36149C49EB113C9",
+                "patch": "CBE8CF7BD1434CC4B5B035AAA8AF66003C7CD8B120D1AD5423EA8BE749FFF6E0",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/resources.pak.bsdiff",
-                "fixed": "CAE55C665898B58E2F68B9D44C5A6BF34E7B33484428EEEF90420BE6C88593BD"
+                "fixed": "DB4211829716B10C509FC9377F86657C20F1158F29CD8A713F74D679A2097F05"
             },
             "bin/win64/chrome_elf.dll": {
                 "original": "88A3B8C30843E3818BD09C791E7F99C94D427CF37CD9D4225F56871D60B11B0B",
-                "patch": "B2B975EFA7948EF83C063F936EC69E977CEAD45A76E5FCAE5C52941BA4827E3B",
+                "patch": "665F405EDA66384FAFB84D81AD52BFF366383E32F12303CB40CE5394A52D03ED",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/chrome_elf.dll.bsdiff",
-                "fixed": "8E155D71D343680BA4B97BE07F4577FCCAE2B1B73669F11BD8625920C1046327"
+                "fixed": "51437669578AE4437344862E3180570A00D04B97628C9806BC0DE09E33553E88"
             },
             "bin/win64/d3dcompiler_47.dll": {
                 "original": "4432BBD1A390874F3F0A503D45CC48D346ABC3A8C0213C289F4B615BF0EE84F3",
@@ -159,9 +159,9 @@
             },
             "bin/win64/dxcompiler.dll": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CE21E510D469ABF3186990A2A083A6E0EDE8DD430464129B037604706299FD80",
+                "patch": "40A0B925535BCC71953EB602A0EE58DBBCFC845D56BC0CB65FB942145277C1D3",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/dxcompiler.dll.bsdiff",
-                "fixed": "B51B6D20F3FEF25C68A303995CD94F529D3D2856897F3C7FFDA847503FD2B908"
+                "fixed": "5E1D85E93071E8343F9FFCB0CB059072D9633EBD1815E15FE435DD00DA537A73"
             },
             "bin/win64/dxil.dll": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
@@ -171,39 +171,39 @@
             },
             "bin/win64/gmod.exe": {
                 "original": "1178F4624B1001BBE1FFDAF19A57E12DFC5A67B6900ED8E12E9D956D25513A04",
-                "patch": "6219550767718F15A62F768CE0A672781BF4211D9CB28AE90AE9B0C71F04CC1A",
+                "patch": "16AFA683858FD9BA0F5B437F6078AEE523FB2851451A5687535C06AA322D8299",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/gmod.exe.bsdiff",
-                "fixed": "08178FA29CF1D52D4B787979459D313281176A4DC4CDE829A06A71FBF5F89B71"
+                "fixed": "363560D5EABE5EEED66B2FCB44F5C2CAA6565FF595FBEB7CF9ED3BFB2E7763D3"
             },
             "bin/win64/html_chromium.dll": {
                 "original": "58B9457772A20294497BDF1858619443DF252D8C90EF33C368F059384B5B53D8",
-                "patch": "68FD95A5FE0F341DD12355657343CA7B6A96D9436D1E53B949A34FC7FDDD61E1",
+                "patch": "5D1490E613AD4DDAB8FD6129E1FE3B55F604609C5B98892F0B438029B7829C3C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/html_chromium.dll.bsdiff",
-                "fixed": "57BFA43286E4F08DA4A9C6CCD8F5C560E22DFD945AC41C5B24D80317EDD1ABF8"
+                "fixed": "4574ED9797E2AF8BA163DC0763C5C47AED209FD829E6A03D582D2DFA6CEBC2A6"
             },
             "bin/win64/icudtl.dat": {
                 "original": "27993E2079711D5F0F04A72F48FEE88B269604C8E3FBDF50A7F7BB3F5BFC8D8E",
-                "patch": "636B346095797ECF2631114590E2E8A0FCD0BB997DA2D266926BD21C61E65DB1",
+                "patch": "35839929E03AFFD7D4A329DC2E3715BD25AD85D353360885AF9285A9704C69B6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/icudtl.dat.bsdiff",
-                "fixed": "A9F6072E858EA29CB66501847856D403C862F23D03CAC2656D1E0FA2865FDC7B"
+                "fixed": "5070DE99FBD8A48378543511FB7A072F85BF36F94B4F4E1D420D54BE1435D6F1"
             },
             "bin/win64/libcef.dll": {
                 "original": "47BEDFE4FEBD0BD111248C4FB0ED5B36BA1F84D01DEED960F5D582F704B8C17D",
-                "patch": "49B1BAFC3616611965C875C96AAC845701F546425784B246035F8DC51EE0B285",
+                "patch": "0A80678121F64E86B75D1F419BA01B693AB6599D1209A7D82DF4FCC740A620A2",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/libcef.dll.bsdiff",
-                "fixed": "2BD47FE5F1971810AC3D95A9DD188E2E8EE7BB43D1486595EF24FC535D65F992"
+                "fixed": "DFA9AEFB48622E3909CEC9DD56A6515AAD8F1734108E7D1F7F297F57C9143F29"
             },
             "bin/win64/libEGL.dll": {
                 "original": "362D8FB9F868D2259C2B68C18BC23B2EC152089393706E256B8F70BF5387A955",
-                "patch": "DC4686CF965E127E3E5DA3017444D7EFE11CCDCB38BB015152E8F76AF9F42E23",
+                "patch": "7D10257BBDAE8B33511F9B5838828C5577F17597EFC40F017BD958020277E1C3",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/libEGL.dll.bsdiff",
-                "fixed": "A9B1CDAB59A709FD915FAA7F1744DD589BA42A35288C3387E68E1F8E47092B1A"
+                "fixed": "046B305AE2A93FA07F03F0F8D559A47A4028EBF4C27C34A956D0F82AF79558ED"
             },
             "bin/win64/libGLESv2.dll": {
                 "original": "36A54866C9F294EDFFF4373DEEF8EFE1D58F6B220DE7F15CDA15A86044D02A8F",
-                "patch": "B5BF21B7A0E555DD23A7C37C99AC49216253615373417A02FDEF8E1832464B34",
+                "patch": "77A2A08539D0E01D37CD7FDD8E1BDB79A2E7EACBAE836ACA29FA7C728059ADBB",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/libGLESv2.dll.bsdiff",
-                "fixed": "83B4E2EBE136ED77D09F77903B12A7135B65E785413A6DF001C0737FAD18D6A7"
+                "fixed": "BEC247078A61F1C9E0D3928C56136275B064F841802708D8F98818AD754CD3C3"
             },
             "bin/win64/snapshot_blob.bin": {
                 "original": "287A351975D9D5642867AFAFCBA9F741B5C19BFFF2C134ABF73C64143351F8D4",
@@ -213,15 +213,15 @@
             },
             "bin/win64/v8_context_snapshot.bin": {
                 "original": "9F879E4DA3194B3FE3AD540DB8B8C04E2FB3D2EC7DA1F0620A249565594EECFE",
-                "patch": "EC5296D501672E2154B4552BEE682994325F643F2E29BCBB0D5817CB1E62E707",
+                "patch": "B2EA3A7EE2D5267DA53E1CE1C354AF5151706B4E6B367039DE6D2F50A4902CE6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/v8_context_snapshot.bin.bsdiff",
-                "fixed": "553C3CA48DB3971E96A439F584BD45387BA79A5A8FDA14AC9ADE131D19E9F568"
+                "fixed": "4F0D3652AEF6CECAB487AAD29C1E36551B43053AB15F52D0004CA973C47F50EB"
             },
             "bin/win64/vk_swiftshader.dll": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "380E44F60EEA18BBFDD8CA924E821ABEFC292DAFC1FFE82860DC3F145A809BFA",
+                "patch": "3C32E3F3CB946F88EC5D5849862901CCB0FBB2F69B10430E83956C6619605576",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/vk_swiftshader.dll.bsdiff",
-                "fixed": "57013514CA3642E98497A1FD15B9FA8A673AE541C52D65A69BCB93422664AB06"
+                "fixed": "C1E19C1FB39B534903CA1725EF45F2901AF42A580E041FE539C325A48EE8251B"
             },
             "bin/win64/vk_swiftshader_icd.json": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
@@ -231,9 +231,9 @@
             },
             "bin/win64/vulkan-1.dll": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "47EB2619CE469A6A03243D4CDEBD630151D8835612E3DC644307A97C89F3AE54",
+                "patch": "115BA80D5929C30CBE45458EF764235DB432C357924DFC2C91961DD61CC0DA7C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/vulkan-1.dll.bsdiff",
-                "fixed": "874A0E820F3E2D877D27205381AFC2B9281EF65CDDF28837FCD145696511A61B"
+                "fixed": "4D0B795B13C9E595B5D669B6C6A7DA9EBF1E7D046EAFFD8E4EC9ACB5816ED5D8"
             },
             "garrysmod/lua/menu/mainmenu.lua": {
                 "original": "1C5789C8851A901F68DBA573033E6B0062795203C9FBD58AB8E93936F8DB652E",
@@ -243,15 +243,15 @@
             },
             "bin/locales/af.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4BD504F6A344AF03F51AB4C4B06B471BE13C5EC574403F2BAEFB232C7B92FB37",
+                "patch": "508A530BF449C755D43B43B77A6D27D0081DF5870E4C92B98E410BBF56DBDB7E",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/af.pak.bsdiff",
-                "fixed": "D7622788CE4D5C675D97B369FF00FC88AA6CF734E259975064F823DA127381E6"
+                "fixed": "86D5D0F016602ECD2525575D26E93B0AB3C2506694CAC567BB8CF2442327F1D6"
             },
             "bin/win64/locales/af.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4BD504F6A344AF03F51AB4C4B06B471BE13C5EC574403F2BAEFB232C7B92FB37",
+                "patch": "508A530BF449C755D43B43B77A6D27D0081DF5870E4C92B98E410BBF56DBDB7E",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/af.pak.bsdiff",
-                "fixed": "D7622788CE4D5C675D97B369FF00FC88AA6CF734E259975064F823DA127381E6"
+                "fixed": "86D5D0F016602ECD2525575D26E93B0AB3C2506694CAC567BB8CF2442327F1D6"
             },
             "bin/chromium/locales/am.pak": {
                 "original": "EF9FA7B84A3A08FC46F44060EEB4BBD0D71DDCD03647A0DECBCEEBD7CBCC1C19",
@@ -261,15 +261,15 @@
             },
             "bin/locales/am.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "6AAEBB39E8E47EC9535C80B02FA926310182C602CA650A6EE3B8E9E2A01438F3",
+                "patch": "A68DAC320EE03692857240A1E815A1055329ED1B485018BCC4622E9AC6239C16",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/am.pak.bsdiff",
-                "fixed": "0D50EA3C49A86630198647861DBDC5AD8F1273380875EE924FEF05B751ABB8A5"
+                "fixed": "BEABCD6135A2D2242C0297FBD6D474F85A145BE6B9D6E50722456B5DA509E081"
             },
             "bin/win64/locales/am.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "6AAEBB39E8E47EC9535C80B02FA926310182C602CA650A6EE3B8E9E2A01438F3",
+                "patch": "A68DAC320EE03692857240A1E815A1055329ED1B485018BCC4622E9AC6239C16",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/am.pak.bsdiff",
-                "fixed": "0D50EA3C49A86630198647861DBDC5AD8F1273380875EE924FEF05B751ABB8A5"
+                "fixed": "BEABCD6135A2D2242C0297FBD6D474F85A145BE6B9D6E50722456B5DA509E081"
             },
             "bin/chromium/locales/ar.pak": {
                 "original": "C05D3639A041A14EA5B6439B7A8491C69AA1F733DB704A8AB02D7B64B31893C8",
@@ -279,15 +279,15 @@
             },
             "bin/locales/ar.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "47EAA1735E4835E97DD3A222607D002A6E5E27C6718EDA0C4D5BEE33EC2F2894",
+                "patch": "313AC309330DC56D7CDE8F293720249DB2AD97C27575A13CB6802172B9936541",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ar.pak.bsdiff",
-                "fixed": "2E4411E798C305B39F654B0D776FFB3F23513F1E1DCF37F622317DA38F0D5551"
+                "fixed": "CF7F35657B41331A1AE395FD852E78FBB880B50C326F0E64C550C5DEA4432EAB"
             },
             "bin/win64/locales/ar.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "47EAA1735E4835E97DD3A222607D002A6E5E27C6718EDA0C4D5BEE33EC2F2894",
+                "patch": "313AC309330DC56D7CDE8F293720249DB2AD97C27575A13CB6802172B9936541",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ar.pak.bsdiff",
-                "fixed": "2E4411E798C305B39F654B0D776FFB3F23513F1E1DCF37F622317DA38F0D5551"
+                "fixed": "CF7F35657B41331A1AE395FD852E78FBB880B50C326F0E64C550C5DEA4432EAB"
             },
             "bin/chromium/locales/bg.pak": {
                 "original": "277F9279C382105EC544EEE2B45EE66D78E12229B53978591FA0F992E44D560B",
@@ -297,15 +297,15 @@
             },
             "bin/locales/bg.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E882BA4DAA5CE49FA993C5B824304A1C3126EC6398616E397FBAE83E28396DDC",
+                "patch": "C7D1C0F1F4BCF89CF1BA536513F4F7943B2E7FAC3544BBC17172DCB68C05092C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/bg.pak.bsdiff",
-                "fixed": "127A8709DBE084CE4DDA9DD245A2D218B652880746732DABC0CA5CFC0826897D"
+                "fixed": "7EB1E515FBE48EAC4AA4AD8F6E98FBF1C4A09FD01AE43A0447B0003FECB8421B"
             },
             "bin/win64/locales/bg.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E882BA4DAA5CE49FA993C5B824304A1C3126EC6398616E397FBAE83E28396DDC",
+                "patch": "C7D1C0F1F4BCF89CF1BA536513F4F7943B2E7FAC3544BBC17172DCB68C05092C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/bg.pak.bsdiff",
-                "fixed": "127A8709DBE084CE4DDA9DD245A2D218B652880746732DABC0CA5CFC0826897D"
+                "fixed": "7EB1E515FBE48EAC4AA4AD8F6E98FBF1C4A09FD01AE43A0447B0003FECB8421B"
             },
             "bin/chromium/locales/bn.pak": {
                 "original": "27C686B10FD8A09F1E799FE90BA52F1238F8079F476B4D33F40EA7F374D1EF61",
@@ -315,15 +315,15 @@
             },
             "bin/locales/bn.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "BC942D4F79A003B88B4617348F20A2C9876AB172324466CD89729B4610C256FC",
+                "patch": "D97AD5A323E898E7E853661F1D52C178DA82F18159DAFDB48BB19BB0D6B8D306",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/bn.pak.bsdiff",
-                "fixed": "CA7907FBF8D05FBEEC30006AB8E3300770A4966B3B4009C3748F366F6B66AE3B"
+                "fixed": "8636CEBDFC9984DC5A6430E9AB6A3CB93B0287ECE8D6D5FBCA657B55A6B1958F"
             },
             "bin/win64/locales/bn.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "BC942D4F79A003B88B4617348F20A2C9876AB172324466CD89729B4610C256FC",
+                "patch": "D97AD5A323E898E7E853661F1D52C178DA82F18159DAFDB48BB19BB0D6B8D306",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/bn.pak.bsdiff",
-                "fixed": "CA7907FBF8D05FBEEC30006AB8E3300770A4966B3B4009C3748F366F6B66AE3B"
+                "fixed": "8636CEBDFC9984DC5A6430E9AB6A3CB93B0287ECE8D6D5FBCA657B55A6B1958F"
             },
             "bin/chromium/locales/ca.pak": {
                 "original": "DDCF0F869698A269493426C5E11E85636C563C286AF6699B425413ABEEC821A5",
@@ -333,15 +333,15 @@
             },
             "bin/locales/ca.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "8AD7071070A24DA59045D9D7EBAA2710E283D33C204D72DEEC3077979D1D513C",
+                "patch": "A4E7A3B6F9FB3E2FD286B40BCFCC91848EC054585641F3F6D210A365106C8495",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ca.pak.bsdiff",
-                "fixed": "1F132830023C7A040AF3A0238B33B3A426743B26E5E2D9230832FECBE49E4841"
+                "fixed": "650A00B0EE5E859345CF19C7D4327E63220166FA0A6B3AF2DD4FC2D4112E131C"
             },
             "bin/win64/locales/ca.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "8AD7071070A24DA59045D9D7EBAA2710E283D33C204D72DEEC3077979D1D513C",
+                "patch": "A4E7A3B6F9FB3E2FD286B40BCFCC91848EC054585641F3F6D210A365106C8495",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ca.pak.bsdiff",
-                "fixed": "1F132830023C7A040AF3A0238B33B3A426743B26E5E2D9230832FECBE49E4841"
+                "fixed": "650A00B0EE5E859345CF19C7D4327E63220166FA0A6B3AF2DD4FC2D4112E131C"
             },
             "bin/chromium/locales/cs.pak": {
                 "original": "7E0B37E0612759553A6DD5B899310ADB09BEFA2A293EF02FC860B04D151F009C",
@@ -351,15 +351,15 @@
             },
             "bin/locales/cs.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CC4FD80112BDE8E0F05AB5B69255036B0CEFE6E2E37DDD3C9A0C7E77D3854DA3",
+                "patch": "376B7799B107AFA6E5A24B947219708FF9B945ACD09B7F8CB7EE301F86CB0202",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/cs.pak.bsdiff",
-                "fixed": "9092CB3DEEE1CF0CFF1099FDA811D98B44D855A15ACFD61F86AFC86FE4EB80C3"
+                "fixed": "C25B82CDB020979AECC009C9A4A361DA6AE0566AD840CEE533A14DA95D821751"
             },
             "bin/win64/locales/cs.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CC4FD80112BDE8E0F05AB5B69255036B0CEFE6E2E37DDD3C9A0C7E77D3854DA3",
+                "patch": "376B7799B107AFA6E5A24B947219708FF9B945ACD09B7F8CB7EE301F86CB0202",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/cs.pak.bsdiff",
-                "fixed": "9092CB3DEEE1CF0CFF1099FDA811D98B44D855A15ACFD61F86AFC86FE4EB80C3"
+                "fixed": "C25B82CDB020979AECC009C9A4A361DA6AE0566AD840CEE533A14DA95D821751"
             },
             "bin/chromium/locales/da.pak": {
                 "original": "35E4DEC70B0DD66B281A201584A79C172C3E0EB9093E7BA09AC5D1498F6D74FC",
@@ -369,15 +369,15 @@
             },
             "bin/locales/da.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "2B09DA03DE44A9A55535F048AD92D8CA46FA2A04D65CC6B5643DCEFB5F762523",
+                "patch": "1ECF89DF8E5D793D1FA52A4EEA97A9975365C555A1503B88133D1FF4CE125509",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/da.pak.bsdiff",
-                "fixed": "16DB4F4C44474285D18782915060C86BC37F28B526E5A4D9867F33D85284E2E2"
+                "fixed": "00B07D8A52AEDD054F0E0994C89DD0ADC3BCE4EC9E84D76C726BDD786ED2ECA7"
             },
             "bin/win64/locales/da.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "2B09DA03DE44A9A55535F048AD92D8CA46FA2A04D65CC6B5643DCEFB5F762523",
+                "patch": "1ECF89DF8E5D793D1FA52A4EEA97A9975365C555A1503B88133D1FF4CE125509",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/da.pak.bsdiff",
-                "fixed": "16DB4F4C44474285D18782915060C86BC37F28B526E5A4D9867F33D85284E2E2"
+                "fixed": "00B07D8A52AEDD054F0E0994C89DD0ADC3BCE4EC9E84D76C726BDD786ED2ECA7"
             },
             "bin/chromium/locales/de.pak": {
                 "original": "E2AD2301EB048EB2FC5268F809963EC8746CF64DD7EA013C56EF87CF0D5C4785",
@@ -387,15 +387,15 @@
             },
             "bin/locales/de.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "69D022EB5F421A72019E59523E8CC5DD8DB1D90DF2EB05A7A44B810966C70156",
+                "patch": "20DAEBAAF04CFC61A1A053D943AA217921458A9B7948C20B0DD0DAB96A06FCF8",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/de.pak.bsdiff",
-                "fixed": "441025D360929DF7EE4908631F02F6438A67E2209F16F0D9106221FAC3EF6C26"
+                "fixed": "60F51E3D610B1D3027E17B4F2C8DA1D777F8237EB64A987E1527EB801BC8BF33"
             },
             "bin/win64/locales/de.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "69D022EB5F421A72019E59523E8CC5DD8DB1D90DF2EB05A7A44B810966C70156",
+                "patch": "20DAEBAAF04CFC61A1A053D943AA217921458A9B7948C20B0DD0DAB96A06FCF8",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/de.pak.bsdiff",
-                "fixed": "441025D360929DF7EE4908631F02F6438A67E2209F16F0D9106221FAC3EF6C26"
+                "fixed": "60F51E3D610B1D3027E17B4F2C8DA1D777F8237EB64A987E1527EB801BC8BF33"
             },
             "bin/chromium/locales/el.pak": {
                 "original": "C6878C702830BDF4949426D365244524F2EBCED43A45E04373E4E0EE071C1600",
@@ -405,15 +405,15 @@
             },
             "bin/locales/el.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "31C70D0D172F65D8A7F74C10E1D87C6CE6C844D7FD1F1F7D924B7D09DB9064D1",
+                "patch": "7C8C54C3B78DE9F5D8C4D204E3E3457BC36646E20BD31ED480439F882763CEA9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/el.pak.bsdiff",
-                "fixed": "ECEDCB0E8453BDF4655DE1140C2570AD5549CEE10606A6AC6C0656FA489967D6"
+                "fixed": "2829FCABEA4AB960CC01FDA4C647B91E463884B4938EBFF1F1FFA48E25508AD9"
             },
             "bin/win64/locales/el.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "31C70D0D172F65D8A7F74C10E1D87C6CE6C844D7FD1F1F7D924B7D09DB9064D1",
+                "patch": "7C8C54C3B78DE9F5D8C4D204E3E3457BC36646E20BD31ED480439F882763CEA9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/el.pak.bsdiff",
-                "fixed": "ECEDCB0E8453BDF4655DE1140C2570AD5549CEE10606A6AC6C0656FA489967D6"
+                "fixed": "2829FCABEA4AB960CC01FDA4C647B91E463884B4938EBFF1F1FFA48E25508AD9"
             },
             "bin/chromium/locales/en-GB.pak": {
                 "original": "FD67CCCEE11CB9FF34127CDFEE5F6A9CD3739C5D12959998DD3A6B0D778D5233",
@@ -423,15 +423,15 @@
             },
             "bin/locales/en-GB.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B9134C32C547E0277A0D3FFF1857AD8A91F5F476ECB4FA48D1EDE30676897195",
+                "patch": "31DAD4DFFF25AB9082D0B0BE3467BD5AFE6E19481D0E368E2BAA054AB6E54CB0",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/en-GB.pak.bsdiff",
-                "fixed": "A6FEC853CEC5F190C0AF1D246138C6417FBCF264E858835A978100406C270E58"
+                "fixed": "AC506063FED71772D9EBAC299637385F809880643A4D6379DB1018BFEA5754FE"
             },
             "bin/win64/locales/en-GB.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B9134C32C547E0277A0D3FFF1857AD8A91F5F476ECB4FA48D1EDE30676897195",
+                "patch": "31DAD4DFFF25AB9082D0B0BE3467BD5AFE6E19481D0E368E2BAA054AB6E54CB0",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/en-GB.pak.bsdiff",
-                "fixed": "A6FEC853CEC5F190C0AF1D246138C6417FBCF264E858835A978100406C270E58"
+                "fixed": "AC506063FED71772D9EBAC299637385F809880643A4D6379DB1018BFEA5754FE"
             },
             "bin/chromium/locales/en-US.pak": {
                 "original": "BD799271706E33AFEC2F95DE07F6601E22B619BD2C2D08659EFFAF707AB20AA8",
@@ -441,15 +441,15 @@
             },
             "bin/locales/en-US.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "32465C5F08FA042C82DBF44E8B4D7FEEB963E87039C7F066949BC89E63FC6EB7",
+                "patch": "CA587AFED809AA70B936A02D5DF2F379FE9CDD16E6BEDAFD9B89B11AFE893F26",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/en-US.pak.bsdiff",
-                "fixed": "BF0AA0DF912082F5F4F602D36D364C0A3A5C628F465AED1A45CF0798853A176C"
+                "fixed": "A9333B999E1C84D5E698C4AF661C5ADEFD16CF79517E8958DE6A7AF1E0BC04D5"
             },
             "bin/win64/locales/en-US.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "32465C5F08FA042C82DBF44E8B4D7FEEB963E87039C7F066949BC89E63FC6EB7",
+                "patch": "CA587AFED809AA70B936A02D5DF2F379FE9CDD16E6BEDAFD9B89B11AFE893F26",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/en-US.pak.bsdiff",
-                "fixed": "BF0AA0DF912082F5F4F602D36D364C0A3A5C628F465AED1A45CF0798853A176C"
+                "fixed": "A9333B999E1C84D5E698C4AF661C5ADEFD16CF79517E8958DE6A7AF1E0BC04D5"
             },
             "bin/chromium/locales/es.pak": {
                 "original": "70D72B236133DB251B0D3EC0AF9183FFFAE6012B8AECC0B84D480A1AF417A9E6",
@@ -459,15 +459,15 @@
             },
             "bin/locales/es.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E1E0D9D1032FB5F8D338B1A2C18B1A5D160C3C9544DA24B37F9D070B5F97029A",
+                "patch": "40C2AFFD1702D7DD4DBDB7DBE2BE2AF6CA26D0E8563985EC827C866F190CB7AB",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/es.pak.bsdiff",
-                "fixed": "EE69A161BFCE1CE9014D23FF2790E838A3E538600D5A853656AE3329B258AAB9"
+                "fixed": "48C65FF67CB919820A2B347FE523186DF575CE96BE6BE30786C9275AF37D592C"
             },
             "bin/win64/locales/es.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E1E0D9D1032FB5F8D338B1A2C18B1A5D160C3C9544DA24B37F9D070B5F97029A",
+                "patch": "40C2AFFD1702D7DD4DBDB7DBE2BE2AF6CA26D0E8563985EC827C866F190CB7AB",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/es.pak.bsdiff",
-                "fixed": "EE69A161BFCE1CE9014D23FF2790E838A3E538600D5A853656AE3329B258AAB9"
+                "fixed": "48C65FF67CB919820A2B347FE523186DF575CE96BE6BE30786C9275AF37D592C"
             },
             "bin/chromium/locales/es-419.pak": {
                 "original": "75741B6CBF22A7502536F513651217085A12B7F743674B2AC5754C861A6D67D8",
@@ -477,15 +477,15 @@
             },
             "bin/locales/es-419.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "405CB3AADA40EE1F2517E5F66584CB983353BD9C5B748877A9F499AEEEC587C8",
+                "patch": "6E9C07DED166D4ABC74100527A85FEB95DA0D50CB1986A92DB7B91AB0A10C5E5",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/es-419.pak.bsdiff",
-                "fixed": "E46D3A30B3859E4F32693977DD54FA362D53F0B52D44C13D1DF46852D26192BF"
+                "fixed": "9DE6FCCB945434E1939840043F6A2A91B5C827EA88489730A7613BADD309E535"
             },
             "bin/win64/locales/es-419.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "405CB3AADA40EE1F2517E5F66584CB983353BD9C5B748877A9F499AEEEC587C8",
+                "patch": "6E9C07DED166D4ABC74100527A85FEB95DA0D50CB1986A92DB7B91AB0A10C5E5",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/es-419.pak.bsdiff",
-                "fixed": "E46D3A30B3859E4F32693977DD54FA362D53F0B52D44C13D1DF46852D26192BF"
+                "fixed": "9DE6FCCB945434E1939840043F6A2A91B5C827EA88489730A7613BADD309E535"
             },
             "bin/chromium/locales/et.pak": {
                 "original": "5905C672ED2D4CCB4C0AC67298C67C90F5BBF3F04AD82AC717027D5DA02B6A23",
@@ -495,15 +495,15 @@
             },
             "bin/locales/et.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "A0109604DC532435226AC3E610036808498C3D689382FF3D402D8BE24E42650C",
+                "patch": "8060372EA2C278CD4A12833BFEFC05F6C30C037C95B69FA419FED6A20A51B1CF",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/et.pak.bsdiff",
-                "fixed": "A7EE4387EDC609445B1F6B31D63635AF5514BCE0DB96284E51ABF5F51ED3468C"
+                "fixed": "0EDC22B641522B88668EE56CA89D5B0164B3C4455773C179FB10B0DCC057FCE0"
             },
             "bin/win64/locales/et.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "A0109604DC532435226AC3E610036808498C3D689382FF3D402D8BE24E42650C",
+                "patch": "8060372EA2C278CD4A12833BFEFC05F6C30C037C95B69FA419FED6A20A51B1CF",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/et.pak.bsdiff",
-                "fixed": "A7EE4387EDC609445B1F6B31D63635AF5514BCE0DB96284E51ABF5F51ED3468C"
+                "fixed": "0EDC22B641522B88668EE56CA89D5B0164B3C4455773C179FB10B0DCC057FCE0"
             },
             "bin/chromium/locales/fa.pak": {
                 "original": "AC0A3F644D29E5AD1198ADB7FB894DF618ED57321E3FDADD5B8761E7C786DCBA",
@@ -513,15 +513,15 @@
             },
             "bin/locales/fa.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "753C46404E073DB835362D973FB7F28366187B019343E971E8A0919F23301A74",
+                "patch": "202D188BF62404951CAE645AF02EE6D581D5AD283DC6A2C8CB107712E3F7F338",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/fa.pak.bsdiff",
-                "fixed": "300ED120E85C7FFF0F134AD8D4383131723AB5F0499A5F97973A512E104C48F4"
+                "fixed": "61B4CC5A88EF6257176E78A92F30C3BF0F9F000AB996D84B349E59B0772FF281"
             },
             "bin/win64/locales/fa.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "753C46404E073DB835362D973FB7F28366187B019343E971E8A0919F23301A74",
+                "patch": "202D188BF62404951CAE645AF02EE6D581D5AD283DC6A2C8CB107712E3F7F338",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/fa.pak.bsdiff",
-                "fixed": "300ED120E85C7FFF0F134AD8D4383131723AB5F0499A5F97973A512E104C48F4"
+                "fixed": "61B4CC5A88EF6257176E78A92F30C3BF0F9F000AB996D84B349E59B0772FF281"
             },
             "bin/chromium/locales/fi.pak": {
                 "original": "81E65FE949A06FA408F62898BAAD2BB1710B769ABA00866F0B29CC0468B79274",
@@ -531,15 +531,15 @@
             },
             "bin/locales/fi.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4BE5D604AAD2C9B224B621424309CC76132F0400B61A68804D8987DAF34A3316",
+                "patch": "BEB282DAD2B2F6DFE73CC8F12C493734CDCEE49BBCD45E17148A67F13EDDF92A",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/fi.pak.bsdiff",
-                "fixed": "AA9E72869811EB46CAB28AD28F67F91C913D6649EF41FB1524FC79A0936AE841"
+                "fixed": "635902BC775A8AB7C71FECB22108A4BA5A0744225DB389F0A683A71F3770C0B9"
             },
             "bin/win64/locales/fi.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4BE5D604AAD2C9B224B621424309CC76132F0400B61A68804D8987DAF34A3316",
+                "patch": "BEB282DAD2B2F6DFE73CC8F12C493734CDCEE49BBCD45E17148A67F13EDDF92A",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/fi.pak.bsdiff",
-                "fixed": "AA9E72869811EB46CAB28AD28F67F91C913D6649EF41FB1524FC79A0936AE841"
+                "fixed": "635902BC775A8AB7C71FECB22108A4BA5A0744225DB389F0A683A71F3770C0B9"
             },
             "bin/chromium/locales/fil.pak": {
                 "original": "C01C8A49A63510BC1FB1C4490F4C2DE60BBA4AA9BEC1C645B08AB93D0C9C1CCA",
@@ -549,15 +549,15 @@
             },
             "bin/locales/fil.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "6BBCB32DCCB2E9A7A83BA8AB4D2F4AB48B1C1909880CD5510F19CAAC1EC35167",
+                "patch": "FA1CA8EBCCDEF04FB3972BF60EBB44BCA532FFCC19317E5AFBC4DAE373CDD743",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/fil.pak.bsdiff",
-                "fixed": "A789A4BAEFEDDF426DCBDB5ECE58F50B51B8F041398AB0F285576E61DB1F4221"
+                "fixed": "C3C2F03F9156DA0016663EDA4A0A3BAFFC53595354A6413142B75978A57972AF"
             },
             "bin/win64/locales/fil.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "6BBCB32DCCB2E9A7A83BA8AB4D2F4AB48B1C1909880CD5510F19CAAC1EC35167",
+                "patch": "FA1CA8EBCCDEF04FB3972BF60EBB44BCA532FFCC19317E5AFBC4DAE373CDD743",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/fil.pak.bsdiff",
-                "fixed": "A789A4BAEFEDDF426DCBDB5ECE58F50B51B8F041398AB0F285576E61DB1F4221"
+                "fixed": "C3C2F03F9156DA0016663EDA4A0A3BAFFC53595354A6413142B75978A57972AF"
             },
             "bin/chromium/locales/fr.pak": {
                 "original": "078BD0BFC3723AC8AB963BDFB3132770F02FB531C318039BA69A22EA21EDB2D9",
@@ -567,15 +567,15 @@
             },
             "bin/locales/fr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "EEAF70933C2441B8C146DECAF0D12D5C5A2B870EA2DA6877D9ABE19931A98D4A",
+                "patch": "9ABBF10FA0765DE956013D2EFF491B75D2629BDE8C96F3E3E7C0804B9E809550",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/fr.pak.bsdiff",
-                "fixed": "B2CDA64354585B0009D365FA24A285D569F5DB63DE260795430279AB94383E1B"
+                "fixed": "499A22C7B89A4B2488B30D7A6AA9A00F9D78285D8734D9D5F533CF306EA28CEC"
             },
             "bin/win64/locales/fr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "EEAF70933C2441B8C146DECAF0D12D5C5A2B870EA2DA6877D9ABE19931A98D4A",
+                "patch": "9ABBF10FA0765DE956013D2EFF491B75D2629BDE8C96F3E3E7C0804B9E809550",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/fr.pak.bsdiff",
-                "fixed": "B2CDA64354585B0009D365FA24A285D569F5DB63DE260795430279AB94383E1B"
+                "fixed": "499A22C7B89A4B2488B30D7A6AA9A00F9D78285D8734D9D5F533CF306EA28CEC"
             },
             "bin/chromium/locales/gu.pak": {
                 "original": "412FEB8C1E57BBF4B3C92D59DFC18F754F74067ED32363A050A8CF7342AA900F",
@@ -585,15 +585,15 @@
             },
             "bin/locales/gu.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "244F707D081578F07C39130AAF5D363062D3F1A93D52B0E453DE17A4AFAE0FC6",
+                "patch": "424D3C4DE7A5E1156AF10E9AA08EC3D10404AB9366F8021B960EEDDA8877F96A",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/gu.pak.bsdiff",
-                "fixed": "A64EE6828EF4519ADC8116EC9B81536E37F4629C678A76FA2D9E847DDD0365B3"
+                "fixed": "D077A290DAFE50593B2FC36EC0140423C668AFF7B580A6C0C6580952353F41E5"
             },
             "bin/win64/locales/gu.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "244F707D081578F07C39130AAF5D363062D3F1A93D52B0E453DE17A4AFAE0FC6",
+                "patch": "424D3C4DE7A5E1156AF10E9AA08EC3D10404AB9366F8021B960EEDDA8877F96A",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/gu.pak.bsdiff",
-                "fixed": "A64EE6828EF4519ADC8116EC9B81536E37F4629C678A76FA2D9E847DDD0365B3"
+                "fixed": "D077A290DAFE50593B2FC36EC0140423C668AFF7B580A6C0C6580952353F41E5"
             },
             "bin/chromium/locales/he.pak": {
                 "original": "C0D339444136F7C3949F12457A0B73F6DF4F6F4D1EBA4411E433A7DFFBED0070",
@@ -603,15 +603,15 @@
             },
             "bin/locales/he.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "2234D32C32CAE95C2F9C68C8B95F01995D9998D4A75318763E61E6084800A59F",
+                "patch": "9F347F20C6A663A9C1EC506EDB50D18E7ADA2ECF495C22A58E00082435C1B9F9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/he.pak.bsdiff",
-                "fixed": "83CB458D776660E51512E9DD507C65270CC442577380EBEC09ADEFC3C6B4BDA5"
+                "fixed": "F951B7951856A7925895AFB70DA172C86130E084FF001AA5FDC9FC71916E2F00"
             },
             "bin/win64/locales/he.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "2234D32C32CAE95C2F9C68C8B95F01995D9998D4A75318763E61E6084800A59F",
+                "patch": "9F347F20C6A663A9C1EC506EDB50D18E7ADA2ECF495C22A58E00082435C1B9F9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/he.pak.bsdiff",
-                "fixed": "83CB458D776660E51512E9DD507C65270CC442577380EBEC09ADEFC3C6B4BDA5"
+                "fixed": "F951B7951856A7925895AFB70DA172C86130E084FF001AA5FDC9FC71916E2F00"
             },
             "bin/chromium/locales/hi.pak": {
                 "original": "03F987B9C4D974587422D084DFA9926F5497DD052108F370590F8DB44668084A",
@@ -621,15 +621,15 @@
             },
             "bin/locales/hi.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "5978537FEA79067345B25D728844B9331A19557D38C4491FF922249DB353B5E9",
+                "patch": "FCD0A69141C85E0A324BD7866143BE3E93B7C40ABD2B9F20A9A62B83901392C8",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/hi.pak.bsdiff",
-                "fixed": "990618FCE8A24FC81675612AB5C96C9259F10D3D6D1A14688B3AEB44CB4E57AF"
+                "fixed": "5216404CF57EFDF0878E83FA985169C1329980C97619A81F32BB04BD33D7F17F"
             },
             "bin/win64/locales/hi.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "5978537FEA79067345B25D728844B9331A19557D38C4491FF922249DB353B5E9",
+                "patch": "FCD0A69141C85E0A324BD7866143BE3E93B7C40ABD2B9F20A9A62B83901392C8",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/hi.pak.bsdiff",
-                "fixed": "990618FCE8A24FC81675612AB5C96C9259F10D3D6D1A14688B3AEB44CB4E57AF"
+                "fixed": "5216404CF57EFDF0878E83FA985169C1329980C97619A81F32BB04BD33D7F17F"
             },
             "bin/chromium/locales/hr.pak": {
                 "original": "16E9D62AC5F2207B4198B554F06A749356B29C5051EF3AC371052D2D6230C018",
@@ -639,15 +639,15 @@
             },
             "bin/locales/hr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "039FF6FBAB0484AC42A2E85A4906E89C0F05C3A951FFDCF35028B472B0D30040",
+                "patch": "C2D8D468D67F4C5301E0DADC4C760F177C7CCF42D6DBAABCEEAD4AFEC1E1D221",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/hr.pak.bsdiff",
-                "fixed": "6939C28045EDCD5D9F4520820B8C3C0E387981EB26728E58FE8A0E52F932D1BC"
+                "fixed": "CAB6B5606E15E1AE651BBD31C4D5A9B65D47AFE43E6E7A0C4E295B687B951B56"
             },
             "bin/win64/locales/hr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "039FF6FBAB0484AC42A2E85A4906E89C0F05C3A951FFDCF35028B472B0D30040",
+                "patch": "C2D8D468D67F4C5301E0DADC4C760F177C7CCF42D6DBAABCEEAD4AFEC1E1D221",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/hr.pak.bsdiff",
-                "fixed": "6939C28045EDCD5D9F4520820B8C3C0E387981EB26728E58FE8A0E52F932D1BC"
+                "fixed": "CAB6B5606E15E1AE651BBD31C4D5A9B65D47AFE43E6E7A0C4E295B687B951B56"
             },
             "bin/chromium/locales/hu.pak": {
                 "original": "65F1AF4C12361BABA574DE359F41DF7AE462A560138A6D41E67423F01539F4F8",
@@ -657,15 +657,15 @@
             },
             "bin/locales/hu.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "5434A98F5B1460654A5E6AA1C61E9931E23C80B59200A6D18C1C67D90EE2D3B7",
+                "patch": "4C5B4754AC7B707E5580932038758FF27C48DAED9D252AB0D8DEF746998932B1",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/hu.pak.bsdiff",
-                "fixed": "C51C42D16853C283D7B7AE2ACD582B51405417077BBBC171E057A118174DDCA7"
+                "fixed": "BF60F72C937E1440E32E82689F2A531CDBE867CE250B299963562C9C6B7E31A9"
             },
             "bin/win64/locales/hu.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "5434A98F5B1460654A5E6AA1C61E9931E23C80B59200A6D18C1C67D90EE2D3B7",
+                "patch": "4C5B4754AC7B707E5580932038758FF27C48DAED9D252AB0D8DEF746998932B1",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/hu.pak.bsdiff",
-                "fixed": "C51C42D16853C283D7B7AE2ACD582B51405417077BBBC171E057A118174DDCA7"
+                "fixed": "BF60F72C937E1440E32E82689F2A531CDBE867CE250B299963562C9C6B7E31A9"
             },
             "bin/chromium/locales/id.pak": {
                 "original": "5247037D49ACFD2F00ABC1724A3CC0BCAFF199D5CA748321DAC51B2A09B1BEBD",
@@ -675,15 +675,15 @@
             },
             "bin/locales/id.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "5615DAF1EEA30A69A5C5D2C17C79A6C4169037F7A06DC4DF5BD80C4E010704F1",
+                "patch": "B94CA379C9D8AABF8EF604D18ADE49404AC726B0DCE3005F095FE2D88F297A01",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/id.pak.bsdiff",
-                "fixed": "674A0539931316277309311E111B9331B9572D506DB3766CA4258FDA5AABDBA4"
+                "fixed": "13E80F1CB449F6836ED0A4A099A775B08EFD77133B8C79FB7BE867483D50438D"
             },
             "bin/win64/locales/id.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "5615DAF1EEA30A69A5C5D2C17C79A6C4169037F7A06DC4DF5BD80C4E010704F1",
+                "patch": "B94CA379C9D8AABF8EF604D18ADE49404AC726B0DCE3005F095FE2D88F297A01",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/id.pak.bsdiff",
-                "fixed": "674A0539931316277309311E111B9331B9572D506DB3766CA4258FDA5AABDBA4"
+                "fixed": "13E80F1CB449F6836ED0A4A099A775B08EFD77133B8C79FB7BE867483D50438D"
             },
             "bin/chromium/locales/it.pak": {
                 "original": "34CB950493E6C4A895199BD3CDD65EDE5A592BBCF6099ACB5865680513769320",
@@ -693,15 +693,15 @@
             },
             "bin/locales/it.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "3340304CA8495FB630A486F562AB395857F99F0D62ADC0FFDB7A33F914375EEB",
+                "patch": "2ED3C064E6F8A986F03D2A98778B29766197A8E867F40810D70BCF3D7C8698FD",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/it.pak.bsdiff",
-                "fixed": "504D70C84BC81F6BA17563E83F646CF9F9179C6DCCC1FE8A83ED174728DDCE9E"
+                "fixed": "8880165AC0554E18B03B2C35A1FE2E406C08427B3078E656A90B078C63442548"
             },
             "bin/win64/locales/it.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "3340304CA8495FB630A486F562AB395857F99F0D62ADC0FFDB7A33F914375EEB",
+                "patch": "2ED3C064E6F8A986F03D2A98778B29766197A8E867F40810D70BCF3D7C8698FD",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/it.pak.bsdiff",
-                "fixed": "504D70C84BC81F6BA17563E83F646CF9F9179C6DCCC1FE8A83ED174728DDCE9E"
+                "fixed": "8880165AC0554E18B03B2C35A1FE2E406C08427B3078E656A90B078C63442548"
             },
             "bin/chromium/locales/ja.pak": {
                 "original": "2B5E1039CAABBAFA21BAB9DAC51CA9A7EF7D06B7BF01DECE915DC9E129615168",
@@ -711,15 +711,15 @@
             },
             "bin/locales/ja.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "07C22A1C7009FA0ADF0E0713D459609CB69A81EB74964526DBF315B3CB4396D4",
+                "patch": "AB461B205E249C8C7BB3B419CD83473ABE483255E6FA53E3DE3DF3BEE86BE778",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ja.pak.bsdiff",
-                "fixed": "567126EDC74704392D6EA8FD3CAB1B6745B346A1828F25995062EB91BB56D504"
+                "fixed": "B24E3D3706579C3133D88B888F76B246A944117716C339E1D0BBA201AC2CC76E"
             },
             "bin/win64/locales/ja.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "07C22A1C7009FA0ADF0E0713D459609CB69A81EB74964526DBF315B3CB4396D4",
+                "patch": "AB461B205E249C8C7BB3B419CD83473ABE483255E6FA53E3DE3DF3BEE86BE778",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ja.pak.bsdiff",
-                "fixed": "567126EDC74704392D6EA8FD3CAB1B6745B346A1828F25995062EB91BB56D504"
+                "fixed": "B24E3D3706579C3133D88B888F76B246A944117716C339E1D0BBA201AC2CC76E"
             },
             "bin/chromium/locales/kn.pak": {
                 "original": "641750F4921271FAED0AABE52B4F413AD580657BB2F4514EF76A39FD91A0A3CD",
@@ -729,15 +729,15 @@
             },
             "bin/locales/kn.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "75E99728634C216BD6020E23C9E3970B8C005A42B5C771F263D40C93F6B1712D",
+                "patch": "6C6AE0AAFE0D98CE56F2F035F7F197A947EFBE56DD39BBBC947E2D515394EB9D",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/kn.pak.bsdiff",
-                "fixed": "751239E07ADACE8DC3C2F4E31EDA5BAC0F829338B908961C40AC53767D551E40"
+                "fixed": "8959B3CD3073DD923EC02951BDD55E57B79907D9C1172EF9C8FDD1682D8F170A"
             },
             "bin/win64/locales/kn.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "75E99728634C216BD6020E23C9E3970B8C005A42B5C771F263D40C93F6B1712D",
+                "patch": "6C6AE0AAFE0D98CE56F2F035F7F197A947EFBE56DD39BBBC947E2D515394EB9D",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/kn.pak.bsdiff",
-                "fixed": "751239E07ADACE8DC3C2F4E31EDA5BAC0F829338B908961C40AC53767D551E40"
+                "fixed": "8959B3CD3073DD923EC02951BDD55E57B79907D9C1172EF9C8FDD1682D8F170A"
             },
             "bin/chromium/locales/ko.pak": {
                 "original": "3634DB1647A9C6E6B28EC0344B50D23FC5E4598115C7EB6E88F965D28E736EEA",
@@ -747,15 +747,15 @@
             },
             "bin/locales/ko.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4DEFCFCD0F50DCFF29BBC45037128CD339F0255457229F0CD17A89B03A959508",
+                "patch": "47C348573F338E8A5D766A1FB564900E81C3187A2364DB2CEEB4316B83D4D147",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ko.pak.bsdiff",
-                "fixed": "012AD4C25062B763AFCDAED2AC57475C0F341C18F41EF9286AC64BE6298B030F"
+                "fixed": "6A0EB1283FFDDCB0A131BAC2BBA2AB59335AED8E37CC5AB6806A49A64F074515"
             },
             "bin/win64/locales/ko.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4DEFCFCD0F50DCFF29BBC45037128CD339F0255457229F0CD17A89B03A959508",
+                "patch": "47C348573F338E8A5D766A1FB564900E81C3187A2364DB2CEEB4316B83D4D147",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ko.pak.bsdiff",
-                "fixed": "012AD4C25062B763AFCDAED2AC57475C0F341C18F41EF9286AC64BE6298B030F"
+                "fixed": "6A0EB1283FFDDCB0A131BAC2BBA2AB59335AED8E37CC5AB6806A49A64F074515"
             },
             "bin/chromium/locales/lt.pak": {
                 "original": "69E93B66DDD2A701A07876760684AF59EA87468F90C384184506C8593DDECEAD",
@@ -765,15 +765,15 @@
             },
             "bin/locales/lt.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9840ECECCE794F7A406305A8E8130846EBB4BAC1AA88BEC333251BED715E9FB8",
+                "patch": "492C14A21840FA4DE1A73EBE765BAC87E96838C257625728AE91EF991A7EA109",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/lt.pak.bsdiff",
-                "fixed": "90DBC20009EDE0A63947762255A75BF15EC641AECD09A0684A59F36A1BBF671F"
+                "fixed": "93674033C55D1AA1BA392D3321CBC274FED9E239F6DDC0C7F11FF776EAE68217"
             },
             "bin/win64/locales/lt.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9840ECECCE794F7A406305A8E8130846EBB4BAC1AA88BEC333251BED715E9FB8",
+                "patch": "492C14A21840FA4DE1A73EBE765BAC87E96838C257625728AE91EF991A7EA109",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/lt.pak.bsdiff",
-                "fixed": "90DBC20009EDE0A63947762255A75BF15EC641AECD09A0684A59F36A1BBF671F"
+                "fixed": "93674033C55D1AA1BA392D3321CBC274FED9E239F6DDC0C7F11FF776EAE68217"
             },
             "bin/chromium/locales/lv.pak": {
                 "original": "CBBAC938F88400B31FA5D20348F80C6A54D3906395B08E604756AC5CBE4795BE",
@@ -783,15 +783,15 @@
             },
             "bin/locales/lv.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B6D3B7D24D60635405D71C405ACAA00B078CA0C74227A0ADD6033C9B3999F4BA",
+                "patch": "E1ED617E9994A12AB9FA53FC79A387DD3C29332851F0EB9B19A77878E9224097",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/lv.pak.bsdiff",
-                "fixed": "8E24CE41BC5031D2A46B9B137FA1A4DAC0FCA5E39307554E3676F5C939F19B91"
+                "fixed": "009CB5449729FE729FE6AE1AE929A82BA206A424EA882EEBF157BE4691F66FD0"
             },
             "bin/win64/locales/lv.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B6D3B7D24D60635405D71C405ACAA00B078CA0C74227A0ADD6033C9B3999F4BA",
+                "patch": "E1ED617E9994A12AB9FA53FC79A387DD3C29332851F0EB9B19A77878E9224097",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/lv.pak.bsdiff",
-                "fixed": "8E24CE41BC5031D2A46B9B137FA1A4DAC0FCA5E39307554E3676F5C939F19B91"
+                "fixed": "009CB5449729FE729FE6AE1AE929A82BA206A424EA882EEBF157BE4691F66FD0"
             },
             "bin/chromium/locales/ml.pak": {
                 "original": "78BC8176E527A83BE0A9356296C8F6494645EADDD65721C3E266493D6ABEC1DC",
@@ -801,15 +801,15 @@
             },
             "bin/locales/ml.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9785ED5B06B93BA039A420C04FD2048F1AC98F6CD943C7ADFDDE838DF60C4B1C",
+                "patch": "384FF8D147E71B04B56CAD76E8FD35DE88469924787650FACB43B8B4D57DD467",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ml.pak.bsdiff",
-                "fixed": "D82BDEC6225DECD30ED48182DCB69B210339A072648E2CFE200192C8CB01169D"
+                "fixed": "2508051917958C57E64FCEA24157C41444DA66C1D222AFB85DEFBEA503440434"
             },
             "bin/win64/locales/ml.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9785ED5B06B93BA039A420C04FD2048F1AC98F6CD943C7ADFDDE838DF60C4B1C",
+                "patch": "384FF8D147E71B04B56CAD76E8FD35DE88469924787650FACB43B8B4D57DD467",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ml.pak.bsdiff",
-                "fixed": "D82BDEC6225DECD30ED48182DCB69B210339A072648E2CFE200192C8CB01169D"
+                "fixed": "2508051917958C57E64FCEA24157C41444DA66C1D222AFB85DEFBEA503440434"
             },
             "bin/chromium/locales/mr.pak": {
                 "original": "282BCE4B80AC55B7147195550F3A15C8DA927C8F0B9227C4303AD03D1C27DA13",
@@ -819,15 +819,15 @@
             },
             "bin/locales/mr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B4369770BF30E654D8834EF5B46D38AFBC8F6DEE05B04AEDBAAF285E34E1A3BE",
+                "patch": "F77E00396B30B81FD784AAA076D422259F9B84FE85EC29C31918D0F75BD5C8D6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/mr.pak.bsdiff",
-                "fixed": "7593D809B7C8E89A74F598CC739F600FB95F1FD2A8381040513DE345E91A590C"
+                "fixed": "0BD69CF86948D7B089511D3915C22F7BEAC44A52979DEF8FF332D7C0BB5082F6"
             },
             "bin/win64/locales/mr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "B4369770BF30E654D8834EF5B46D38AFBC8F6DEE05B04AEDBAAF285E34E1A3BE",
+                "patch": "F77E00396B30B81FD784AAA076D422259F9B84FE85EC29C31918D0F75BD5C8D6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/mr.pak.bsdiff",
-                "fixed": "7593D809B7C8E89A74F598CC739F600FB95F1FD2A8381040513DE345E91A590C"
+                "fixed": "0BD69CF86948D7B089511D3915C22F7BEAC44A52979DEF8FF332D7C0BB5082F6"
             },
             "bin/chromium/locales/ms.pak": {
                 "original": "FD8FC30BB88A7293EF98A09B32CF6B412769258C5BB5E50DFF06D0E047AABC62",
@@ -837,15 +837,15 @@
             },
             "bin/locales/ms.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "C06A39B80130B4844629480F9C290B2E590B137289280B0719049C3EC907D56B",
+                "patch": "1B2CB8F2D6BCFB04671F6C5E6C2192817E9A10DADF6EEFB44EA18001084ABB46",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ms.pak.bsdiff",
-                "fixed": "0837ECDCB563333DA66BBB182B4CE6ADE1D66D26CD6ECDBC6AFB7759F85144D5"
+                "fixed": "E97700B006B0FE75408CC6997ABE82ECBA760830FB17AF071EE554AD25EA2284"
             },
             "bin/win64/locales/ms.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "C06A39B80130B4844629480F9C290B2E590B137289280B0719049C3EC907D56B",
+                "patch": "1B2CB8F2D6BCFB04671F6C5E6C2192817E9A10DADF6EEFB44EA18001084ABB46",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ms.pak.bsdiff",
-                "fixed": "0837ECDCB563333DA66BBB182B4CE6ADE1D66D26CD6ECDBC6AFB7759F85144D5"
+                "fixed": "E97700B006B0FE75408CC6997ABE82ECBA760830FB17AF071EE554AD25EA2284"
             },
             "bin/chromium/locales/nb.pak": {
                 "original": "F67A43C25B2460A41BFEAEC39672418820F923611F530477AE5515DDAF5534C3",
@@ -855,15 +855,15 @@
             },
             "bin/locales/nb.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9E748B1448BCE2F189EB1747E2AF7E63207F5F825DC5B70B0972A68BB32DC474",
+                "patch": "82194A9C395D8146D0B35E189CC976BC30B0F909671B35A94111AD990A2BC5F8",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/nb.pak.bsdiff",
-                "fixed": "F96A16D0886650B6C3339D9227F476C0AB69921442646D9060EDDCE27177C5EF"
+                "fixed": "69E6E5FB46B07C76F3839C41AE13F8EE667F0B48093FD6679872328C4BBD93ED"
             },
             "bin/win64/locales/nb.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9E748B1448BCE2F189EB1747E2AF7E63207F5F825DC5B70B0972A68BB32DC474",
+                "patch": "82194A9C395D8146D0B35E189CC976BC30B0F909671B35A94111AD990A2BC5F8",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/nb.pak.bsdiff",
-                "fixed": "F96A16D0886650B6C3339D9227F476C0AB69921442646D9060EDDCE27177C5EF"
+                "fixed": "69E6E5FB46B07C76F3839C41AE13F8EE667F0B48093FD6679872328C4BBD93ED"
             },
             "bin/chromium/locales/nl.pak": {
                 "original": "659BC9EC227D33EE147AC8AD23299930BCF56B888A75AB36092EB4C8806817CB",
@@ -873,15 +873,15 @@
             },
             "bin/locales/nl.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4DD466EA703189A7C5921D4C0B4282A12D311CE80D4C9865960FC2F99EC91BE1",
+                "patch": "8E68007644ACA01C59F21E82C8CDBBBA84FE8C13C4EFEFD66BB19D50356C43E4",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/nl.pak.bsdiff",
-                "fixed": "64534CCC154B38A7FC01B45691198E00387806F5AF73243FE5A6E943E4D01139"
+                "fixed": "940C7A4A1ABFB5EDFAE30FAECEA13ACD086B59ECF5F62B5C7F38D5C9934BD63E"
             },
             "bin/win64/locales/nl.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "4DD466EA703189A7C5921D4C0B4282A12D311CE80D4C9865960FC2F99EC91BE1",
+                "patch": "8E68007644ACA01C59F21E82C8CDBBBA84FE8C13C4EFEFD66BB19D50356C43E4",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/nl.pak.bsdiff",
-                "fixed": "64534CCC154B38A7FC01B45691198E00387806F5AF73243FE5A6E943E4D01139"
+                "fixed": "940C7A4A1ABFB5EDFAE30FAECEA13ACD086B59ECF5F62B5C7F38D5C9934BD63E"
             },
             "bin/chromium/locales/pl.pak": {
                 "original": "D375F326F30E04AEC4F26126E2BDA1B943FB0EF39B1C0793C28ACD3BA5A91A6B",
@@ -891,15 +891,15 @@
             },
             "bin/locales/pl.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "F745B8648659C93E302B4F61AD7B580DEDDE2995404B6245E93136F964A566B1",
+                "patch": "E9773A73F1FB89474E72F4B7A233320DD5FA99820CCB2AB48F2F49F64E89E024",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/pl.pak.bsdiff",
-                "fixed": "4D62251E37A13B5D448880A5FC73D2D0F25DAC7350C6094370BAD79A81CC120F"
+                "fixed": "BAE24C8ED198F862E5A69BF5B8E138C0CAE62D6428C416175A9AD4AEA911D4BA"
             },
             "bin/win64/locales/pl.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "F745B8648659C93E302B4F61AD7B580DEDDE2995404B6245E93136F964A566B1",
+                "patch": "E9773A73F1FB89474E72F4B7A233320DD5FA99820CCB2AB48F2F49F64E89E024",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/pl.pak.bsdiff",
-                "fixed": "4D62251E37A13B5D448880A5FC73D2D0F25DAC7350C6094370BAD79A81CC120F"
+                "fixed": "BAE24C8ED198F862E5A69BF5B8E138C0CAE62D6428C416175A9AD4AEA911D4BA"
             },
             "bin/chromium/locales/pt-BR.pak": {
                 "original": "E153AB003D6D866961FA23D70FA7528D608EF81994A9BDF2F2099427A8079F9E",
@@ -909,15 +909,15 @@
             },
             "bin/locales/pt-BR.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CA0F60919A4637D1A6DD6095C746EB1DEFA16B93AABD6EA76D5EEFF7E6FFE2B1",
+                "patch": "0DEB56BE9CF0134B1C2241AE3D2200B3B7D6EC14542AB028C439F53EF24231D4",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/pt-BR.pak.bsdiff",
-                "fixed": "F7046E5D1DFA2EE08984C6BF3DFEA82D13224F9D2E77F32F44C78D23DB14FEC2"
+                "fixed": "4763F98152320758B876E7F28028C8AB0A25950B906C473BAE9349E3D5328D6F"
             },
             "bin/win64/locales/pt-BR.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CA0F60919A4637D1A6DD6095C746EB1DEFA16B93AABD6EA76D5EEFF7E6FFE2B1",
+                "patch": "0DEB56BE9CF0134B1C2241AE3D2200B3B7D6EC14542AB028C439F53EF24231D4",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/pt-BR.pak.bsdiff",
-                "fixed": "F7046E5D1DFA2EE08984C6BF3DFEA82D13224F9D2E77F32F44C78D23DB14FEC2"
+                "fixed": "4763F98152320758B876E7F28028C8AB0A25950B906C473BAE9349E3D5328D6F"
             },
             "bin/chromium/locales/pt-PT.pak": {
                 "original": "0D508FFB10E9D812DAE1C6ABEAB7CA283F67DCB22511B9D32FCDC75404C40898",
@@ -927,15 +927,15 @@
             },
             "bin/locales/pt-PT.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "758F6BB3218D8CFA502FFDD73658C2120BDBF63241AAE11775A738332D34BE02",
+                "patch": "1076B5202E725F75539EB84E85E9A30491A1E17C26BAD90FDE8C999959A56FE6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/pt-PT.pak.bsdiff",
-                "fixed": "5C10FD30BD191C71F6DDFD5B8C04D03C95FC25572AC29102B51BA5E36690B601"
+                "fixed": "3AEB291FE94EEBAF2D869605E826F144D593801C1EB1BFDFE263ED3B906F2FC7"
             },
             "bin/win64/locales/pt-PT.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "758F6BB3218D8CFA502FFDD73658C2120BDBF63241AAE11775A738332D34BE02",
+                "patch": "1076B5202E725F75539EB84E85E9A30491A1E17C26BAD90FDE8C999959A56FE6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/pt-PT.pak.bsdiff",
-                "fixed": "5C10FD30BD191C71F6DDFD5B8C04D03C95FC25572AC29102B51BA5E36690B601"
+                "fixed": "3AEB291FE94EEBAF2D869605E826F144D593801C1EB1BFDFE263ED3B906F2FC7"
             },
             "bin/chromium/locales/ro.pak": {
                 "original": "ACC92F0C5383EBF3F7840FD6D455CDA87BAA6EE31538476764853C903C23DFF2",
@@ -945,15 +945,15 @@
             },
             "bin/locales/ro.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E42F3D804AD3C7957F1D3FE56595697A6ED095309460BB3C8308250DBEE97787",
+                "patch": "EA01D6DA1D6F09FAA6F619C7A3BC658EC63F554EC6189BAE3B2A72874744EC62",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ro.pak.bsdiff",
-                "fixed": "17C28FD545589FD944535F5D3ED332ED5AD2F5F3A9894FC24EAC9441039757A7"
+                "fixed": "F89F3FA53D35F29C9EDBF472C6B3BEC07587A3B0503DB5CD2A2F15C380706CB6"
             },
             "bin/win64/locales/ro.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E42F3D804AD3C7957F1D3FE56595697A6ED095309460BB3C8308250DBEE97787",
+                "patch": "EA01D6DA1D6F09FAA6F619C7A3BC658EC63F554EC6189BAE3B2A72874744EC62",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ro.pak.bsdiff",
-                "fixed": "17C28FD545589FD944535F5D3ED332ED5AD2F5F3A9894FC24EAC9441039757A7"
+                "fixed": "F89F3FA53D35F29C9EDBF472C6B3BEC07587A3B0503DB5CD2A2F15C380706CB6"
             },
             "bin/chromium/locales/ru.pak": {
                 "original": "93614711DC303BA490398A62716B01EC421765F0F6C1C8DA33A19CCE217E2709",
@@ -963,15 +963,15 @@
             },
             "bin/locales/ru.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "EF476BE8A1FD73EAD414BFC39578DFB5AA164C12F7D34C83DBC37BA6AA979102",
+                "patch": "DF42B3FA6CF59B8E8AD9395C14895D11D2E60CD548ADFA39B7C97C6C2A780A57",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ru.pak.bsdiff",
-                "fixed": "BE49BFFFC7714468E8C8A178E68A9888675706DE2F73A26580D95DD097A5640A"
+                "fixed": "1437E3132FF2A0C98726D838B1ED0B39EC58E5A95A2C155D803AAB1DAC0EF4EE"
             },
             "bin/win64/locales/ru.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "EF476BE8A1FD73EAD414BFC39578DFB5AA164C12F7D34C83DBC37BA6AA979102",
+                "patch": "DF42B3FA6CF59B8E8AD9395C14895D11D2E60CD548ADFA39B7C97C6C2A780A57",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ru.pak.bsdiff",
-                "fixed": "BE49BFFFC7714468E8C8A178E68A9888675706DE2F73A26580D95DD097A5640A"
+                "fixed": "1437E3132FF2A0C98726D838B1ED0B39EC58E5A95A2C155D803AAB1DAC0EF4EE"
             },
             "bin/chromium/locales/sk.pak": {
                 "original": "10EB35250AB4CE72269BB76249F7CA9183637E7CD84DC2447836E5E24BDA79D8",
@@ -981,15 +981,15 @@
             },
             "bin/locales/sk.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "95AD09369E8C06C5FC0611717504DD18447B70A97906813FEAEC04BA263FEC6D",
+                "patch": "11F3CDB188BEC0677CF3E9416A60F7124B0A1793ECCBD7B2DB3CCDFD1F2A74DE",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/sk.pak.bsdiff",
-                "fixed": "6344F2EDA4380FFDEF4A4813EADFD522EEC2C201FECF7A408F4B29F50975B23A"
+                "fixed": "2ABD76770573C75C013D88D3097806530A8A0F63FD86FA670FCAB431C13548A6"
             },
             "bin/win64/locales/sk.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "95AD09369E8C06C5FC0611717504DD18447B70A97906813FEAEC04BA263FEC6D",
+                "patch": "11F3CDB188BEC0677CF3E9416A60F7124B0A1793ECCBD7B2DB3CCDFD1F2A74DE",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/sk.pak.bsdiff",
-                "fixed": "6344F2EDA4380FFDEF4A4813EADFD522EEC2C201FECF7A408F4B29F50975B23A"
+                "fixed": "2ABD76770573C75C013D88D3097806530A8A0F63FD86FA670FCAB431C13548A6"
             },
             "bin/chromium/locales/sl.pak": {
                 "original": "7F5D59F297F2112D824B393A2B94E863FB331FFCBE875A6B1F7250E1AC2C35C3",
@@ -999,15 +999,15 @@
             },
             "bin/locales/sl.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9F2BC0B24CE3F29B6D630CE6CFAFCDDA99DF1E9D6BB4018F14DBD9B142F7D307",
+                "patch": "92DE6E2AFBD26360ACEBC4CAF287FDCFC00FA80039FE06191FD9543DF7768B6C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/sl.pak.bsdiff",
-                "fixed": "82A4D97339238E61956D933E2D979767C7273C329E62F0D0B3286B38B8EF9A10"
+                "fixed": "307F1402B7084AEA2083D2CC97BF2ADA9AADBCC18998E174A193B9E6CFE11846"
             },
             "bin/win64/locales/sl.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "9F2BC0B24CE3F29B6D630CE6CFAFCDDA99DF1E9D6BB4018F14DBD9B142F7D307",
+                "patch": "92DE6E2AFBD26360ACEBC4CAF287FDCFC00FA80039FE06191FD9543DF7768B6C",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/sl.pak.bsdiff",
-                "fixed": "82A4D97339238E61956D933E2D979767C7273C329E62F0D0B3286B38B8EF9A10"
+                "fixed": "307F1402B7084AEA2083D2CC97BF2ADA9AADBCC18998E174A193B9E6CFE11846"
             },
             "bin/chromium/locales/sr.pak": {
                 "original": "9F9D9712BD7B67606B088D73A67645D8B59A8C4E0221C64EA78CA37C1EB2F95C",
@@ -1017,15 +1017,15 @@
             },
             "bin/locales/sr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CA38C00709679C6D1DEA7B1898848C5E3E04200299FD397FAFCC0C7FF846C2C3",
+                "patch": "4D6FD50B68EC57AB8787C123EB1037DDB23EA01EAB4596F759AC25C7BB952CE1",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/sr.pak.bsdiff",
-                "fixed": "F9133309B664C3ECFD4CDF24F7980B1669CADEBCF03289C43C2CBDE035A9F864"
+                "fixed": "122B67E8E360A353DA87E49A5AD1593D3E704967A91B3E72E9E7184B7BD90761"
             },
             "bin/win64/locales/sr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CA38C00709679C6D1DEA7B1898848C5E3E04200299FD397FAFCC0C7FF846C2C3",
+                "patch": "4D6FD50B68EC57AB8787C123EB1037DDB23EA01EAB4596F759AC25C7BB952CE1",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/sr.pak.bsdiff",
-                "fixed": "F9133309B664C3ECFD4CDF24F7980B1669CADEBCF03289C43C2CBDE035A9F864"
+                "fixed": "122B67E8E360A353DA87E49A5AD1593D3E704967A91B3E72E9E7184B7BD90761"
             },
             "bin/chromium/locales/sv.pak": {
                 "original": "1C5F40BC67205E8DC20AB77D75E8CA01BD436EAB0942C9EC6F997DA4CF101910",
@@ -1035,15 +1035,15 @@
             },
             "bin/locales/sv.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CC8C9CEB29522B90AAA439A665566CBAC4E8FD87CF9DA41822F2EE544D3ED06F",
+                "patch": "46D72ED9F492A9BF44A508AD4257BD9E9EBF4B3E6735712977B71C5B52BE24BD",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/sv.pak.bsdiff",
-                "fixed": "64EDF2CFAF1962A90E92E8C77A87E9179936A0AF9BEE2C675102857838AF0B08"
+                "fixed": "E022F92FAE8370B9C32C5F8F24AA7BAD207A93378093C07175CEF2EB0CC8D368"
             },
             "bin/win64/locales/sv.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "CC8C9CEB29522B90AAA439A665566CBAC4E8FD87CF9DA41822F2EE544D3ED06F",
+                "patch": "46D72ED9F492A9BF44A508AD4257BD9E9EBF4B3E6735712977B71C5B52BE24BD",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/sv.pak.bsdiff",
-                "fixed": "64EDF2CFAF1962A90E92E8C77A87E9179936A0AF9BEE2C675102857838AF0B08"
+                "fixed": "E022F92FAE8370B9C32C5F8F24AA7BAD207A93378093C07175CEF2EB0CC8D368"
             },
             "bin/chromium/locales/sw.pak": {
                 "original": "69FFD71FAE9D5050F5954544146C6B2C47E1123F07F097C57DD3C1B914245B80",
@@ -1053,15 +1053,15 @@
             },
             "bin/locales/sw.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "62F9341BAE28910E238D7ACEC009C383EE7CC3636C9444AD0B9E98E210A83972",
+                "patch": "2F197C7DC2288FAC3DA5D613C157F49990B8ED7C80FBD0725A5A0D706A69A478",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/sw.pak.bsdiff",
-                "fixed": "A0AAE61F45D48B14E257DD60441C566DAC675FFAA3DCFEF56862A3E16EB73BDB"
+                "fixed": "2FBE8CAE54FC6E2D344867E620D270D58B05405CDF81007A002530E0DB5C2E81"
             },
             "bin/win64/locales/sw.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "62F9341BAE28910E238D7ACEC009C383EE7CC3636C9444AD0B9E98E210A83972",
+                "patch": "2F197C7DC2288FAC3DA5D613C157F49990B8ED7C80FBD0725A5A0D706A69A478",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/sw.pak.bsdiff",
-                "fixed": "A0AAE61F45D48B14E257DD60441C566DAC675FFAA3DCFEF56862A3E16EB73BDB"
+                "fixed": "2FBE8CAE54FC6E2D344867E620D270D58B05405CDF81007A002530E0DB5C2E81"
             },
             "bin/chromium/locales/ta.pak": {
                 "original": "A2378A8D4CB9F25B57815849F814B11157E16D1362A1D7BD905C354A0189CEBC",
@@ -1071,15 +1071,15 @@
             },
             "bin/locales/ta.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "24AE1BC26A13E831C72A7B2DD0D7E46433F82301B366E45106E51BBE42D3BD63",
+                "patch": "877F2E742CCBEBADBA5FF9E4B9CAC484ADCD6DADF92E00D57796BD60EF363596",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ta.pak.bsdiff",
-                "fixed": "5569F6896EF90368FC35F079503895AEBC4945FAA1B0A8A0908ACA38FB43F1A7"
+                "fixed": "5289D15B8AAC0CC0F591355F24A2587251997C0960B14CE1010426714A136E97"
             },
             "bin/win64/locales/ta.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "24AE1BC26A13E831C72A7B2DD0D7E46433F82301B366E45106E51BBE42D3BD63",
+                "patch": "877F2E742CCBEBADBA5FF9E4B9CAC484ADCD6DADF92E00D57796BD60EF363596",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ta.pak.bsdiff",
-                "fixed": "5569F6896EF90368FC35F079503895AEBC4945FAA1B0A8A0908ACA38FB43F1A7"
+                "fixed": "5289D15B8AAC0CC0F591355F24A2587251997C0960B14CE1010426714A136E97"
             },
             "bin/chromium/locales/te.pak": {
                 "original": "E9B05943B51F29E561E1359D38CE3A06D71FA7761C82412C79B3C3180159FF13",
@@ -1089,15 +1089,15 @@
             },
             "bin/locales/te.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "1CA50897E635E394577F21DA748AD6C8B2C0FF807E66DD3AC93FB1E5EF992CCA",
+                "patch": "71E3EE5769EA231DC04463B5F49FFCA0292ED15A116015F2E3DD7822F3941EAA",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/te.pak.bsdiff",
-                "fixed": "B39477390F15A3F94AA93DCA17E30319AA85A6E2E21A87D372377F0F4CF99C4C"
+                "fixed": "CF60BB15DCA009A46FC39626C1FBFC2500065DCBC56E1FE80AF5C1C6503C2350"
             },
             "bin/win64/locales/te.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "1CA50897E635E394577F21DA748AD6C8B2C0FF807E66DD3AC93FB1E5EF992CCA",
+                "patch": "71E3EE5769EA231DC04463B5F49FFCA0292ED15A116015F2E3DD7822F3941EAA",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/te.pak.bsdiff",
-                "fixed": "B39477390F15A3F94AA93DCA17E30319AA85A6E2E21A87D372377F0F4CF99C4C"
+                "fixed": "CF60BB15DCA009A46FC39626C1FBFC2500065DCBC56E1FE80AF5C1C6503C2350"
             },
             "bin/chromium/locales/th.pak": {
                 "original": "2619529BD7762ACAD610E1BD87D413300E4E92187029B5B836EF3A7E30971BFF",
@@ -1107,15 +1107,15 @@
             },
             "bin/locales/th.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "33806BA4060FFE1A83CC7CE2961C500B35D40BC8D1A9F0A877FC972D295B8E9E",
+                "patch": "65AB7061F9CA4AE6D9EAC33632780486E49212180CBD12C57B37209A12EB0C08",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/th.pak.bsdiff",
-                "fixed": "898B3ABA01C6A8F5B4BC4C4064EF95257A090F43F5D47B97D08D07755A92DEFE"
+                "fixed": "317BA5747266B8B940F01F72300710E068ECB5BAB0F9F748D305EB370B3B7513"
             },
             "bin/win64/locales/th.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "33806BA4060FFE1A83CC7CE2961C500B35D40BC8D1A9F0A877FC972D295B8E9E",
+                "patch": "65AB7061F9CA4AE6D9EAC33632780486E49212180CBD12C57B37209A12EB0C08",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/th.pak.bsdiff",
-                "fixed": "898B3ABA01C6A8F5B4BC4C4064EF95257A090F43F5D47B97D08D07755A92DEFE"
+                "fixed": "317BA5747266B8B940F01F72300710E068ECB5BAB0F9F748D305EB370B3B7513"
             },
             "bin/chromium/locales/tr.pak": {
                 "original": "84BAE28FDA62C4AC3ABB4A7ABD998783B9DF43B2D20E3652844BDEE5657BA00B",
@@ -1125,15 +1125,15 @@
             },
             "bin/locales/tr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E42416E77F98F5319ED06D83073C51444595FB4B0F94EC9B80CC2D536774CC0E",
+                "patch": "AC4993F2E17C07D12B1011B5739FC3F3C4E0E9F611560A576165980E797A56A1",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/tr.pak.bsdiff",
-                "fixed": "912ACE6A2E2E73743987191197BEAEC7235E06DC3633E716EF9C2FB427A6D3A2"
+                "fixed": "C4204AE49A2D13DB16C5FC5A4F1C9D85178AE9CD9132D8485568F16C6FCEE6BB"
             },
             "bin/win64/locales/tr.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "E42416E77F98F5319ED06D83073C51444595FB4B0F94EC9B80CC2D536774CC0E",
+                "patch": "AC4993F2E17C07D12B1011B5739FC3F3C4E0E9F611560A576165980E797A56A1",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/tr.pak.bsdiff",
-                "fixed": "912ACE6A2E2E73743987191197BEAEC7235E06DC3633E716EF9C2FB427A6D3A2"
+                "fixed": "C4204AE49A2D13DB16C5FC5A4F1C9D85178AE9CD9132D8485568F16C6FCEE6BB"
             },
             "bin/chromium/locales/uk.pak": {
                 "original": "C8326CBAD212C5192E9891CE16115423D8DCEFC1CAF2BD9730C88CFC0315D7A3",
@@ -1143,27 +1143,27 @@
             },
             "bin/locales/uk.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "BAA2F8AB16CAE80241A568F95C01E6F664BBE1D185C571337E80E2CC50703BD0",
+                "patch": "3AF1C572E2B5CF43D7374F5FA8B16F27E4E1955FE4F8D3089A109C7EB60EDDE6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/uk.pak.bsdiff",
-                "fixed": "C4A061B8BF2FB47E4E982E7FEA70FCC4C5CE037A33048A446DD00172F2FD79FA"
+                "fixed": "9C8F0F38BDCDCA2AFDF4B017CED9194FF8344E93B8B9AF9EBC48C60F2AE0315E"
             },
             "bin/win64/locales/uk.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "BAA2F8AB16CAE80241A568F95C01E6F664BBE1D185C571337E80E2CC50703BD0",
+                "patch": "3AF1C572E2B5CF43D7374F5FA8B16F27E4E1955FE4F8D3089A109C7EB60EDDE6",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/uk.pak.bsdiff",
-                "fixed": "C4A061B8BF2FB47E4E982E7FEA70FCC4C5CE037A33048A446DD00172F2FD79FA"
+                "fixed": "9C8F0F38BDCDCA2AFDF4B017CED9194FF8344E93B8B9AF9EBC48C60F2AE0315E"
             },
             "bin/locales/ur.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "004DA646555D00A517E0CF69DF9F961E78179210378B8DA31957D2DD36A512A9",
+                "patch": "DCFA6A09CA8AAD6E8678355161D0EFEA9017DEF82941CDDE525ED9191B0D2742",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/ur.pak.bsdiff",
-                "fixed": "2B66BF512003AB3D4DA85902597279C1806A2437DD92328411B555B4719C121C"
+                "fixed": "D1E026B867FC81C2770841CD59B4AB7AF4B068954A894E47AA254798BE3874DA"
             },
             "bin/win64/locales/ur.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "004DA646555D00A517E0CF69DF9F961E78179210378B8DA31957D2DD36A512A9",
+                "patch": "DCFA6A09CA8AAD6E8678355161D0EFEA9017DEF82941CDDE525ED9191B0D2742",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/ur.pak.bsdiff",
-                "fixed": "2B66BF512003AB3D4DA85902597279C1806A2437DD92328411B555B4719C121C"
+                "fixed": "D1E026B867FC81C2770841CD59B4AB7AF4B068954A894E47AA254798BE3874DA"
             },
             "bin/chromium/locales/vi.pak": {
                 "original": "258FF7C636CA2E11211BFFF2C1F54AF4796A8F470E007624A4624D3056E9156E",
@@ -1173,15 +1173,15 @@
             },
             "bin/locales/vi.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "03AC046E193BB5676A9959AA4A027B5DC64685E404175169C04102FFE0EC44C2",
+                "patch": "A727F79A63EDE6E31B4080C85A9DC764D85CB3AA09A689FDE2B66296943E1A43",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/vi.pak.bsdiff",
-                "fixed": "AE3EE7325199968B5A7884D5655A3EF9922C9D6AA21A0518908187C8774DB318"
+                "fixed": "B24DF95EA12F966BA1597FD1BFF37EBCBD1F45069CC54CED94FD0ED25BFC7E18"
             },
             "bin/win64/locales/vi.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "03AC046E193BB5676A9959AA4A027B5DC64685E404175169C04102FFE0EC44C2",
+                "patch": "A727F79A63EDE6E31B4080C85A9DC764D85CB3AA09A689FDE2B66296943E1A43",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/vi.pak.bsdiff",
-                "fixed": "AE3EE7325199968B5A7884D5655A3EF9922C9D6AA21A0518908187C8774DB318"
+                "fixed": "B24DF95EA12F966BA1597FD1BFF37EBCBD1F45069CC54CED94FD0ED25BFC7E18"
             },
             "bin/chromium/locales/zh-CN.pak": {
                 "original": "88604345796C5452E70B34E581BE7BE0B4300031EF2C1E9EEC424DA694DF62EF",
@@ -1191,15 +1191,15 @@
             },
             "bin/locales/zh-CN.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "AC71D0DA302444AF2747C942830C4B65A37662BE7A675F9B8C41F7AB824B1415",
+                "patch": "4E0E21E5E0285369DD24DC7B249708C6EB7E0F9B56E6590EA66D82E97F3CDDE9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/zh-CN.pak.bsdiff",
-                "fixed": "7DC2800B5A1A2A0865B399F0FD5CB91C601D293476F5646D41F16ACC7FAD7D97"
+                "fixed": "CDA174988B6BAC2756870E7CD14586D94CE1CD6E34B801B891661213EB9FC6E0"
             },
             "bin/win64/locales/zh-CN.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "AC71D0DA302444AF2747C942830C4B65A37662BE7A675F9B8C41F7AB824B1415",
+                "patch": "4E0E21E5E0285369DD24DC7B249708C6EB7E0F9B56E6590EA66D82E97F3CDDE9",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/zh-CN.pak.bsdiff",
-                "fixed": "7DC2800B5A1A2A0865B399F0FD5CB91C601D293476F5646D41F16ACC7FAD7D97"
+                "fixed": "CDA174988B6BAC2756870E7CD14586D94CE1CD6E34B801B891661213EB9FC6E0"
             },
             "bin/chromium/locales/zh-TW.pak": {
                 "original": "60F4059CFA96B19A5AF87ECFB8E2F68CF1F0472DB6100A491E2FB792FCC0BEA6",
@@ -1209,15 +1209,15 @@
             },
             "bin/locales/zh-TW.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "879DDB08009B4FB68D70612EA1AE460E39F1BDB3D1CB5AE6509A7BF693ADFDA8",
+                "patch": "3E5D72DB35746B010AA5F62ABC963AC7750F203CC8701EA9D4BD2FF8C382B6EE",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/locales/zh-TW.pak.bsdiff",
-                "fixed": "285086095F0D854AC138A1133FF2D2F3E0A05DD901A7C0DE9131B4C543CA015F"
+                "fixed": "BDBC26A0C70613A2EB3BCBD048071C3EEB431FDA20E0345DAE7B9C4C0C0B5896"
             },
             "bin/win64/locales/zh-TW.pak": {
                 "original": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
-                "patch": "879DDB08009B4FB68D70612EA1AE460E39F1BDB3D1CB5AE6509A7BF693ADFDA8",
+                "patch": "3E5D72DB35746B010AA5F62ABC963AC7750F203CC8701EA9D4BD2FF8C382B6EE",
                 "patch-url": "https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/master/win32/x86-64/bin/win64/locales/zh-TW.pak.bsdiff",
-                "fixed": "285086095F0D854AC138A1133FF2D2F3E0A05DD901A7C0DE9131B4C543CA015F"
+                "fixed": "BDBC26A0C70613A2EB3BCBD048071C3EEB431FDA20E0345DAE7B9C4C0C0B5896"
             }
         }
     },
