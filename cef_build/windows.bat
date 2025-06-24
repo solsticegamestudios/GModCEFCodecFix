@@ -9,4 +9,4 @@ REM set CEF_VCVARS=%vs2022_install%/VC/Auxiliary/Build/vcvars32.bat
 
 REM --force-clean --no-build --x64-build --no-debug-build --no-distrib --force-distrib --client-distrib --no-distrib-archive --chromium-checkout=refs/tags/84.0.4147.83
 REM No --x64-build if you want x86
-D:\Python312_64\python.exe D:\GModCEFCodecFixDev\Internal\automate\automate-git.py --download-dir=D:\GModCEFCodecFixDev\Internal\windows --force-build --x64-build --no-debug-build --force-distrib --client-distrib --no-distrib-archive --with-pgo-profiles --branch=7103
+D:\Python312_64\python.exe D:\GModCEFCodecFixDev\Internal\automate\automate-git.py --download-dir=D:\GModCEFCodecFixDev\Internal\windows --force-build --x64-build --no-debug-build --force-distrib --client-distrib --no-distrib-archive --with-pgo-profiles --branch=7151
