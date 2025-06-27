@@ -1,4 +1,4 @@
-//#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
+//#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // TODO: Hide console window on Windows in release
 
 use tracing::{debug, error, info, warn};
 use eframe;
@@ -39,7 +39,7 @@ impl eframe::App for GUIApp {
 pub fn main() -> eframe::Result {
 	if true {
 		return Err(eframe::Error::AppCreation(Box::from(
-			"`test` error",
+			"not implemented",
 		)));
 	}
 
