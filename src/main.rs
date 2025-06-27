@@ -13,67 +13,73 @@ Discord: https://www.solsticegamestudios.com/discord/
 Email: contact@solsticegamestudios.com\n";
 
 use std::path::{Path, PathBuf};
+use std::collections::HashMap;
+use rayon::prelude::*;
 
-fn pathbuf_dir_not_empty(pathbuf: &PathBuf) -> bool {
+type Manifest = HashMap<String, HashMap<String, HashMap<String, HashMap<String, String>>>>;
+
+fn pathbuf_dir_not_empty(pathbuf: &Path) -> bool {
 	// If this is a valid file in the directory, the directory isn't empty
 	if pathbuf.is_file() {
 		return true;
 	}
 
 	let pathbuf_dir = pathbuf.read_dir();
-	return if pathbuf_dir.is_ok() && pathbuf_dir.unwrap().next().is_some() { true } else { false };
+
+	pathbuf_dir.is_ok() && pathbuf_dir.unwrap().next().is_some()
 }
 
 pub fn pathbuf_to_canonical_pathbuf(pathbuf: PathBuf, checkdirempty: bool) -> Result<PathBuf, String> {
-	#[cfg(target_os = "windows")]
+	#[cfg(windows)]
 	use dunce::canonicalize;
-	#[cfg(not(target_os = "windows"))]
+	#[cfg(not(windows))]
 	let canonicalize = Path::canonicalize;
 
 	let pathbuf_result = canonicalize(pathbuf.as_path());
 
-	if pathbuf_result.is_ok() {
-		let pathbuf = pathbuf_result.unwrap();
-
-		if !checkdirempty || pathbuf_dir_not_empty(&pathbuf) {
-			Ok(pathbuf)
-		} else {
-			Err("Directory is empty".to_string())
+	match pathbuf_result {
+		Ok(pathbuf) => {
+			if !checkdirempty || pathbuf_dir_not_empty(&pathbuf) {
+				Ok(pathbuf)
+			} else {
+				Err("Directory is empty".to_string())
+			}
+		},
+		Err(error) => {
+			Err(error.to_string())
 		}
-	} else {
-		Err(pathbuf_result.unwrap_err().to_string())
 	}
 }
 
 pub fn string_to_canonical_pathbuf(path_str: String) -> Option<PathBuf> {
 	let pathbuf_result = Path::new(&path_str).canonicalize();
 
-	if pathbuf_result.is_ok() {
-		let pathbuf = pathbuf_result.unwrap();
-
+	if let Ok(pathbuf) = pathbuf_result {
 		if pathbuf_dir_not_empty(&pathbuf) {
-			Some(pathbuf)
-		} else {
-			None
+			return Some(pathbuf);
 		}
-	} else {
-		None
 	}
+
+	None
 }
 
 pub fn extend_pathbuf_and_return(mut pathbuf: PathBuf, segments: &[&str]) -> PathBuf {
 	pathbuf.extend(segments);
-	return pathbuf;
+
+	pathbuf
 }
 
 pub fn get_file_hash(file_path: &PathBuf) -> Result<String, String> {
 	let mut hasher = blake3::Hasher::new();
 	let hash_result = hasher.update_mmap_rayon(file_path);
 
-	if hash_result.is_ok() {
-		return Ok(format!("{}", hasher.finalize()));
-	} else {
-		return Err(hash_result.unwrap_err().to_string())
+	match hash_result {
+		Ok(_) => {
+			Ok(format!("{}", hasher.finalize()))
+		},
+		Err(error) => {
+			Err(error.to_string())
+		}
 	}
 }
 
