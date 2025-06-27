@@ -29,7 +29,6 @@ use phf::phf_map;
 use phf::Map;
 use std::{thread, time};
 use std::thread::JoinHandle;
-use std::fs::read_to_string;
 use keyvalues_parser::Vdf;
 use steamid::SteamId;
 use sysinfo::System;
@@ -224,7 +223,7 @@ where
 				let cache_file_path_dir_canonical = pathbuf_to_canonical_pathbuf(cache_file_path_dir.clone(), false);
 
 				if cache_file_path_dir_canonical.is_err() {
-					let create_dir_result = std::fs::create_dir_all(cache_file_path_dir);
+					let create_dir_result = tokio::fs::create_dir_all(cache_file_path_dir).await;
 
 					if let Err(error) = create_dir_result {
 						terminal_write(writer, format!("\tFailed to Download: {filename} | Step 2: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
@@ -246,7 +245,7 @@ where
 					terminal_write(writer, format!("\tDecompressed: {filename}").as_str(), true, None);
 				}
 
-				let write_result = std::fs::write(cache_file_path.clone(), bytes);
+				let write_result = tokio::fs::write(cache_file_path.clone(), bytes).await;
 				if let Err(error) = write_result {
 					terminal_write(writer, format!("\tFailed to Download: {filename} | Step 2: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
 					return Err(());
@@ -636,7 +635,7 @@ where
 
 	// Get most recent Steam User, which is probably the one they're using/want
 	let steam_loginusers_path = extend_pathbuf_and_return(steam_path.clone(), &["config", "loginusers.vdf"]);
-	let steam_loginusers_str = read_to_string(steam_loginusers_path);
+	let steam_loginusers_str = tokio::fs::read_to_string(steam_loginusers_path).await;
 
 	if steam_loginusers_str.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find Steam loginusers.vdf. Have you ever launched/signed in to Steam?".to_string()));
@@ -682,7 +681,7 @@ where
 	// Get Steam Libraries
 	// TODO: Casing matters on some filesystems! It might be cased as SteamApps not steamapps
 	let steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "libraryfolders.vdf"]);
-	let steam_libraryfolders_str = read_to_string(steam_libraryfolders_path);
+	let steam_libraryfolders_str = tokio::fs::read_to_string(steam_libraryfolders_path).await;
 
 	if steam_libraryfolders_str.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find Steam libraryfolders.vdf. Have you ever launched/signed in to Steam?".to_string()));
@@ -720,7 +719,7 @@ where
 	// Get GMod manifest
 	// TODO: Casing matters on some filesystems! It might be cased as SteamApps not steamapps
 	let gmod_manifest_path = extend_pathbuf_and_return(gmod_steam_library_path.to_path_buf(), &["steamapps", "appmanifest_4000.acf"]);
-	let gmod_manifest_str = read_to_string(gmod_manifest_path);
+	let gmod_manifest_str = tokio::fs::read_to_string(gmod_manifest_path).await;
 
 	if gmod_manifest_str.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find GMod's appmanifest_4000.acf. Is Garry's Mod installed?".to_string()));
@@ -775,7 +774,7 @@ where
 	// Will hopefully prevent broken installs/updating
 	#[cfg(unix)]
 	if root {
-		if let Ok(gmod_dir_meta) = std::fs::metadata(&gmod_path) {
+		if let Ok(gmod_dir_meta) = tokio::fs::metadata(&gmod_path) {
 			if gmod_dir_meta.uid() != 0 {
 				return Err(AlmightyError::Generic("You are running GModPatchTool as root, but the Garry's Mod directory isn't owned by root. Either fix your permissions or don't run as root! Aborting...".to_string()));
 			}
@@ -797,7 +796,7 @@ where
 	{
 		// Get Steam config
 		let steam_config_path = extend_pathbuf_and_return(steam_path.clone(), &["config", "config.vdf"]);
-		let steam_config_str = read_to_string(steam_config_path);
+		let steam_config_str = tokio::fs::read_to_string(steam_config_path);
 
 		if steam_config_str.is_err() {
 			return Err(AlmightyError::Generic("Couldn't find Steam config.vdf. Have you ever launched/signed in to Steam?".to_string()));
@@ -837,7 +836,7 @@ where
 	// Warn if -nochromium is in launch options
 	// Some GMod "menu error fix" guides include it + gmod-lua-menu
 	let steam_user_localconfig_path = extend_pathbuf_and_return(steam_path.clone(), &["userdata", steam_id.account_id().into_u32().to_string().as_str(), "config", "localconfig.vdf"]);
-	let steam_user_localconfig_str = read_to_string(steam_user_localconfig_path);
+	let steam_user_localconfig_str = tokio::fs::read_to_string(steam_user_localconfig_path).await;
 
 	if steam_user_localconfig_str.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find Steam localconfig.vdf. Have you ever launched/signed in to Steam?".to_string()));
@@ -972,7 +971,7 @@ where
 		let old_cache_dir = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(os_cache_dir.clone(), &["GModCEFCodecFix"]), false);
 
 		if let Ok(old_cache_dir) = old_cache_dir {
-			let old_cache_dir_result = std::fs::remove_dir_all(old_cache_dir);
+			let old_cache_dir_result = tokio::fs::remove_dir_all(old_cache_dir).await;
 
 			match old_cache_dir_result {
 				Ok(_) => {
@@ -988,8 +987,10 @@ where
 		let cache_path = extend_pathbuf_and_return(os_cache_dir, &["GModPatchTool"]);
 		let mut cache_path_str = cache_path.to_string_lossy();
 		let mut cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
+
 		if cache_dir.is_err() {
-			let create_result = std::fs::create_dir(cache_path.clone());
+			let create_result = tokio::fs::create_dir(cache_path.clone()).await;
+
 			if create_result.is_ok() {
 				cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
 			}
@@ -1075,14 +1076,14 @@ where
 					let gmod_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path.clone(), &gmod_file_parts[..]), true);
 
 					if let Ok(gmod_file_path) = gmod_file_path {
-						let metadata = std::fs::metadata(&gmod_file_path);
+						let metadata = tokio::fs::metadata(&gmod_file_path).await;
 
 						match metadata {
 							Ok(metadata) => {
 								// Ensure the executable bit is present and apply it to the file
 								let mut perms = metadata.permissions();
 								perms.set_mode(perms.mode() | 0o111);
-								let perms_result: Result<(), io::Error> = std::fs::set_permissions(&gmod_file_path, perms);
+								let perms_result: Result<(), io::Error> = tokio::fs::set_permissions(&gmod_file_path, perms).await;
 
 								match perms_result {
 									Ok(_) => {
