@@ -5,6 +5,11 @@ authors = ["Solstice Game Studios <contact@solsticegamestudios.com>"]
 license = "GPL-3.0-only"
 edition = "2021"
 
+[package.metadata.winresource]
+FileDescription = "GModPatchTool"
+ProductName = "GModPatchTool"
+LegalCopyright = "Solstice Game Studios <contact@solsticegamestudios.com>"
+
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
 qbsdiff = "1.4"
