@@ -53,7 +53,7 @@ identifier = "com.solsticegamestudios.gmodpatchtool"
 license-file = "LICENSE.txt"
 before-packaging-command = "cargo build --release"
 binaries = [
-	{ path = "../../macos_terminal_launcher.sh", main = true },
+	{ path = "../../macos_terminal_launcher", main = true },
 	{ path = "gmodpatchtool", main = false }
 ]
 formats = ["dmg"]
