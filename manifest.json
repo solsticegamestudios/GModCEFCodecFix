@@ -1,208 +1,541 @@
 {
 	"linux": {
 		"x86-64": {
-			"bin/linux64/locales/zh-TW.pak": {
-				"patch": "1f05fde20dd37fc6929f151150fabfaa4ae34d6307d3edd814902af6e8245543",
-				"fixed": "de7513ce8bbe1532c9376f46482dd3c62040534a8407b59e00237216d935624a",
-				"original": "null"
-			},
-			"bin/linux64/locales/uk.pak": {
-				"original": "null",
-				"fixed": "4d8dc6fb084b2d4f733e8ead342e63faeabc4a7e3f1e0d2400af880b13605ef7",
-				"patch": "1f2483c6aa710ba3562b3874fa3c6cf1ea543e02ca4b625d7538b94cd1c69fe6"
-			},
-			"bin/linux64/locales/ta.pak": {
-				"patch": "8e2a49c6738adade1d57e8f01aca77a6d9edc2980c5b211a632fcd1eab7c60aa",
-				"original": "null",
-				"fixed": "bd4c152300b8c33a6e4b73d498634472846cae717d89f720480e94c3899861e2"
-			},
-			"bin/linux64/html_chromium_client.so": {
-				"executable": "true",
-				"fixed": "68fa11e23585eab1dc50199ceabefa4175c277becb9457265c461b880fa4eeaa",
-				"original": "4644a04c26d70eca2754eb4e437614a1adfc6185fb5aed0dc5fabfc04c8e193f",
-				"patch": "1e6c55ee7c90138f31cf15e44d0c3af0e52d68c97c3f1dad12fca9d5ecce4ad8"
-			},
-			"bin/linux64/locales/nb.pak": {
-				"patch": "fe4d02cb9f12e566fcb6fdf879f9ee4adb01d21887b8d24b3d16369c43877067",
-				"original": "null",
-				"fixed": "3c2e05a1d6fc0f08d81ad1b3bef821f94cc449c19c5310943f940f85080a173d"
-			},
-			"bin/linux64/locales/ms.pak": {
-				"fixed": "2e4c6de8c941056647a52593df59e43081376baadb35f41856613b3d333f9e82",
-				"patch": "096dc06e40f7095afbd6997e7541d9a8297238ade72bb91ac2f55504452ca65e",
-				"original": "null"
-			},
-			"bin/linux64/locales/th.pak": {
-				"patch": "8687e70fcf255a268689f1f01db5a40a5c296dafaa45a630eb1d72346105890a",
-				"original": "null",
-				"fixed": "9f39ff3c20213aa0a9afa319655e262f37094b2a0f4e0565fa680074f0ee054d"
-			},
-			"bin/linux64/locales/he.pak": {
-				"patch": "a91a2c5a91745ddb3ca9752f3b2e23c916bc412d03c801c0827c7990e5669d4f",
-				"fixed": "47e2510b9b4beef47a62eee0878dd5ca574ced736de080f58ebb74d31153d1b4",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/am.pak": {
-				"original": "dcbd76d90ee5ea87272b105d70c1234ca8a373be47f3c946de348d9d43eb70e5",
+			"bin/linux32/chromium/locales/ja.pak": {
+				"original": "aaf40700dc2f807e40e645e28bbebd479592772fe85ffa0b284f8a8d6ab18b05",
 				"fixed": "null"
 			},
-			"bin/linux64/locales/sl.pak": {
-				"fixed": "1ff3720a71bd804b96afd27b2b10dc32962e496d5f0d51cf7c0064962a356a69",
-				"patch": "7ced8a241a33f7bf2691d6b9073987e57c3246f8e447e930b876f5c61b4a451a",
-				"original": "null"
-			},
-			"bin/linux64/locales/de.pak": {
-				"original": "null",
-				"patch": "dc7805ecc8922e23233eb442d19643d132a1c3a0a0d0f8e78a59f5b2655461ea",
-				"fixed": "0ae3a0c4ca417e708e8fa8a01f2d1de4c8be684d0568454b55e2e87478c0902d"
-			},
-			"bin/linux64/locales/cs.pak": {
-				"original": "null",
-				"fixed": "1950ea0286ed8c55658f13770fe2fb301b45613c6d59b5f3c88e00ff3e483821",
-				"patch": "a56c8ca90d75d40d211d57768d17e266baebebd4113bdfd7455e278981b61a33"
-			},
-			"bin/linux64/chrome_200_percent.pak": {
-				"patch": "cb2ddb106ca68d04efdf2334516e3580ad33333d7d55726ab6ee809ed4bcbe05",
-				"original": "null",
-				"fixed": "512cfc0fb0e005fc3e32de5825c3d9b66124b5a87372a450b34afedff4e359ec"
-			},
-			"bin/linux64/locales/am.pak": {
-				"fixed": "4b2f39a6ec2e25492ffada3c8797714c85d58621034495afde35a9bf5885f11f",
-				"patch": "efea8a4f1c4f4c88c8d1d28c2c65ffb8c9ded0ac7bdb08761057fec47c3bfbb1",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/mr.pak": {
-				"original": "1840e38422c15fe8d9f5109f1a651dea5d2b484e5eb196216bb2d837bf5db8de",
-				"fixed": "null"
-			},
-			"bin/linux64/libGLESv2.so": {
-				"executable": "true",
-				"fixed": "3262623ec03e66009794d30f54391c82216ca7095bc9aa2ef1952bf523a76d68",
-				"original": "fd1991a8851d10c21c5bd14d388b9863131516af896a567b6cae2b6cbbd2a8c4",
-				"patch": "34c16df87ce239044b4d77f7997ea4f54de64d854f66f07fa355f482eb038e32"
+			"bin/linux32/chromium/locales/sw.pak": {
+				"fixed": "null",
+				"original": "c0addb03f09e227e29961e807f82eec5a0b0ae178483d0aaf8b3aa334208013e"
 			},
 			"bin/linux64/locales/el.pak": {
 				"patch": "e7313e3b22d316095128b2b97f0671c8fbac414508183d5c91ee9fb2c841ba63",
-				"original": "null",
-				"fixed": "a81b3730a4a044af762fc9efb3a3b580f98d4b5be565267c3ed958dc38febe87"
+				"fixed": "a81b3730a4a044af762fc9efb3a3b580f98d4b5be565267c3ed958dc38febe87",
+				"original": "null"
 			},
-			"bin/linux32/chromium/locales/te.pak": {
-				"fixed": "null",
-				"original": "303367b7f000647149f9fc8a85268292d42df04a14fa284a775600cc0a6acbd5"
-			},
-			"bin/linux32/chromium/locales/id.pak": {
-				"original": "895d26b488bfc880eef3ce42387db3b99b45f4e29418e8a426e32995a709ddba",
+			"bin/linux32/chromium/locales/th.pak": {
+				"original": "79ef1f92391c78f21e08e1798def74b01641aecfce027bc07501973dad996851",
 				"fixed": "null"
+			},
+			"bin/linux64/chrome-sandbox": {
+				"fixed": "7d88858f3effc3ee23e2ae1e85807bd3b64c93c4d67ef64a5e27efa1982f364d",
+				"executable": "true",
+				"original": "null",
+				"patch": "e2e27f669e569f70234216fe897168173568d798bfd00c3ab7e2a9fcb6564790"
+			},
+			"bin/linux64/locales/ms.pak": {
+				"patch": "096dc06e40f7095afbd6997e7541d9a8297238ade72bb91ac2f55504452ca65e",
+				"original": "null",
+				"fixed": "2e4c6de8c941056647a52593df59e43081376baadb35f41856613b3d333f9e82"
+			},
+			"bin/linux64/chromium_process": {
+				"patch": "4d549c08cc6f56bd69d2f8418f47f932c624d2f36b33c26f259e785e7eb1f82f",
+				"fixed": "2053adecc587d467c916edeff9ee4aef356517e2f40e42801e5a8088e2b749ab",
+				"executable": "true",
+				"original": "33a2b23beaac9b4cccd95e5df59aa77a2f77cb0a0deacf55429e962db4c7cb08"
+			},
+			"bin/linux32/chromium/locales/fi.pak": {
+				"original": "c5328b3e3340feef06a78c6191f4dd1a0d3c5df20f6532ba201783674f711047",
+				"fixed": "null"
+			},
+			"garrysmod/resource/fonts/PTMono-OFL.txt": {
+				"fixed": "9c59f7a8b0e0c5ec1e1af3e457e35cd4432fe405538847046a096c999f94aba5",
+				"original": "null",
+				"patch": "e0524093974c411b13c2e7a3e5af702a68634892bc18e3ca1475d102cbe2f240"
+			},
+			"bin/linux64/html_chromium_client.so": {
+				"original": "4644a04c26d70eca2754eb4e437614a1adfc6185fb5aed0dc5fabfc04c8e193f",
+				"fixed": "68fa11e23585eab1dc50199ceabefa4175c277becb9457265c461b880fa4eeaa",
+				"patch": "1e6c55ee7c90138f31cf15e44d0c3af0e52d68c97c3f1dad12fca9d5ecce4ad8",
+				"executable": "true"
+			},
+			"bin/linux64/snapshot_blob.bin": {
+				"original": "38a9942ed61b376b9bf1a003d61501f41756d9117fbc4e1035645d2e25f3cb62",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/ru.pak": {
+				"original": "null",
+				"fixed": "245bca7fd23cc2be73d8b2d412e9918da970dd546b22c070068447c9e188f562",
+				"patch": "1984d842debddd5c55e626cc1c0d3b0966962b3794bbfbc7273486152e919b19"
+			},
+			"bin/linux32/chromium/locales/bg.pak": {
+				"original": "d7763cecbb2f8aae03ecb9b0b778a26adcfb63b1e3fc0de015a0486d61afcb6e",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/ms.pak": {
+				"original": "79c6a46ddcd6d7302726b81c2bb88e8124b0384c1470c1511266090b42c4eb95",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/nl.pak": {
+				"fixed": "8902d9e58de3eb225e81f0413b0fcaca053f52968d1a14f1f599f5230b7d6e56",
+				"original": "null",
+				"patch": "10f549b6244c28c0051a6f5ac53d25ed8ecb184e7865b6ebff362c0877c4de8e"
+			},
+			"bin/linux64/locales/sv.pak": {
+				"fixed": "043f6d0e01d0c475529b6ca289724e18f622ae3a16f83252fccd6e682385f639",
+				"patch": "775fc10c47743a7631921179ec3233da074a474e9e836d2422fe840220fcae7a",
+				"original": "null"
+			},
+			"bin/linux64/locales/bg.pak": {
+				"patch": "7023bb53f9b7bef341d70f8a1a763b3ccda4df1df73b88ac45788ef6e2f49473",
+				"original": "null",
+				"fixed": "1bec59070ab2b4c2332d6f80acdba3c9e479b5b623ba053177c4bc8f7502cceb"
+			},
+			"bin/linux32/chromium/locales/hi.pak": {
+				"fixed": "null",
+				"original": "c69efab4b320e3b828ce63d51df3fa9b8a6f8f3dd282816669012e211da76617"
+			},
+			"hl2.sh": {
+				"fixed": "da13b6d4709f65255cbcd0d60e44ba614c047c76f049e84f1374848e1cb6edda",
+				"patch": "edb7384fc5f95749133069dcf8d678d0f1bc923eaa5dd88af40e18adaf1d12e6",
+				"original": "f70c0650cf048379ef9b86db6971e31bd68b23dc73e1ab9866b506ce74d96e24"
+			},
+			"bin/linux32/chromium/locales/pt-PT.pak": {
+				"original": "6c14e453918264d613d6a7afd531dbe5c216c426a4aaedb3c6c54a87bd9d6ef8",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/kn.pak": {
+				"original": "null",
+				"fixed": "b871504618cae3c8fa3d39bbe65ff058ff6a1ed6d0d434755b4bba79f623007b",
+				"patch": "85376abedbd59e1f7b52424e321dd17be69737d4596b1693c356d2610d6876f1"
+			},
+			"bin/linux64/chrome_200_percent.pak": {
+				"patch": "cb2ddb106ca68d04efdf2334516e3580ad33333d7d55726ab6ee809ed4bcbe05",
+				"fixed": "512cfc0fb0e005fc3e32de5825c3d9b66124b5a87372a450b34afedff4e359ec",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/zh-TW.pak": {
+				"original": "54aef81b82a577fed82344a2159da4286fc0e8fc31f51e7c6755a04b4d0b99ee",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/th.pak": {
+				"patch": "8687e70fcf255a268689f1f01db5a40a5c296dafaa45a630eb1d72346105890a",
+				"fixed": "9f39ff3c20213aa0a9afa319655e262f37094b2a0f4e0565fa680074f0ee054d",
+				"original": "null"
+			},
+			"garrysmod/resource/SourceScheme.res": {
+				"original": "064d93d90f23413186db0d3e15e3793afda25baf9b54c8a83b3a58572c7300f5",
+				"fixed": "9a7cad3125b692efd31f035c3f9766a9993b9d8a22161625323c45a3f380843e",
+				"patch": "aabd80d318e90bdedb5edab9d0d023b00d801d22ba7f768405ae012ad25556c0"
+			},
+			"bin/linux64/locales/fil.pak": {
+				"patch": "b4e37627aeffd34aeca95a5d44dc3fce6bf00f7c876bebe60478dd09ea62bd7b",
+				"original": "null",
+				"fixed": "bc27366d076246644e19f66722c06422290b8695105f1077bd05f9bb6905294e"
+			},
+			"garrysmod/resource/ClientScheme.res": {
+				"patch": "d199aebb84d8414448e349fb259a2319467971dc13698b9a3990176b3625feef",
+				"original": "2182e066406e945910498b17e3374879b353c9ce314fc2bcdcff661e5b882ee3",
+				"fixed": "ffdb801bb36db7d0f5cf5480dfc641394069fba7529b47c1975343459a9b1ce5"
+			},
+			"bin/linux64/locales/id.pak": {
+				"patch": "6dcb8f2b966c2cdb0473e6eca08a6d965b090b260f30df7ef3bc8e1b5c840914",
+				"original": "null",
+				"fixed": "1157e0a55e0d84f516dcae5f5fcca30618266aad0e84185d4bd0e680a2cbe27a"
+			},
+			"bin/linux32/chromium/locales/gu.pak": {
+				"original": "e8fbd07148f5d75b8fda286e286938d07baff1de3a5e996776c9bd76c25609f1",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/ru.pak": {
+				"original": "e139466128c5c9d3c231fade6e51b12ecb3f9b46c204a3c86556e6c235ba8f96",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/ko.pak": {
+				"fixed": "3f5a8265c8bcd8c6690fdc96feb3bfd530b2bfb5c0e698fbedf862c083ea7c12",
+				"original": "null",
+				"patch": "7875d04ade5ea8fbe3af2da0aa256335330b9c3240df34595ad289a84c8d2c4c"
+			},
+			"bin/linux32/chromium/locales/ro.pak": {
+				"fixed": "null",
+				"original": "c47b4d0473434e39bd4804f44261c0ca5d94a7fdc7f3f5d04f61357768899a76"
+			},
+			"bin/linux64/locales/af.pak": {
+				"original": "null",
+				"patch": "9e0d990f1b8eb996e33c0193c96bfb88e7b0c3df0e1915478b82effffb379341",
+				"fixed": "ad3236b82b55642762f77c21ef6f7d7407e631b2d3d1b39a1d68b1fd0c10f0c1"
+			},
+			"bin/linux64/locales/hr.pak": {
+				"original": "null",
+				"fixed": "48bcbe3e2c75befe57f67ddb561fcdb5a321dffefdf685419fa6b5b30c4cb324",
+				"patch": "45a0e7efaf742fc116927e3d7ae500c41a27324fdb1f214ccf7e2e1c9d237a78"
 			},
 			"bin/linux32/chromium/locales/sk.pak": {
 				"original": "50ca313ca65ae81d7e0626428f7def35ef6cf5e522485858f2f6de61269591bd",
 				"fixed": "null"
 			},
-			"bin/linux64/locales/hi.pak": {
-				"fixed": "b91df555d783693e0685b673eff8fbe87102144bb35081056215e4fe8b9e7dd3",
+			"bin/linux64/locales/zh-TW.pak": {
+				"patch": "1f05fde20dd37fc6929f151150fabfaa4ae34d6307d3edd814902af6e8245543",
 				"original": "null",
-				"patch": "a47d896c2fa8a8631ba9f72f867db25ddc926422fa68b8c0bf0dd5ce31d79dcc"
+				"fixed": "de7513ce8bbe1532c9376f46482dd3c62040534a8407b59e00237216d935624a"
 			},
-			"bin/linux64/locales/af.pak": {
-				"patch": "9e0d990f1b8eb996e33c0193c96bfb88e7b0c3df0e1915478b82effffb379341",
-				"fixed": "ad3236b82b55642762f77c21ef6f7d7407e631b2d3d1b39a1d68b1fd0c10f0c1",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/fil.pak": {
-				"original": "e6770b2f267bd005ddebcff3c881d5a2823897a22e6ed24c11cedf38cddffe9b",
+			"bin/linux32/chromium/locales/fr.pak": {
+				"original": "01a6bc9ce3da3f0d6650efaaf50b21bacb8bb9d6ceda0aac23892592e74a3dae",
 				"fixed": "null"
 			},
-			"bin/linux32/chromium/locales/he.pak": {
-				"original": "7b4e261a15981a9b64b8d32079f2054eb117562dc898c0944b69317315bb7124",
+			"bin/linux32/chromium/locales/id.pak": {
+				"original": "895d26b488bfc880eef3ce42387db3b99b45f4e29418e8a426e32995a709ddba",
 				"fixed": "null"
 			},
-			"bin/linux32/chromium/locales/nl.pak": {
-				"original": "f8c3ce6b12a6b82837802798cc36bbd1ce74871e1217d45a563ca20ce7399ae1",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/zh-CN.pak": {
-				"original": "null",
-				"patch": "109eb0b1ce2d14fa1f7ba2a581ff758ecd4cba784404918d5baa25173cab0438",
-				"fixed": "d38f9263415a8167131748a9709c85357f8e78b01cf0e759a2bd287c12e5e6af"
-			},
-			"bin/linux64/locales/ko.pak": {
-				"fixed": "3f5a8265c8bcd8c6690fdc96feb3bfd530b2bfb5c0e698fbedf862c083ea7c12",
-				"patch": "7875d04ade5ea8fbe3af2da0aa256335330b9c3240df34595ad289a84c8d2c4c",
-				"original": "null"
-			},
-			"bin/linux32/chromium/cef_200_percent.pak": {
-				"original": "1df93ce05b5684c4fcb4439db80ab6e0132a8783d6adb4c35eddac277c80e50f",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/uk.pak": {
+			"bin/linux32/chromium/locales/cs.pak": {
 				"fixed": "null",
-				"original": "249cc8c965ede488ca57881ece1b15e52698f55e8524f9efb3499da757e3e8b2"
+				"original": "3dd097f16cd1339cb3b0c2a567256c04e6451e8fe1625695dd851cbc3a3d7cb7"
 			},
-			"bin/linux64/v8_context_snapshot.bin": {
-				"fixed": "611750d7c667ea4e7206c9ca48bd47bc8272a06bc367c1bbb251abba957acba3",
-				"patch": "679736884f569d0345d81f020f1e2f2c2b805df475a97a1104f2739801058743",
-				"original": "49909b1c16491cabdd1462d6314c2cb2d24bf73061024a81747fbb7ea1c6329e"
-			},
-			"bin/linux64/icudtl.dat": {
-				"patch": "65b50315e32b94b109208c9f13d92327dc4861623bc7e1c21b3f32a312f577f3",
-				"original": "d7870d19f6cc2e72cef043cf74dc300907930cc89dc28960ce9490084e6081f0",
-				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32"
-			},
-			"bin/linux64/locales/ro.pak": {
-				"patch": "5b40ada03c1041888661a472242b5e63531471848dc17b7db74e729028527e3d",
-				"original": "null",
-				"fixed": "01df332d997c6eb34adf5692887d494e99e6460c85782d6b3a414b84349f959b"
+			"bin/linux32/chromium/locales/es.pak": {
+				"original": "b3ee422ae04d169f592bc20ebc5b4ac65db55f63491df5f14ef9e7a634aa66b8",
+				"fixed": "null"
 			},
 			"bin/linux64/locales/en-GB.pak": {
 				"fixed": "a75cd7e1a9f470237674b12991b8d0738c55ec3af9b895d2f733109e5d0b055e",
 				"original": "null",
 				"patch": "779c2e02ed8074237a57b40d3151c43fde7c2ab91b152e79890fbd8ce7713b35"
 			},
-			"bin/linux64/libEGL.so": {
-				"fixed": "7f2076672f9c31d0485e1234a7644d9cfdc27bb7ea48d99202e6312c87802161",
-				"executable": "true",
-				"original": "22234418af9c0aa67aff3af1f616934747d1b5a956fae9fd8ba7289b065f900d",
-				"patch": "816374df61c4f41dbc3a35a707cd38a40c2a3c43e0231916074f895717261618"
+			"bin/linux32/chromium/locales/ta.pak": {
+				"fixed": "null",
+				"original": "2d38d3c64dd36227164f661b0b23030c3ef1a08fdde69c9534fc580b98e83d30"
 			},
-			"bin/linux64/libvk_swiftshader.so": {
+			"bin/linux32/chromium/locales/pl.pak": {
+				"original": "8868e01e6be8f09503061a370dece2a9cfd6d9b96cd943d3ed5d9ce20ebb5f5f",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/hr.pak": {
+				"original": "d3a43ff249bcfb0f0ba06118f7fb67dc65a4d94b3d4a95ac07651549b5d4b55e",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/ml.pak": {
+				"original": "19a05542f1b715ca9e3e9ce881a12f634a1748b15fa09920b00c40a05aabca45",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/ca.pak": {
+				"original": "202c8a80c92f7cd1ec0755ac936589ce7f1a348b996ac036aad9a866fbecf643",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/de.pak": {
+				"fixed": "null",
+				"original": "1b2df31ff7a2ef339243a0778db733aa2960b431a53e44064085e2c83f67d858"
+			},
+			"bin/linux64/locales/ml.pak": {
+				"fixed": "6477ed1d0d59f9714e9a176e6945621566597333fa092ddcf963714701934953",
 				"original": "null",
-				"executable": "true",
-				"patch": "358d2e2e9f2f75acf2805aec13124da75ddd2af03614a07fca78c994df5b78f7",
-				"fixed": "15e8e0632e1ee14b6fbef824a07fb6f5830186a361a7c255f4a023e5e733c147"
+				"patch": "df58d0e86f8e407639f38189ddd2e82153364249d0e9800ba05103ba7b50c8c2"
 			},
-			"bin/linux32/chromium/locales/vi.pak": {
+			"bin/linux32/chromium/locales/sl.pak": {
 				"fixed": "null",
-				"original": "701b64c182ec6c099a837fe647660e20e7b3ff9223ec8a2cc5647e8ce90d22c3"
+				"original": "afd3e338c2f2603fe1d317b03c3d22d33a89d73242a8dd51b8b73d79878e5c50"
 			},
-			"bin/linux32/chromium/locales/sr.pak": {
+			"bin/linux64/locales/it.pak": {
+				"original": "null",
+				"patch": "c45437eebb5a11eb3480dec6336fcb7011d89894ba7b319c29b7870d27d320cf",
+				"fixed": "4a5c91804b9c0a166d00b9886adf6c1e1da037367442327b8fc426824967b83a"
+			},
+			"bin/linux32/chromium/cef_200_percent.pak": {
 				"fixed": "null",
-				"original": "03329131e4ac4c5e52cea77c18d2e253fef84056d24242b2c09345f5ffdb67cd"
+				"original": "1df93ce05b5684c4fcb4439db80ab6e0132a8783d6adb4c35eddac277c80e50f"
+			},
+			"bin/linux64/locales/lv.pak": {
+				"original": "null",
+				"patch": "a161d2b25c5f4b9924f7a3737bb338016073e3a742d82005aaeae39d91acc2cb",
+				"fixed": "3175a9d39e9eab274546f797bb37380f7d122854a73332ffc1861b7035ebbe3d"
+			},
+			"bin/linux64/locales/en-US.pak": {
+				"fixed": "8877886ce330dc2858c2498167b8d79d2192c373731bcb5b1f5950f321a453e2",
+				"original": "null",
+				"patch": "4e991ff873e9e449b446e20cd8980aa12b87930f0d65fabf1d86d4389cef31ab"
+			},
+			"bin/linux32/chromium/locales/ko.pak": {
+				"original": "946be96059ba613d8f38cb518915e311b4e3e49886bc5d7128a7e9af151263ee",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/pt-BR.pak": {
+				"fixed": "null",
+				"original": "d137611547fdf2fb6d3b942d7cc149ec5b1ddb95b0c4fe2aaed73208ef3bdd5c"
+			},
+			"bin/linux64/locales/ca.pak": {
+				"patch": "09d847974c7c53d34135b7e0bc46f3943ee03e4d027688329dd1eba3c789f5bc",
+				"fixed": "74a3d5bce4b4ce04024be8e78e785189050466b09255aeca9337546a3f300499",
+				"original": "null"
+			},
+			"bin/linux64/locales/cs.pak": {
+				"original": "null",
+				"fixed": "1950ea0286ed8c55658f13770fe2fb301b45613c6d59b5f3c88e00ff3e483821",
+				"patch": "a56c8ca90d75d40d211d57768d17e266baebebd4113bdfd7455e278981b61a33"
+			},
+			"bin/linux64/locales/fr.pak": {
+				"fixed": "97e1f4dd5325ff952915fba6e74f8f5e8a0248299e04fbc7d6b87c2ced4b9982",
+				"patch": "1ca5857c223c9511ca601299640ce3961b4c6dab433aa42a478617ac186d2245",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/mr.pak": {
+				"fixed": "null",
+				"original": "1840e38422c15fe8d9f5109f1a651dea5d2b484e5eb196216bb2d837bf5db8de"
+			},
+			"bin/linux32/chromium/locales/ar.pak": {
+				"original": "d49bee2992bbd1f148b3024974de748d0092941c71cd4175220463ea677f24ff",
+				"fixed": "null"
 			},
 			"bin/linux64/vk_swiftshader_icd.json": {
 				"fixed": "9f00040ec2ea6a0c93471e9136deaf7e646775f31267b16cb0cea03b4917a7d6",
 				"patch": "38db5fa1d644f19ea2006271f3990df0a0484a79ca90676ce94c3ed50143249b",
 				"original": "null"
 			},
-			"bin/linux64/locales/id.pak": {
-				"patch": "6dcb8f2b966c2cdb0473e6eca08a6d965b090b260f30df7ef3bc8e1b5c840914",
-				"fixed": "1157e0a55e0d84f516dcae5f5fcca30618266aad0e84185d4bd0e680a2cbe27a",
+			"bin/linux64/icudtl.dat": {
+				"patch": "65b50315e32b94b109208c9f13d92327dc4861623bc7e1c21b3f32a312f577f3",
+				"original": "d7870d19f6cc2e72cef043cf74dc300907930cc89dc28960ce9490084e6081f0",
+				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32"
+			},
+			"bin/linux32/chromium/locales/he.pak": {
+				"fixed": "null",
+				"original": "7b4e261a15981a9b64b8d32079f2054eb117562dc898c0944b69317315bb7124"
+			},
+			"bin/linux32/chromium/locales/te.pak": {
+				"original": "303367b7f000647149f9fc8a85268292d42df04a14fa284a775600cc0a6acbd5",
+				"fixed": "null"
+			},
+			"bin/linux64/chrome_100_percent.pak": {
+				"fixed": "da63087f2fa7e411f70c5636c701d454544c85d19292005bd2a195218cb7b5e1",
+				"patch": "4f3d00c777c08607252af1edb1c5454b9407f19bbe7e77eea8674eea917fd67b",
+				"original": "null"
+			},
+			"bin/linux64/locales/ta.pak": {
+				"fixed": "bd4c152300b8c33a6e4b73d498634472846cae717d89f720480e94c3899861e2",
+				"original": "null",
+				"patch": "8e2a49c6738adade1d57e8f01aca77a6d9edc2980c5b211a632fcd1eab7c60aa"
+			},
+			"bin/linux64/locales/sw.pak": {
+				"fixed": "500406afb5f26e1d27966bbdc1b8acf9898eee377e3d07969763b83af66984a5",
+				"original": "null",
+				"patch": "f7305c289b532b4e38e331c00c7a22fd38a7008743f9c0b772ecc3af640fd555"
+			},
+			"bin/linux64/locales/hu.pak": {
+				"fixed": "51ea360a4ccf5f6dd69a8805b58f073d034acba83bee32ecd1de24f5e497bd40",
+				"patch": "3a0ef8ec84052819c29dc02022d5c0ef7c323fa097dc5efe8e5adbde47b33e7b",
+				"original": "null"
+			},
+			"garrysmod/resource/fonts/PTMono-Regular.ttf": {
+				"patch": "12d71bcd0762d1117a4e240549b8c02559a8b398dde59b6fdb013fdda92ce76d",
+				"original": "null",
+				"fixed": "db0cbc04a16b150a35109c2eaf7be40fe8355181b07490b8302438e6bcaf7537"
+			},
+			"bin/linux64/locales/he.pak": {
+				"fixed": "47e2510b9b4beef47a62eee0878dd5ca574ced736de080f58ebb74d31153d1b4",
+				"patch": "a91a2c5a91745ddb3ca9752f3b2e23c916bc412d03c801c0827c7990e5669d4f",
 				"original": "null"
 			},
 			"bin/linux32/chromium/locales/hu.pak": {
 				"original": "3eeb63a29e8b688c095f6270de71e9762f37c5bb34d31d07e908e7ad0c1ce1d5",
 				"fixed": "null"
 			},
-			"bin/linux64/locales/vi.pak": {
-				"fixed": "b7824f8eb91725b884bcc805493af0f68b521bf1e21f3bf684679a1b30d955a2",
-				"patch": "c0557ceca8ff267aa7dc2b881fda955cda847863e5eb8982b28796bcb69422d1",
+			"bin/linux64/locales/sl.pak": {
+				"fixed": "1ff3720a71bd804b96afd27b2b10dc32962e496d5f0d51cf7c0064962a356a69",
+				"original": "null",
+				"patch": "7ced8a241a33f7bf2691d6b9073987e57c3246f8e447e930b876f5c61b4a451a"
+			},
+			"bin/linux64/libvk_swiftshader.so": {
+				"patch": "358d2e2e9f2f75acf2805aec13124da75ddd2af03614a07fca78c994df5b78f7",
+				"original": "null",
+				"executable": "true",
+				"fixed": "15e8e0632e1ee14b6fbef824a07fb6f5830186a361a7c255f4a023e5e733c147"
+			},
+			"bin/linux64/libvulkan.so.1": {
+				"fixed": "09aa8cc3bc274d169e01d5ea686e0d1c7d5b7d36c499557d0dd55bd3dd40f0a0",
+				"original": "null",
+				"patch": "9fb309ae704f6ca68d002b07e91c17af4696fad21ce2a8d0e1e4a944bf6148e1",
+				"executable": "true"
+			},
+			"bin/linux64/locales/mr.pak": {
+				"original": "null",
+				"patch": "1636b7cc000260a86da31d2239c617c72aaee72917baf8c5305f48590a5326f9",
+				"fixed": "04279d902e7c34c7ccfe42b82306d36d4266195a3b62c29f8423635d3f5d85dc"
+			},
+			"bin/linux64/locales/am.pak": {
+				"fixed": "4b2f39a6ec2e25492ffada3c8797714c85d58621034495afde35a9bf5885f11f",
+				"patch": "efea8a4f1c4f4c88c8d1d28c2c65ffb8c9ded0ac7bdb08761057fec47c3bfbb1",
 				"original": "null"
 			},
-			"bin/linux32/chromium/cef_extensions.pak": {
+			"bin/linux32/chromium/locales/am.pak": {
+				"original": "dcbd76d90ee5ea87272b105d70c1234ca8a373be47f3c946de348d9d43eb70e5",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/da.pak": {
 				"fixed": "null",
-				"original": "3adb455596fad265cc73c24d747c62847a71d2cf7b62f0c32adc31df90ebf231"
+				"original": "8833a1823ff27adbdd6cc58298583680f4bf804c48efb9e3e9bdb59a2aef3063"
+			},
+			"bin/linux64/locales/gu.pak": {
+				"patch": "94477554e3d1f35cad07568f8a8a97ead1d5ffaef835e05820b09afc7b79f7a1",
+				"original": "null",
+				"fixed": "ac7086ec34859d5c3693810cb03112525ccaf6def00eece0ae5f9e20ae88f774"
+			},
+			"bin/linux32/chromium/locales/kn.pak": {
+				"fixed": "null",
+				"original": "73fa9589ffe4f80bd3d3ad9f9bb83ff4a863330b005096facf744a4bbdae7630"
+			},
+			"garrysmod/lua/menu/mainmenu.lua": {
+				"patch": "f05978eefa9a5e2db841adbcd44840d78bbfa06d01a0118206546d35eca4b2a3",
+				"original": "8ca1995341ec9c1dce95543af0d4f7c61398f2cc18c9f0b6944bf2c1d1231f02",
+				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc"
+			},
+			"bin/linux64/locales/es.pak": {
+				"patch": "1890c83877df5da8e04bb0d4371751eda3c9d8ef6ea6d1133824be49a42d05d8",
+				"original": "null",
+				"fixed": "b9322aab595b68680ae36bdf7ff5c92912fb670a477cf496adf0d1d87e7cf582"
+			},
+			"bin/linux64/locales/pt-PT.pak": {
+				"patch": "7b5de59480ac6f24db04b60c526b4c554dabad68c351195cce1c51e78cb3e0e3",
+				"fixed": "bdc026d15511f6e15130165db77fdee422aacc768e3c4494d3a1867c706a0d9a",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/lt.pak": {
+				"original": "e9330333cada403e761069402db9fc09db94c472119b8a2c0081a7adb9c6c0fc",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/locales/zh-CN.pak": {
+				"original": "6e40d593d63cd180e37489674bcccbba397ed82316232d5abac6e0666f7f254d",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/te.pak": {
+				"fixed": "2fa3f281d5de91099bb113d1457db86ee2d0aa348fef9002d005fb6efae4555f",
+				"patch": "c90bed1e3e33f1ffa59633996a23a03e18dc07c6a088bb45f4f0397963ad3b1f",
+				"original": "null"
+			},
+			"bin/linux64/locales/pt-BR.pak": {
+				"original": "null",
+				"patch": "bea298b9ae6a27793e008871f647d6c8c40bcfc50dbceabd14d665c2b4305971",
+				"fixed": "ea340f60c2fa1f4dd6dd349ba82c7d6a5c145c168a58452a5beece292bcc22c7"
+			},
+			"bin/linux64/locales/zh-CN.pak": {
+				"fixed": "d38f9263415a8167131748a9709c85357f8e78b01cf0e759a2bd287c12e5e6af",
+				"patch": "109eb0b1ce2d14fa1f7ba2a581ff758ecd4cba784404918d5baa25173cab0438",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/fil.pak": {
+				"original": "e6770b2f267bd005ddebcff3c881d5a2823897a22e6ed24c11cedf38cddffe9b",
+				"fixed": "null"
 			},
 			"bin/linux32/chromium/locales/fa.pak": {
 				"original": "ea208969f222811d76d6003d18b600b19e3a5a61861682deba0f04d624b75035",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/vi.pak": {
+				"patch": "c0557ceca8ff267aa7dc2b881fda955cda847863e5eb8982b28796bcb69422d1",
+				"original": "null",
+				"fixed": "b7824f8eb91725b884bcc805493af0f68b521bf1e21f3bf684679a1b30d955a2"
+			},
+			"bin/linux64/locales/uk.pak": {
+				"patch": "1f2483c6aa710ba3562b3874fa3c6cf1ea543e02ca4b625d7538b94cd1c69fe6",
+				"original": "null",
+				"fixed": "4d8dc6fb084b2d4f733e8ead342e63faeabc4a7e3f1e0d2400af880b13605ef7"
+			},
+			"bin/linux32/chromium/locales/et.pak": {
+				"fixed": "null",
+				"original": "4801443ea5a45c4dc714bf69d9e6d37b8fd7b2e32b82db9255bd078bfd1bc81b"
+			},
+			"bin/linux32/chromium/locales/vi.pak": {
+				"original": "701b64c182ec6c099a837fe647660e20e7b3ff9223ec8a2cc5647e8ce90d22c3",
+				"fixed": "null"
+			},
+			"bin/linux32/chromium/cef_extensions.pak": {
+				"original": "3adb455596fad265cc73c24d747c62847a71d2cf7b62f0c32adc31df90ebf231",
+				"fixed": "null"
+			},
+			"bin/linux64/libGLESv2.so": {
+				"patch": "34c16df87ce239044b4d77f7997ea4f54de64d854f66f07fa355f482eb038e32",
+				"executable": "true",
+				"fixed": "3262623ec03e66009794d30f54391c82216ca7095bc9aa2ef1952bf523a76d68",
+				"original": "fd1991a8851d10c21c5bd14d388b9863131516af896a567b6cae2b6cbbd2a8c4"
+			},
+			"bin/linux64/resources.pak": {
+				"patch": "b48998f3b09dd325740a0703d4f88747b088ecb6af3760114ac427126ca75d44",
+				"original": "null",
+				"fixed": "e41a7811b3890dd242169f624199eb7282e19d0b6a70c102534841c84fdd6b72"
+			},
+			"bin/linux32/chromium/locales/en-US.pak": {
+				"original": "27a566a7548f41cbfc255f76d2e7861a269677b9613eb90220f25ad11aa9ff30",
+				"fixed": "null"
+			},
+			"bin/linux64/v8_context_snapshot.bin": {
+				"original": "49909b1c16491cabdd1462d6314c2cb2d24bf73061024a81747fbb7ea1c6329e",
+				"fixed": "611750d7c667ea4e7206c9ca48bd47bc8272a06bc367c1bbb251abba957acba3",
+				"patch": "679736884f569d0345d81f020f1e2f2c2b805df475a97a1104f2739801058743"
+			},
+			"bin/linux32/chromium/devtools_resources.pak": {
+				"fixed": "null",
+				"original": "a5ee1628edfc06c543f7dbc5c4ac03a803ebcad332d9c5df54ba721d7fab493a"
+			},
+			"bin/linux64/gmod": {
+				"original": "7145a42d0e9d00d756540d5b9bd432e4a849b43a506230f9781715a3c13d983d",
+				"patch": "efa381c2cceb8560657b6755fa9bd3215a7e90490f01d1744cd35c33108144bf",
+				"fixed": "8e4bd809fb1624cad1b927c0d724f16947efc26a7c438726a4b0665c6401faf3",
+				"executable": "true"
+			},
+			"bin/linux64/locales/de.pak": {
+				"original": "null",
+				"patch": "dc7805ecc8922e23233eb442d19643d132a1c3a0a0d0f8e78a59f5b2655461ea",
+				"fixed": "0ae3a0c4ca417e708e8fa8a01f2d1de4c8be684d0568454b55e2e87478c0902d"
+			},
+			"bin/linux64/locales/ro.pak": {
+				"fixed": "01df332d997c6eb34adf5692887d494e99e6460c85782d6b3a414b84349f959b",
+				"original": "null",
+				"patch": "5b40ada03c1041888661a472242b5e63531471848dc17b7db74e729028527e3d"
+			},
+			"bin/linux64/locales/tr.pak": {
+				"original": "null",
+				"fixed": "183288173df4bba3107fcf45d8ce89e299f56fb67f2e64227723750c8cd88be7",
+				"patch": "14730b47b9f21fa14d095091dba629c0ec8d1343361d796e34fcfa0bf1d76aae"
+			},
+			"bin/linux32/chromium/locales/nl.pak": {
+				"fixed": "null",
+				"original": "f8c3ce6b12a6b82837802798cc36bbd1ce74871e1217d45a563ca20ce7399ae1"
+			},
+			"bin/linux64/locales/da.pak": {
+				"patch": "f58fcd87f982600bfae5682b9ac2164c775e5e6e36744e8f662e4a6e48e089a6",
+				"fixed": "f45ab4fe09ba76604bc700b957c0392089d56a5eef2e1bf7ee03928b947e11f8",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/it.pak": {
+				"original": "9db34fcd63cf5e30b4b31db91066ef597334dbe6322c39189a5c2fe46c13b90a",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/ur.pak": {
+				"fixed": "7401a7765815f895aed841b11e3f83b17f04270d7894ffb1ca040e6b5487024d",
+				"original": "null",
+				"patch": "dd4914e87c16c0f129e1fe195296e6f339c3be827c5c928c8951656e855c4e7d"
+			},
+			"bin/linux64/locales/es-419.pak": {
+				"patch": "7f03e087c1f28598bdfe147bd50a586a47c6eee12bf76c0cad574c153851b818",
+				"fixed": "8aafe3294e038c1100ae84ce57368c948875fc1251025cc6dc0efefd836824ac",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/uk.pak": {
+				"original": "249cc8c965ede488ca57881ece1b15e52698f55e8524f9efb3499da757e3e8b2",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/hi.pak": {
+				"original": "null",
+				"patch": "a47d896c2fa8a8631ba9f72f867db25ddc926422fa68b8c0bf0dd5ce31d79dcc",
+				"fixed": "b91df555d783693e0685b673eff8fbe87102144bb35081056215e4fe8b9e7dd3"
+			},
+			"bin/linux32/chromium/cef_100_percent.pak": {
+				"fixed": "null",
+				"original": "bdcc076ea8660cd91fa88dc7fae9718ffe04041cd660fac387cefc956ee6480a"
+			},
+			"bin/linux64/libcef.so": {
+				"patch": "6f3f31a2230345896137827ed2f434a1afcf2ebabeef62045afb20a8c1f82e02",
+				"original": "f0b9c25ed320df7452394c2450acc7335e424b3c12f72ff890d73b735d37249a",
+				"executable": "true",
+				"fixed": "2e543b55653690b1d57107e4ca3e9b7faaa4b88f02f5336c5d9c08ee88194f22"
+			},
+			"bin/linux32/chromium/locales/lv.pak": {
+				"original": "64c3f7f132fde2d7340c697c7a5bb4177f300baa3a3b47a9b0925b21d94eb2a9",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/sr.pak": {
+				"fixed": "e3193199276d62783a9ec93ace5e2116c32bf620a72a293fb398d530299f8947",
+				"patch": "6abb62f9641911e4efd1d694074e63e2d811688f188d8e028dd5633379bd1b56",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/bn.pak": {
+				"original": "2c8c0efbf4c8a366732df034a279bab2d15e53d452ff01596af8eeba6d4623f1",
 				"fixed": "null"
 			},
 			"bin/linux64/locales/pl.pak": {
@@ -210,1406 +543,263 @@
 				"original": "null",
 				"fixed": "2ba5f6e1be802353a575b2d62c311ec7e885d4e0b1da6bd7e13c2b611d93f07e"
 			},
-			"bin/linux64/locales/nl.pak": {
-				"patch": "10f549b6244c28c0051a6f5ac53d25ed8ecb184e7865b6ebff362c0877c4de8e",
-				"original": "null",
-				"fixed": "8902d9e58de3eb225e81f0413b0fcaca053f52968d1a14f1f599f5230b7d6e56"
-			},
-			"bin/linux64/locales/fa.pak": {
-				"original": "null",
-				"fixed": "5e582f69b8c7171ce567849c1194d4d440193367dbc11540d7086c72e061123d",
-				"patch": "f0324e5388d4152e7f36a864965616b8c324bb65f41e922cfb48411c0d6b4704"
-			},
-			"bin/linux32/chromium/locales/ta.pak": {
-				"original": "2d38d3c64dd36227164f661b0b23030c3ef1a08fdde69c9534fc580b98e83d30",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/en-US.pak": {
-				"fixed": "8877886ce330dc2858c2498167b8d79d2192c373731bcb5b1f5950f321a453e2",
-				"patch": "4e991ff873e9e449b446e20cd8980aa12b87930f0d65fabf1d86d4389cef31ab",
-				"original": "null"
-			},
-			"bin/linux64/gmod": {
-				"fixed": "8e4bd809fb1624cad1b927c0d724f16947efc26a7c438726a4b0665c6401faf3",
-				"original": "7145a42d0e9d00d756540d5b9bd432e4a849b43a506230f9781715a3c13d983d",
-				"executable": "true",
-				"patch": "efa381c2cceb8560657b6755fa9bd3215a7e90490f01d1744cd35c33108144bf"
-			},
-			"bin/linux64/snapshot_blob.bin": {
-				"original": "38a9942ed61b376b9bf1a003d61501f41756d9117fbc4e1035645d2e25f3cb62",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/hr.pak": {
-				"original": "null",
-				"patch": "45a0e7efaf742fc116927e3d7ae500c41a27324fdb1f214ccf7e2e1c9d237a78",
-				"fixed": "48bcbe3e2c75befe57f67ddb561fcdb5a321dffefdf685419fa6b5b30c4cb324"
-			},
-			"bin/linux32/chromium/locales/hi.pak": {
-				"fixed": "null",
-				"original": "c69efab4b320e3b828ce63d51df3fa9b8a6f8f3dd282816669012e211da76617"
-			},
-			"bin/linux32/chromium/locales/bn.pak": {
-				"original": "2c8c0efbf4c8a366732df034a279bab2d15e53d452ff01596af8eeba6d4623f1",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/kn.pak": {
-				"original": "null",
-				"patch": "85376abedbd59e1f7b52424e321dd17be69737d4596b1693c356d2610d6876f1",
-				"fixed": "b871504618cae3c8fa3d39bbe65ff058ff6a1ed6d0d434755b4bba79f623007b"
-			},
-			"bin/linux32/chromium/devtools_resources.pak": {
-				"original": "a5ee1628edfc06c543f7dbc5c4ac03a803ebcad332d9c5df54ba721d7fab493a",
-				"fixed": "null"
-			},
 			"bin/linux32/chromium/locales/tr.pak": {
 				"fixed": "null",
 				"original": "66508ed428d854da21a8466ea44db8c74e8906ee9d235941d4891e40871986ff"
-			},
-			"bin/linux64/locales/it.pak": {
-				"fixed": "4a5c91804b9c0a166d00b9886adf6c1e1da037367442327b8fc426824967b83a",
-				"original": "null",
-				"patch": "c45437eebb5a11eb3480dec6336fcb7011d89894ba7b319c29b7870d27d320cf"
-			},
-			"bin/linux64/locales/bn.pak": {
-				"original": "null",
-				"patch": "4840db5ef14f3dbb498321852176846fbce7a6504abe6e69b8e36a0e428d3477",
-				"fixed": "48ee824ba85deebda01c8d8c71d7dc8930c4480f9b8921aaaf55ef0867ed721e"
-			},
-			"bin/linux32/chromium/locales/nb.pak": {
-				"original": "182969520abb09249808fd867041551ecd47ce63a08eb504be0069b11dcfc1ce",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/sw.pak": {
-				"patch": "f7305c289b532b4e38e331c00c7a22fd38a7008743f9c0b772ecc3af640fd555",
-				"original": "null",
-				"fixed": "500406afb5f26e1d27966bbdc1b8acf9898eee377e3d07969763b83af66984a5"
-			},
-			"bin/linux64/locales/et.pak": {
-				"patch": "b9ab27783b057d567c939302499e36a095c8068e3c2405f4b9ec305bc72a5956",
-				"original": "null",
-				"fixed": "8d7ad8c4e8aa1a9ed17f363804d54fd65718f09b2ee81040936474c73518d5cf"
-			},
-			"bin/linux32/chromium/locales/sl.pak": {
-				"original": "afd3e338c2f2603fe1d317b03c3d22d33a89d73242a8dd51b8b73d79878e5c50",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/lt.pak": {
-				"fixed": "null",
-				"original": "e9330333cada403e761069402db9fc09db94c472119b8a2c0081a7adb9c6c0fc"
-			},
-			"bin/linux32/chromium/locales/ca.pak": {
-				"fixed": "null",
-				"original": "202c8a80c92f7cd1ec0755ac936589ce7f1a348b996ac036aad9a866fbecf643"
-			},
-			"bin/linux32/chromium/locales/ro.pak": {
-				"original": "c47b4d0473434e39bd4804f44261c0ca5d94a7fdc7f3f5d04f61357768899a76",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/bg.pak": {
-				"patch": "7023bb53f9b7bef341d70f8a1a763b3ccda4df1df73b88ac45788ef6e2f49473",
-				"fixed": "1bec59070ab2b4c2332d6f80acdba3c9e479b5b623ba053177c4bc8f7502cceb",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/pl.pak": {
-				"fixed": "null",
-				"original": "8868e01e6be8f09503061a370dece2a9cfd6d9b96cd943d3ed5d9ce20ebb5f5f"
-			},
-			"bin/linux64/locales/gu.pak": {
-				"fixed": "ac7086ec34859d5c3693810cb03112525ccaf6def00eece0ae5f9e20ae88f774",
-				"original": "null",
-				"patch": "94477554e3d1f35cad07568f8a8a97ead1d5ffaef835e05820b09afc7b79f7a1"
-			},
-			"bin/linux32/chromium/locales/cs.pak": {
-				"fixed": "null",
-				"original": "3dd097f16cd1339cb3b0c2a567256c04e6451e8fe1625695dd851cbc3a3d7cb7"
-			},
-			"bin/linux32/chromium/locales/sw.pak": {
-				"original": "c0addb03f09e227e29961e807f82eec5a0b0ae178483d0aaf8b3aa334208013e",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/ml.pak": {
-				"original": "19a05542f1b715ca9e3e9ce881a12f634a1748b15fa09920b00c40a05aabca45",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/ko.pak": {
-				"original": "946be96059ba613d8f38cb518915e311b4e3e49886bc5d7128a7e9af151263ee",
-				"fixed": "null"
-			},
-			"bin/linux64/resources.pak": {
-				"fixed": "e41a7811b3890dd242169f624199eb7282e19d0b6a70c102534841c84fdd6b72",
-				"patch": "b48998f3b09dd325740a0703d4f88747b088ecb6af3760114ac427126ca75d44",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/en-US.pak": {
-				"original": "27a566a7548f41cbfc255f76d2e7861a269677b9613eb90220f25ad11aa9ff30",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/es-419.pak": {
-				"fixed": "null",
-				"original": "96cc1e9b3da3fcb8087f8db5a16b11debfb88eeeb17fc0aad37e341ba8ea6dc5"
-			},
-			"bin/linux32/chromium/locales/fr.pak": {
-				"fixed": "null",
-				"original": "01a6bc9ce3da3f0d6650efaaf50b21bacb8bb9d6ceda0aac23892592e74a3dae"
-			},
-			"bin/linux32/chromium/cef_100_percent.pak": {
-				"original": "bdcc076ea8660cd91fa88dc7fae9718ffe04041cd660fac387cefc956ee6480a",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/gu.pak": {
-				"fixed": "null",
-				"original": "e8fbd07148f5d75b8fda286e286938d07baff1de3a5e996776c9bd76c25609f1"
-			},
-			"bin/linux32/chromium/locales/ru.pak": {
-				"original": "e139466128c5c9d3c231fade6e51b12ecb3f9b46c204a3c86556e6c235ba8f96",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/fi.pak": {
-				"patch": "beeb33eb78436f5243dde19e05f19f51d3ffaf70df714c273f98be3e6b521087",
-				"original": "null",
-				"fixed": "85f16b2a1b6290f75b197aaf591731d996de45a407dc5ead37b2c5efd7d3b3f9"
-			},
-			"bin/linux64/libvulkan.so.1": {
-				"executable": "true",
-				"original": "null",
-				"patch": "9fb309ae704f6ca68d002b07e91c17af4696fad21ce2a8d0e1e4a944bf6148e1",
-				"fixed": "09aa8cc3bc274d169e01d5ea686e0d1c7d5b7d36c499557d0dd55bd3dd40f0a0"
-			},
-			"bin/linux64/libcef.so": {
-				"executable": "true",
-				"patch": "6f3f31a2230345896137827ed2f434a1afcf2ebabeef62045afb20a8c1f82e02",
-				"original": "f0b9c25ed320df7452394c2450acc7335e424b3c12f72ff890d73b735d37249a",
-				"fixed": "2e543b55653690b1d57107e4ca3e9b7faaa4b88f02f5336c5d9c08ee88194f22"
-			},
-			"bin/linux64/locales/es-419.pak": {
-				"original": "null",
-				"patch": "7f03e087c1f28598bdfe147bd50a586a47c6eee12bf76c0cad574c153851b818",
-				"fixed": "8aafe3294e038c1100ae84ce57368c948875fc1251025cc6dc0efefd836824ac"
-			},
-			"bin/linux32/chromium/locales/bg.pak": {
-				"original": "d7763cecbb2f8aae03ecb9b0b778a26adcfb63b1e3fc0de015a0486d61afcb6e",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/fr.pak": {
-				"original": "null",
-				"patch": "1ca5857c223c9511ca601299640ce3961b4c6dab433aa42a478617ac186d2245",
-				"fixed": "97e1f4dd5325ff952915fba6e74f8f5e8a0248299e04fbc7d6b87c2ced4b9982"
-			},
-			"hl2.sh": {
-				"patch": "edb7384fc5f95749133069dcf8d678d0f1bc923eaa5dd88af40e18adaf1d12e6",
-				"original": "f70c0650cf048379ef9b86db6971e31bd68b23dc73e1ab9866b506ce74d96e24",
-				"fixed": "da13b6d4709f65255cbcd0d60e44ba614c047c76f049e84f1374848e1cb6edda"
-			},
-			"bin/linux64/locales/da.pak": {
-				"patch": "f58fcd87f982600bfae5682b9ac2164c775e5e6e36744e8f662e4a6e48e089a6",
-				"original": "null",
-				"fixed": "f45ab4fe09ba76604bc700b957c0392089d56a5eef2e1bf7ee03928b947e11f8"
-			},
-			"bin/linux64/locales/ur.pak": {
-				"fixed": "7401a7765815f895aed841b11e3f83b17f04270d7894ffb1ca040e6b5487024d",
-				"patch": "dd4914e87c16c0f129e1fe195296e6f339c3be827c5c928c8951656e855c4e7d",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/pt-PT.pak": {
-				"original": "6c14e453918264d613d6a7afd531dbe5c216c426a4aaedb3c6c54a87bd9d6ef8",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/et.pak": {
-				"fixed": "null",
-				"original": "4801443ea5a45c4dc714bf69d9e6d37b8fd7b2e32b82db9255bd078bfd1bc81b"
-			},
-			"bin/linux64/locales/ja.pak": {
-				"original": "null",
-				"fixed": "15f8c38eb02f62e504b9a5d6250cb22215f07bb3253d0608a326de39819898b2",
-				"patch": "2544ae0657c19971edb65ef8340b4b315c185f44ef49b46ae29ca24c6ee0cf0b"
-			},
-			"bin/linux64/locales/hu.pak": {
-				"patch": "3a0ef8ec84052819c29dc02022d5c0ef7c323fa097dc5efe8e5adbde47b33e7b",
-				"fixed": "51ea360a4ccf5f6dd69a8805b58f073d034acba83bee32ecd1de24f5e497bd40",
-				"original": "null"
-			},
-			"bin/linux64/locales/te.pak": {
-				"patch": "c90bed1e3e33f1ffa59633996a23a03e18dc07c6a088bb45f4f0397963ad3b1f",
-				"fixed": "2fa3f281d5de91099bb113d1457db86ee2d0aa348fef9002d005fb6efae4555f",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/zh-CN.pak": {
-				"fixed": "null",
-				"original": "6e40d593d63cd180e37489674bcccbba397ed82316232d5abac6e0666f7f254d"
-			},
-			"bin/linux64/locales/ml.pak": {
-				"patch": "df58d0e86f8e407639f38189ddd2e82153364249d0e9800ba05103ba7b50c8c2",
-				"original": "null",
-				"fixed": "6477ed1d0d59f9714e9a176e6945621566597333fa092ddcf963714701934953"
-			},
-			"bin/linux32/chromium/locales/da.pak": {
-				"fixed": "null",
-				"original": "8833a1823ff27adbdd6cc58298583680f4bf804c48efb9e3e9bdb59a2aef3063"
-			},
-			"bin/linux32/chromium/locales/sv.pak": {
-				"original": "66d740810175165217fe1e1848cb231d6af38293788480dd43c62e0d8654686a",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/pt-PT.pak": {
-				"fixed": "bdc026d15511f6e15130165db77fdee422aacc768e3c4494d3a1867c706a0d9a",
-				"patch": "7b5de59480ac6f24db04b60c526b4c554dabad68c351195cce1c51e78cb3e0e3",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/ms.pak": {
-				"original": "79c6a46ddcd6d7302726b81c2bb88e8124b0384c1470c1511266090b42c4eb95",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/ca.pak": {
-				"fixed": "74a3d5bce4b4ce04024be8e78e785189050466b09255aeca9337546a3f300499",
-				"patch": "09d847974c7c53d34135b7e0bc46f3943ee03e4d027688329dd1eba3c789f5bc",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/de.pak": {
-				"original": "1b2df31ff7a2ef339243a0778db733aa2960b431a53e44064085e2c83f67d858",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/lv.pak": {
-				"patch": "a161d2b25c5f4b9924f7a3737bb338016073e3a742d82005aaeae39d91acc2cb",
-				"fixed": "3175a9d39e9eab274546f797bb37380f7d122854a73332ffc1861b7035ebbe3d",
-				"original": "null"
-			},
-			"bin/linux64/locales/ru.pak": {
-				"fixed": "245bca7fd23cc2be73d8b2d412e9918da970dd546b22c070068447c9e188f562",
-				"original": "null",
-				"patch": "1984d842debddd5c55e626cc1c0d3b0966962b3794bbfbc7273486152e919b19"
-			},
-			"bin/linux64/chromium_process": {
-				"executable": "true",
-				"fixed": "2053adecc587d467c916edeff9ee4aef356517e2f40e42801e5a8088e2b749ab",
-				"patch": "4d549c08cc6f56bd69d2f8418f47f932c624d2f36b33c26f259e785e7eb1f82f",
-				"original": "33a2b23beaac9b4cccd95e5df59aa77a2f77cb0a0deacf55429e962db4c7cb08"
 			},
 			"bin/linux32/chromium/locales/en-GB.pak": {
 				"original": "68e1f9a5be6840b3ddb616064ab3f3336b68e535d843a5a14a5445284bac70a8",
 				"fixed": "null"
 			},
-			"bin/linux32/chromium/locales/it.pak": {
-				"original": "9db34fcd63cf5e30b4b31db91066ef597334dbe6322c39189a5c2fe46c13b90a",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/ar.pak": {
-				"original": "d49bee2992bbd1f148b3024974de748d0092941c71cd4175220463ea677f24ff",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/tr.pak": {
-				"fixed": "183288173df4bba3107fcf45d8ce89e299f56fb67f2e64227723750c8cd88be7",
-				"original": "null",
-				"patch": "14730b47b9f21fa14d095091dba629c0ec8d1343361d796e34fcfa0bf1d76aae"
-			},
-			"bin/linux64/chrome-sandbox": {
-				"executable": "true",
-				"patch": "e2e27f669e569f70234216fe897168173568d798bfd00c3ab7e2a9fcb6564790",
-				"original": "null",
-				"fixed": "7d88858f3effc3ee23e2ae1e85807bd3b64c93c4d67ef64a5e27efa1982f364d"
-			},
-			"bin/linux64/locales/lt.pak": {
-				"original": "null",
-				"patch": "8be09e66ac9f8f08ef887f3184dca99fe8f7ab2c9077137858996921ecee3361",
-				"fixed": "677ef35dce47513d1279fe229932971054c4e2b8423284544d871f7831347541"
-			},
-			"bin/linux64/locales/ar.pak": {
-				"patch": "39c9361518f8c2834cd5934e47b32b88022aa46e72ccfb44838862cc5a79e248",
-				"original": "null",
-				"fixed": "cb42eaaaa574d40d46aae00ed471c10eb40027bcf4e2964ceb02f19b79872f8b"
-			},
-			"bin/linux32/chromium/locales/el.pak": {
-				"original": "850f513cb1c319bcef760ad7ac51c59e55269a03a14cfbdb1adca4110149f1f7",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/pt-BR.pak": {
-				"original": "d137611547fdf2fb6d3b942d7cc149ec5b1ddb95b0c4fe2aaed73208ef3bdd5c",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/es.pak": {
-				"fixed": "null",
-				"original": "b3ee422ae04d169f592bc20ebc5b4ac65db55f63491df5f14ef9e7a634aa66b8"
-			},
-			"bin/linux32/chromium/locales/th.pak": {
-				"original": "79ef1f92391c78f21e08e1798def74b01641aecfce027bc07501973dad996851",
-				"fixed": "null"
-			},
-			"bin/linux64/locales/sk.pak": {
-				"fixed": "75c4df94fd6f0ac0dc46786420c0221b2fa9ec147e68fff712d40048dc48e20e",
-				"patch": "5e3b8a1b29805aa881e12d46f8a826aa4d615cee3a414d72189de08fbea5bae4",
+			"bin/linux64/locales/et.pak": {
+				"fixed": "8d7ad8c4e8aa1a9ed17f363804d54fd65718f09b2ee81040936474c73518d5cf",
+				"patch": "b9ab27783b057d567c939302499e36a095c8068e3c2405f4b9ec305bc72a5956",
 				"original": "null"
-			},
-			"bin/linux64/chrome_100_percent.pak": {
-				"original": "null",
-				"patch": "4f3d00c777c08607252af1edb1c5454b9407f19bbe7e77eea8674eea917fd67b",
-				"fixed": "da63087f2fa7e411f70c5636c701d454544c85d19292005bd2a195218cb7b5e1"
-			},
-			"garrysmod/lua/menu/mainmenu.lua": {
-				"original": "8ca1995341ec9c1dce95543af0d4f7c61398f2cc18c9f0b6944bf2c1d1231f02",
-				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc",
-				"patch": "f05978eefa9a5e2db841adbcd44840d78bbfa06d01a0118206546d35eca4b2a3"
-			},
-			"bin/linux32/chromium/locales/hr.pak": {
-				"fixed": "null",
-				"original": "d3a43ff249bcfb0f0ba06118f7fb67dc65a4d94b3d4a95ac07651549b5d4b55e"
-			},
-			"bin/linux64/locales/es.pak": {
-				"patch": "1890c83877df5da8e04bb0d4371751eda3c9d8ef6ea6d1133824be49a42d05d8",
-				"fixed": "b9322aab595b68680ae36bdf7ff5c92912fb670a477cf496adf0d1d87e7cf582",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/kn.pak": {
-				"original": "73fa9589ffe4f80bd3d3ad9f9bb83ff4a863330b005096facf744a4bbdae7630",
-				"fixed": "null"
-			},
-			"bin/linux32/chromium/locales/lv.pak": {
-				"fixed": "null",
-				"original": "64c3f7f132fde2d7340c697c7a5bb4177f300baa3a3b47a9b0925b21d94eb2a9"
-			},
-			"bin/linux32/chromium/locales/zh-TW.pak": {
-				"fixed": "null",
-				"original": "54aef81b82a577fed82344a2159da4286fc0e8fc31f51e7c6755a04b4d0b99ee"
-			},
-			"bin/linux64/locales/mr.pak": {
-				"original": "null",
-				"patch": "1636b7cc000260a86da31d2239c617c72aaee72917baf8c5305f48590a5326f9",
-				"fixed": "04279d902e7c34c7ccfe42b82306d36d4266195a3b62c29f8423635d3f5d85dc"
-			},
-			"bin/linux64/locales/sr.pak": {
-				"fixed": "e3193199276d62783a9ec93ace5e2116c32bf620a72a293fb398d530299f8947",
-				"patch": "6abb62f9641911e4efd1d694074e63e2d811688f188d8e028dd5633379bd1b56",
-				"original": "null"
-			},
-			"bin/linux32/chromium/locales/ja.pak": {
-				"fixed": "null",
-				"original": "aaf40700dc2f807e40e645e28bbebd479592772fe85ffa0b284f8a8d6ab18b05"
 			},
 			"bin/linux32/chromium/cef.pak": {
 				"original": "060b12f7aa4e89d72d0ecc9d88aa8ef254e75e84e7196c202d79c62ef302a3c5",
 				"fixed": "null"
 			},
-			"bin/linux32/chromium/locales/fi.pak": {
-				"fixed": "null",
-				"original": "c5328b3e3340feef06a78c6191f4dd1a0d3c5df20f6532ba201783674f711047"
-			},
-			"bin/linux64/locales/pt-BR.pak": {
-				"patch": "bea298b9ae6a27793e008871f647d6c8c40bcfc50dbceabd14d665c2b4305971",
-				"original": "null",
-				"fixed": "ea340f60c2fa1f4dd6dd349ba82c7d6a5c145c168a58452a5beece292bcc22c7"
-			},
-			"bin/linux64/locales/fil.pak": {
-				"fixed": "bc27366d076246644e19f66722c06422290b8695105f1077bd05f9bb6905294e",
-				"original": "null",
-				"patch": "b4e37627aeffd34aeca95a5d44dc3fce6bf00f7c876bebe60478dd09ea62bd7b"
-			},
-			"bin/linux64/locales/sv.pak": {
-				"fixed": "043f6d0e01d0c475529b6ca289724e18f622ae3a16f83252fccd6e682385f639",
-				"patch": "775fc10c47743a7631921179ec3233da074a474e9e836d2422fe840220fcae7a",
-				"original": "null"
-			}
-		}
-	},
-	"macos": {
-		"x86-64": {
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/chrome_100_percent.pak": {
-				"original": "null",
-				"patch": "2959ee0ac2c6fa6ffa4dd65909f021a116aaf998934518dc0a4548f6cf4aa660",
-				"fixed": "405488b4602376f9b9a4fb180bc23f67137bd7ddf3b4f1cac0ed67b37166e6cd"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/MacOS/gmod Helper (Renderer)": {
-				"executable": "true",
-				"original": "d0067f87b5811c20db4a4c50e42860660286ab998909154ad3f7bf8f80a061e6",
-				"patch": "67d1f52e548ebe6c4f0391b2c02c4573fccadda2fafd8dd951889698fdeabc3f",
-				"fixed": "e4a9876b3f7ef11d8b39556256315dfd0962314e87a3948a7f44fd6b657a2660"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/nb.lproj/locale.pak": {
-				"patch": "69ae804dfd2be332b158d661ca275bf101403e419c619c4ad34153765d48ed68",
-				"fixed": "ac972293db2b0f5425312189a06268497d8e7c8cb1d8c8d738447bc1ab36b57f",
-				"original": "15b1abefe74df3224391ce0c0609d84e60d946607321744ae95fec80022cfc60"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libEGL.dylib": {
-				"executable": "true",
-				"fixed": "d8d6c82746edec14832c53439429609637a8f4678df4164c7d691d61c4bc9b50",
-				"patch": "a1b0543b509456ae3fa084e039e8768e5810626089bf4f7c1ef67974d77e7d79",
-				"original": "5a31bab87faff160fe5ab14718aa3c77fab4c22b6505e004ab061d3f36d58612"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/uk.lproj/locale.pak": {
-				"patch": "0bebcb02aac85c9eff8be8c1e0a819a14d3be5abf34f4f78a68e8e6827d14b8f",
-				"original": "1e4b402f9b5630badd2851f587481906054cd985e7e65c71b26ebc6b80389752",
-				"fixed": "83fbbbcab078ae8a4de5233fbdd37db8f8686913e4f70423df0bb1e7e3db0707"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/Info.plist": {
-				"original": "45e8ae1f4e4eec1677c8d8fedb8472aef605fa5fcd63a3b86bc7ead334efeb4a",
-				"patch": "ff354bd84878fd7b22f10bd0b69200d2e6dd5341485b5ea8d9b830c665f006a8",
-				"fixed": "d4e422b85558db3e6c7ca3a0f0a40d4b20acd438146a531953d867795c7e7073"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/bn.lproj/locale.pak": {
-				"fixed": "c145de0a56110e28432e3a8457e7e68af39f8fa4425dfcacdddbff841ddc9112",
-				"patch": "f79874a1847eac7e7bc9e7e0a7677038ae010858efd11f67d17f231afd569593",
-				"original": "1083bd1d76065501e68ca58bc48f55516dc52749981dee91f7ab89f801b532a0"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/MacOS/gmod Helper (Plugin)": {
-				"executable": "true",
-				"original": "56b8e0b36d40d642ce508ed64b811d302ce817b5e9ba76833c34ca58d13a3061",
-				"fixed": "607e5ff6a872160cdfa2ca3318acd66b9bb497acee2e9520349f41f817ca7632",
-				"patch": "3a3941de382e2a5215e93f0c5def7a04c5ffea8b2be4f151725c67b022f95898"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/hu.lproj/locale.pak": {
-				"original": "93e8c48611440c370ab761c320f97c82e12971fc15b7699efce36b79a016f5b4",
-				"fixed": "aa8e9068349255b39a5e0c9aa0270ad0f7a4e5803f74feb92934bc08b75e23ac",
-				"patch": "32ba6ee48639df5cfbd51a9b399e7e247c79dd934c840a21b8ab370718aab3eb"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/Info.plist": {
-				"fixed": "26008d33ebb435beaf6382dd4a6d9d4e8868c6cbaf00b54cc3c6138b028c8299",
-				"original": "null",
-				"patch": "4c6f4ddaf9a7dc9341122f0441cb63ff2f577af80c47648f6c7f814791e38680"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework": {
-				"original": "0a7c22bac513f903bfe71ce2638c316f78b8285a36465cfc1c50bf0a76147a15",
-				"executable": "true",
-				"patch": "11ce9de48c93cb4d26f901584f58e9e80df923b8fe5a41b142e625dd5c7e5f0b",
-				"fixed": "87ffc6e15073fcd2bbeab4aa1d8894e32f306865c457bdf1640893a64448f265"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/Info.plist": {
-				"patch": "8727b581929466b360482c5814eaf785484925c9744657bb399bc6da11a628f4",
-				"fixed": "d0885aed53aee1dea8a40db0cfd36dd1a0de444aa74c9c9c68d7eca23f3526af",
-				"original": "cf19eef41afbaa6215f68e5ed2e4537ab23dbb97ef44940c2a879098d66b3436"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ro.lproj/locale.pak": {
-				"original": "65d157cab58d8a474730cb779fda1a46aad67d2c87292931e08141f505019c76",
-				"fixed": "b9d5c97e06c7780782da54a43a24deed954bc76c0fd2668f659866218a8d5562",
-				"patch": "ab8edf21739786a47688a6d7981476a51737dda974b49fbe40c6c4585e5facd4"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/icudtl.dat": {
-				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32",
-				"patch": "65b50315e32b94b109208c9f13d92327dc4861623bc7e1c21b3f32a312f577f3",
-				"original": "d7870d19f6cc2e72cef043cf74dc300907930cc89dc28960ce9490084e6081f0"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/id.lproj/locale.pak": {
-				"fixed": "01deed1e076843b516ecbd282d755db7dc09586ac65f22612e5a7099ce7c77a4",
-				"original": "2c2f21076472a04ca6468e75d56ba3b5bca40cc05a8474aed0157158d263d234",
-				"patch": "e9ccfd065e659731979f878e7fd0e517347bfec260b06c3a1a5d6475a598b2d5"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_extensions.pak": {
-				"fixed": "null",
-				"original": "2ebb6207e902ba0b007c62a035b9790da8b5663b1ae91cb60402266b575b4ca3"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sw.lproj/locale.pak": {
-				"patch": "c3d8d50430edfa17b389cc7d7a30590e71b7fd750cd425b68e0ccc3c8ab41c6d",
-				"fixed": "7502a2adb673e031f05c1e5cd74d9d921e8054ee5efd8244c51ea346fb2550fe",
-				"original": "fc224facd13bd02777e05af98548118457d12ca2f4598989848989cc11c40df6"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/el.lproj/locale.pak": {
-				"patch": "7980c626b8613ee60ebee9e1c58798bf06ac7214d007d1a4335a641769c82ba5",
-				"original": "489e9b5b40086288bf85c55715b16c6b1b1e07f0d240d75fe8fb3d77839c94d9",
-				"fixed": "660d32d0d3e58f5c1a887038643febdc5ec6bb4a4d3a4993280ca34e201e9683"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/pl.lproj/locale.pak": {
-				"patch": "bf00f2c59c0063b6fbd5bf82759335aef477375a81c5e1c214adb3a52bf9dae8",
-				"original": "f455b8dcfaae7f9318cb34d3fe38b89b0711b4070bc2f6e82c422aad406d98c8",
-				"fixed": "1c1ba0113d29cefcd2a1aa1151f16d5a231d2ea3c12c78713af89b9a8da80581"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ar.lproj/locale.pak": {
-				"original": "fc9c196c779762cdbec33ba3a02e3b32608fa59e6b7ec0614c828542a4e8ca05",
-				"patch": "c7ee4d69c3462e6ee9893f0f694f9a64e7c71ea2980c547d33f1c1c29c483213",
-				"fixed": "ee06a0d9dad3c36a08001a949eea7e25f02ab1113c2988d28cd3b90408bb373f"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/af.lproj/locale.pak": {
-				"original": "null",
-				"patch": "5d3fb93a66b0302780576ccf4d561db8a5efa177a5867d5c0bcefaefa3261375",
-				"fixed": "c772d9f4342d5aee462edfa2c2efaef839c793220bd8e3b01283dc0a0a947271"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libvk_swiftshader.dylib": {
-				"fixed": "c6019edd181bcfafa76e13e7e5ca241e333e6d6b0fc22f21cadbe3101154c554",
-				"patch": "97101e7291a0ac888ac76e335c91d6f9b6c5002d78aa10109b0ef5e85cc3855b",
-				"executable": "true",
-				"original": "null"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/tr.lproj/locale.pak": {
-				"original": "c02d7fc7504d6edbe8c9f726243b79d6220251f2a3adf0c357996f27521ec1ab",
-				"patch": "c16687ddea3f385aff4924fe7f5074f1809574f56372b88c87648f0c9390e847",
-				"fixed": "cfe4c043035156afa369cdbb214c8bce6c55d56a0e9317381203d90a712a37ef"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/pt_PT.lproj/locale.pak": {
-				"patch": "964d7668892cb0abbd0c3225ecd99bc2d563d539ff60ea856f0ade2e6538af75",
-				"original": "a64658a4acad7ef2c503d83432d61f50ad3f99bf98f7f224669e416202cf0d0a",
-				"fixed": "9296dd6cb3c97b8b3f0c731bc0fba60e2eb89eda39067b72709e821174d4d8df"
-			},
-			"garrysmod/html/js/menu/control.Menu.js": {
-				"patch": "0142a20f82c3b3415ac7f563e819288782e7b16ea9f04d3db634507db609a57d",
-				"fixed": "be1c5e493a9706a642770101ca59539d2cbb1ef3b3e789bcd3299fb153a0f262",
-				"original": "3ea03af4eef1f53915e4f32b8aacd71de12f0411fb36464018b87e0339d2604e"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sr.lproj/locale.pak": {
-				"fixed": "823296a9fe54ca2de96c679987163d5a9f86a381fc9077b590e6866bbb10f869",
-				"patch": "729a7cd66e2701ec72985ad43a30397fd8b6b0637150c4f530023f450beca4b8",
-				"original": "61545a4d19d96f46690841e0d530ee5597b9c4a48b646dd7d7b88df7ad25f76c"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_100_percent.pak": {
-				"original": "c3b8aab68da4d1a554c39da8d1eff98951561d4129532a616343eb6f6506635b",
+			"bin/linux32/chromium/locales/el.pak": {
+				"original": "850f513cb1c319bcef760ad7ac51c59e55269a03a14cfbdb1adca4110149f1f7",
 				"fixed": "null"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/hr.lproj/locale.pak": {
-				"fixed": "38a4e9257a9d43358dbae53d14fab9a4a6f8421ed6e96f4b67b9857d4eb0485b",
-				"original": "734dccee77c757c6c7c03f73ac24c7c4fb6b050d85d61142d7de8a628f5a4699",
-				"patch": "8010782a514373e25f2c7fc84a5b3cd68ddbea375c737670570a092781960512"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sl.lproj/locale.pak": {
-				"original": "86e8a39650fe4515294b85bfff641079881fbaebed163a786b8bde58ff7a30e5",
-				"patch": "ad3781dbc08f6e297e2f6616d6edb49231ceb0198293a734272f91ee1b5654dc",
-				"fixed": "12f8e78bf8ae959e08d4377604ee5df326de9bfa56831471145ff0106287600b"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fr.lproj/locale.pak": {
-				"original": "ec18563ac5aeb27b05d0999079f666f836883eb2202f52b046d1387669704957",
-				"patch": "ff9face02a77c8c9260c061575f88d12c1ebaa4d83c069f4a95d35d0f0aa2bd4",
-				"fixed": "d04945de2a997eb0b74ed6e8aebb6ee37087a2b6e676c1d56cb7b48e38b08cb8"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef.pak": {
-				"fixed": "null",
-				"original": "b58022d999a4a7c22a014b4f1e9a00337b7afa4dbca0a8b6339a18ee2221df1c"
-			},
-			"GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib": {
-				"original": "0c06135621a157b6f7c3ea1dd535e00c02743548c4ef6c928030c3cf3e65ddfa",
-				"fixed": "eeec02cbb5054ee2b0284c96e26537d9f7dbf9dff8976b21983e0fdc2e78fe96",
-				"executable": "true",
-				"patch": "ad5fe1a56b6f20919d64c9da29cadd64699ff81c8f16ad5570a8cab998537a3f"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ur.lproj/locale.pak": {
-				"original": "null",
-				"patch": "c140f4ddb6af922ad694c38a7af3a7ba7b8b237689f3443d286f2e6bc48b22d1",
-				"fixed": "97d87235cd8003e681cebb13b2f17415f9b5e61d1feef13402834295ecced3db"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/MacOS/gmod Helper (Alerts)": {
-				"executable": "true",
-				"original": "null",
-				"patch": "b5fb9d89717966569d019e0d70cb397528e3d0f2bc505266698ed1561aa4e1ed",
-				"fixed": "fdbaced379e64cf50b1d4784137d3c50efcfdb61a2efb3fd4ef5d06fad768d9a"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/gpu_shader_cache.bin": {
-				"fixed": "15c1d14930913320d2e7fe242c5c034f557bafff2f54ec8f21151d13a306a09d",
-				"patch": "42219cc6f45ceebe1b2ec20f4b7f2c30bed51f6ba767da79cad71632e12b8764",
-				"original": "null"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/gu.lproj/locale.pak": {
-				"patch": "85f1f3eb5eb793136ba7fa7bce58c4b939fe542d5ad1d9eb91961bdff70dcf60",
-				"original": "5f6aa2916923ea63c45984d14105156a9b14b101111c0f1dad51102f9e9e2451",
-				"fixed": "eaac651a186f3e53547d1175d510d49a4d610692bed8e990b0258b4cb44db7f4"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/hi.lproj/locale.pak": {
-				"patch": "4c1d7dcda4e665cc74291d72d7d5873c7519b2e074384c940ac527c9983e7d45",
-				"original": "b0ad4a681e23df7757cbfd9ab3bf5a626110b78e803974700d7092946e425ac0",
-				"fixed": "8711e1192a55daa516013de57575b17ca87963fc7dbf9a7c48c0b5db6ecbf869"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_200_percent.pak": {
-				"original": "638c64c83bf2974f332da37bf32d853d6eea61c907bb041016bf18bc2ee74236",
+			"bin/linux32/chromium/locales/nb.pak": {
+				"original": "182969520abb09249808fd867041551ecd47ce63a08eb504be0069b11dcfc1ce",
 				"fixed": "null"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ms.lproj/locale.pak": {
-				"original": "921a5dbc838809d2ef435b543cd3cd7c1c2b314edd6d00f3e53a04201f761536",
-				"patch": "37d3862301d8853e5a0d2d74fe87aa65debaf300dcd337e3c79de63d072f66eb",
-				"fixed": "2e5b13eb7c703443263888a2a0290e936975efd6b9224b88c68c0440fe2fb1b3"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/bg.lproj/locale.pak": {
-				"original": "840b1d184a8c233d12e826e0afdbe7bbfc505ee6334b352fa413b233e9ae0673",
-				"patch": "07f5e5f7afbf1f11158de4edf4a3555fd49885a71c8c20c1d793ea6d465489a6",
-				"fixed": "aea7a6130c2e50333fc202ce25aa8e90456d99ededeeb5727a85232381b22949"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/da.lproj/locale.pak": {
-				"patch": "95f4e5653a4f524b1102c20906f56c3474f3c72ef1893a87cce7a7efb963385d",
-				"fixed": "be1be11b148869026f7cc2bb4dcbd3d605461639cb31d429e72303243a343438",
-				"original": "e205a530594fc3ec2c96c5ba62e0bb687e2c13aa475e9dd64e3dbc2dd6d0a19e"
-			},
-			"garrysmod/lua/menu/mainmenu.lua": {
-				"fixed": "0cff7d3398cf76e001d4300ac35477f011a44b201a4e192ee3ae113bcf4a0d70",
-				"patch": "93afacbe426d7e917b8c06a3578f033cc2985c7c337aa63aabb0813f00cc9596",
-				"original": "8ca1995341ec9c1dce95543af0d4f7c61398f2cc18c9f0b6944bf2c1d1231f02"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/chrome_200_percent.pak": {
-				"patch": "70e251528a5c0773f798994435d4a324e8b7ab383a1b8903f4071b848f07cdb5",
-				"fixed": "99af73a9e4817c42e858493495235b9907d0f437b866f1da34cd22a730f80e86",
-				"original": "null"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/MacOS/gmod Helper (GPU)": {
-				"original": "cdbe7454e8f76e4ace935e49b988dd847ee65b580503d25a41beeb8739d744aa",
-				"fixed": "1525437a3a11f85c9ca5aa5307b23abfa03876eb535c3e4264ff66c5d55739f9",
-				"executable": "true",
-				"patch": "c70d4b48f38f75a76cee2487bc0b6611c45bc9f86b54099765287ea27324765a"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ko.lproj/locale.pak": {
-				"patch": "2b7239a5b80b08aa7d668072174aef3c50d09693a745abf760080664da44de1a",
-				"original": "12d48f05d90e1fac76d6dc5c8483b857cd31052cdba89ad5df2b90048df1635e",
-				"fixed": "08346a70c5d78b08aecc416e547dd03da301d174cd1c03f9f43977db0d70d5ef"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/th.lproj/locale.pak": {
-				"patch": "74b24ace72088d80582575ad3b71421b2a5af8dc26c6b2c350e45ec4c28c0ef5",
-				"fixed": "ffacaaa4caf03f785fc076d97049ebcb2a9183f6e525eb0a673e36e4dc59577f",
-				"original": "b7691e170f0e0b02f7b93f367c53a998903e214ef9f421400830874a8868c54b"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sv.lproj/locale.pak": {
-				"patch": "d4acf860f70e9458263412b3ec40f33570f8881aa6d9074d1e6fab8dfe7e5b05",
-				"fixed": "de820034834cf6aef3da0c5352acc22dfbe410385a32105d715d93dbdf92f1f6",
-				"original": "68e4311785f18b78eec9cfde0fc50fcf88ab70a166135fe4374056d39ee9e2fe"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/Info.plist": {
-				"original": "69b863b1a3b1f82ebe5887d986e57c487af71d1c5216ec875d6004ade2970f7f",
-				"fixed": "d27d110f3e64d0d8013f50e54cfc3adf1d7554476a0858a07036ac5355e7223e",
-				"patch": "a662a9396ae5017143a26127a164f16ffb702f8139a9d852858166a90b7c312b"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/nl.lproj/locale.pak": {
-				"fixed": "1ebc73ff32e28810d085bc67a498ef32dbf5b41db270a97573bdac5c372bccff",
-				"patch": "c085e87c8944162643f4698cf27f9c92157ba12e86a72058d0a90cbbbe163133",
-				"original": "ba401c42ea618c5892a99a07ad654a44a92341e699b0af0b4615c8d78afc9d73"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libEGL.dylib": {
-				"fixed": "null",
-				"original": "3ae2d909d2b1a09a828e6c011a41f15db01afda652cf5b97c76862cc95dcb0df"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/vi.lproj/locale.pak": {
-				"original": "e500d409131aaf8754312ed55b6c8d8f1f80143c03117ca6466f30e54b7da29f",
-				"fixed": "0b9e15f29f0399cbbc15bc04496c638178598a68b01d34836bb0bd54d994ba89",
-				"patch": "8c7a6be72ccc36d342f17e2f3148cc905d233c67eaa9d78c4690130afe3d4d74"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libGLESv2.dylib": {
-				"fixed": "null",
-				"original": "8b0c4ab09a3a53cf635aaf225d0c08019338f35e601bed2684caaba8575c9e39"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/am.lproj/locale.pak": {
-				"patch": "a0e81258dc68546823cc608fb5e8c89ee6afa637375350869ea63fdf32074ac8",
-				"original": "b992d227d1b95ffeb6e2c9549f4fed1b233d101dd8e2bd5c8e21ff8b235befe8",
-				"fixed": "7c47ea269a6f1e5e3fddc5171417deccdcc0079a23c9a157566e49241c24d041"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.bin": {
-				"fixed": "null",
-				"original": "49909b1c16491cabdd1462d6314c2cb2d24bf73061024a81747fbb7ea1c6329e"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/es_419.lproj/locale.pak": {
-				"patch": "b0a065ed842f0c0e9280fb769de6dbe35e08589d80ccc71c8099e25f12c1153e",
-				"original": "0a21ca4771366649362b717cd01d6fad6cda62c4146b75c0c11dd4306ade02b0",
-				"fixed": "0ed379d4321e58c4467c46d014a5e40cb34df9ed3a3bdb93b2322e8b432b9d8c"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fil.lproj/locale.pak": {
-				"patch": "c98f9f300d4018b124e1e73d0585b9f86116067c3bdd23705be3c3b000774d94",
-				"original": "b5d2965c755805984d09f4a23feb655a5a9a86e11d9a24d28a8879753aca0d46",
-				"fixed": "e26eb2cf972bd38943d388129f278d67e4cb9db429a97cfcf6f09dc9b07f659e"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/he.lproj/locale.pak": {
-				"patch": "8883279c1598c00398e2fe3a91345a29eb4c75572f86912dc576bc7b7ec9a01b",
-				"original": "fedc06ce0c38c335ed2fafc4c2c16595b5d501d905b5c9baf7bd77592a54376d",
-				"fixed": "2048dac166499ad4b993a3e7e6dacea879729496c6133f84730bfc50480e142b"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/es.lproj/locale.pak": {
-				"patch": "902f4caa8951a135da6a7a7c7a371420213afb3148562dad7b0bb315fd2fbd05",
-				"original": "09850cf8d205f331e59ab511fadd619fe522e8cbb991f62f0130ba359f2f8175",
-				"fixed": "e9fc28a43a2ca67619edc263bf5c9bbafa05ca7f10ee68e636ae721adb62821f"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/kn.lproj/locale.pak": {
-				"original": "f302cf02e9f94d6ebb6da64d6a374285af2dec8c4534177b16d6f9af8f5c422c",
-				"fixed": "d4b18697d266956de1966ac1617ba6a44ccb53a5b684e7dd065b9c282fe2beb3",
-				"patch": "013bc66dd6cfc503034041424e68c42ba7e11caf615da661579640a78164b45c"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/Info.plist": {
-				"patch": "4d9d3df03af067099748f66ed5d7da7e54ceff19fb490f6b6cdee58cfe58f48e",
-				"fixed": "86f3d59a153b2b5a10b4552a2241de0f533b00b8848a8903def83b7c3235796a",
-				"original": "fdcd12dad58adb06f4dc9c40529f6da0b3e507ec3d241cc4dc6f3c8f98a742ea"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/pt_BR.lproj/locale.pak": {
-				"fixed": "01848eb84142628afa2d1c82056442e863dbcab29abd07d21c0839e645e0ca17",
-				"original": "b0aacaa92a1c40e9208e02118d6a586201a13d3ca9ed0ac3532ab56dfe00bfb2",
-				"patch": "9716c57aa75954772c651acdcde7128322cb1842d785982060b7dec1e865b9f7"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sk.lproj/locale.pak": {
-				"patch": "758c712deb0c75f7a19ec492af9e6c295438d11887c66dd6ff0360fb0bc1ee83",
-				"original": "41f36b8e0b3aeb58e78299dd859a70d20345fb871f91a64ee1fc00c211a183f6",
-				"fixed": "521dad6afa22e9c59aef78d0b5ff50b9fff64d7af6b22f833e2c43aaccdaf117"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/resources.pak": {
-				"patch": "fa58f958cc545ffe99bb359e3baeea5bbf713f5f5ebd88a744c1c443d842d498",
+			"bin/linux64/locales/sk.pak": {
+				"fixed": "75c4df94fd6f0ac0dc46786420c0221b2fa9ec147e68fff712d40048dc48e20e",
 				"original": "null",
-				"fixed": "0e832fb34cce21bca2c1aaa95d152b5b569bd38b66bd8a9675fcfedbe9911c97"
+				"patch": "5e3b8a1b29805aa881e12d46f8a826aa4d615cee3a414d72189de08fbea5bae4"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cs.lproj/locale.pak": {
-				"fixed": "790ec2d9fa193d8e2fa1c3dbfed089893d604d2e63414ed508ed47b717d965c5",
-				"patch": "b27ad6d4aef44303f104f4b9dcee781cb650ca9b7903cab4d193a140e40bd23f",
-				"original": "e2661e05626ac8d0f98a77666aae3d205dfbadecc3f9b8ab82f9315a83288379"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/mr.lproj/locale.pak": {
-				"original": "389351de1d98745a1afaf3020f8bff14b2b04e805e3b355cc29ce281d5d4fc78",
-				"patch": "e4d088f5c6e6eb22cca4582507d590f1eb3e1a82c43aa05b49fc45cff9289efa",
-				"fixed": "c72a368b1f08b2c82b53d2dff6aae933fde3a33175b1650786266679ed8b0e3b"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libGLESv2.dylib": {
+			"bin/linux64/libEGL.so": {
 				"executable": "true",
-				"patch": "0363921d715730edc56af743ff8e63770e9a11e8ce63b5c793d9cd7d08ab6e02",
-				"original": "bfd956e434084b7d2473e1110f6e901f1dce3cc5ebf89c40f29d6992349fc6a0",
-				"fixed": "12d97adb9f739b0e77b19157a0ff29ca1e1435df567f05d19174430aa851289e"
+				"fixed": "7f2076672f9c31d0485e1234a7644d9cfdc27bb7ea48d99202e6312c87802161",
+				"original": "22234418af9c0aa67aff3af1f616934747d1b5a956fae9fd8ba7289b065f900d",
+				"patch": "816374df61c4f41dbc3a35a707cd38a40c2a3c43e0231916074f895717261618"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/it.lproj/locale.pak": {
-				"fixed": "aaf6e743c7899766cfb9de8ec9db78e6596d06eddb54307da40becd47c757b14",
-				"patch": "f1cf833506a48df11db310fbf487f12db85342c564938f4baec7c2299ad1d965",
-				"original": "6442e5aa008cc39d39710dc239b831c77250629d977306afa3a622bd73046d85"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/lt.lproj/locale.pak": {
-				"patch": "a0e96b2fc108ecfe394afd97ddb07c79b66f1c030ace6ffa0ab9029c8258ed5b",
-				"original": "d8519df1eaf6939d5cff163f761e8cadc221802907ceb21669739171c460d550",
-				"fixed": "c73f8bdfccc1439b595b2fb4016b296a1cac4437665b01926842d129e14dfbbb"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/zh_TW.lproj/locale.pak": {
-				"patch": "49ba5e2f7daca92ee2738f0f4111a51633266873912c97902f8fe2c550c55b7d",
-				"fixed": "6c29a654fe2e4600abfaa60cb486a710ead461f13885a41006d2c64fe9046798",
-				"original": "76f81c517425bb4aa6dc80c685fef85c1512ecab9f7f1287e36b7677e24b8ed6"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/en.lproj/locale.pak": {
-				"patch": "bf1feab4e70e87a3672042a4b2337bffe4586e19e7a5c545324b44d64cfb7c53",
-				"original": "ac938fbac74088b332cc29064c57cd6e9eaf1d9aadab469bcc9d60be425250d4",
-				"fixed": "e808a7976963c36e32d7872ba75a89ce68d61a016bad21c3a291a28eed4a939b"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ta.lproj/locale.pak": {
-				"fixed": "ba29940fd07f9dcbb200bfcc10a2ae9884db32c3228eb09f7d05050c6e2892ca",
-				"patch": "ffd557ba99743ab559669c42a252646fbb2348bc212c79f43cb7775ec0861fd6",
-				"original": "935e27eb9a8308c015e01aca95ec6e241c613b23cf7113075a886385905b923e"
-			},
-			"GarrysMod_Signed.app/Contents/MacOS/gmod": {
-				"fixed": "9a23dc6251c981b4fbe119138c646529cface68c955a4e64a1a30ab24a7daaf5",
-				"executable": "true",
-				"patch": "068f5307ab3fc7ac86245a59e1586e4761f238940b1618d12bc26fd6df86e09a",
-				"original": "null"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/te.lproj/locale.pak": {
-				"patch": "17c7c0ba9b09867f0e54208ef16b56c53a92f7061bf938d43fa2b8962bc694a4",
-				"fixed": "05198cd0f0dbb8fe9b5bdd92549c2c7ec8d3c6ecd467be4f07ba26a28acec40a",
-				"original": "688dc0e0d3bdab04094679b59b8f7b70616c0c1c6a7f2d676f13ac14165b2b2e"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/snapshot_blob.bin": {
-				"original": "38a9942ed61b376b9bf1a003d61501f41756d9117fbc4e1035645d2e25f3cb62",
+			"bin/linux32/chromium/locales/es-419.pak": {
+				"original": "96cc1e9b3da3fcb8087f8db5a16b11debfb88eeeb17fc0aad37e341ba8ea6dc5",
 				"fixed": "null"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/Info.plist": {
-				"original": "27941b1ac6a38c5eacd1b73964ac5db12931ea71c80b51ec6e49d69e2ff81cea",
-				"fixed": "1462bfd7d0d858d2c2373642cf78540aa697e58a4fe12f2550a0e913ebda4d41",
-				"patch": "a1a79b5ab015719e85023a04033be4239c4ee7db44bfd59fc0d450bd84900913"
+			"bin/linux64/locales/fi.pak": {
+				"patch": "beeb33eb78436f5243dde19e05f19f51d3ffaf70df714c273f98be3e6b521087",
+				"fixed": "85f16b2a1b6290f75b197aaf591731d996de45a407dc5ead37b2c5efd7d3b3f9",
+				"original": "null"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ca.lproj/locale.pak": {
-				"original": "0d6e1205b876f0ef717a776ca63be99c38a24cfc7801f19e684bae811cb1cdfc",
-				"fixed": "0055385a5abf95d2f3b0548a0000008e0db338c3d05db390e0970daf56e68396",
-				"patch": "e737b8552450bbbbd01f89dc2669542dd494e64c52920d5370ab1083bf72d4f6"
+			"bin/linux64/locales/ja.pak": {
+				"fixed": "15f8c38eb02f62e504b9a5d6250cb22215f07bb3253d0608a326de39819898b2",
+				"patch": "2544ae0657c19971edb65ef8340b4b315c185f44ef49b46ae29ca24c6ee0cf0b",
+				"original": "null"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fa.lproj/locale.pak": {
-				"patch": "a12c6f59c2b2f46e1209f510c7390644fd3bd5bb899fb1d650a5a223023f0de9",
-				"original": "0581884a74ef543b0afe1f5570bdbb8dab0e610838ecccbd136116648d392fbe",
-				"fixed": "ae1164619f07f30e212d6d26ab3cb2944f14cba17e558894b2c56763f1e2c1ab"
+			"bin/linux64/locales/bn.pak": {
+				"fixed": "48ee824ba85deebda01c8d8c71d7dc8930c4480f9b8921aaaf55ef0867ed721e",
+				"original": "null",
+				"patch": "4840db5ef14f3dbb498321852176846fbce7a6504abe6e69b8e36a0e428d3477"
 			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/devtools_resources.pak": {
+			"bin/linux32/chromium/locales/sv.pak": {
+				"original": "66d740810175165217fe1e1848cb231d6af38293788480dd43c62e0d8654686a",
+				"fixed": "null"
+			},
+			"bin/linux64/locales/nb.pak": {
+				"original": "null",
+				"patch": "fe4d02cb9f12e566fcb6fdf879f9ee4adb01d21887b8d24b3d16369c43877067",
+				"fixed": "3c2e05a1d6fc0f08d81ad1b3bef821f94cc449c19c5310943f940f85080a173d"
+			},
+			"bin/linux64/locales/fa.pak": {
+				"patch": "f0324e5388d4152e7f36a864965616b8c324bb65f41e922cfb48411c0d6b4704",
+				"original": "null",
+				"fixed": "5e582f69b8c7171ce567849c1194d4d440193367dbc11540d7086c72e061123d"
+			},
+			"bin/linux64/locales/lt.pak": {
+				"fixed": "677ef35dce47513d1279fe229932971054c4e2b8423284544d871f7831347541",
+				"original": "null",
+				"patch": "8be09e66ac9f8f08ef887f3184dca99fe8f7ab2c9077137858996921ecee3361"
+			},
+			"bin/linux64/locales/ar.pak": {
+				"fixed": "cb42eaaaa574d40d46aae00ed471c10eb40027bcf4e2964ceb02f19b79872f8b",
+				"patch": "39c9361518f8c2834cd5934e47b32b88022aa46e72ccfb44838862cc5a79e248",
+				"original": "null"
+			},
+			"bin/linux32/chromium/locales/sr.pak": {
 				"fixed": "null",
-				"original": "a5ee1628edfc06c543f7dbc5c4ac03a803ebcad332d9c5df54ba721d7fab493a"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/lv.lproj/locale.pak": {
-				"patch": "9b0bf41324b838e1ff5ebe8cba41e746d765de7be3b21fe40e949c7d1c06d27c",
-				"original": "9b7d7e8a6c4b1dffd4111bf400d3a45d38ed8b217a64976789d1821fb0d51578",
-				"fixed": "c8827d116bef4939eebcb6f2ea6e1b588a00703e5933350b5b6790653368281f"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/de.lproj/locale.pak": {
-				"fixed": "e86df573e4cdc5f763e02cad568d06fb7802521317a7051602479585dd37badc",
-				"original": "d71ade6f6c132323d9f021436eeecf118469782eb1e332a60d9afbe4eb89bc7c",
-				"patch": "18f3ce3af1558c56f5ef48e18886dd609395b081697da81d094d9ecf8eb27b87"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/MacOS/gmod Helper": {
-				"patch": "c8e30b70182461ac1f3868078cd2de4b54f510dce5aa6e791fbb20858e6d189c",
-				"fixed": "4b1582279c19526a83ead5ed653847db59013b43efa8138da6403249c8fc4d32",
-				"executable": "true",
-				"original": "a503fa1288dd29eb54b3b134f12df8e53fe36836ceffbf4583fac7c5fdaeb009"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ja.lproj/locale.pak": {
-				"original": "bc46c601b56aa513ac5147c61f6ca7c6700607d8b27911c9c4f8beae6c73332c",
-				"patch": "4e4c497f5ef9f539c7c6b908fe1ab01035570dcd1b751686ba54ba2d04360056",
-				"fixed": "4e85bd35ef083f8f2e86413503fa33842be4651b9ef06f8850ff127b57f8d67b"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/et.lproj/locale.pak": {
-				"patch": "e68763947693ba20722f9a472cc845bcfcbd84e22f2b2f02080a3ca2be225153",
-				"original": "1da6f8d63cd8551130a90e47c5c229d4224775a87e92d80f1701ee6948286298",
-				"fixed": "d86037933b70559c2b09fea0b5a3296e2ce1904e1ee22be2e7eb3bfc9ec72aa3"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/en_GB.lproj/locale.pak": {
-				"fixed": "179ee521632fe9dd4d85966b75f5ab0e3d47c346c14f4dd766712c955e72364f",
-				"original": "e5d64d05d1b5f7cc433f6d36579fa8a4c4f87e0773316653fa92a03deffcc941",
-				"patch": "b47035c5f75fcdfa12b7957de14dffb57a568ba99514d0bc138f624ed5a06366"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ml.lproj/locale.pak": {
-				"patch": "986d9db1d4bf25c14b767d82987c78b6d0aab3ad16982d9cbc25bb4827e00c63",
-				"original": "f9bd6432209f6759ea9f4b9aba87bd3e6add6f2a77ff968b816c5ee745776908",
-				"fixed": "dc742bf46aa86f2f2f368a01fe1c6473d261a4806721ecca5a8b73d256d47cf6"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/vk_swiftshader_icd.json": {
-				"original": "null",
-				"patch": "b153741568079267b9179e15977625692a007c3c80ddad927d62f3d60cf063fc",
-				"fixed": "f977d79dd5300719372b5b71d8244a4945f5cecff25068189f001aef1ec12a07"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ru.lproj/locale.pak": {
-				"fixed": "b51f5a8f401b7e20ac0d58b2c2f3c34802ae1ef11a405123d3f69bddf7a15faa",
-				"patch": "8aa703a3deaf88351fa57758db25388a7c2043f877fa22bba563b9135299bd76",
-				"original": "273e8ba70284539b859db1af8bd136bca7d9c55efcc5e81f46b5e06a8fc16dde"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/zh_CN.lproj/locale.pak": {
-				"patch": "5a95d76c19153cecd52cc5cfe90d35d617ebf78e9a629e7fe4e4dab27fc505df",
-				"fixed": "fd8d617b56459230c131b1374b54740c28b857f09b4f674a57a3cbc8c1218996",
-				"original": "3d93b2cf3dfea538f559e6734ee2c5a013b44e0ab0a57b3e62267bb5a72ab7ac"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fi.lproj/locale.pak": {
-				"fixed": "e3aa89b3ffa10d566a994c7ddffba17a46372fceef1c6ec78276e7dc7eefd501",
-				"original": "454e1d0a65d07370438a86b0e1ef1bce03131fc91b953c7267b5fab5e8cbf8b6",
-				"patch": "0b3ea6ad9667c346b5eca4b5a4098b676b51952b8e9212ed6d1532d5b72111e9"
-			},
-			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.x86_64.bin": {
-				"patch": "8a8906c079355dc69972161190392e35b1402da02b86602fc973c4a6269d5693",
-				"original": "null",
-				"fixed": "5414681e1ab8aab92b0964793961dee1daffbc521d4121c85e9f0c2ef90b2a83"
+				"original": "03329131e4ac4c5e52cea77c18d2e253fef84056d24242b2c09345f5ffdb67cd"
 			}
 		}
 	},
 	"windows": {
 		"x86-64": {
-			"bin/locales/sl.pak": {
-				"fixed": "e3edbbf6221389523dfe4f9778aa20d7f0f12897d367cf4ce8725bd781290b73",
-				"patch": "3a1c8643da22567011424e2a1414c30a43fd88b5446cd547f18bdeef4004aa43",
-				"original": "null"
-			},
-			"bin/chromium/cef_200_percent.pak": {
-				"original": "c29c700de63ae3b4a1724bed764fa9d30a787945b8e946768e5438052cd53983",
-				"fixed": "null"
-			},
-			"bin/locales/ru.pak": {
+			"bin/locales/lv.pak": {
+				"patch": "a66bdd6157abd0740b3f84d4e32316eeaa649ffad736029e0ed8ad502e00be35",
 				"original": "null",
-				"patch": "65dd76b9b21a8c4d2deb26d07b7ed9021e4a98be169480e34a0319694db68599",
-				"fixed": "c68f80b672bf51f88399e485003a1c8a597898fd4534e8a6b6f85d613381d1e5"
-			},
-			"bin/locales/vi.pak": {
-				"patch": "8fa9e89a71364ba8120d43f061eefa9f6fb5583cf8d219268c3d8fb578558867",
-				"fixed": "1c690b9946496ac56138f79c29f7477773f59d36d00f452f32e597405dbbfb49",
-				"original": "null"
-			},
-			"bin/chromium/cef.pak": {
-				"fixed": "null",
-				"original": "e9bafeebbcf8afdd9cacc53888e31c12e78bde72ffa5d7aee7a4572b2aad5c24"
-			},
-			"bin/locales/zh-CN.pak": {
-				"patch": "72542437563b14904c50adf608678c16917df97ba4441e11a5b3c7642c0ce1e4",
-				"original": "null",
-				"fixed": "ade4fecce3f58c3c9e83dcfafd9234e90d8819c24022ce11a4c0ea3eec6165e5"
-			},
-			"bin/win64/locales/es.pak": {
-				"patch": "b7586ff1e50de8b7508c2a1397abf68a2f03349a7c6ebde1cf5b4f046a6c5e2b",
-				"original": "null",
-				"fixed": "e0dbe504beeb12c777f1b7c5321fd5115da927fb96a6ff09c9540d53a29198a4"
-			},
-			"bin/win64/gmod.exe": {
-				"executable": "true",
-				"patch": "659569c76e92028d5c4cfa8493b3efe64990da7796584131342ed482ee8d107a",
-				"original": "692bdaeb81807eff5d6c33850b1b4b5b0be6ebc731244556b7d0ec60c9994a05",
-				"fixed": "1fd2c3b53a0f4b9b7a48ebee39b483a2082ea611b9076da228a055389d86f707"
-			},
-			"bin/chromium/locales/en-US.pak": {
-				"original": "92de785eb64970f9bb288af21b21d73dc1b552953533a6294344cde453f1f5ce",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/ja.pak": {
-				"original": "4c2b04b4ee9d7f0985b9b2043cc32f66d5a173e8cfec974acec0ed0f6b62eee4",
-				"fixed": "null"
-			},
-			"bin/win64/locales/fi.pak": {
-				"patch": "2c48b6152d26d8b4e3de5426cd294c30bc69ba5044d65c2d1746fa9d364518eb",
-				"original": "null",
-				"fixed": "4ccd84deab0d0a0be5988d3ecb8eaf08de338c63f8b85be1c283142f178b9810"
-			},
-			"bin/locales/pt-BR.pak": {
-				"fixed": "30e0d50c7fba88d66c02915bce6bf5028cb4f2a969f2e7c023d198c0242ab58f",
-				"patch": "1aceb748b4c0f330b0d53b18e7b4e59e9b8479873693db31ffdd8e29c40ce1b1",
-				"original": "null"
-			},
-			"bin/locales/fi.pak": {
-				"patch": "2c48b6152d26d8b4e3de5426cd294c30bc69ba5044d65c2d1746fa9d364518eb",
-				"original": "null",
-				"fixed": "4ccd84deab0d0a0be5988d3ecb8eaf08de338c63f8b85be1c283142f178b9810"
-			},
-			"bin/win64/locales/ta.pak": {
-				"original": "null",
-				"patch": "9d153e558551694fcca652f9d4557cf7744e0094ab14f661f8d2d9b4d2f2a7ce",
-				"fixed": "f359afc9a8a56fb6a6a75c57991f09b721466149ac3b90f6f91ed26fb436a813"
-			},
-			"bin/win64/locales/en-US.pak": {
-				"patch": "ce41c27f5f3a83ea2095c43e6ca4f09dc3c950c80318c430fe382a7fbea4984e",
-				"original": "null",
-				"fixed": "612d09268ee1681485ca76075dbf96765e0fa7c0befdf969a3ce7f8324a7381e"
+				"fixed": "40e02edba8098670d0864d527db667ecb12f6acc1a13a3877d75588cfbbd96eb"
 			},
 			"bin/chromium/locales/fi.pak": {
 				"fixed": "null",
 				"original": "0918fdd4dd67017e8e9681b61b0ba0b37ac7eb5294a62be64477ef1bc253d5f6"
 			},
-			"bin/chromium/locales/hu.pak": {
-				"fixed": "null",
-				"original": "6214d52e7a20c03afc9afbead84457d7963071d25b5f3c9965404c94cb69582d"
+			"bin/locales/ja.pak": {
+				"original": "null",
+				"fixed": "3249a88f335c57b881597cb0139555ed4a577e51d9ac0bcd7f85155c75aa6f31",
+				"patch": "f51abba626596e9e32d301a7865b80fb8e8ea7a6ba539ae24415fee1e42faeea"
 			},
-			"bin/chromium/locales/es-419.pak": {
-				"original": "a4499abc4cca95434ae45a246577ddcad50dca29959dbdd598d7771c1724c5b7",
-				"fixed": "null"
+			"bin/win64/locales/sk.pak": {
+				"original": "null",
+				"fixed": "96a3fbc23702ed318c6d80714acf7df00900b40b81fef68e04c6ef5e2b907f3c",
+				"patch": "6f5a0a980ea771862d5906f15ed3108da063b14dda7d441a02c260e6a9cc9a44"
 			},
-			"bin/locales/th.pak": {
-				"patch": "ef25ae480d91dd38fc72bf46061090c04dfb718fab5f252c39997b67ab196f22",
-				"fixed": "a56a73f4321587f6733e97fc6921d2cd3052d83dbe6e4893f445aa723e7c21a2",
+			"garrysmod/resource/fonts/PTMono-Regular.ttf": {
+				"fixed": "db0cbc04a16b150a35109c2eaf7be40fe8355181b07490b8302438e6bcaf7537",
+				"patch": "12d71bcd0762d1117a4e240549b8c02559a8b398dde59b6fdb013fdda92ce76d",
 				"original": "null"
 			},
-			"bin/locales/sw.pak": {
+			"bin/chromium/locales/uk.pak": {
+				"original": "8d3648780b6fa6f461dabb196e583cfd5afa7901493d48acef71b1f371985566",
+				"fixed": "null"
+			},
+			"bin/win64/locales/sr.pak": {
+				"patch": "17424c478c0fffd40dad35bca355b2b3b2b9e711c70b60465aed6adb919c1d2d",
 				"original": "null",
-				"patch": "ec4f92550e31b4c8cffd670c95d264cebe0c45906302c47fe6629f3371ac3b4f",
-				"fixed": "813d509fbb323dc1ad8ed44651e72fdecc638e0c355064e37819025bc683eaf4"
+				"fixed": "a88f31bbd88d197cbc3b61a84e9d50bcde1ba71798b0dbc887fb43bbcc5fe6a8"
 			},
-			"bin/locales/fa.pak": {
-				"patch": "3b8057c47a91f42deec36b8006ae59968f678a9ba7578402d62082c58c3d3870",
-				"original": "null",
-				"fixed": "f3b9a46373d6b0251df11d2cae4a73cbbac6ecadd3aecef2e90e6bed154306e5"
-			},
-			"bin/win64/locales/pt-BR.pak": {
-				"patch": "1aceb748b4c0f330b0d53b18e7b4e59e9b8479873693db31ffdd8e29c40ce1b1",
-				"original": "null",
-				"fixed": "30e0d50c7fba88d66c02915bce6bf5028cb4f2a969f2e7c023d198c0242ab58f"
-			},
-			"bin/win64/locales/te.pak": {
-				"fixed": "374a91b3ae0cf84a5de141db02b25f5cda9301a1cda47d5a73fe8aefedfe6638",
-				"patch": "4992441ca1ceb99aaf7160223cb0aa07e091d2141cb97ee33da22c44df54862f",
-				"original": "null"
-			},
-			"bin/chromium/locales/it.pak": {
+			"bin/chromium/locales/bg.pak": {
 				"fixed": "null",
-				"original": "85c22f95c4584dde2abd818c47f45832727de3e45a54371861de88f8cfb644e5"
+				"original": "b8456d7f3eb203439de3462dbbd24ead5f7f4e8e26f8db5629d72b299b3b7957"
 			},
-			"bin/locales/hr.pak": {
-				"fixed": "661cdeb029b3ea88c1937d596befe60dee9b99d5a18e96e3b26e81a4e6bf6aa7",
-				"original": "null",
-				"patch": "25fb254e429019973e93d176822b35d441efe52650e6dfa9fd020c602c3289cb"
-			},
-			"bin/chromium/locales/ml.pak": {
-				"fixed": "null",
-				"original": "85f638d1133bb4ea6a68176fcd3fed74f80179d8142f7324557efae147e63bec"
-			},
-			"bin/chromium/locales/hr.pak": {
-				"original": "68a91d9015c8995a5301788bba3fe6e82a9994d85844304f12192255f9383322",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/sr.pak": {
-				"original": "9d699666254042a0592e7c8479204602053277dc126df4608aae678e4967f500",
-				"fixed": "null"
-			},
-			"bin/libEGL.dll": {
-				"executable": "true",
-				"fixed": "69c28e516205137a1872b044faf8609c31eda8084e5c6e1af05dd04c736c1c1b",
-				"original": "f6b50ad0cc890a7bf6dd0d403610f768e9a2856d85e06238e4872e12f419954a",
-				"patch": "2634d44aff3bb3af96d6a2e6152f830f88ecc3387769947f03c29e7bd2dcd47e"
-			},
-			"bin/win64/locales/tr.pak": {
-				"patch": "d741159a257c4d9583f2f051c2fe2afa4f4bda5e3b1faaf996d87a50679aa268",
-				"original": "null",
-				"fixed": "0e3258ca449c7d71c0e374f179c49d6161dbbedfb33f46a5efa2575bb129be5b"
-			},
-			"bin/locales/sv.pak": {
-				"original": "null",
-				"fixed": "653838ef90a5411f31e0bb021d9c2c181cd7e37917c0d6bb565bc4046c10f6c1",
-				"patch": "435a401e1bef882d6d3b62de87a85bfa4faf0a93a5c4db931d7009ddc906feec"
-			},
-			"bin/win64/locales/fr.pak": {
-				"fixed": "e5bb0376e9cf3f947043ba7372ba5ac529530e0234fdfb4f65fa229b8a59fc41",
-				"patch": "f42028031640e3ae0e06677467aa2b4999bded465b2e3bf88ec2ae5c3f9fb144",
-				"original": "null"
-			},
-			"bin/chromium/locales/fr.pak": {
-				"fixed": "null",
-				"original": "16744a5689a91796ad048e4faddf86f6c961cfd28ee5f1e17e7d8ea908fcbfd9"
-			},
-			"bin/win64/locales/nl.pak": {
-				"patch": "4890306ca7070b052db5e74473a1099a2bb3208fc563725e682985934ee82685",
-				"original": "null",
-				"fixed": "b10a234c7bff023d240f23883094f673845be6324141bb6cf6ae55beeac56614"
-			},
-			"bin/locales/tr.pak": {
-				"fixed": "0e3258ca449c7d71c0e374f179c49d6161dbbedfb33f46a5efa2575bb129be5b",
-				"patch": "d741159a257c4d9583f2f051c2fe2afa4f4bda5e3b1faaf996d87a50679aa268",
-				"original": "null"
-			},
-			"bin/chromium/locales/de.pak": {
-				"fixed": "null",
-				"original": "fbc8db00e191730a4f01c68fc6cfc79843feaeb6c12a51b0c44aa1fb50e6500e"
-			},
-			"bin/win64/vulkan-1.dll": {
-				"patch": "6275d6927e8d27b4fc2a6099ad017adc22b2e6a1097274f568711710914e045f",
-				"executable": "true",
-				"fixed": "fc0678c3ba37fac66c22cbf51ea6e37e9b1160ee373a0128e3143d2669bde55c",
-				"original": "null"
-			},
-			"bin/chromium/locales/th.pak": {
-				"original": "9eda586305fdf70bfd245c81fc49987d0d2e7ba44f195b959b4f53647ebf0192",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/sw.pak": {
-				"original": "43237301991f9c89a0983b7170dfa11fe2d24dc1435d4017b2bfd92ee49e63e2",
-				"fixed": "null"
-			},
-			"bin/locales/ko.pak": {
-				"patch": "c74d56d05a8b738502d57e8c334af98571f643b622a333ef320f395822e42660",
-				"original": "null",
-				"fixed": "7f2778a4cfba8766d19644afb023d91a025531914fed8939899d2a0c83b2b058"
-			},
-			"bin/locales/it.pak": {
-				"original": "null",
-				"fixed": "4c6c3534f074fa776a39ca0f9806f114fcd45d744969d48be22da606f6c3b32d",
-				"patch": "c4e774e183f2cee0ecdbd2b8920d1e0f05f47b001bc4960764bb1cf36039151d"
-			},
-			"bin/locales/ms.pak": {
-				"fixed": "14765ba433f9545a4f9c4fb8eb26401235db7d039d6889aacc450b8589ed9e35",
-				"original": "null",
-				"patch": "bda905f552ebcfe7d14fb2bab0154afb54d8381977864a6bd0d317406ca2dc17"
-			},
-			"bin/chromium/locales/mr.pak": {
-				"fixed": "null",
-				"original": "a4eb203387ac6e92c2b09371695eb9c1aacb8f2e2308327fe7293223fd0256e6"
-			},
-			"bin/win64/locales/ur.pak": {
-				"original": "null",
-				"fixed": "457d63ac299922ae5bf18fb010e4a40420da529d33fa3f214a4d40cc1cfe96de",
-				"patch": "d6f6b14cb65701e55be505317f127aa913cc25dbbec76d0009ff9a3b91e2a0f9"
-			},
-			"bin/chromium/locales/sl.pak": {
-				"original": "02fb0b9d0e8f8904a336d8b294b031598e2a96d444ba136d4efc99834787b527",
-				"fixed": "null"
-			},
-			"bin/win64/locales/ar.pak": {
-				"patch": "bf666eb3a7772d21234e01161580a549ef2ef7a890446db0975ba006a3b85734",
-				"original": "null",
-				"fixed": "f163b5dac0c44417dc37db7772f165a4b326d0f4aafaf600a2d5cd1925cc0853"
-			},
-			"bin/resources.pak": {
-				"fixed": "8f267aff078ed2421423bdb6b2de4a9ff734ce15ed05b0b4c4ef6a10afbb1350",
-				"original": "null",
-				"patch": "a8677549266aa7dd6b43d35a38b229c534ae61692163c9b431583efe0ad9c66f"
-			},
-			"bin/vulkan-1.dll": {
-				"original": "null",
-				"fixed": "90eeee6281bba64ca771f4c1e05f788586a640cdc0eb8d347db4495b10b737d7",
-				"patch": "07d56d7301a5bc7718b184dc0b71204286d2d767c48c72b6965c8d5692a0d191",
-				"executable": "true"
-			},
-			"bin/win64/locales/hu.pak": {
-				"patch": "5eb7274e02d835e08424b2a806ea681c2cdec83a60807746726316aa7c91c502",
-				"original": "null",
-				"fixed": "150d2509f298b68a1bf5ed1519ede824d92324982dca64beb02bdeefe21294b5"
-			},
-			"bin/chromium/locales/vi.pak": {
-				"original": "22c52ccb493a6ee792086ed74bc256231920ec079ea05590e7d9f3c998439dec",
-				"fixed": "null"
-			},
-			"bin/win64/locales/fil.pak": {
-				"fixed": "8c200c36ef16d4bbf214e5115869bdf375ebe0005a54f64c8fc5c3ab35fe28ed",
-				"original": "null",
-				"patch": "dc0e0e55362bee9786bc0437cd6cad58cf0234721f1442e9ad566fd69d4e2625"
-			},
-			"bin/locales/ca.pak": {
-				"patch": "8773e2801c8a86ca47f67b2a1e247ed75946a4b64853028952d94d766ee36eba",
-				"original": "null",
-				"fixed": "e3d73ce68f76b5e6537c65ba9b83b123f50b8a0b06bf4607827a7c8ff8fb3f7a"
-			},
-			"bin/win64/locales/pt-PT.pak": {
-				"patch": "61746a70587e4acccf656a0948601de67f7810fa7146975500af345ed59fad4c",
-				"original": "null",
-				"fixed": "af76254ec54fb1b7ebffdd6bd8572b4649cb2c281ce5a489e78db1afb971736b"
-			},
-			"bin/win64/resources.pak": {
-				"patch": "b56a2adf7aa0d2d479a1659ae0a72cc7a2484a7e969cff5d4cb40f1a077d72f2",
-				"fixed": "5acea10919c3edb81318b683cdf257273670d1a2c0473dd62852af940add0fec",
-				"original": "null"
-			},
-			"bin/chromium/locales/nl.pak": {
-				"original": "60698f528fc3369baaff4ae9fd48b6a422f36b0588d85438a7b45602a6eb6e63",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/da.pak": {
-				"fixed": "null",
-				"original": "f5f73fcbd770db1d1a5350f281e0a6f28d7b071618665782402b348a1f68150c"
-			},
-			"bin/win64/locales/sv.pak": {
-				"fixed": "653838ef90a5411f31e0bb021d9c2c181cd7e37917c0d6bb565bc4046c10f6c1",
-				"patch": "435a401e1bef882d6d3b62de87a85bfa4faf0a93a5c4db931d7009ddc906feec",
-				"original": "null"
-			},
-			"bin/locales/af.pak": {
-				"fixed": "2f83076cb94add44c4f11976df4cf9037d4dd3641d5bab7ac1e67cdcb9d9d263",
-				"original": "null",
-				"patch": "c3e591de32cfd237c309baf19867a94e12bd614ada037244359737318576ad1f"
-			},
-			"bin/locales/lv.pak": {
-				"original": "null",
-				"patch": "a66bdd6157abd0740b3f84d4e32316eeaa649ffad736029e0ed8ad502e00be35",
-				"fixed": "40e02edba8098670d0864d527db667ecb12f6acc1a13a3877d75588cfbbd96eb"
-			},
-			"bin/chromium/locales/pl.pak": {
-				"original": "b980157c15316b3102979a3f76989b56b9262fc7efddf67bf5d5569e907a04e7",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/am.pak": {
-				"original": "b098234aa80df9266796ab15d52b2b6f9094346bd1fcf3b5e5a2b9070f35eec3",
-				"fixed": "null"
-			},
-			"bin/locales/am.pak": {
+			"bin/win64/locales/am.pak": {
 				"fixed": "b59cde3ba5e1df42294559a0b69bea0faa7c2f42b2cf8ca972743bacb1b7e6b8",
 				"patch": "43cb2087c08518ae82772bf92f4fc7585571660280b56a564900954bd42b5ee3",
 				"original": "null"
 			},
+			"bin/chromium/locales/fr.pak": {
+				"original": "16744a5689a91796ad048e4faddf86f6c961cfd28ee5f1e17e7d8ea908fcbfd9",
+				"fixed": "null"
+			},
+			"bin/win64/locales/tr.pak": {
+				"original": "null",
+				"fixed": "0e3258ca449c7d71c0e374f179c49d6161dbbedfb33f46a5efa2575bb129be5b",
+				"patch": "d741159a257c4d9583f2f051c2fe2afa4f4bda5e3b1faaf996d87a50679aa268"
+			},
 			"bin/chrome_elf.dll": {
-				"patch": "4fdd41e3280db752e49bc5e6b817d8f8190e5e1e1a95eb374b812c05f9ddfad1",
 				"executable": "true",
+				"patch": "4fdd41e3280db752e49bc5e6b817d8f8190e5e1e1a95eb374b812c05f9ddfad1",
 				"original": "c0c35b7aa6370526e527c95e9377d607fd470992919b860d60110be0f7c85353",
 				"fixed": "b24e4e08fde34719504e5addf4168081a031f3e80622febe149233ce6022e809"
 			},
-			"bin/locales/sk.pak": {
-				"patch": "6f5a0a980ea771862d5906f15ed3108da063b14dda7d441a02c260e6a9cc9a44",
-				"fixed": "96a3fbc23702ed318c6d80714acf7df00900b40b81fef68e04c6ef5e2b907f3c",
-				"original": "null"
+			"bin/chromium/locales/pt-BR.pak": {
+				"original": "99a9e1ba8b6110b081c59291e7414266b53b3ad53945791bd7e7be7f55c1c98a",
+				"fixed": "null"
 			},
-			"bin/locales/ml.pak": {
-				"patch": "d50932824adb4c8dcc2a40de84abd680f9235bce074e242e2fb0fa48fdc228c6",
-				"fixed": "6db17d819e56c32712705d82592a0d07a1d56bffd6452b87576e4faa1df46314",
-				"original": "null"
-			},
-			"bin/chromium/locales/en-GB.pak": {
+			"bin/chromium/locales/ca.pak": {
 				"fixed": "null",
-				"original": "f02e75ac900fa01151b4bd01287ec4b6253718587bf895608fa8f7c0be6c7079"
+				"original": "4f8286f163e06d3e0c7e92c72b4225ce536be14a3ebf53a989c8386fa52d379d"
 			},
-			"bin/locales/zh-TW.pak": {
-				"patch": "13ec4674dcb5ba45fb4224975c1a0d9daf77b541f6a0fdbd3560ef4f005cee1c",
-				"original": "null",
-				"fixed": "43a0cc54ca2b8f2a1018633c0776c954c3012c4e2e27863585d291c8dbed31f1"
-			},
-			"bin/locales/sr.pak": {
-				"fixed": "a88f31bbd88d197cbc3b61a84e9d50bcde1ba71798b0dbc887fb43bbcc5fe6a8",
-				"patch": "17424c478c0fffd40dad35bca355b2b3b2b9e711c70b60465aed6adb919c1d2d",
+			"bin/locales/id.pak": {
+				"fixed": "f663a3cc1492b50cc7c39960f09b4d0d40cbe268fc9a460f37f134250f05ae41",
+				"patch": "9fe88207f02615ffaefa575a7ebae869a15b92e8bd14ec25148c9aea337fe3c3",
 				"original": "null"
 			},
-			"bin/chromium/locales/lv.pak": {
-				"original": "02111547ea1785c14d21c4ebeaf870584e303d3842eb314971da8bfb100cf444",
-				"fixed": "null"
-			},
-			"garrysmod/lua/menu/mainmenu.lua": {
-				"original": "8ca1995341ec9c1dce95543af0d4f7c61398f2cc18c9f0b6944bf2c1d1231f02",
-				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc",
-				"patch": "f05978eefa9a5e2db841adbcd44840d78bbfa06d01a0118206546d35eca4b2a3"
-			},
-			"bin/win64/locales/ml.pak": {
+			"bin/locales/it.pak": {
+				"fixed": "4c6c3534f074fa776a39ca0f9806f114fcd45d744969d48be22da606f6c3b32d",
 				"original": "null",
-				"patch": "d50932824adb4c8dcc2a40de84abd680f9235bce074e242e2fb0fa48fdc228c6",
-				"fixed": "6db17d819e56c32712705d82592a0d07a1d56bffd6452b87576e4faa1df46314"
+				"patch": "c4e774e183f2cee0ecdbd2b8920d1e0f05f47b001bc4960764bb1cf36039151d"
 			},
-			"bin/chromium/locales/he.pak": {
-				"original": "b39c1e55d15cbc4aa0c5a52fbb886807e68c1cb89952ead0656ae2fb185fbcb2",
+			"bin/chromium/locales/mr.pak": {
+				"original": "a4eb203387ac6e92c2b09371695eb9c1aacb8f2e2308327fe7293223fd0256e6",
 				"fixed": "null"
 			},
-			"bin/chromium/locales/ru.pak": {
-				"original": "43613f4962810f03900e76ab93f7326d22c3513b313b367065174cf03f64a02a",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/nb.pak": {
-				"original": "29fd802d56c6328c21d9e91f6f0741fec83fba40e5b7971812f9a89b984f4fc0",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/sk.pak": {
-				"fixed": "null",
-				"original": "ad6638fe4d2f538d5b13dd01583bc88563b513a28bffe5dd2a7cc9476884ad71"
-			},
-			"bin/win64/locales/am.pak": {
-				"patch": "43cb2087c08518ae82772bf92f4fc7585571660280b56a564900954bd42b5ee3",
+			"bin/locales/es-419.pak": {
 				"original": "null",
-				"fixed": "b59cde3ba5e1df42294559a0b69bea0faa7c2f42b2cf8ca972743bacb1b7e6b8"
+				"patch": "d872c1cb735db6e704ab7ef67dc060507d4cfc08fe31ef0b40d19ab9b17addab",
+				"fixed": "299e1c45fb68858418e8b03313c96bdb7a47cb90c304aa786ba74f72d405b406"
 			},
-			"bin/win64/locales/kn.pak": {
-				"patch": "091a446b3ad23d17005cdabf5ab99d4b230642d6cafe55018bfc1fa325eab149",
+			"bin/win64/locales/af.pak": {
+				"fixed": "2f83076cb94add44c4f11976df4cf9037d4dd3641d5bab7ac1e67cdcb9d9d263",
 				"original": "null",
-				"fixed": "1941dd491143b3b5800ca06d9c15538640e3351aa9211f00ba67c5ec08f5c6e6"
+				"patch": "c3e591de32cfd237c309baf19867a94e12bd614ada037244359737318576ad1f"
 			},
-			"bin/win64/vk_swiftshader.dll": {
-				"patch": "3167e89c5a68f3413cc2a6e91142ed112159ad024b6a4664e3f360045ec12e53",
+			"bin/locales/zh-CN.pak": {
+				"original": "null",
+				"fixed": "ade4fecce3f58c3c9e83dcfafd9234e90d8819c24022ce11a4c0ea3eec6165e5",
+				"patch": "72542437563b14904c50adf608678c16917df97ba4441e11a5b3c7642c0ce1e4"
+			},
+			"bin/locales/pt-PT.pak": {
+				"patch": "61746a70587e4acccf656a0948601de67f7810fa7146975500af345ed59fad4c",
+				"fixed": "af76254ec54fb1b7ebffdd6bd8572b4649cb2c281ce5a489e78db1afb971736b",
+				"original": "null"
+			},
+			"bin/locales/el.pak": {
+				"fixed": "cc15f8d0101ac56a78b579935f3ed25e9ff8eff5ad2dd8723abde3163c6e627d",
+				"original": "null",
+				"patch": "df932efa18fd5aa230f716e68288a545b5a10ff0a4280307edcd0d3de829eee0"
+			},
+			"bin/locales/af.pak": {
+				"fixed": "2f83076cb94add44c4f11976df4cf9037d4dd3641d5bab7ac1e67cdcb9d9d263",
+				"patch": "c3e591de32cfd237c309baf19867a94e12bd614ada037244359737318576ad1f",
+				"original": "null"
+			},
+			"bin/win64/libGLESv2.dll": {
 				"executable": "true",
-				"fixed": "6f1498716859c353dbdc8b1e82078b91a362da96412e9ed674a7d67846bdb22b",
-				"original": "null"
+				"patch": "c492d7179a95bb747faa60b94889859eb742dd4c88bd3bd93a96485c2b55b957",
+				"fixed": "230e4e0579f5f13b7bded298eb264bc3bf11f7fae7b4d16dcecad40b2028ee8b",
+				"original": "fb07e386cf7e1eecda946564ed578c34922b6b6f715753e1927b0742fbebb6a2"
 			},
-			"bin/win64/vk_swiftshader_icd.json": {
+			"bin/win64/dxcompiler.dll": {
+				"executable": "true",
 				"original": "null",
-				"fixed": "22ae981d6be3750002fa1945e33990fbf64a0cdf87bb0d932d3e3f0785040d63",
-				"patch": "fd36fe202cd7b8f2a2d844a2172481edfb6f4e3b54f2c0b42dfd18332f7dcfe6"
+				"patch": "723729218bf1f9e12941f8ee4e21a71d3d2a15eff15007ac3819675263e2c758",
+				"fixed": "a1bbc82664aea70cd846dcedadf989a4ba8338083cd608dd347fd52e6dda2421"
 			},
-			"bin/chromium/locales/gu.pak": {
-				"original": "1a59b7261ad01274e3086107dad26ab99950a03830bc3319b186d299d731e2d7",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/pt-PT.pak": {
-				"fixed": "null",
-				"original": "ed9ef739bd645fdfa99aae89a3e300b276847fc2c91e6564421f33dab99c8f61"
-			},
-			"bin/win64/locales/sr.pak": {
-				"fixed": "a88f31bbd88d197cbc3b61a84e9d50bcde1ba71798b0dbc887fb43bbcc5fe6a8",
+			"bin/locales/fil.pak": {
+				"fixed": "8c200c36ef16d4bbf214e5115869bdf375ebe0005a54f64c8fc5c3ab35fe28ed",
 				"original": "null",
-				"patch": "17424c478c0fffd40dad35bca355b2b3b2b9e711c70b60465aed6adb919c1d2d"
+				"patch": "dc0e0e55362bee9786bc0437cd6cad58cf0234721f1442e9ad566fd69d4e2625"
 			},
-			"bin/win64/locales/vi.pak": {
-				"patch": "8fa9e89a71364ba8120d43f061eefa9f6fb5583cf8d219268c3d8fb578558867",
+			"bin/locales/bn.pak": {
+				"patch": "71aa42c1be1665bac8af1a4ff308aa7074b1a5a9555f5741203d03601db74dde",
 				"original": "null",
-				"fixed": "1c690b9946496ac56138f79c29f7477773f59d36d00f452f32e597405dbbfb49"
+				"fixed": "77f39963320de143ecbc0f6cff55eaf6eb5066968e893c804adb39a6ffdc233d"
 			},
-			"bin/locales/da.pak": {
+			"bin/win64/locales/da.pak": {
 				"patch": "e12d2d96d05f1b8a2b572533a2c078442c5a0b8035e2e3dbd2706dc514da0911",
 				"original": "null",
 				"fixed": "c38094d6562405a688f5510eb69ecca6db582e3d3b2a0c2fa756b33a613502a0"
 			},
-			"bin/locales/fil.pak": {
-				"original": "null",
-				"fixed": "8c200c36ef16d4bbf214e5115869bdf375ebe0005a54f64c8fc5c3ab35fe28ed",
-				"patch": "dc0e0e55362bee9786bc0437cd6cad58cf0234721f1442e9ad566fd69d4e2625"
-			},
-			"bin/win64/d3dcompiler_47.dll": {
+			"bin/vk_swiftshader.dll": {
+				"fixed": "c8fbdcac42ae95502063a984b3cf3cea6ee827e7d40558d1b73f504bdaab20b4",
+				"patch": "fca84855b47e2e12bc6ab2da659527370c97a8f608eca34554b773a21b576005",
 				"executable": "true",
-				"fixed": "9c98bd16a22555d236c8faa5996bea12230f22a8f61424df96b065ac726ff433",
-				"original": "4578e343a527680b5e7d7a59ca1dfacbe9c86050fc355f32bde81be821788e38",
-				"patch": "eac4ae2a91d43397444b20fb3ada6043cb062a153a9e8d74b535f62d118b17ff"
+				"original": "null"
 			},
-			"bin/win64/locales/en-GB.pak": {
-				"patch": "cc5b1fe0063abc8472040925a942efaf6106c1d20844795c612fadec79ed1854",
-				"fixed": "1e8e39c066a1fa1a941b88f5156edfbc2352b5724becaa172cd0fc636cd68aae",
+			"bin/locales/hi.pak": {
+				"fixed": "cb36aa06601161c9f3b04ea8c79e98e993d5f7840bae9f377eb57ae493b8f6e1",
+				"original": "null",
+				"patch": "0d8607a19e64ac5818007f41f011b570e34e80304abd1cac3452164c367ca6d8"
+			},
+			"bin/win64/vk_swiftshader.dll": {
+				"patch": "3167e89c5a68f3413cc2a6e91142ed112159ad024b6a4664e3f360045ec12e53",
+				"executable": "true",
+				"original": "null",
+				"fixed": "6f1498716859c353dbdc8b1e82078b91a362da96412e9ed674a7d67846bdb22b"
+			},
+			"bin/chromium/locales/kn.pak": {
+				"original": "2660a018b185d5449c2c32c599074e719d9c4f76447e86d02cd95cda0856c323",
+				"fixed": "null"
+			},
+			"bin/win64/locales/hu.pak": {
+				"patch": "5eb7274e02d835e08424b2a806ea681c2cdec83a60807746726316aa7c91c502",
+				"fixed": "150d2509f298b68a1bf5ed1519ede824d92324982dca64beb02bdeefe21294b5",
 				"original": "null"
 			},
 			"bin/win64/locales/cs.pak": {
-				"original": "null",
 				"fixed": "e296b5d444dcc6cbb8bc24e8bd587a128fbec38f15c51d55ca3411f16ebb3c69",
-				"patch": "2ed82f2e54a71856fec8082b939db6c84fc35f268de90adb57fb8381d43315e9"
-			},
-			"bin/locales/en-GB.pak": {
-				"original": "null",
-				"fixed": "1e8e39c066a1fa1a941b88f5156edfbc2352b5724becaa172cd0fc636cd68aae",
-				"patch": "cc5b1fe0063abc8472040925a942efaf6106c1d20844795c612fadec79ed1854"
-			},
-			"bin/win64/chrome_elf.dll": {
-				"original": "dbc8451e03047e6ffbce4554173e3492473a7628b0367fca7b2934da7197c154",
-				"fixed": "6e588736158d6b94b63125f674c154325270a7e5f31b3be549dcecbd26b07eb0",
-				"executable": "true",
-				"patch": "5ee4a99082da347426012b28e09ffcbf50724018de0ce95f1f83d9e994134cce"
-			},
-			"bin/win64/locales/ja.pak": {
-				"fixed": "3249a88f335c57b881597cb0139555ed4a577e51d9ac0bcd7f85155c75aa6f31",
-				"patch": "f51abba626596e9e32d301a7865b80fb8e8ea7a6ba539ae24415fee1e42faeea",
+				"patch": "2ed82f2e54a71856fec8082b939db6c84fc35f268de90adb57fb8381d43315e9",
 				"original": "null"
 			},
-			"bin/chromium/locales/ko.pak": {
-				"original": "8e8a67648cf90d6a5f42819c78d8aa860a1dfb673b959d7021733193c608d264",
-				"fixed": "null"
-			},
-			"bin/win64/snapshot_blob.bin": {
+			"bin/chromium/locales/pt-PT.pak": {
 				"fixed": "null",
-				"original": "6db5623caf79e4dd18a7f8df3e8491ad767988663fbb9f731062e86b9f2bbd47"
-			},
-			"bin/locales/ar.pak": {
-				"original": "null",
-				"patch": "bf666eb3a7772d21234e01161580a549ef2ef7a890446db0975ba006a3b85734",
-				"fixed": "f163b5dac0c44417dc37db7772f165a4b326d0f4aafaf600a2d5cd1925cc0853"
-			},
-			"bin/chromium/cef_extensions.pak": {
-				"fixed": "null",
-				"original": "dbee58a37479cb0514f53c9afc2f935d2d36365eb68c29202ac81841f040d8db"
-			},
-			"bin/locales/en-US.pak": {
-				"patch": "ce41c27f5f3a83ea2095c43e6ca4f09dc3c950c80318c430fe382a7fbea4984e",
-				"original": "null",
-				"fixed": "612d09268ee1681485ca76075dbf96765e0fa7c0befdf969a3ce7f8324a7381e"
-			},
-			"bin/win64/locales/el.pak": {
-				"patch": "df932efa18fd5aa230f716e68288a545b5a10ff0a4280307edcd0d3de829eee0",
-				"fixed": "cc15f8d0101ac56a78b579935f3ed25e9ff8eff5ad2dd8723abde3163c6e627d",
-				"original": "null"
-			},
-			"bin/locales/nb.pak": {
-				"original": "null",
-				"patch": "94abe2f5b352707cc95f4f204292f996a3c2df7328fda96bb2dac7534918d192",
-				"fixed": "16e1f9a0606f256c56880dccfdf41dde7df19e732cb4e2d4b9250d5b60d27bb5"
-			},
-			"bin/chromium/locales/bn.pak": {
-				"fixed": "null",
-				"original": "c5e1250161842bd6380227461949dfe363692c916a7b38a9b122df0d78da74db"
-			},
-			"bin/win64/locales/uk.pak": {
-				"fixed": "4e7e8de2d9b7a5fcc31fc20839516a5146d922fd3b951f9a855df323479f63d0",
-				"patch": "acd7faff12af9deb068d4aba123d25fc70a42f350a6129e230e4787184b05aee",
-				"original": "null"
-			},
-			"bin/chromium/locales/es.pak": {
-				"original": "961e15cab90f880f8437b006ee03ba01e3b17b2cb8fa5d524a3b357694e3f3b4",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/zh-CN.pak": {
-				"fixed": "null",
-				"original": "7c193b26721dee5c4f2f06ec9a17e1133fa353d36059044dec4150e2539aee16"
-			},
-			"bin/locales/gu.pak": {
-				"patch": "d0b887bee560e6ccec714002cf5ee9e0ac59f9783498eb100d2fbc2cca1081d1",
-				"original": "null",
-				"fixed": "bddf7d6b79c07d5dd8ba2693f5d1bc4e53faf3e709eaffad8e79334c9f95f884"
-			},
-			"bin/locales/et.pak": {
-				"fixed": "24f94406dc490dd6aaed80e94928c7f247df5b8e793ff21258ea5f56af935cc1",
-				"patch": "92585f4adb11707b8915ad56eb5387a5d38244006bcb3f33576dc998648b7916",
-				"original": "null"
-			},
-			"bin/locales/bg.pak": {
-				"patch": "10dc4a74ce6851e116f761bd8318ba9bc5f9af47194d54fbe56574d6688a3727",
-				"original": "null",
-				"fixed": "fd490cbae16ce825c0d3a4aa39dddf272dd008af2151fda9b24786ffd9ca0426"
-			},
-			"bin/gmod.exe": {
-				"fixed": "bc40de5237b9a109db336d04bc78d45152ab4128ebfd2b50a1d12e585fd1adac",
-				"patch": "6827b1b17cf7e4d97bfd4c2c874815c86735d2a1ff9bd8d30b2b512fc701482d",
-				"executable": "true",
-				"original": "f7371ba64ce8a74c4746df094c4c65ef8973f1e7740556ee490ab8827c66fc74"
-			},
-			"bin/win64/locales/et.pak": {
-				"original": "null",
-				"fixed": "24f94406dc490dd6aaed80e94928c7f247df5b8e793ff21258ea5f56af935cc1",
-				"patch": "92585f4adb11707b8915ad56eb5387a5d38244006bcb3f33576dc998648b7916"
-			},
-			"bin/win64/locales/id.pak": {
-				"patch": "9fe88207f02615ffaefa575a7ebae869a15b92e8bd14ec25148c9aea337fe3c3",
-				"fixed": "f663a3cc1492b50cc7c39960f09b4d0d40cbe268fc9a460f37f134250f05ae41",
-				"original": "null"
-			},
-			"bin/locales/fr.pak": {
-				"patch": "f42028031640e3ae0e06677467aa2b4999bded465b2e3bf88ec2ae5c3f9fb144",
-				"original": "null",
-				"fixed": "e5bb0376e9cf3f947043ba7372ba5ac529530e0234fdfb4f65fa229b8a59fc41"
-			},
-			"bin/win64/libGLESv2.dll": {
-				"executable": "true",
-				"fixed": "230e4e0579f5f13b7bded298eb264bc3bf11f7fae7b4d16dcecad40b2028ee8b",
-				"original": "fb07e386cf7e1eecda946564ed578c34922b6b6f715753e1927b0742fbebb6a2",
-				"patch": "c492d7179a95bb747faa60b94889859eb742dd4c88bd3bd93a96485c2b55b957"
-			},
-			"bin/icudtl.dat": {
-				"patch": "c3c19626edb0a5c8d3dace39352c7ec0500375b141a4b4851fe2ee13b850229b",
-				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32",
-				"original": "8fa68d01db50d8eabf432bd1c840009a521bdae6bbc0abf3e664f24f7c853b54"
-			},
-			"bin/win64/locales/it.pak": {
-				"fixed": "4c6c3534f074fa776a39ca0f9806f114fcd45d744969d48be22da606f6c3b32d",
-				"patch": "c4e774e183f2cee0ecdbd2b8920d1e0f05f47b001bc4960764bb1cf36039151d",
-				"original": "null"
-			},
-			"bin/win64/libcef.dll": {
-				"fixed": "8bd82153d6ed1bf7f4acaced0181183800e38883c3e5e0793ffd348c57e8de84",
-				"executable": "true",
-				"original": "721e8094b1d78198c3498d8bc477c9c1f73712c214ae0e9cd57c1508495937cb",
-				"patch": "10e99f30f146ba593813c5289a14aa5f8a7121c64a82af9ec4d00f8992a68da5"
-			},
-			"bin/win64/locales/bn.pak": {
-				"fixed": "77f39963320de143ecbc0f6cff55eaf6eb5066968e893c804adb39a6ffdc233d",
-				"original": "null",
-				"patch": "71aa42c1be1665bac8af1a4ff308aa7074b1a5a9555f5741203d03601db74dde"
+				"original": "ed9ef739bd645fdfa99aae89a3e300b276847fc2c91e6564421f33dab99c8f61"
 			},
 			"bin/html_chromium.dll": {
 				"executable": "true",
@@ -1617,314 +807,179 @@
 				"patch": "171853b0bfa29f4d98e42b13d44e5b84ee57ee324d635c9c2152fe30e75f5531",
 				"fixed": "98e8335a9ea87f87e7f49ae6e1dbcb5ba71fec642af9e5f78871c00e60b269bd"
 			},
-			"bin/locales/id.pak": {
-				"original": "null",
-				"fixed": "f663a3cc1492b50cc7c39960f09b4d0d40cbe268fc9a460f37f134250f05ae41",
-				"patch": "9fe88207f02615ffaefa575a7ebae869a15b92e8bd14ec25148c9aea337fe3c3"
-			},
-			"bin/snapshot_blob.bin": {
-				"original": "cf28e5d937b4c9f28007139a66600ddefc34af18663cba91b9fcd3177a77a475",
-				"fixed": "null"
-			},
-			"bin/locales/el.pak": {
-				"patch": "df932efa18fd5aa230f716e68288a545b5a10ff0a4280307edcd0d3de829eee0",
-				"fixed": "cc15f8d0101ac56a78b579935f3ed25e9ff8eff5ad2dd8723abde3163c6e627d",
-				"original": "null"
-			},
-			"bin/win64/locales/lv.pak": {
-				"patch": "a66bdd6157abd0740b3f84d4e32316eeaa649ffad736029e0ed8ad502e00be35",
-				"original": "null",
-				"fixed": "40e02edba8098670d0864d527db667ecb12f6acc1a13a3877d75588cfbbd96eb"
-			},
-			"bin/libGLESv2.dll": {
-				"patch": "8a91032727efc08009d494e26ebb62d070a11863aa5f738ef19410cd6ca9b9ab",
-				"original": "ee1a293896a47d4b4f4e668974dc6b99b878d5c5ea6914bb2bf9a7970bc7273b",
-				"fixed": "dbdba6ce2ae029d292618e6537866848d4ba36033afd9d79920ab1a0a8b29080",
-				"executable": "true"
-			},
 			"bin/chromium/locales/tr.pak": {
 				"fixed": "null",
 				"original": "47d5eb5da472e272dea16857a643b449d855fce05e510886ee1e809116962d24"
 			},
-			"bin/win64/locales/nb.pak": {
-				"original": "null",
-				"fixed": "16e1f9a0606f256c56880dccfdf41dde7df19e732cb4e2d4b9250d5b60d27bb5",
-				"patch": "94abe2f5b352707cc95f4f204292f996a3c2df7328fda96bb2dac7534918d192"
-			},
-			"bin/locales/ja.pak": {
-				"patch": "f51abba626596e9e32d301a7865b80fb8e8ea7a6ba539ae24415fee1e42faeea",
-				"original": "null",
-				"fixed": "3249a88f335c57b881597cb0139555ed4a577e51d9ac0bcd7f85155c75aa6f31"
-			},
-			"bin/chromium/locales/kn.pak": {
-				"original": "2660a018b185d5449c2c32c599074e719d9c4f76447e86d02cd95cda0856c323",
-				"fixed": "null"
-			},
-			"bin/win64/locales/fa.pak": {
-				"fixed": "f3b9a46373d6b0251df11d2cae4a73cbbac6ecadd3aecef2e90e6bed154306e5",
-				"original": "null",
-				"patch": "3b8057c47a91f42deec36b8006ae59968f678a9ba7578402d62082c58c3d3870"
-			},
-			"bin/locales/de.pak": {
-				"original": "null",
-				"fixed": "2d43e1708cac814f2367e64afa4bdc6bdf5753831aef5c81fd47e3474fc41bcf",
-				"patch": "3c8d379e8b77a9ded2d87bac6fcf6f5a648bc9d32d74bba4e375e5add2dea779"
-			},
-			"bin/chrome_200_percent.pak": {
-				"patch": "7e3df33630e2b1bf40e90a7aa12b4b068cb6715a814f9a4d0d8f5e8cc3bb3fb0",
-				"fixed": "c57b5b40142a9ec9c5783e4a53849cf706bb90366982141878c0ce0fc7c5c7a6",
+			"bin/win64/locales/pt-PT.pak": {
+				"patch": "61746a70587e4acccf656a0948601de67f7810fa7146975500af345ed59fad4c",
+				"fixed": "af76254ec54fb1b7ebffdd6bd8572b4649cb2c281ce5a489e78db1afb971736b",
 				"original": "null"
 			},
-			"bin/locales/ta.pak": {
+			"bin/win64/locales/et.pak": {
+				"patch": "92585f4adb11707b8915ad56eb5387a5d38244006bcb3f33576dc998648b7916",
 				"original": "null",
-				"fixed": "f359afc9a8a56fb6a6a75c57991f09b721466149ac3b90f6f91ed26fb436a813",
-				"patch": "9d153e558551694fcca652f9d4557cf7744e0094ab14f661f8d2d9b4d2f2a7ce"
+				"fixed": "24f94406dc490dd6aaed80e94928c7f247df5b8e793ff21258ea5f56af935cc1"
 			},
-			"bin/locales/he.pak": {
-				"patch": "f17b79e3e5c72dcb21e8cd39e0b62183143419ef7cf88ff9556109cd0863ee52",
+			"bin/chromium/locales/ru.pak": {
+				"fixed": "null",
+				"original": "43613f4962810f03900e76ab93f7326d22c3513b313b367065174cf03f64a02a"
+			},
+			"bin/locales/et.pak": {
+				"fixed": "24f94406dc490dd6aaed80e94928c7f247df5b8e793ff21258ea5f56af935cc1",
 				"original": "null",
-				"fixed": "945367203472723a213c47ca964eccf434640518c8c775d7c71bf3c3b8fc0cf7"
-			},
-			"bin/d3dcompiler_47.dll": {
-				"patch": "3a66fc8f29e0363a1f008c4003077ea60fc1bf6e740a2829c1b7a705e64d5f6e",
-				"original": "c045ee1b3e81415c826105c5dbce10112bcf525975af3af65efb408eb9c5f29b",
-				"executable": "true",
-				"fixed": "0013a92669a9201709c1ef3a2b7f1ca6152aa81f3174949d6de0d24843280cec"
-			},
-			"bin/chrome_100_percent.pak": {
-				"patch": "1f9b63f31b22244a7466eac3cb3bcf4f9b1dc3ff18723dfe2705b0ef72f503dd",
-				"original": "null",
-				"fixed": "64d19976cb365bef33b11def4386f71e8683748481a16f6f89024908d95c519e"
-			},
-			"bin/locales/cs.pak": {
-				"fixed": "e296b5d444dcc6cbb8bc24e8bd587a128fbec38f15c51d55ca3411f16ebb3c69",
-				"original": "null",
-				"patch": "2ed82f2e54a71856fec8082b939db6c84fc35f268de90adb57fb8381d43315e9"
-			},
-			"bin/locales/mr.pak": {
-				"patch": "92cb7ebe59308ee5cd193ebad1ff9ca72f75afe36e8e0f96cdaec35e03c91fe6",
-				"original": "null",
-				"fixed": "59cfca10a34a9b4ac770519d883cf4538209b88b8dcb3eed03b183a7b87fab5a"
-			},
-			"bin/win64/v8_context_snapshot.bin": {
-				"fixed": "3878eb015114ff9b5e5236f148a3f1e7e0e34b2df3c2c730f6d77047311b2c69",
-				"patch": "86e66959d3b72453e9d70c61e9b93c470a2bf6400aedc81a8a4884d77ee559de",
-				"original": "f75a9ec3589de470528cb82635f24c09023ee4c1fb140fc469ab5eaffda08f5b"
-			},
-			"bin/locales/ro.pak": {
-				"fixed": "87dc0e6d66155e9218b50b8535083edee8ac3f002ae39550bf53b06aa074a997",
-				"patch": "89f37d35b696254702638f0ffef6c49c948f4ff19e42449d6056f2599ba24c42",
-				"original": "null"
-			},
-			"bin/win64/locales/de.pak": {
-				"patch": "3c8d379e8b77a9ded2d87bac6fcf6f5a648bc9d32d74bba4e375e5add2dea779",
-				"fixed": "2d43e1708cac814f2367e64afa4bdc6bdf5753831aef5c81fd47e3474fc41bcf",
-				"original": "null"
-			},
-			"bin/win64/locales/zh-CN.pak": {
-				"fixed": "ade4fecce3f58c3c9e83dcfafd9234e90d8819c24022ce11a4c0ea3eec6165e5",
-				"patch": "72542437563b14904c50adf608678c16917df97ba4441e11a5b3c7642c0ce1e4",
-				"original": "null"
-			},
-			"bin/locales/kn.pak": {
-				"patch": "091a446b3ad23d17005cdabf5ab99d4b230642d6cafe55018bfc1fa325eab149",
-				"fixed": "1941dd491143b3b5800ca06d9c15538640e3351aa9211f00ba67c5ec08f5c6e6",
-				"original": "null"
+				"patch": "92585f4adb11707b8915ad56eb5387a5d38244006bcb3f33576dc998648b7916"
 			},
 			"bin/win64/locales/bg.pak": {
+				"fixed": "fd490cbae16ce825c0d3a4aa39dddf272dd008af2151fda9b24786ffd9ca0426",
 				"patch": "10dc4a74ce6851e116f761bd8318ba9bc5f9af47194d54fbe56574d6688a3727",
+				"original": "null"
+			},
+			"bin/locales/fi.pak": {
+				"patch": "2c48b6152d26d8b4e3de5426cd294c30bc69ba5044d65c2d1746fa9d364518eb",
+				"fixed": "4ccd84deab0d0a0be5988d3ecb8eaf08de338c63f8b85be1c283142f178b9810",
+				"original": "null"
+			},
+			"bin/locales/da.pak": {
+				"patch": "e12d2d96d05f1b8a2b572533a2c078442c5a0b8035e2e3dbd2706dc514da0911",
 				"original": "null",
-				"fixed": "fd490cbae16ce825c0d3a4aa39dddf272dd008af2151fda9b24786ffd9ca0426"
+				"fixed": "c38094d6562405a688f5510eb69ecca6db582e3d3b2a0c2fa756b33a613502a0"
 			},
-			"bin/locales/bn.pak": {
+			"bin/win64/locales/pl.pak": {
+				"fixed": "d6bc7c0be98058387f07bc7d2af62b850c0b51e8aeb71e75be93d7f9cb854a06",
 				"original": "null",
-				"patch": "71aa42c1be1665bac8af1a4ff308aa7074b1a5a9555f5741203d03601db74dde",
-				"fixed": "77f39963320de143ecbc0f6cff55eaf6eb5066968e893c804adb39a6ffdc233d"
+				"patch": "8704ea99e764ea6b82be550f06da1298a33a8c71be8a8d9a46a47154d124f562"
 			},
-			"bin/locales/te.pak": {
-				"fixed": "374a91b3ae0cf84a5de141db02b25f5cda9301a1cda47d5a73fe8aefedfe6638",
+			"bin/win64/locales/ja.pak": {
 				"original": "null",
-				"patch": "4992441ca1ceb99aaf7160223cb0aa07e091d2141cb97ee33da22c44df54862f"
+				"patch": "f51abba626596e9e32d301a7865b80fb8e8ea7a6ba539ae24415fee1e42faeea",
+				"fixed": "3249a88f335c57b881597cb0139555ed4a577e51d9ac0bcd7f85155c75aa6f31"
 			},
-			"bin/chromium/locales/pt-BR.pak": {
-				"fixed": "null",
-				"original": "99a9e1ba8b6110b081c59291e7414266b53b3ad53945791bd7e7be7f55c1c98a"
-			},
-			"bin/win64/dxil.dll": {
-				"patch": "9bbd504520b52c696c7e4db374a45f486e59a28314877757087c29221b0d11d8",
-				"executable": "true",
-				"original": "null",
-				"fixed": "6cb17c3ba136da75ee31e5852ee7635c41875e3d3ccb78a079d08ce132f4e960"
-			},
-			"bin/chromium/locales/uk.pak": {
-				"original": "8d3648780b6fa6f461dabb196e583cfd5afa7901493d48acef71b1f371985566",
+			"bin/chromium/locales/ms.pak": {
+				"original": "b46fbdbf06a09a786e15801f18a705931b022597f245fb0afcc09d161006ce80",
 				"fixed": "null"
 			},
-			"bin/win64/locales/ru.pak": {
+			"bin/win64/locales/el.pak": {
+				"patch": "df932efa18fd5aa230f716e68288a545b5a10ff0a4280307edcd0d3de829eee0",
 				"original": "null",
-				"patch": "65dd76b9b21a8c4d2deb26d07b7ed9021e4a98be169480e34a0319694db68599",
-				"fixed": "c68f80b672bf51f88399e485003a1c8a597898fd4534e8a6b6f85d613381d1e5"
+				"fixed": "cc15f8d0101ac56a78b579935f3ed25e9ff8eff5ad2dd8723abde3163c6e627d"
+			},
+			"bin/win64/locales/nl.pak": {
+				"patch": "4890306ca7070b052db5e74473a1099a2bb3208fc563725e682985934ee82685",
+				"fixed": "b10a234c7bff023d240f23883094f673845be6324141bb6cf6ae55beeac56614",
+				"original": "null"
+			},
+			"bin/locales/sr.pak": {
+				"fixed": "a88f31bbd88d197cbc3b61a84e9d50bcde1ba71798b0dbc887fb43bbcc5fe6a8",
+				"patch": "17424c478c0fffd40dad35bca355b2b3b2b9e711c70b60465aed6adb919c1d2d",
+				"original": "null"
+			},
+			"bin/chromium/locales/sk.pak": {
+				"original": "ad6638fe4d2f538d5b13dd01583bc88563b513a28bffe5dd2a7cc9476884ad71",
+				"fixed": "null"
+			},
+			"bin/chromium/locales/id.pak": {
+				"fixed": "null",
+				"original": "f43cfa7954b24920bddd4439b2b7115619fa47acc5127cdee24351ea5c1f6b63"
 			},
 			"bin/win64/html_chromium.dll": {
-				"patch": "7433e2cdd48c35258d515e1f5abc321337dfd5ddfc11f6cc63c6610718be3870",
-				"original": "b7c12657bcb606f8efdf706c6596c87dbf0951ede6e97ea23fdd10263012e817",
 				"executable": "true",
-				"fixed": "0f4eb428b0a6ee94ed831b2aad570b301a7456e984a933fabb26dc5c74a706e3"
+				"original": "b7c12657bcb606f8efdf706c6596c87dbf0951ede6e97ea23fdd10263012e817",
+				"fixed": "0f4eb428b0a6ee94ed831b2aad570b301a7456e984a933fabb26dc5c74a706e3",
+				"patch": "7433e2cdd48c35258d515e1f5abc321337dfd5ddfc11f6cc63c6610718be3870"
 			},
-			"bin/chromium/locales/ca.pak": {
-				"original": "4f8286f163e06d3e0c7e92c72b4225ce536be14a3ebf53a989c8386fa52d379d",
+			"bin/win64/locales/lt.pak": {
+				"patch": "df26fe012a7a480e4b8f583ad702f2b3361c1a9e29ba8b59c5a163f260a12d68",
+				"original": "null",
+				"fixed": "6b18b8712a1eef1f0d0432ee0bc34df94d77cea4d2480d9a2a56b6475947f0b4"
+			},
+			"bin/win64/locales/he.pak": {
+				"fixed": "945367203472723a213c47ca964eccf434640518c8c775d7c71bf3c3b8fc0cf7",
+				"original": "null",
+				"patch": "f17b79e3e5c72dcb21e8cd39e0b62183143419ef7cf88ff9556109cd0863ee52"
+			},
+			"bin/win64/locales/ml.pak": {
+				"patch": "d50932824adb4c8dcc2a40de84abd680f9235bce074e242e2fb0fa48fdc228c6",
+				"original": "null",
+				"fixed": "6db17d819e56c32712705d82592a0d07a1d56bffd6452b87576e4faa1df46314"
+			},
+			"bin/chromium/locales/th.pak": {
+				"original": "9eda586305fdf70bfd245c81fc49987d0d2e7ba44f195b959b4f53647ebf0192",
 				"fixed": "null"
 			},
 			"bin/win64/locales/hi.pak": {
 				"patch": "0d8607a19e64ac5818007f41f011b570e34e80304abd1cac3452164c367ca6d8",
-				"original": "null",
-				"fixed": "cb36aa06601161c9f3b04ea8c79e98e993d5f7840bae9f377eb57ae493b8f6e1"
+				"fixed": "cb36aa06601161c9f3b04ea8c79e98e993d5f7840bae9f377eb57ae493b8f6e1",
+				"original": "null"
 			},
-			"bin/chromium/locales/bg.pak": {
+			"bin/win64/libEGL.dll": {
+				"executable": "true",
+				"fixed": "bacef3a40a442f0e5144aa4d617a67b63bf16a60ce306b4d173dddc1ee782782",
+				"patch": "7b587804f094a988047bad441bb1424439acfa58dcffa9e0b01361183c93de6d",
+				"original": "f3bd3d45ed541124992ef05d98d3c97e044ac273954fe11820a97309424b1c26"
+			},
+			"bin/chromium/locales/ja.pak": {
 				"fixed": "null",
-				"original": "b8456d7f3eb203439de3462dbbd24ead5f7f4e8e26f8db5629d72b299b3b7957"
+				"original": "4c2b04b4ee9d7f0985b9b2043cc32f66d5a173e8cfec974acec0ed0f6b62eee4"
 			},
-			"bin/chromium/locales/cs.pak": {
-				"original": "536c49c338e23e804b176fadafe0c489c87b5b5f20571b8e7929bba8dc0cb9f1",
+			"bin/locales/vi.pak": {
+				"patch": "8fa9e89a71364ba8120d43f061eefa9f6fb5583cf8d219268c3d8fb578558867",
+				"original": "null",
+				"fixed": "1c690b9946496ac56138f79c29f7477773f59d36d00f452f32e597405dbbfb49"
+			},
+			"bin/icudtl.dat": {
+				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32",
+				"original": "8fa68d01db50d8eabf432bd1c840009a521bdae6bbc0abf3e664f24f7c853b54",
+				"patch": "c3c19626edb0a5c8d3dace39352c7ec0500375b141a4b4851fe2ee13b850229b"
+			},
+			"bin/win64/locales/ms.pak": {
+				"fixed": "14765ba433f9545a4f9c4fb8eb26401235db7d039d6889aacc450b8589ed9e35",
+				"patch": "bda905f552ebcfe7d14fb2bab0154afb54d8381977864a6bd0d317406ca2dc17",
+				"original": "null"
+			},
+			"bin/libGLESv2.dll": {
+				"fixed": "dbdba6ce2ae029d292618e6537866848d4ba36033afd9d79920ab1a0a8b29080",
+				"executable": "true",
+				"original": "ee1a293896a47d4b4f4e668974dc6b99b878d5c5ea6914bb2bf9a7970bc7273b",
+				"patch": "8a91032727efc08009d494e26ebb62d070a11863aa5f738ef19410cd6ca9b9ab"
+			},
+			"bin/win64/locales/es-419.pak": {
+				"patch": "d872c1cb735db6e704ab7ef67dc060507d4cfc08fe31ef0b40d19ab9b17addab",
+				"original": "null",
+				"fixed": "299e1c45fb68858418e8b03313c96bdb7a47cb90c304aa786ba74f72d405b406"
+			},
+			"bin/locales/en-US.pak": {
+				"fixed": "612d09268ee1681485ca76075dbf96765e0fa7c0befdf969a3ce7f8324a7381e",
+				"original": "null",
+				"patch": "ce41c27f5f3a83ea2095c43e6ca4f09dc3c950c80318c430fe382a7fbea4984e"
+			},
+			"bin/chromium/locales/ta.pak": {
+				"original": "cb3ef9e781dc791ff8c0bcca455fe8654dccfd850c4907816bcf4f10bcdf1a01",
 				"fixed": "null"
-			},
-			"bin/win64/locales/pl.pak": {
-				"original": "null",
-				"patch": "8704ea99e764ea6b82be550f06da1298a33a8c71be8a8d9a46a47154d124f562",
-				"fixed": "d6bc7c0be98058387f07bc7d2af62b850c0b51e8aeb71e75be93d7f9cb854a06"
-			},
-			"bin/locales/uk.pak": {
-				"patch": "acd7faff12af9deb068d4aba123d25fc70a42f350a6129e230e4787184b05aee",
-				"fixed": "4e7e8de2d9b7a5fcc31fc20839516a5146d922fd3b951f9a855df323479f63d0",
-				"original": "null"
-			},
-			"bin/locales/nl.pak": {
-				"fixed": "b10a234c7bff023d240f23883094f673845be6324141bb6cf6ae55beeac56614",
-				"patch": "4890306ca7070b052db5e74473a1099a2bb3208fc563725e682985934ee82685",
-				"original": "null"
-			},
-			"bin/win64/locales/sk.pak": {
-				"patch": "6f5a0a980ea771862d5906f15ed3108da063b14dda7d441a02c260e6a9cc9a44",
-				"original": "null",
-				"fixed": "96a3fbc23702ed318c6d80714acf7df00900b40b81fef68e04c6ef5e2b907f3c"
-			},
-			"bin/win64/locales/sl.pak": {
-				"fixed": "e3edbbf6221389523dfe4f9778aa20d7f0f12897d367cf4ce8725bd781290b73",
-				"original": "null",
-				"patch": "3a1c8643da22567011424e2a1414c30a43fd88b5446cd547f18bdeef4004aa43"
 			},
 			"bin/win64/chrome_200_percent.pak": {
 				"patch": "7e3df33630e2b1bf40e90a7aa12b4b068cb6715a814f9a4d0d8f5e8cc3bb3fb0",
 				"original": "null",
 				"fixed": "c57b5b40142a9ec9c5783e4a53849cf706bb90366982141878c0ce0fc7c5c7a6"
 			},
-			"bin/win64/dxcompiler.dll": {
-				"patch": "723729218bf1f9e12941f8ee4e21a71d3d2a15eff15007ac3819675263e2c758",
-				"original": "null",
-				"fixed": "a1bbc82664aea70cd846dcedadf989a4ba8338083cd608dd347fd52e6dda2421",
+			"bin/chromium/locales/nl.pak": {
+				"fixed": "null",
+				"original": "60698f528fc3369baaff4ae9fd48b6a422f36b0588d85438a7b45602a6eb6e63"
+			},
+			"bin/win64/chrome_elf.dll": {
+				"fixed": "6e588736158d6b94b63125f674c154325270a7e5f31b3be549dcecbd26b07eb0",
+				"executable": "true",
+				"original": "dbc8451e03047e6ffbce4554173e3492473a7628b0367fca7b2934da7197c154",
+				"patch": "5ee4a99082da347426012b28e09ffcbf50724018de0ce95f1f83d9e994134cce"
+			},
+			"bin/libEGL.dll": {
+				"fixed": "69c28e516205137a1872b044faf8609c31eda8084e5c6e1af05dd04c736c1c1b",
+				"original": "f6b50ad0cc890a7bf6dd0d403610f768e9a2856d85e06238e4872e12f419954a",
+				"patch": "2634d44aff3bb3af96d6a2e6152f830f88ecc3387769947f03c29e7bd2dcd47e",
 				"executable": "true"
 			},
-			"bin/chromium/locales/el.pak": {
-				"original": "91b1f44706c44ae448fce5210b9f7deb9abada1a07f7f1e7efeba6b3e7433d60",
-				"fixed": "null"
-			},
-			"bin/libcef.dll": {
-				"executable": "true",
-				"patch": "bb0750d53efb6dff6c2206c62c9227bbce2f5ea92be7cc2bde34b0294bbc8795",
-				"original": "fce142372c3f254a9f76c1ec0a8590185d2212c8dca61d0e0735170aedad5834",
-				"fixed": "dee959004ec30c683a7dd6c9132f0c254a18dc1da0081571eea3583aed9ddf90"
-			},
-			"bin/chromium/locales/zh-TW.pak": {
-				"fixed": "null",
-				"original": "9d98634a22bc8cc1730d4ffbc0819e1a96b13cd9b69131a290741733de331dca"
-			},
-			"bin/win64/locales/mr.pak": {
-				"fixed": "59cfca10a34a9b4ac770519d883cf4538209b88b8dcb3eed03b183a7b87fab5a",
-				"patch": "92cb7ebe59308ee5cd193ebad1ff9ca72f75afe36e8e0f96cdaec35e03c91fe6",
-				"original": "null"
-			},
-			"bin/win64/locales/es-419.pak": {
-				"original": "null",
-				"fixed": "299e1c45fb68858418e8b03313c96bdb7a47cb90c304aa786ba74f72d405b406",
-				"patch": "d872c1cb735db6e704ab7ef67dc060507d4cfc08fe31ef0b40d19ab9b17addab"
-			},
-			"bin/chromium/cef_100_percent.pak": {
-				"fixed": "null",
-				"original": "26dc3858deb2cc067aa1aaac72ab984772b5ab35b9d9d37f3b11f618fd638581"
-			},
-			"bin/win64/locales/ms.pak": {
-				"patch": "bda905f552ebcfe7d14fb2bab0154afb54d8381977864a6bd0d317406ca2dc17",
-				"original": "null",
-				"fixed": "14765ba433f9545a4f9c4fb8eb26401235db7d039d6889aacc450b8589ed9e35"
-			},
-			"bin/locales/hi.pak": {
-				"fixed": "cb36aa06601161c9f3b04ea8c79e98e993d5f7840bae9f377eb57ae493b8f6e1",
-				"patch": "0d8607a19e64ac5818007f41f011b570e34e80304abd1cac3452164c367ca6d8",
-				"original": "null"
-			},
-			"bin/vk_swiftshader_icd.json": {
-				"patch": "fd36fe202cd7b8f2a2d844a2172481edfb6f4e3b54f2c0b42dfd18332f7dcfe6",
-				"original": "null",
-				"fixed": "22ae981d6be3750002fa1945e33990fbf64a0cdf87bb0d932d3e3f0785040d63"
-			},
-			"bin/win64/locales/he.pak": {
-				"patch": "f17b79e3e5c72dcb21e8cd39e0b62183143419ef7cf88ff9556109cd0863ee52",
-				"original": "null",
-				"fixed": "945367203472723a213c47ca964eccf434640518c8c775d7c71bf3c3b8fc0cf7"
-			},
-			"bin/locales/pl.pak": {
-				"patch": "8704ea99e764ea6b82be550f06da1298a33a8c71be8a8d9a46a47154d124f562",
-				"original": "null",
-				"fixed": "d6bc7c0be98058387f07bc7d2af62b850c0b51e8aeb71e75be93d7f9cb854a06"
-			},
-			"bin/locales/hu.pak": {
-				"original": "null",
-				"fixed": "150d2509f298b68a1bf5ed1519ede824d92324982dca64beb02bdeefe21294b5",
-				"patch": "5eb7274e02d835e08424b2a806ea681c2cdec83a60807746726316aa7c91c502"
-			},
-			"bin/chromium/locales/lt.pak": {
-				"original": "706af29efc6785a180d49beab576476a8dbc7e4da7abb28639c8af46ee4dea36",
-				"fixed": "null"
-			},
-			"bin/locales/es-419.pak": {
-				"fixed": "299e1c45fb68858418e8b03313c96bdb7a47cb90c304aa786ba74f72d405b406",
-				"patch": "d872c1cb735db6e704ab7ef67dc060507d4cfc08fe31ef0b40d19ab9b17addab",
-				"original": "null"
-			},
-			"bin/win64/chrome_100_percent.pak": {
-				"original": "null",
-				"patch": "1f9b63f31b22244a7466eac3cb3bcf4f9b1dc3ff18723dfe2705b0ef72f503dd",
-				"fixed": "64d19976cb365bef33b11def4386f71e8683748481a16f6f89024908d95c519e"
-			},
-			"bin/win64/libEGL.dll": {
-				"executable": "true",
-				"patch": "7b587804f094a988047bad441bb1424439acfa58dcffa9e0b01361183c93de6d",
-				"original": "f3bd3d45ed541124992ef05d98d3c97e044ac273954fe11820a97309424b1c26",
-				"fixed": "bacef3a40a442f0e5144aa4d617a67b63bf16a60ce306b4d173dddc1ee782782"
-			},
-			"bin/chromium/devtools_resources.pak": {
-				"original": "30584597a5f8a64cd5a8e12ff5218eedb605270640ccd2c643267ea0601cae4c",
-				"fixed": "null"
-			},
-			"bin/chromium/locales/sv.pak": {
-				"original": "c98ba9f119546625c6adfe0a2c1197db45c68f1d5575848e71f536ada0a4481d",
-				"fixed": "null"
-			},
-			"bin/win64/locales/sw.pak": {
-				"original": "null",
-				"patch": "ec4f92550e31b4c8cffd670c95d264cebe0c45906302c47fe6629f3371ac3b4f",
-				"fixed": "813d509fbb323dc1ad8ed44651e72fdecc638e0c355064e37819025bc683eaf4"
-			},
-			"bin/chromium/locales/hi.pak": {
-				"fixed": "null",
-				"original": "c812e2629c5aafb9ec5a088d2d96f2d9c616674a25772f6b695ec346e5852c27"
-			},
-			"bin/chromium/locales/te.pak": {
-				"fixed": "null",
-				"original": "5e2b78544627a48510bdc58e2d65c7119b23cd0886442b7aeb9159da05679346"
-			},
-			"bin/chromium/locales/id.pak": {
-				"original": "f43cfa7954b24920bddd4439b2b7115619fa47acc5127cdee24351ea5c1f6b63",
+			"bin/chromium/locales/nb.pak": {
+				"original": "29fd802d56c6328c21d9e91f6f0741fec83fba40e5b7971812f9a89b984f4fc0",
 				"fixed": "null"
 			},
 			"bin/locales/es.pak": {
@@ -1932,114 +987,1119 @@
 				"patch": "b7586ff1e50de8b7508c2a1397abf68a2f03349a7c6ebde1cf5b4f046a6c5e2b",
 				"original": "null"
 			},
-			"bin/chromium/locales/fil.pak": {
+			"bin/win64/locales/fil.pak": {
+				"original": "null",
+				"patch": "dc0e0e55362bee9786bc0437cd6cad58cf0234721f1442e9ad566fd69d4e2625",
+				"fixed": "8c200c36ef16d4bbf214e5115869bdf375ebe0005a54f64c8fc5c3ab35fe28ed"
+			},
+			"bin/win64/d3dcompiler_47.dll": {
+				"patch": "eac4ae2a91d43397444b20fb3ada6043cb062a153a9e8d74b535f62d118b17ff",
+				"original": "4578e343a527680b5e7d7a59ca1dfacbe9c86050fc355f32bde81be821788e38",
+				"fixed": "9c98bd16a22555d236c8faa5996bea12230f22a8f61424df96b065ac726ff433",
+				"executable": "true"
+			},
+			"bin/win64/gmod.exe": {
+				"original": "692bdaeb81807eff5d6c33850b1b4b5b0be6ebc731244556b7d0ec60c9994a05",
+				"patch": "659569c76e92028d5c4cfa8493b3efe64990da7796584131342ed482ee8d107a",
+				"executable": "true",
+				"fixed": "1fd2c3b53a0f4b9b7a48ebee39b483a2082ea611b9076da228a055389d86f707"
+			},
+			"bin/chromium/locales/bn.pak": {
 				"fixed": "null",
-				"original": "479ac3afe0b2cc236a6d312f43189be2068f159dfc53b33c0b3c1ae21bbc5e2c"
+				"original": "c5e1250161842bd6380227461949dfe363692c916a7b38a9b122df0d78da74db"
 			},
-			"bin/win64/locales/gu.pak": {
-				"patch": "d0b887bee560e6ccec714002cf5ee9e0ac59f9783498eb100d2fbc2cca1081d1",
-				"original": "null",
-				"fixed": "bddf7d6b79c07d5dd8ba2693f5d1bc4e53faf3e709eaffad8e79334c9f95f884"
+			"bin/locales/pt-BR.pak": {
+				"patch": "1aceb748b4c0f330b0d53b18e7b4e59e9b8479873693db31ffdd8e29c40ce1b1",
+				"fixed": "30e0d50c7fba88d66c02915bce6bf5028cb4f2a969f2e7c023d198c0242ab58f",
+				"original": "null"
 			},
-			"bin/win64/locales/zh-TW.pak": {
+			"bin/locales/ar.pak": {
+				"fixed": "f163b5dac0c44417dc37db7772f165a4b326d0f4aafaf600a2d5cd1925cc0853",
 				"original": "null",
-				"fixed": "43a0cc54ca2b8f2a1018633c0776c954c3012c4e2e27863585d291c8dbed31f1",
-				"patch": "13ec4674dcb5ba45fb4224975c1a0d9daf77b541f6a0fdbd3560ef4f005cee1c"
+				"patch": "bf666eb3a7772d21234e01161580a549ef2ef7a890446db0975ba006a3b85734"
 			},
-			"bin/win64/locales/hr.pak": {
-				"patch": "25fb254e429019973e93d176822b35d441efe52650e6dfa9fd020c602c3289cb",
+			"bin/locales/ca.pak": {
+				"fixed": "e3d73ce68f76b5e6537c65ba9b83b123f50b8a0b06bf4607827a7c8ff8fb3f7a",
+				"patch": "8773e2801c8a86ca47f67b2a1e247ed75946a4b64853028952d94d766ee36eba",
+				"original": "null"
+			},
+			"bin/locales/ru.pak": {
+				"patch": "65dd76b9b21a8c4d2deb26d07b7ed9021e4a98be169480e34a0319694db68599",
 				"original": "null",
-				"fixed": "661cdeb029b3ea88c1937d596befe60dee9b99d5a18e96e3b26e81a4e6bf6aa7"
+				"fixed": "c68f80b672bf51f88399e485003a1c8a597898fd4534e8a6b6f85d613381d1e5"
+			},
+			"bin/locales/ko.pak": {
+				"fixed": "7f2778a4cfba8766d19644afb023d91a025531914fed8939899d2a0c83b2b058",
+				"patch": "c74d56d05a8b738502d57e8c334af98571f643b622a333ef320f395822e42660",
+				"original": "null"
+			},
+			"bin/chromium/locales/ko.pak": {
+				"original": "8e8a67648cf90d6a5f42819c78d8aa860a1dfb673b959d7021733193c608d264",
+				"fixed": "null"
+			},
+			"bin/locales/ur.pak": {
+				"original": "null",
+				"fixed": "457d63ac299922ae5bf18fb010e4a40420da529d33fa3f214a4d40cc1cfe96de",
+				"patch": "d6f6b14cb65701e55be505317f127aa913cc25dbbec76d0009ff9a3b91e2a0f9"
+			},
+			"bin/chromium/cef_extensions.pak": {
+				"fixed": "null",
+				"original": "dbee58a37479cb0514f53c9afc2f935d2d36365eb68c29202ac81841f040d8db"
 			},
 			"bin/v8_context_snapshot.bin": {
 				"original": "a64dc9c5673f09194d66194435fb096949b01d3a1ee86705457ac4479cc0b221",
 				"patch": "a19567bda411aa84d775c4ca98fd0d902f94c3ba5a99ea249357d97b5e847274",
 				"fixed": "58f6e057f2d5f2bfc6c85ecee3988797029300b28646f31c85fd8ac43eb51ed2"
 			},
-			"bin/chromium/locales/et.pak": {
-				"original": "bd3ccf7e24308075c2e12f419638a376befa71382a4600bceb92e5d8cb29caf7",
+			"bin/chromium/locales/pl.pak": {
+				"original": "b980157c15316b3102979a3f76989b56b9262fc7efddf67bf5d5569e907a04e7",
 				"fixed": "null"
 			},
-			"bin/win64/locales/lt.pak": {
+			"bin/chromium/locales/ml.pak": {
+				"fixed": "null",
+				"original": "85f638d1133bb4ea6a68176fcd3fed74f80179d8142f7324557efae147e63bec"
+			},
+			"garrysmod/resource/fonts/PTMono-OFL.txt": {
 				"original": "null",
-				"patch": "df26fe012a7a480e4b8f583ad702f2b3361c1a9e29ba8b59c5a163f260a12d68",
-				"fixed": "6b18b8712a1eef1f0d0432ee0bc34df94d77cea4d2480d9a2a56b6475947f0b4"
+				"patch": "e0524093974c411b13c2e7a3e5af702a68634892bc18e3ca1475d102cbe2f240",
+				"fixed": "9c59f7a8b0e0c5ec1e1af3e457e35cd4432fe405538847046a096c999f94aba5"
 			},
-			"bin/chromium/locales/ms.pak": {
-				"original": "b46fbdbf06a09a786e15801f18a705931b022597f245fb0afcc09d161006ce80",
+			"bin/chromium/locales/fa.pak": {
+				"fixed": "null",
+				"original": "cbba6609d39703b0e026b6247ea83aeccdf3bcd917d1ce318992d97f303bfa73"
+			},
+			"bin/locales/sk.pak": {
+				"fixed": "96a3fbc23702ed318c6d80714acf7df00900b40b81fef68e04c6ef5e2b907f3c",
+				"original": "null",
+				"patch": "6f5a0a980ea771862d5906f15ed3108da063b14dda7d441a02c260e6a9cc9a44"
+			},
+			"bin/chromium/locales/hr.pak": {
+				"fixed": "null",
+				"original": "68a91d9015c8995a5301788bba3fe6e82a9994d85844304f12192255f9383322"
+			},
+			"bin/locales/am.pak": {
+				"fixed": "b59cde3ba5e1df42294559a0b69bea0faa7c2f42b2cf8ca972743bacb1b7e6b8",
+				"patch": "43cb2087c08518ae82772bf92f4fc7585571660280b56a564900954bd42b5ee3",
+				"original": "null"
+			},
+			"bin/win64/locales/bn.pak": {
+				"patch": "71aa42c1be1665bac8af1a4ff308aa7074b1a5a9555f5741203d03601db74dde",
+				"original": "null",
+				"fixed": "77f39963320de143ecbc0f6cff55eaf6eb5066968e893c804adb39a6ffdc233d"
+			},
+			"bin/chrome_100_percent.pak": {
+				"patch": "1f9b63f31b22244a7466eac3cb3bcf4f9b1dc3ff18723dfe2705b0ef72f503dd",
+				"original": "null",
+				"fixed": "64d19976cb365bef33b11def4386f71e8683748481a16f6f89024908d95c519e"
+			},
+			"bin/win64/locales/en-GB.pak": {
+				"fixed": "1e8e39c066a1fa1a941b88f5156edfbc2352b5724becaa172cd0fc636cd68aae",
+				"original": "null",
+				"patch": "cc5b1fe0063abc8472040925a942efaf6106c1d20844795c612fadec79ed1854"
+			},
+			"bin/chromium/locales/sv.pak": {
+				"fixed": "null",
+				"original": "c98ba9f119546625c6adfe0a2c1197db45c68f1d5575848e71f536ada0a4481d"
+			},
+			"bin/win64/locales/te.pak": {
+				"patch": "4992441ca1ceb99aaf7160223cb0aa07e091d2141cb97ee33da22c44df54862f",
+				"original": "null",
+				"fixed": "374a91b3ae0cf84a5de141db02b25f5cda9301a1cda47d5a73fe8aefedfe6638"
+			},
+			"bin/win64/v8_context_snapshot.bin": {
+				"patch": "86e66959d3b72453e9d70c61e9b93c470a2bf6400aedc81a8a4884d77ee559de",
+				"original": "f75a9ec3589de470528cb82635f24c09023ee4c1fb140fc469ab5eaffda08f5b",
+				"fixed": "3878eb015114ff9b5e5236f148a3f1e7e0e34b2df3c2c730f6d77047311b2c69"
+			},
+			"bin/locales/kn.pak": {
+				"fixed": "1941dd491143b3b5800ca06d9c15538640e3351aa9211f00ba67c5ec08f5c6e6",
+				"original": "null",
+				"patch": "091a446b3ad23d17005cdabf5ab99d4b230642d6cafe55018bfc1fa325eab149"
+			},
+			"bin/libcef.dll": {
+				"patch": "bb0750d53efb6dff6c2206c62c9227bbce2f5ea92be7cc2bde34b0294bbc8795",
+				"executable": "true",
+				"fixed": "dee959004ec30c683a7dd6c9132f0c254a18dc1da0081571eea3583aed9ddf90",
+				"original": "fce142372c3f254a9f76c1ec0a8590185d2212c8dca61d0e0735170aedad5834"
+			},
+			"bin/chromium/locales/cs.pak": {
+				"original": "536c49c338e23e804b176fadafe0c489c87b5b5f20571b8e7929bba8dc0cb9f1",
 				"fixed": "null"
+			},
+			"bin/vulkan-1.dll": {
+				"fixed": "90eeee6281bba64ca771f4c1e05f788586a640cdc0eb8d347db4495b10b737d7",
+				"executable": "true",
+				"patch": "07d56d7301a5bc7718b184dc0b71204286d2d767c48c72b6965c8d5692a0d191",
+				"original": "null"
+			},
+			"bin/chromium/locales/fil.pak": {
+				"original": "479ac3afe0b2cc236a6d312f43189be2068f159dfc53b33c0b3c1ae21bbc5e2c",
+				"fixed": "null"
+			},
+			"bin/locales/fa.pak": {
+				"patch": "3b8057c47a91f42deec36b8006ae59968f678a9ba7578402d62082c58c3d3870",
+				"fixed": "f3b9a46373d6b0251df11d2cae4a73cbbac6ecadd3aecef2e90e6bed154306e5",
+				"original": "null"
+			},
+			"bin/chromium/locales/te.pak": {
+				"original": "5e2b78544627a48510bdc58e2d65c7119b23cd0886442b7aeb9159da05679346",
+				"fixed": "null"
+			},
+			"bin/win64/locales/vi.pak": {
+				"fixed": "1c690b9946496ac56138f79c29f7477773f59d36d00f452f32e597405dbbfb49",
+				"patch": "8fa9e89a71364ba8120d43f061eefa9f6fb5583cf8d219268c3d8fb578558867",
+				"original": "null"
+			},
+			"bin/locales/hu.pak": {
+				"patch": "5eb7274e02d835e08424b2a806ea681c2cdec83a60807746726316aa7c91c502",
+				"original": "null",
+				"fixed": "150d2509f298b68a1bf5ed1519ede824d92324982dca64beb02bdeefe21294b5"
+			},
+			"bin/locales/de.pak": {
+				"patch": "3c8d379e8b77a9ded2d87bac6fcf6f5a648bc9d32d74bba4e375e5add2dea779",
+				"fixed": "2d43e1708cac814f2367e64afa4bdc6bdf5753831aef5c81fd47e3474fc41bcf",
+				"original": "null"
+			},
+			"bin/win64/locales/fr.pak": {
+				"original": "null",
+				"fixed": "e5bb0376e9cf3f947043ba7372ba5ac529530e0234fdfb4f65fa229b8a59fc41",
+				"patch": "f42028031640e3ae0e06677467aa2b4999bded465b2e3bf88ec2ae5c3f9fb144"
+			},
+			"bin/win64/snapshot_blob.bin": {
+				"original": "6db5623caf79e4dd18a7f8df3e8491ad767988663fbb9f731062e86b9f2bbd47",
+				"fixed": "null"
+			},
+			"bin/win64/icudtl.dat": {
+				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32",
+				"patch": "c3c19626edb0a5c8d3dace39352c7ec0500375b141a4b4851fe2ee13b850229b",
+				"original": "8fa68d01db50d8eabf432bd1c840009a521bdae6bbc0abf3e664f24f7c853b54"
+			},
+			"bin/locales/ms.pak": {
+				"original": "null",
+				"patch": "bda905f552ebcfe7d14fb2bab0154afb54d8381977864a6bd0d317406ca2dc17",
+				"fixed": "14765ba433f9545a4f9c4fb8eb26401235db7d039d6889aacc450b8589ed9e35"
+			},
+			"bin/win64/locales/zh-TW.pak": {
+				"original": "null",
+				"fixed": "43a0cc54ca2b8f2a1018633c0776c954c3012c4e2e27863585d291c8dbed31f1",
+				"patch": "13ec4674dcb5ba45fb4224975c1a0d9daf77b541f6a0fdbd3560ef4f005cee1c"
+			},
+			"bin/win64/locales/zh-CN.pak": {
+				"original": "null",
+				"fixed": "ade4fecce3f58c3c9e83dcfafd9234e90d8819c24022ce11a4c0ea3eec6165e5",
+				"patch": "72542437563b14904c50adf608678c16917df97ba4441e11a5b3c7642c0ce1e4"
+			},
+			"bin/locales/hr.pak": {
+				"original": "null",
+				"fixed": "661cdeb029b3ea88c1937d596befe60dee9b99d5a18e96e3b26e81a4e6bf6aa7",
+				"patch": "25fb254e429019973e93d176822b35d441efe52650e6dfa9fd020c602c3289cb"
+			},
+			"bin/chromium/locales/lv.pak": {
+				"fixed": "null",
+				"original": "02111547ea1785c14d21c4ebeaf870584e303d3842eb314971da8bfb100cf444"
+			},
+			"bin/win64/locales/nb.pak": {
+				"patch": "94abe2f5b352707cc95f4f204292f996a3c2df7328fda96bb2dac7534918d192",
+				"original": "null",
+				"fixed": "16e1f9a0606f256c56880dccfdf41dde7df19e732cb4e2d4b9250d5b60d27bb5"
+			},
+			"bin/chromium/locales/sw.pak": {
+				"fixed": "null",
+				"original": "43237301991f9c89a0983b7170dfa11fe2d24dc1435d4017b2bfd92ee49e63e2"
+			},
+			"bin/win64/locales/th.pak": {
+				"patch": "ef25ae480d91dd38fc72bf46061090c04dfb718fab5f252c39997b67ab196f22",
+				"original": "null",
+				"fixed": "a56a73f4321587f6733e97fc6921d2cd3052d83dbe6e4893f445aa723e7c21a2"
+			},
+			"bin/locales/ro.pak": {
+				"fixed": "87dc0e6d66155e9218b50b8535083edee8ac3f002ae39550bf53b06aa074a997",
+				"original": "null",
+				"patch": "89f37d35b696254702638f0ffef6c49c948f4ff19e42449d6056f2599ba24c42"
+			},
+			"bin/vk_swiftshader_icd.json": {
+				"original": "null",
+				"fixed": "22ae981d6be3750002fa1945e33990fbf64a0cdf87bb0d932d3e3f0785040d63",
+				"patch": "fd36fe202cd7b8f2a2d844a2172481edfb6f4e3b54f2c0b42dfd18332f7dcfe6"
+			},
+			"bin/locales/en-GB.pak": {
+				"original": "null",
+				"fixed": "1e8e39c066a1fa1a941b88f5156edfbc2352b5724becaa172cd0fc636cd68aae",
+				"patch": "cc5b1fe0063abc8472040925a942efaf6106c1d20844795c612fadec79ed1854"
+			},
+			"bin/win64/locales/ko.pak": {
+				"patch": "c74d56d05a8b738502d57e8c334af98571f643b622a333ef320f395822e42660",
+				"original": "null",
+				"fixed": "7f2778a4cfba8766d19644afb023d91a025531914fed8939899d2a0c83b2b058"
+			},
+			"bin/win64/locales/ru.pak": {
+				"fixed": "c68f80b672bf51f88399e485003a1c8a597898fd4534e8a6b6f85d613381d1e5",
+				"patch": "65dd76b9b21a8c4d2deb26d07b7ed9021e4a98be169480e34a0319694db68599",
+				"original": "null"
+			},
+			"bin/locales/ml.pak": {
+				"original": "null",
+				"patch": "d50932824adb4c8dcc2a40de84abd680f9235bce074e242e2fb0fa48fdc228c6",
+				"fixed": "6db17d819e56c32712705d82592a0d07a1d56bffd6452b87576e4faa1df46314"
+			},
+			"bin/chrome_200_percent.pak": {
+				"fixed": "c57b5b40142a9ec9c5783e4a53849cf706bb90366982141878c0ce0fc7c5c7a6",
+				"patch": "7e3df33630e2b1bf40e90a7aa12b4b068cb6715a814f9a4d0d8f5e8cc3bb3fb0",
+				"original": "null"
+			},
+			"bin/win64/vulkan-1.dll": {
+				"original": "null",
+				"executable": "true",
+				"patch": "6275d6927e8d27b4fc2a6099ad017adc22b2e6a1097274f568711710914e045f",
+				"fixed": "fc0678c3ba37fac66c22cbf51ea6e37e9b1160ee373a0128e3143d2669bde55c"
+			},
+			"bin/chromium/locales/es.pak": {
+				"original": "961e15cab90f880f8437b006ee03ba01e3b17b2cb8fa5d524a3b357694e3f3b4",
+				"fixed": "null"
+			},
+			"bin/win64/locales/uk.pak": {
+				"fixed": "4e7e8de2d9b7a5fcc31fc20839516a5146d922fd3b951f9a855df323479f63d0",
+				"patch": "acd7faff12af9deb068d4aba123d25fc70a42f350a6129e230e4787184b05aee",
+				"original": "null"
+			},
+			"bin/win64/locales/es.pak": {
+				"patch": "b7586ff1e50de8b7508c2a1397abf68a2f03349a7c6ebde1cf5b4f046a6c5e2b",
+				"fixed": "e0dbe504beeb12c777f1b7c5321fd5115da927fb96a6ff09c9540d53a29198a4",
+				"original": "null"
+			},
+			"bin/win64/locales/hr.pak": {
+				"patch": "25fb254e429019973e93d176822b35d441efe52650e6dfa9fd020c602c3289cb",
+				"original": "null",
+				"fixed": "661cdeb029b3ea88c1937d596befe60dee9b99d5a18e96e3b26e81a4e6bf6aa7"
+			},
+			"garrysmod/lua/menu/mainmenu.lua": {
+				"original": "8ca1995341ec9c1dce95543af0d4f7c61398f2cc18c9f0b6944bf2c1d1231f02",
+				"patch": "f05978eefa9a5e2db841adbcd44840d78bbfa06d01a0118206546d35eca4b2a3",
+				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc"
+			},
+			"bin/locales/cs.pak": {
+				"patch": "2ed82f2e54a71856fec8082b939db6c84fc35f268de90adb57fb8381d43315e9",
+				"original": "null",
+				"fixed": "e296b5d444dcc6cbb8bc24e8bd587a128fbec38f15c51d55ca3411f16ebb3c69"
+			},
+			"garrysmod/resource/SourceScheme.res": {
+				"patch": "aabd80d318e90bdedb5edab9d0d023b00d801d22ba7f768405ae012ad25556c0",
+				"original": "064d93d90f23413186db0d3e15e3793afda25baf9b54c8a83b3a58572c7300f5",
+				"fixed": "9a7cad3125b692efd31f035c3f9766a9993b9d8a22161625323c45a3f380843e"
+			},
+			"bin/win64/vk_swiftshader_icd.json": {
+				"original": "null",
+				"fixed": "22ae981d6be3750002fa1945e33990fbf64a0cdf87bb0d932d3e3f0785040d63",
+				"patch": "fd36fe202cd7b8f2a2d844a2172481edfb6f4e3b54f2c0b42dfd18332f7dcfe6"
+			},
+			"bin/win64/chrome_100_percent.pak": {
+				"patch": "1f9b63f31b22244a7466eac3cb3bcf4f9b1dc3ff18723dfe2705b0ef72f503dd",
+				"fixed": "64d19976cb365bef33b11def4386f71e8683748481a16f6f89024908d95c519e",
+				"original": "null"
+			},
+			"bin/chromium/locales/zh-CN.pak": {
+				"original": "7c193b26721dee5c4f2f06ec9a17e1133fa353d36059044dec4150e2539aee16",
+				"fixed": "null"
+			},
+			"bin/locales/mr.pak": {
+				"original": "null",
+				"fixed": "59cfca10a34a9b4ac770519d883cf4538209b88b8dcb3eed03b183a7b87fab5a",
+				"patch": "92cb7ebe59308ee5cd193ebad1ff9ca72f75afe36e8e0f96cdaec35e03c91fe6"
+			},
+			"bin/resources.pak": {
+				"fixed": "8f267aff078ed2421423bdb6b2de4a9ff734ce15ed05b0b4c4ef6a10afbb1350",
+				"patch": "a8677549266aa7dd6b43d35a38b229c534ae61692163c9b431583efe0ad9c66f",
+				"original": "null"
+			},
+			"bin/win64/locales/mr.pak": {
+				"original": "null",
+				"fixed": "59cfca10a34a9b4ac770519d883cf4538209b88b8dcb3eed03b183a7b87fab5a",
+				"patch": "92cb7ebe59308ee5cd193ebad1ff9ca72f75afe36e8e0f96cdaec35e03c91fe6"
+			},
+			"bin/locales/lt.pak": {
+				"original": "null",
+				"fixed": "6b18b8712a1eef1f0d0432ee0bc34df94d77cea4d2480d9a2a56b6475947f0b4",
+				"patch": "df26fe012a7a480e4b8f583ad702f2b3361c1a9e29ba8b59c5a163f260a12d68"
+			},
+			"bin/chromium/locales/it.pak": {
+				"fixed": "null",
+				"original": "85c22f95c4584dde2abd818c47f45832727de3e45a54371861de88f8cfb644e5"
+			},
+			"garrysmod/resource/ClientScheme.res": {
+				"fixed": "ffdb801bb36db7d0f5cf5480dfc641394069fba7529b47c1975343459a9b1ce5",
+				"original": "2182e066406e945910498b17e3374879b353c9ce314fc2bcdcff661e5b882ee3",
+				"patch": "d199aebb84d8414448e349fb259a2319467971dc13698b9a3990176b3625feef"
+			},
+			"bin/chromium/cef.pak": {
+				"fixed": "null",
+				"original": "e9bafeebbcf8afdd9cacc53888e31c12e78bde72ffa5d7aee7a4572b2aad5c24"
 			},
 			"bin/win64/locales/ca.pak": {
 				"original": "null",
 				"patch": "8773e2801c8a86ca47f67b2a1e247ed75946a4b64853028952d94d766ee36eba",
 				"fixed": "e3d73ce68f76b5e6537c65ba9b83b123f50b8a0b06bf4607827a7c8ff8fb3f7a"
 			},
-			"bin/chromium/locales/ro.pak": {
-				"original": "aec059037477f4f4d84ecaf9e5a53508469275cb605d7df2e744d61342f43192",
-				"fixed": "null"
-			},
-			"bin/win64/locales/ro.pak": {
-				"patch": "89f37d35b696254702638f0ffef6c49c948f4ff19e42449d6056f2599ba24c42",
-				"original": "null",
-				"fixed": "87dc0e6d66155e9218b50b8535083edee8ac3f002ae39550bf53b06aa074a997"
-			},
-			"bin/win64/locales/da.pak": {
-				"fixed": "c38094d6562405a688f5510eb69ecca6db582e3d3b2a0c2fa756b33a613502a0",
-				"patch": "e12d2d96d05f1b8a2b572533a2c078442c5a0b8035e2e3dbd2706dc514da0911",
+			"bin/locales/tr.pak": {
+				"patch": "d741159a257c4d9583f2f051c2fe2afa4f4bda5e3b1faaf996d87a50679aa268",
+				"fixed": "0e3258ca449c7d71c0e374f179c49d6161dbbedfb33f46a5efa2575bb129be5b",
 				"original": "null"
 			},
-			"bin/win64/icudtl.dat": {
-				"patch": "c3c19626edb0a5c8d3dace39352c7ec0500375b141a4b4851fe2ee13b850229b",
-				"original": "8fa68d01db50d8eabf432bd1c840009a521bdae6bbc0abf3e664f24f7c853b54",
-				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32"
+			"bin/locales/ta.pak": {
+				"patch": "9d153e558551694fcca652f9d4557cf7744e0094ab14f661f8d2d9b4d2f2a7ce",
+				"original": "null",
+				"fixed": "f359afc9a8a56fb6a6a75c57991f09b721466149ac3b90f6f91ed26fb436a813"
 			},
-			"bin/vk_swiftshader.dll": {
+			"bin/chromium/devtools_resources.pak": {
+				"original": "30584597a5f8a64cd5a8e12ff5218eedb605270640ccd2c643267ea0601cae4c",
+				"fixed": "null"
+			},
+			"bin/locales/nb.pak": {
+				"patch": "94abe2f5b352707cc95f4f204292f996a3c2df7328fda96bb2dac7534918d192",
+				"original": "null",
+				"fixed": "16e1f9a0606f256c56880dccfdf41dde7df19e732cb4e2d4b9250d5b60d27bb5"
+			},
+			"bin/win64/locales/gu.pak": {
+				"patch": "d0b887bee560e6ccec714002cf5ee9e0ac59f9783498eb100d2fbc2cca1081d1",
+				"original": "null",
+				"fixed": "bddf7d6b79c07d5dd8ba2693f5d1bc4e53faf3e709eaffad8e79334c9f95f884"
+			},
+			"bin/win64/locales/sv.pak": {
+				"fixed": "653838ef90a5411f31e0bb021d9c2c181cd7e37917c0d6bb565bc4046c10f6c1",
+				"original": "null",
+				"patch": "435a401e1bef882d6d3b62de87a85bfa4faf0a93a5c4db931d7009ddc906feec"
+			},
+			"bin/win64/dxil.dll": {
+				"original": "null",
 				"executable": "true",
-				"original": "null",
-				"patch": "fca84855b47e2e12bc6ab2da659527370c97a8f608eca34554b773a21b576005",
-				"fixed": "c8fbdcac42ae95502063a984b3cf3cea6ee827e7d40558d1b73f504bdaab20b4"
+				"fixed": "6cb17c3ba136da75ee31e5852ee7635c41875e3d3ccb78a079d08ce132f4e960",
+				"patch": "9bbd504520b52c696c7e4db374a45f486e59a28314877757087c29221b0d11d8"
 			},
-			"bin/win64/locales/af.pak": {
-				"fixed": "2f83076cb94add44c4f11976df4cf9037d4dd3641d5bab7ac1e67cdcb9d9d263",
-				"patch": "c3e591de32cfd237c309baf19867a94e12bd614ada037244359737318576ad1f",
+			"bin/win64/locales/lv.pak": {
+				"patch": "a66bdd6157abd0740b3f84d4e32316eeaa649ffad736029e0ed8ad502e00be35",
+				"original": "null",
+				"fixed": "40e02edba8098670d0864d527db667ecb12f6acc1a13a3877d75588cfbbd96eb"
+			},
+			"bin/win64/locales/fi.pak": {
+				"fixed": "4ccd84deab0d0a0be5988d3ecb8eaf08de338c63f8b85be1c283142f178b9810",
+				"patch": "2c48b6152d26d8b4e3de5426cd294c30bc69ba5044d65c2d1746fa9d364518eb",
 				"original": "null"
 			},
-			"bin/locales/pt-PT.pak": {
-				"original": "null",
-				"fixed": "af76254ec54fb1b7ebffdd6bd8572b4649cb2c281ce5a489e78db1afb971736b",
-				"patch": "61746a70587e4acccf656a0948601de67f7810fa7146975500af345ed59fad4c"
-			},
-			"bin/locales/ur.pak": {
-				"patch": "d6f6b14cb65701e55be505317f127aa913cc25dbbec76d0009ff9a3b91e2a0f9",
-				"original": "null",
-				"fixed": "457d63ac299922ae5bf18fb010e4a40420da529d33fa3f214a4d40cc1cfe96de"
-			},
-			"bin/win64/locales/ko.pak": {
-				"fixed": "7f2778a4cfba8766d19644afb023d91a025531914fed8939899d2a0c83b2b058",
-				"original": "null",
-				"patch": "c74d56d05a8b738502d57e8c334af98571f643b622a333ef320f395822e42660"
-			},
-			"bin/chromium/locales/fa.pak": {
-				"original": "cbba6609d39703b0e026b6247ea83aeccdf3bcd917d1ce318992d97f303bfa73",
+			"bin/chromium/locales/sr.pak": {
+				"original": "9d699666254042a0592e7c8479204602053277dc126df4608aae678e4967f500",
 				"fixed": "null"
 			},
-			"bin/chromium/locales/ta.pak": {
-				"original": "cb3ef9e781dc791ff8c0bcca455fe8654dccfd850c4907816bcf4f10bcdf1a01",
+			"bin/chromium/locales/hi.pak": {
+				"fixed": "null",
+				"original": "c812e2629c5aafb9ec5a088d2d96f2d9c616674a25772f6b695ec346e5852c27"
+			},
+			"bin/locales/te.pak": {
+				"original": "null",
+				"fixed": "374a91b3ae0cf84a5de141db02b25f5cda9301a1cda47d5a73fe8aefedfe6638",
+				"patch": "4992441ca1ceb99aaf7160223cb0aa07e091d2141cb97ee33da22c44df54862f"
+			},
+			"bin/chromium/locales/en-GB.pak": {
+				"fixed": "null",
+				"original": "f02e75ac900fa01151b4bd01287ec4b6253718587bf895608fa8f7c0be6c7079"
+			},
+			"bin/chromium/locales/hu.pak": {
+				"original": "6214d52e7a20c03afc9afbead84457d7963071d25b5f3c9965404c94cb69582d",
 				"fixed": "null"
+			},
+			"bin/gmod.exe": {
+				"executable": "true",
+				"patch": "6827b1b17cf7e4d97bfd4c2c874815c86735d2a1ff9bd8d30b2b512fc701482d",
+				"original": "f7371ba64ce8a74c4746df094c4c65ef8973f1e7740556ee490ab8827c66fc74",
+				"fixed": "bc40de5237b9a109db336d04bc78d45152ab4128ebfd2b50a1d12e585fd1adac"
+			},
+			"bin/locales/zh-TW.pak": {
+				"original": "null",
+				"patch": "13ec4674dcb5ba45fb4224975c1a0d9daf77b541f6a0fdbd3560ef4f005cee1c",
+				"fixed": "43a0cc54ca2b8f2a1018633c0776c954c3012c4e2e27863585d291c8dbed31f1"
+			},
+			"bin/chromium/cef_200_percent.pak": {
+				"fixed": "null",
+				"original": "c29c700de63ae3b4a1724bed764fa9d30a787945b8e946768e5438052cd53983"
+			},
+			"bin/locales/sl.pak": {
+				"patch": "3a1c8643da22567011424e2a1414c30a43fd88b5446cd547f18bdeef4004aa43",
+				"original": "null",
+				"fixed": "e3edbbf6221389523dfe4f9778aa20d7f0f12897d367cf4ce8725bd781290b73"
+			},
+			"bin/chromium/locales/zh-TW.pak": {
+				"fixed": "null",
+				"original": "9d98634a22bc8cc1730d4ffbc0819e1a96b13cd9b69131a290741733de331dca"
+			},
+			"bin/win64/locales/sw.pak": {
+				"original": "null",
+				"patch": "ec4f92550e31b4c8cffd670c95d264cebe0c45906302c47fe6629f3371ac3b4f",
+				"fixed": "813d509fbb323dc1ad8ed44651e72fdecc638e0c355064e37819025bc683eaf4"
+			},
+			"bin/chromium/locales/es-419.pak": {
+				"fixed": "null",
+				"original": "a4499abc4cca95434ae45a246577ddcad50dca29959dbdd598d7771c1724c5b7"
+			},
+			"bin/win64/locales/pt-BR.pak": {
+				"fixed": "30e0d50c7fba88d66c02915bce6bf5028cb4f2a969f2e7c023d198c0242ab58f",
+				"original": "null",
+				"patch": "1aceb748b4c0f330b0d53b18e7b4e59e9b8479873693db31ffdd8e29c40ce1b1"
+			},
+			"bin/locales/uk.pak": {
+				"fixed": "4e7e8de2d9b7a5fcc31fc20839516a5146d922fd3b951f9a855df323479f63d0",
+				"patch": "acd7faff12af9deb068d4aba123d25fc70a42f350a6129e230e4787184b05aee",
+				"original": "null"
+			},
+			"bin/snapshot_blob.bin": {
+				"fixed": "null",
+				"original": "cf28e5d937b4c9f28007139a66600ddefc34af18663cba91b9fcd3177a77a475"
 			},
 			"bin/chromium/locales/ar.pak": {
 				"original": "6d7d013e2710ce40615a0d45b3899b5687e839f748f60611d16e245276b96752",
 				"fixed": "null"
 			},
-			"bin/win64/locales/th.pak": {
-				"fixed": "a56a73f4321587f6733e97fc6921d2cd3052d83dbe6e4893f445aa723e7c21a2",
+			"bin/chromium/locales/lt.pak": {
+				"fixed": "null",
+				"original": "706af29efc6785a180d49beab576476a8dbc7e4da7abb28639c8af46ee4dea36"
+			},
+			"bin/locales/th.pak": {
 				"patch": "ef25ae480d91dd38fc72bf46061090c04dfb718fab5f252c39997b67ab196f22",
+				"original": "null",
+				"fixed": "a56a73f4321587f6733e97fc6921d2cd3052d83dbe6e4893f445aa723e7c21a2"
+			},
+			"bin/chromium/locales/vi.pak": {
+				"fixed": "null",
+				"original": "22c52ccb493a6ee792086ed74bc256231920ec079ea05590e7d9f3c998439dec"
+			},
+			"bin/locales/gu.pak": {
+				"original": "null",
+				"patch": "d0b887bee560e6ccec714002cf5ee9e0ac59f9783498eb100d2fbc2cca1081d1",
+				"fixed": "bddf7d6b79c07d5dd8ba2693f5d1bc4e53faf3e709eaffad8e79334c9f95f884"
+			},
+			"bin/d3dcompiler_47.dll": {
+				"original": "c045ee1b3e81415c826105c5dbce10112bcf525975af3af65efb408eb9c5f29b",
+				"fixed": "0013a92669a9201709c1ef3a2b7f1ca6152aa81f3174949d6de0d24843280cec",
+				"patch": "3a66fc8f29e0363a1f008c4003077ea60fc1bf6e740a2829c1b7a705e64d5f6e",
+				"executable": "true"
+			},
+			"bin/chromium/locales/sl.pak": {
+				"fixed": "null",
+				"original": "02fb0b9d0e8f8904a336d8b294b031598e2a96d444ba136d4efc99834787b527"
+			},
+			"bin/chromium/cef_100_percent.pak": {
+				"original": "26dc3858deb2cc067aa1aaac72ab984772b5ab35b9d9d37f3b11f618fd638581",
+				"fixed": "null"
+			},
+			"bin/chromium/locales/en-US.pak": {
+				"fixed": "null",
+				"original": "92de785eb64970f9bb288af21b21d73dc1b552953533a6294344cde453f1f5ce"
+			},
+			"bin/chromium/locales/de.pak": {
+				"original": "fbc8db00e191730a4f01c68fc6cfc79843feaeb6c12a51b0c44aa1fb50e6500e",
+				"fixed": "null"
+			},
+			"bin/chromium/locales/et.pak": {
+				"original": "bd3ccf7e24308075c2e12f419638a376befa71382a4600bceb92e5d8cb29caf7",
+				"fixed": "null"
+			},
+			"bin/locales/bg.pak": {
+				"original": "null",
+				"fixed": "fd490cbae16ce825c0d3a4aa39dddf272dd008af2151fda9b24786ffd9ca0426",
+				"patch": "10dc4a74ce6851e116f761bd8318ba9bc5f9af47194d54fbe56574d6688a3727"
+			},
+			"bin/win64/locales/it.pak": {
+				"patch": "c4e774e183f2cee0ecdbd2b8920d1e0f05f47b001bc4960764bb1cf36039151d",
+				"fixed": "4c6c3534f074fa776a39ca0f9806f114fcd45d744969d48be22da606f6c3b32d",
 				"original": "null"
 			},
-			"bin/locales/lt.pak": {
-				"patch": "df26fe012a7a480e4b8f583ad702f2b3361c1a9e29ba8b59c5a163f260a12d68",
+			"bin/win64/resources.pak": {
+				"fixed": "5acea10919c3edb81318b683cdf257273670d1a2c0473dd62852af940add0fec",
+				"patch": "b56a2adf7aa0d2d479a1659ae0a72cc7a2484a7e969cff5d4cb40f1a077d72f2",
+				"original": "null"
+			},
+			"bin/win64/locales/ar.pak": {
+				"patch": "bf666eb3a7772d21234e01161580a549ef2ef7a890446db0975ba006a3b85734",
 				"original": "null",
-				"fixed": "6b18b8712a1eef1f0d0432ee0bc34df94d77cea4d2480d9a2a56b6475947f0b4"
+				"fixed": "f163b5dac0c44417dc37db7772f165a4b326d0f4aafaf600a2d5cd1925cc0853"
+			},
+			"bin/win64/locales/en-US.pak": {
+				"original": "null",
+				"fixed": "612d09268ee1681485ca76075dbf96765e0fa7c0befdf969a3ce7f8324a7381e",
+				"patch": "ce41c27f5f3a83ea2095c43e6ca4f09dc3c950c80318c430fe382a7fbea4984e"
+			},
+			"bin/win64/locales/kn.pak": {
+				"original": "null",
+				"fixed": "1941dd491143b3b5800ca06d9c15538640e3351aa9211f00ba67c5ec08f5c6e6",
+				"patch": "091a446b3ad23d17005cdabf5ab99d4b230642d6cafe55018bfc1fa325eab149"
+			},
+			"bin/win64/locales/ur.pak": {
+				"fixed": "457d63ac299922ae5bf18fb010e4a40420da529d33fa3f214a4d40cc1cfe96de",
+				"original": "null",
+				"patch": "d6f6b14cb65701e55be505317f127aa913cc25dbbec76d0009ff9a3b91e2a0f9"
+			},
+			"bin/win64/libcef.dll": {
+				"executable": "true",
+				"fixed": "8bd82153d6ed1bf7f4acaced0181183800e38883c3e5e0793ffd348c57e8de84",
+				"patch": "10e99f30f146ba593813c5289a14aa5f8a7121c64a82af9ec4d00f8992a68da5",
+				"original": "721e8094b1d78198c3498d8bc477c9c1f73712c214ae0e9cd57c1508495937cb"
+			},
+			"bin/locales/sw.pak": {
+				"patch": "ec4f92550e31b4c8cffd670c95d264cebe0c45906302c47fe6629f3371ac3b4f",
+				"fixed": "813d509fbb323dc1ad8ed44651e72fdecc638e0c355064e37819025bc683eaf4",
+				"original": "null"
+			},
+			"bin/chromium/locales/ro.pak": {
+				"fixed": "null",
+				"original": "aec059037477f4f4d84ecaf9e5a53508469275cb605d7df2e744d61342f43192"
+			},
+			"bin/chromium/locales/am.pak": {
+				"original": "b098234aa80df9266796ab15d52b2b6f9094346bd1fcf3b5e5a2b9070f35eec3",
+				"fixed": "null"
+			},
+			"bin/win64/locales/id.pak": {
+				"fixed": "f663a3cc1492b50cc7c39960f09b4d0d40cbe268fc9a460f37f134250f05ae41",
+				"patch": "9fe88207f02615ffaefa575a7ebae869a15b92e8bd14ec25148c9aea337fe3c3",
+				"original": "null"
+			},
+			"bin/locales/fr.pak": {
+				"patch": "f42028031640e3ae0e06677467aa2b4999bded465b2e3bf88ec2ae5c3f9fb144",
+				"fixed": "e5bb0376e9cf3f947043ba7372ba5ac529530e0234fdfb4f65fa229b8a59fc41",
+				"original": "null"
+			},
+			"bin/chromium/locales/gu.pak": {
+				"original": "1a59b7261ad01274e3086107dad26ab99950a03830bc3319b186d299d731e2d7",
+				"fixed": "null"
+			},
+			"bin/win64/locales/fa.pak": {
+				"patch": "3b8057c47a91f42deec36b8006ae59968f678a9ba7578402d62082c58c3d3870",
+				"original": "null",
+				"fixed": "f3b9a46373d6b0251df11d2cae4a73cbbac6ecadd3aecef2e90e6bed154306e5"
+			},
+			"bin/locales/he.pak": {
+				"patch": "f17b79e3e5c72dcb21e8cd39e0b62183143419ef7cf88ff9556109cd0863ee52",
+				"original": "null",
+				"fixed": "945367203472723a213c47ca964eccf434640518c8c775d7c71bf3c3b8fc0cf7"
+			},
+			"bin/chromium/locales/da.pak": {
+				"original": "f5f73fcbd770db1d1a5350f281e0a6f28d7b071618665782402b348a1f68150c",
+				"fixed": "null"
+			},
+			"bin/win64/locales/ro.pak": {
+				"original": "null",
+				"fixed": "87dc0e6d66155e9218b50b8535083edee8ac3f002ae39550bf53b06aa074a997",
+				"patch": "89f37d35b696254702638f0ffef6c49c948f4ff19e42449d6056f2599ba24c42"
+			},
+			"bin/win64/locales/ta.pak": {
+				"fixed": "f359afc9a8a56fb6a6a75c57991f09b721466149ac3b90f6f91ed26fb436a813",
+				"patch": "9d153e558551694fcca652f9d4557cf7744e0094ab14f661f8d2d9b4d2f2a7ce",
+				"original": "null"
+			},
+			"bin/locales/sv.pak": {
+				"patch": "435a401e1bef882d6d3b62de87a85bfa4faf0a93a5c4db931d7009ddc906feec",
+				"original": "null",
+				"fixed": "653838ef90a5411f31e0bb021d9c2c181cd7e37917c0d6bb565bc4046c10f6c1"
+			},
+			"bin/locales/pl.pak": {
+				"fixed": "d6bc7c0be98058387f07bc7d2af62b850c0b51e8aeb71e75be93d7f9cb854a06",
+				"patch": "8704ea99e764ea6b82be550f06da1298a33a8c71be8a8d9a46a47154d124f562",
+				"original": "null"
+			},
+			"bin/locales/nl.pak": {
+				"fixed": "b10a234c7bff023d240f23883094f673845be6324141bb6cf6ae55beeac56614",
+				"patch": "4890306ca7070b052db5e74473a1099a2bb3208fc563725e682985934ee82685",
+				"original": "null"
+			},
+			"bin/win64/locales/sl.pak": {
+				"patch": "3a1c8643da22567011424e2a1414c30a43fd88b5446cd547f18bdeef4004aa43",
+				"original": "null",
+				"fixed": "e3edbbf6221389523dfe4f9778aa20d7f0f12897d367cf4ce8725bd781290b73"
+			},
+			"bin/win64/locales/de.pak": {
+				"patch": "3c8d379e8b77a9ded2d87bac6fcf6f5a648bc9d32d74bba4e375e5add2dea779",
+				"original": "null",
+				"fixed": "2d43e1708cac814f2367e64afa4bdc6bdf5753831aef5c81fd47e3474fc41bcf"
+			},
+			"bin/chromium/locales/el.pak": {
+				"original": "91b1f44706c44ae448fce5210b9f7deb9abada1a07f7f1e7efeba6b3e7433d60",
+				"fixed": "null"
+			},
+			"bin/chromium/locales/he.pak": {
+				"original": "b39c1e55d15cbc4aa0c5a52fbb886807e68c1cb89952ead0656ae2fb185fbcb2",
+				"fixed": "null"
+			}
+		}
+	},
+	"macos": {
+		"x86-64": {
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/hi.lproj/locale.pak": {
+				"fixed": "8711e1192a55daa516013de57575b17ca87963fc7dbf9a7c48c0b5db6ecbf869",
+				"patch": "4c1d7dcda4e665cc74291d72d7d5873c7519b2e074384c940ac527c9983e7d45",
+				"original": "b0ad4a681e23df7757cbfd9ab3bf5a626110b78e803974700d7092946e425ac0"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/he.lproj/locale.pak": {
+				"original": "fedc06ce0c38c335ed2fafc4c2c16595b5d501d905b5c9baf7bd77592a54376d",
+				"fixed": "2048dac166499ad4b993a3e7e6dacea879729496c6133f84730bfc50480e142b",
+				"patch": "8883279c1598c00398e2fe3a91345a29eb4c75572f86912dc576bc7b7ec9a01b"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/gu.lproj/locale.pak": {
+				"patch": "85f1f3eb5eb793136ba7fa7bce58c4b939fe542d5ad1d9eb91961bdff70dcf60",
+				"original": "5f6aa2916923ea63c45984d14105156a9b14b101111c0f1dad51102f9e9e2451",
+				"fixed": "eaac651a186f3e53547d1175d510d49a4d610692bed8e990b0258b4cb44db7f4"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/zh_TW.lproj/locale.pak": {
+				"original": "76f81c517425bb4aa6dc80c685fef85c1512ecab9f7f1287e36b7677e24b8ed6",
+				"patch": "49ba5e2f7daca92ee2738f0f4111a51633266873912c97902f8fe2c550c55b7d",
+				"fixed": "6c29a654fe2e4600abfaa60cb486a710ead461f13885a41006d2c64fe9046798"
+			},
+			"garrysmod/resource/fonts/PTMono-OFL.txt": {
+				"original": "null",
+				"patch": "e0524093974c411b13c2e7a3e5af702a68634892bc18e3ca1475d102cbe2f240",
+				"fixed": "9c59f7a8b0e0c5ec1e1af3e457e35cd4432fe405538847046a096c999f94aba5"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/resources.pak": {
+				"fixed": "0e832fb34cce21bca2c1aaa95d152b5b569bd38b66bd8a9675fcfedbe9911c97",
+				"original": "null",
+				"patch": "fa58f958cc545ffe99bb359e3baeea5bbf713f5f5ebd88a744c1c443d842d498"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/gpu_shader_cache.bin": {
+				"fixed": "15c1d14930913320d2e7fe242c5c034f557bafff2f54ec8f21151d13a306a09d",
+				"original": "null",
+				"patch": "42219cc6f45ceebe1b2ec20f4b7f2c30bed51f6ba767da79cad71632e12b8764"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ms.lproj/locale.pak": {
+				"original": "921a5dbc838809d2ef435b543cd3cd7c1c2b314edd6d00f3e53a04201f761536",
+				"patch": "37d3862301d8853e5a0d2d74fe87aa65debaf300dcd337e3c79de63d072f66eb",
+				"fixed": "2e5b13eb7c703443263888a2a0290e936975efd6b9224b88c68c0440fe2fb1b3"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sk.lproj/locale.pak": {
+				"original": "41f36b8e0b3aeb58e78299dd859a70d20345fb871f91a64ee1fc00c211a183f6",
+				"fixed": "521dad6afa22e9c59aef78d0b5ff50b9fff64d7af6b22f833e2c43aaccdaf117",
+				"patch": "758c712deb0c75f7a19ec492af9e6c295438d11887c66dd6ff0360fb0bc1ee83"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/pt_PT.lproj/locale.pak": {
+				"fixed": "9296dd6cb3c97b8b3f0c731bc0fba60e2eb89eda39067b72709e821174d4d8df",
+				"patch": "964d7668892cb0abbd0c3225ecd99bc2d563d539ff60ea856f0ade2e6538af75",
+				"original": "a64658a4acad7ef2c503d83432d61f50ad3f99bf98f7f224669e416202cf0d0a"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/chrome_100_percent.pak": {
+				"fixed": "405488b4602376f9b9a4fb180bc23f67137bd7ddf3b4f1cac0ed67b37166e6cd",
+				"patch": "2959ee0ac2c6fa6ffa4dd65909f021a116aaf998934518dc0a4548f6cf4aa660",
+				"original": "null"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.bin": {
+				"fixed": "null",
+				"original": "49909b1c16491cabdd1462d6314c2cb2d24bf73061024a81747fbb7ea1c6329e"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/hr.lproj/locale.pak": {
+				"patch": "8010782a514373e25f2c7fc84a5b3cd68ddbea375c737670570a092781960512",
+				"fixed": "38a4e9257a9d43358dbae53d14fab9a4a6f8421ed6e96f4b67b9857d4eb0485b",
+				"original": "734dccee77c757c6c7c03f73ac24c7c4fb6b050d85d61142d7de8a628f5a4699"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/zh_CN.lproj/locale.pak": {
+				"original": "3d93b2cf3dfea538f559e6734ee2c5a013b44e0ab0a57b3e62267bb5a72ab7ac",
+				"fixed": "fd8d617b56459230c131b1374b54740c28b857f09b4f674a57a3cbc8c1218996",
+				"patch": "5a95d76c19153cecd52cc5cfe90d35d617ebf78e9a629e7fe4e4dab27fc505df"
+			},
+			"GarrysMod_Signed.app/Contents/MacOS/html_chromium.dylib": {
+				"patch": "ad5fe1a56b6f20919d64c9da29cadd64699ff81c8f16ad5570a8cab998537a3f",
+				"original": "0c06135621a157b6f7c3ea1dd535e00c02743548c4ef6c928030c3cf3e65ddfa",
+				"fixed": "eeec02cbb5054ee2b0284c96e26537d9f7dbf9dff8976b21983e0fdc2e78fe96",
+				"executable": "true"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/id.lproj/locale.pak": {
+				"fixed": "01deed1e076843b516ecbd282d755db7dc09586ac65f22612e5a7099ce7c77a4",
+				"patch": "e9ccfd065e659731979f878e7fd0e517347bfec260b06c3a1a5d6475a598b2d5",
+				"original": "2c2f21076472a04ca6468e75d56ba3b5bca40cc05a8474aed0157158d263d234"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/Info.plist": {
+				"fixed": "d4e422b85558db3e6c7ca3a0f0a40d4b20acd438146a531953d867795c7e7073",
+				"original": "45e8ae1f4e4eec1677c8d8fedb8472aef605fa5fcd63a3b86bc7ead334efeb4a",
+				"patch": "ff354bd84878fd7b22f10bd0b69200d2e6dd5341485b5ea8d9b830c665f006a8"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fi.lproj/locale.pak": {
+				"patch": "0b3ea6ad9667c346b5eca4b5a4098b676b51952b8e9212ed6d1532d5b72111e9",
+				"original": "454e1d0a65d07370438a86b0e1ef1bce03131fc91b953c7267b5fab5e8cbf8b6",
+				"fixed": "e3aa89b3ffa10d566a994c7ddffba17a46372fceef1c6ec78276e7dc7eefd501"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fil.lproj/locale.pak": {
+				"original": "b5d2965c755805984d09f4a23feb655a5a9a86e11d9a24d28a8879753aca0d46",
+				"fixed": "e26eb2cf972bd38943d388129f278d67e4cb9db429a97cfcf6f09dc9b07f659e",
+				"patch": "c98f9f300d4018b124e1e73d0585b9f86116067c3bdd23705be3c3b000774d94"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_200_percent.pak": {
+				"original": "638c64c83bf2974f332da37bf32d853d6eea61c907bb041016bf18bc2ee74236",
+				"fixed": "null"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/vi.lproj/locale.pak": {
+				"fixed": "0b9e15f29f0399cbbc15bc04496c638178598a68b01d34836bb0bd54d994ba89",
+				"original": "e500d409131aaf8754312ed55b6c8d8f1f80143c03117ca6466f30e54b7da29f",
+				"patch": "8c7a6be72ccc36d342f17e2f3148cc905d233c67eaa9d78c4690130afe3d4d74"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/chrome_200_percent.pak": {
+				"original": "null",
+				"patch": "70e251528a5c0773f798994435d4a324e8b7ab383a1b8903f4071b848f07cdb5",
+				"fixed": "99af73a9e4817c42e858493495235b9907d0f437b866f1da34cd22a730f80e86"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef.pak": {
+				"fixed": "null",
+				"original": "b58022d999a4a7c22a014b4f1e9a00337b7afa4dbca0a8b6339a18ee2221df1c"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/nl.lproj/locale.pak": {
+				"original": "ba401c42ea618c5892a99a07ad654a44a92341e699b0af0b4615c8d78afc9d73",
+				"fixed": "1ebc73ff32e28810d085bc67a498ef32dbf5b41db270a97573bdac5c372bccff",
+				"patch": "c085e87c8944162643f4698cf27f9c92157ba12e86a72058d0a90cbbbe163133"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/icudtl.dat": {
+				"original": "d7870d19f6cc2e72cef043cf74dc300907930cc89dc28960ce9490084e6081f0",
+				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32",
+				"patch": "65b50315e32b94b109208c9f13d92327dc4861623bc7e1c21b3f32a312f577f3"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/lv.lproj/locale.pak": {
+				"patch": "9b0bf41324b838e1ff5ebe8cba41e746d765de7be3b21fe40e949c7d1c06d27c",
+				"original": "9b7d7e8a6c4b1dffd4111bf400d3a45d38ed8b217a64976789d1821fb0d51578",
+				"fixed": "c8827d116bef4939eebcb6f2ea6e1b588a00703e5933350b5b6790653368281f"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fr.lproj/locale.pak": {
+				"original": "ec18563ac5aeb27b05d0999079f666f836883eb2202f52b046d1387669704957",
+				"fixed": "d04945de2a997eb0b74ed6e8aebb6ee37087a2b6e676c1d56cb7b48e38b08cb8",
+				"patch": "ff9face02a77c8c9260c061575f88d12c1ebaa4d83c069f4a95d35d0f0aa2bd4"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework": {
+				"fixed": "87ffc6e15073fcd2bbeab4aa1d8894e32f306865c457bdf1640893a64448f265",
+				"executable": "true",
+				"patch": "11ce9de48c93cb4d26f901584f58e9e80df923b8fe5a41b142e625dd5c7e5f0b",
+				"original": "0a7c22bac513f903bfe71ce2638c316f78b8285a36465cfc1c50bf0a76147a15"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/hu.lproj/locale.pak": {
+				"patch": "32ba6ee48639df5cfbd51a9b399e7e247c79dd934c840a21b8ab370718aab3eb",
+				"original": "93e8c48611440c370ab761c320f97c82e12971fc15b7699efce36b79a016f5b4",
+				"fixed": "aa8e9068349255b39a5e0c9aa0270ad0f7a4e5803f74feb92934bc08b75e23ac"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/uk.lproj/locale.pak": {
+				"original": "1e4b402f9b5630badd2851f587481906054cd985e7e65c71b26ebc6b80389752",
+				"fixed": "83fbbbcab078ae8a4de5233fbdd37db8f8686913e4f70423df0bb1e7e3db0707",
+				"patch": "0bebcb02aac85c9eff8be8c1e0a819a14d3be5abf34f4f78a68e8e6827d14b8f"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/it.lproj/locale.pak": {
+				"fixed": "aaf6e743c7899766cfb9de8ec9db78e6596d06eddb54307da40becd47c757b14",
+				"patch": "f1cf833506a48df11db310fbf487f12db85342c564938f4baec7c2299ad1d965",
+				"original": "6442e5aa008cc39d39710dc239b831c77250629d977306afa3a622bd73046d85"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libGLESv2.dylib": {
+				"patch": "0363921d715730edc56af743ff8e63770e9a11e8ce63b5c793d9cd7d08ab6e02",
+				"executable": "true",
+				"original": "bfd956e434084b7d2473e1110f6e901f1dce3cc5ebf89c40f29d6992349fc6a0",
+				"fixed": "12d97adb9f739b0e77b19157a0ff29ca1e1435df567f05d19174430aa851289e"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/th.lproj/locale.pak": {
+				"patch": "74b24ace72088d80582575ad3b71421b2a5af8dc26c6b2c350e45ec4c28c0ef5",
+				"fixed": "ffacaaa4caf03f785fc076d97049ebcb2a9183f6e525eb0a673e36e4dc59577f",
+				"original": "b7691e170f0e0b02f7b93f367c53a998903e214ef9f421400830874a8868c54b"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/bn.lproj/locale.pak": {
+				"patch": "f79874a1847eac7e7bc9e7e0a7677038ae010858efd11f67d17f231afd569593",
+				"fixed": "c145de0a56110e28432e3a8457e7e68af39f8fa4425dfcacdddbff841ddc9112",
+				"original": "1083bd1d76065501e68ca58bc48f55516dc52749981dee91f7ab89f801b532a0"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/bg.lproj/locale.pak": {
+				"fixed": "aea7a6130c2e50333fc202ce25aa8e90456d99ededeeb5727a85232381b22949",
+				"original": "840b1d184a8c233d12e826e0afdbe7bbfc505ee6334b352fa413b233e9ae0673",
+				"patch": "07f5e5f7afbf1f11158de4edf4a3555fd49885a71c8c20c1d793ea6d465489a6"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/el.lproj/locale.pak": {
+				"fixed": "660d32d0d3e58f5c1a887038643febdc5ec6bb4a4d3a4993280ca34e201e9683",
+				"patch": "7980c626b8613ee60ebee9e1c58798bf06ac7214d007d1a4335a641769c82ba5",
+				"original": "489e9b5b40086288bf85c55715b16c6b1b1e07f0d240d75fe8fb3d77839c94d9"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/lt.lproj/locale.pak": {
+				"patch": "a0e96b2fc108ecfe394afd97ddb07c79b66f1c030ace6ffa0ab9029c8258ed5b",
+				"original": "d8519df1eaf6939d5cff163f761e8cadc221802907ceb21669739171c460d550",
+				"fixed": "c73f8bdfccc1439b595b2fb4016b296a1cac4437665b01926842d129e14dfbbb"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/Info.plist": {
+				"patch": "8727b581929466b360482c5814eaf785484925c9744657bb399bc6da11a628f4",
+				"original": "cf19eef41afbaa6215f68e5ed2e4537ab23dbb97ef44940c2a879098d66b3436",
+				"fixed": "d0885aed53aee1dea8a40db0cfd36dd1a0de444aa74c9c9c68d7eca23f3526af"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/MacOS/gmod Helper (Alerts)": {
+				"executable": "true",
+				"fixed": "fdbaced379e64cf50b1d4784137d3c50efcfdb61a2efb3fd4ef5d06fad768d9a",
+				"original": "null",
+				"patch": "b5fb9d89717966569d019e0d70cb397528e3d0f2bc505266698ed1561aa4e1ed"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libEGL.dylib": {
+				"executable": "true",
+				"patch": "a1b0543b509456ae3fa084e039e8768e5810626089bf4f7c1ef67974d77e7d79",
+				"fixed": "d8d6c82746edec14832c53439429609637a8f4678df4164c7d691d61c4bc9b50",
+				"original": "5a31bab87faff160fe5ab14718aa3c77fab4c22b6505e004ab061d3f36d58612"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libEGL.dylib": {
+				"fixed": "null",
+				"original": "3ae2d909d2b1a09a828e6c011a41f15db01afda652cf5b97c76862cc95dcb0df"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ta.lproj/locale.pak": {
+				"patch": "ffd557ba99743ab559669c42a252646fbb2348bc212c79f43cb7775ec0861fd6",
+				"original": "935e27eb9a8308c015e01aca95ec6e241c613b23cf7113075a886385905b923e",
+				"fixed": "ba29940fd07f9dcbb200bfcc10a2ae9884db32c3228eb09f7d05050c6e2892ca"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/et.lproj/locale.pak": {
+				"original": "1da6f8d63cd8551130a90e47c5c229d4224775a87e92d80f1701ee6948286298",
+				"fixed": "d86037933b70559c2b09fea0b5a3296e2ce1904e1ee22be2e7eb3bfc9ec72aa3",
+				"patch": "e68763947693ba20722f9a472cc845bcfcbd84e22f2b2f02080a3ca2be225153"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ca.lproj/locale.pak": {
+				"patch": "e737b8552450bbbbd01f89dc2669542dd494e64c52920d5370ab1083bf72d4f6",
+				"original": "0d6e1205b876f0ef717a776ca63be99c38a24cfc7801f19e684bae811cb1cdfc",
+				"fixed": "0055385a5abf95d2f3b0548a0000008e0db338c3d05db390e0970daf56e68396"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/Info.plist": {
+				"fixed": "d27d110f3e64d0d8013f50e54cfc3adf1d7554476a0858a07036ac5355e7223e",
+				"patch": "a662a9396ae5017143a26127a164f16ffb702f8139a9d852858166a90b7c312b",
+				"original": "69b863b1a3b1f82ebe5887d986e57c487af71d1c5216ec875d6004ade2970f7f"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/da.lproj/locale.pak": {
+				"original": "e205a530594fc3ec2c96c5ba62e0bb687e2c13aa475e9dd64e3dbc2dd6d0a19e",
+				"fixed": "be1be11b148869026f7cc2bb4dcbd3d605461639cb31d429e72303243a343438",
+				"patch": "95f4e5653a4f524b1102c20906f56c3474f3c72ef1893a87cce7a7efb963385d"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/fa.lproj/locale.pak": {
+				"patch": "a12c6f59c2b2f46e1209f510c7390644fd3bd5bb899fb1d650a5a223023f0de9",
+				"fixed": "ae1164619f07f30e212d6d26ab3cb2944f14cba17e558894b2c56763f1e2c1ab",
+				"original": "0581884a74ef543b0afe1f5570bdbb8dab0e610838ecccbd136116648d392fbe"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/MacOS/gmod Helper (GPU)": {
+				"patch": "c70d4b48f38f75a76cee2487bc0b6611c45bc9f86b54099765287ea27324765a",
+				"original": "cdbe7454e8f76e4ace935e49b988dd847ee65b580503d25a41beeb8739d744aa",
+				"fixed": "1525437a3a11f85c9ca5aa5307b23abfa03876eb535c3e4264ff66c5d55739f9",
+				"executable": "true"
+			},
+			"garrysmod/resource/SourceScheme.res": {
+				"original": "064d93d90f23413186db0d3e15e3793afda25baf9b54c8a83b3a58572c7300f5",
+				"patch": "aabd80d318e90bdedb5edab9d0d023b00d801d22ba7f768405ae012ad25556c0",
+				"fixed": "9a7cad3125b692efd31f035c3f9766a9993b9d8a22161625323c45a3f380843e"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libswiftshader_libGLESv2.dylib": {
+				"fixed": "null",
+				"original": "8b0c4ab09a3a53cf635aaf225d0c08019338f35e601bed2684caaba8575c9e39"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/af.lproj/locale.pak": {
+				"fixed": "c772d9f4342d5aee462edfa2c2efaef839c793220bd8e3b01283dc0a0a947271",
+				"patch": "5d3fb93a66b0302780576ccf4d561db8a5efa177a5867d5c0bcefaefa3261375",
+				"original": "null"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/pt_BR.lproj/locale.pak": {
+				"patch": "9716c57aa75954772c651acdcde7128322cb1842d785982060b7dec1e865b9f7",
+				"original": "b0aacaa92a1c40e9208e02118d6a586201a13d3ca9ed0ac3532ab56dfe00bfb2",
+				"fixed": "01848eb84142628afa2d1c82056442e863dbcab29abd07d21c0839e645e0ca17"
+			},
+			"garrysmod/html/js/menu/control.Menu.js": {
+				"original": "3ea03af4eef1f53915e4f32b8aacd71de12f0411fb36464018b87e0339d2604e",
+				"patch": "0142a20f82c3b3415ac7f563e819288782e7b16ea9f04d3db634507db609a57d",
+				"fixed": "be1c5e493a9706a642770101ca59539d2cbb1ef3b3e789bcd3299fb153a0f262"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper.app/Contents/MacOS/gmod Helper": {
+				"original": "a503fa1288dd29eb54b3b134f12df8e53fe36836ceffbf4583fac7c5fdaeb009",
+				"fixed": "4b1582279c19526a83ead5ed653847db59013b43efa8138da6403249c8fc4d32",
+				"executable": "true",
+				"patch": "c8e30b70182461ac1f3868078cd2de4b54f510dce5aa6e791fbb20858e6d189c"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ru.lproj/locale.pak": {
+				"original": "273e8ba70284539b859db1af8bd136bca7d9c55efcc5e81f46b5e06a8fc16dde",
+				"patch": "8aa703a3deaf88351fa57758db25388a7c2043f877fa22bba563b9135299bd76",
+				"fixed": "b51f5a8f401b7e20ac0d58b2c2f3c34802ae1ef11a405123d3f69bddf7a15faa"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cs.lproj/locale.pak": {
+				"patch": "b27ad6d4aef44303f104f4b9dcee781cb650ca9b7903cab4d193a140e40bd23f",
+				"original": "e2661e05626ac8d0f98a77666aae3d205dfbadecc3f9b8ab82f9315a83288379",
+				"fixed": "790ec2d9fa193d8e2fa1c3dbfed089893d604d2e63414ed508ed47b717d965c5"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/es.lproj/locale.pak": {
+				"patch": "902f4caa8951a135da6a7a7c7a371420213afb3148562dad7b0bb315fd2fbd05",
+				"fixed": "e9fc28a43a2ca67619edc263bf5c9bbafa05ca7f10ee68e636ae721adb62821f",
+				"original": "09850cf8d205f331e59ab511fadd619fe522e8cbb991f62f0130ba359f2f8175"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/Info.plist": {
+				"fixed": "1462bfd7d0d858d2c2373642cf78540aa697e58a4fe12f2550a0e913ebda4d41",
+				"original": "27941b1ac6a38c5eacd1b73964ac5db12931ea71c80b51ec6e49d69e2ff81cea",
+				"patch": "a1a79b5ab015719e85023a04033be4239c4ee7db44bfd59fc0d450bd84900913"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/en.lproj/locale.pak": {
+				"original": "ac938fbac74088b332cc29064c57cd6e9eaf1d9aadab469bcc9d60be425250d4",
+				"patch": "bf1feab4e70e87a3672042a4b2337bffe4586e19e7a5c545324b44d64cfb7c53",
+				"fixed": "e808a7976963c36e32d7872ba75a89ce68d61a016bad21c3a291a28eed4a939b"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Plugin).app/Contents/MacOS/gmod Helper (Plugin)": {
+				"fixed": "607e5ff6a872160cdfa2ca3318acd66b9bb497acee2e9520349f41f817ca7632",
+				"executable": "true",
+				"original": "56b8e0b36d40d642ce508ed64b811d302ce817b5e9ba76833c34ca58d13a3061",
+				"patch": "3a3941de382e2a5215e93f0c5def7a04c5ffea8b2be4f151725c67b022f95898"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/en_GB.lproj/locale.pak": {
+				"patch": "b47035c5f75fcdfa12b7957de14dffb57a568ba99514d0bc138f624ed5a06366",
+				"original": "e5d64d05d1b5f7cc433f6d36579fa8a4c4f87e0773316653fa92a03deffcc941",
+				"fixed": "179ee521632fe9dd4d85966b75f5ab0e3d47c346c14f4dd766712c955e72364f"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ko.lproj/locale.pak": {
+				"fixed": "08346a70c5d78b08aecc416e547dd03da301d174cd1c03f9f43977db0d70d5ef",
+				"original": "12d48f05d90e1fac76d6dc5c8483b857cd31052cdba89ad5df2b90048df1635e",
+				"patch": "2b7239a5b80b08aa7d668072174aef3c50d09693a745abf760080664da44de1a"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ur.lproj/locale.pak": {
+				"patch": "c140f4ddb6af922ad694c38a7af3a7ba7b8b237689f3443d286f2e6bc48b22d1",
+				"original": "null",
+				"fixed": "97d87235cd8003e681cebb13b2f17415f9b5e61d1feef13402834295ecced3db"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/vk_swiftshader_icd.json": {
+				"patch": "b153741568079267b9179e15977625692a007c3c80ddad927d62f3d60cf063fc",
+				"fixed": "f977d79dd5300719372b5b71d8244a4945f5cecff25068189f001aef1ec12a07",
+				"original": "null"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/v8_context_snapshot.x86_64.bin": {
+				"fixed": "5414681e1ab8aab92b0964793961dee1daffbc521d4121c85e9f0c2ef90b2a83",
+				"original": "null",
+				"patch": "8a8906c079355dc69972161190392e35b1402da02b86602fc973c4a6269d5693"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/am.lproj/locale.pak": {
+				"patch": "a0e81258dc68546823cc608fb5e8c89ee6afa637375350869ea63fdf32074ac8",
+				"original": "b992d227d1b95ffeb6e2c9549f4fed1b233d101dd8e2bd5c8e21ff8b235befe8",
+				"fixed": "7c47ea269a6f1e5e3fddc5171417deccdcc0079a23c9a157566e49241c24d041"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ar.lproj/locale.pak": {
+				"fixed": "ee06a0d9dad3c36a08001a949eea7e25f02ab1113c2988d28cd3b90408bb373f",
+				"patch": "c7ee4d69c3462e6ee9893f0f694f9a64e7c71ea2980c547d33f1c1c29c483213",
+				"original": "fc9c196c779762cdbec33ba3a02e3b32608fa59e6b7ec0614c828542a4e8ca05"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ja.lproj/locale.pak": {
+				"original": "bc46c601b56aa513ac5147c61f6ca7c6700607d8b27911c9c4f8beae6c73332c",
+				"fixed": "4e85bd35ef083f8f2e86413503fa33842be4651b9ef06f8850ff127b57f8d67b",
+				"patch": "4e4c497f5ef9f539c7c6b908fe1ab01035570dcd1b751686ba54ba2d04360056"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sw.lproj/locale.pak": {
+				"original": "fc224facd13bd02777e05af98548118457d12ca2f4598989848989cc11c40df6",
+				"patch": "c3d8d50430edfa17b389cc7d7a30590e71b7fd750cd425b68e0ccc3c8ab41c6d",
+				"fixed": "7502a2adb673e031f05c1e5cd74d9d921e8054ee5efd8244c51ea346fb2550fe"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/snapshot_blob.bin": {
+				"fixed": "null",
+				"original": "38a9942ed61b376b9bf1a003d61501f41756d9117fbc4e1035645d2e25f3cb62"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Alerts).app/Contents/Info.plist": {
+				"original": "null",
+				"patch": "4c6f4ddaf9a7dc9341122f0441cb63ff2f577af80c47648f6c7f814791e38680",
+				"fixed": "26008d33ebb435beaf6382dd4a6d9d4e8868c6cbaf00b54cc3c6138b028c8299"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/mr.lproj/locale.pak": {
+				"original": "389351de1d98745a1afaf3020f8bff14b2b04e805e3b355cc29ce281d5d4fc78",
+				"fixed": "c72a368b1f08b2c82b53d2dff6aae933fde3a33175b1650786266679ed8b0e3b",
+				"patch": "e4d088f5c6e6eb22cca4582507d590f1eb3e1a82c43aa05b49fc45cff9289efa"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/te.lproj/locale.pak": {
+				"original": "688dc0e0d3bdab04094679b59b8f7b70616c0c1c6a7f2d676f13ac14165b2b2e",
+				"fixed": "05198cd0f0dbb8fe9b5bdd92549c2c7ec8d3c6ecd467be4f07ba26a28acec40a",
+				"patch": "17c7c0ba9b09867f0e54208ef16b56c53a92f7061bf938d43fa2b8962bc694a4"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/pl.lproj/locale.pak": {
+				"patch": "bf00f2c59c0063b6fbd5bf82759335aef477375a81c5e1c214adb3a52bf9dae8",
+				"original": "f455b8dcfaae7f9318cb34d3fe38b89b0711b4070bc2f6e82c422aad406d98c8",
+				"fixed": "1c1ba0113d29cefcd2a1aa1151f16d5a231d2ea3c12c78713af89b9a8da80581"
+			},
+			"garrysmod/lua/menu/mainmenu.lua": {
+				"patch": "93afacbe426d7e917b8c06a3578f033cc2985c7c337aa63aabb0813f00cc9596",
+				"original": "8ca1995341ec9c1dce95543af0d4f7c61398f2cc18c9f0b6944bf2c1d1231f02",
+				"fixed": "0cff7d3398cf76e001d4300ac35477f011a44b201a4e192ee3ae113bcf4a0d70"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_100_percent.pak": {
+				"original": "c3b8aab68da4d1a554c39da8d1eff98951561d4129532a616343eb6f6506635b",
+				"fixed": "null"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (Renderer).app/Contents/MacOS/gmod Helper (Renderer)": {
+				"executable": "true",
+				"fixed": "e4a9876b3f7ef11d8b39556256315dfd0962314e87a3948a7f44fd6b657a2660",
+				"patch": "67d1f52e548ebe6c4f0391b2c02c4573fccadda2fafd8dd951889698fdeabc3f",
+				"original": "d0067f87b5811c20db4a4c50e42860660286ab998909154ad3f7bf8f80a061e6"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/devtools_resources.pak": {
+				"original": "a5ee1628edfc06c543f7dbc5c4ac03a803ebcad332d9c5df54ba721d7fab493a",
+				"fixed": "null"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/tr.lproj/locale.pak": {
+				"fixed": "cfe4c043035156afa369cdbb214c8bce6c55d56a0e9317381203d90a712a37ef",
+				"patch": "c16687ddea3f385aff4924fe7f5074f1809574f56372b88c87648f0c9390e847",
+				"original": "c02d7fc7504d6edbe8c9f726243b79d6220251f2a3adf0c357996f27521ec1ab"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/gmod Helper (GPU).app/Contents/Info.plist": {
+				"patch": "4d9d3df03af067099748f66ed5d7da7e54ceff19fb490f6b6cdee58cfe58f48e",
+				"original": "fdcd12dad58adb06f4dc9c40529f6da0b3e507ec3d241cc4dc6f3c8f98a742ea",
+				"fixed": "86f3d59a153b2b5a10b4552a2241de0f533b00b8848a8903def83b7c3235796a"
+			},
+			"garrysmod/resource/ClientScheme.res": {
+				"fixed": "ffdb801bb36db7d0f5cf5480dfc641394069fba7529b47c1975343459a9b1ce5",
+				"patch": "d199aebb84d8414448e349fb259a2319467971dc13698b9a3990176b3625feef",
+				"original": "2182e066406e945910498b17e3374879b353c9ce314fc2bcdcff661e5b882ee3"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/cef_extensions.pak": {
+				"fixed": "null",
+				"original": "2ebb6207e902ba0b007c62a035b9790da8b5663b1ae91cb60402266b575b4ca3"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sr.lproj/locale.pak": {
+				"original": "61545a4d19d96f46690841e0d530ee5597b9c4a48b646dd7d7b88df7ad25f76c",
+				"fixed": "823296a9fe54ca2de96c679987163d5a9f86a381fc9077b590e6866bbb10f869",
+				"patch": "729a7cd66e2701ec72985ad43a30397fd8b6b0637150c4f530023f450beca4b8"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sv.lproj/locale.pak": {
+				"fixed": "de820034834cf6aef3da0c5352acc22dfbe410385a32105d715d93dbdf92f1f6",
+				"patch": "d4acf860f70e9458263412b3ec40f33570f8881aa6d9074d1e6fab8dfe7e5b05",
+				"original": "68e4311785f18b78eec9cfde0fc50fcf88ab70a166135fe4374056d39ee9e2fe"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Libraries/libvk_swiftshader.dylib": {
+				"executable": "true",
+				"fixed": "c6019edd181bcfafa76e13e7e5ca241e333e6d6b0fc22f21cadbe3101154c554",
+				"patch": "97101e7291a0ac888ac76e335c91d6f9b6c5002d78aa10109b0ef5e85cc3855b",
+				"original": "null"
+			},
+			"GarrysMod_Signed.app/Contents/MacOS/gmod": {
+				"executable": "true",
+				"fixed": "9a23dc6251c981b4fbe119138c646529cface68c955a4e64a1a30ab24a7daaf5",
+				"patch": "068f5307ab3fc7ac86245a59e1586e4761f238940b1618d12bc26fd6df86e09a",
+				"original": "null"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ro.lproj/locale.pak": {
+				"fixed": "b9d5c97e06c7780782da54a43a24deed954bc76c0fd2668f659866218a8d5562",
+				"original": "65d157cab58d8a474730cb779fda1a46aad67d2c87292931e08141f505019c76",
+				"patch": "ab8edf21739786a47688a6d7981476a51737dda974b49fbe40c6c4585e5facd4"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/es_419.lproj/locale.pak": {
+				"patch": "b0a065ed842f0c0e9280fb769de6dbe35e08589d80ccc71c8099e25f12c1153e",
+				"original": "0a21ca4771366649362b717cd01d6fad6cda62c4146b75c0c11dd4306ade02b0",
+				"fixed": "0ed379d4321e58c4467c46d014a5e40cb34df9ed3a3bdb93b2322e8b432b9d8c"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/sl.lproj/locale.pak": {
+				"fixed": "12f8e78bf8ae959e08d4377604ee5df326de9bfa56831471145ff0106287600b",
+				"patch": "ad3781dbc08f6e297e2f6616d6edb49231ceb0198293a734272f91ee1b5654dc",
+				"original": "86e8a39650fe4515294b85bfff641079881fbaebed163a786b8bde58ff7a30e5"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/nb.lproj/locale.pak": {
+				"patch": "69ae804dfd2be332b158d661ca275bf101403e419c619c4ad34153765d48ed68",
+				"fixed": "ac972293db2b0f5425312189a06268497d8e7c8cb1d8c8d738447bc1ab36b57f",
+				"original": "15b1abefe74df3224391ce0c0609d84e60d946607321744ae95fec80022cfc60"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/de.lproj/locale.pak": {
+				"original": "d71ade6f6c132323d9f021436eeecf118469782eb1e332a60d9afbe4eb89bc7c",
+				"patch": "18f3ce3af1558c56f5ef48e18886dd609395b081697da81d094d9ecf8eb27b87",
+				"fixed": "e86df573e4cdc5f763e02cad568d06fb7802521317a7051602479585dd37badc"
+			},
+			"garrysmod/resource/fonts/PTMono-Regular.ttf": {
+				"original": "null",
+				"patch": "12d71bcd0762d1117a4e240549b8c02559a8b398dde59b6fdb013fdda92ce76d",
+				"fixed": "db0cbc04a16b150a35109c2eaf7be40fe8355181b07490b8302438e6bcaf7537"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/kn.lproj/locale.pak": {
+				"fixed": "d4b18697d266956de1966ac1617ba6a44ccb53a5b684e7dd065b9c282fe2beb3",
+				"patch": "013bc66dd6cfc503034041424e68c42ba7e11caf615da661579640a78164b45c",
+				"original": "f302cf02e9f94d6ebb6da64d6a374285af2dec8c4534177b16d6f9af8f5c422c"
+			},
+			"GarrysMod_Signed.app/Contents/Frameworks/Chromium Embedded Framework.framework/Resources/ml.lproj/locale.pak": {
+				"fixed": "dc742bf46aa86f2f2f368a01fe1c6473d261a4806721ecca5a8b73d256d47cf6",
+				"original": "f9bd6432209f6759ea9f4b9aba87bd3e6add6f2a77ff968b816c5ee745776908",
+				"patch": "986d9db1d4bf25c14b767d82987c78b6d0aab3ad16982d9cbc25bb4827e00c63"
 			}
 		}
 	}
