@@ -34,11 +34,23 @@ zstd = "0.13"
 is_elevated = "0.1"
 dunce = "1.0"
 
-[target.'cfg(windows)'.build-dependencies]
-winresource = "0.1"
-
 [features]
 default = ["patch"]
 #default = ["generate"]
 patch = ["dep:dirs", "dep:eframe", "dep:keyvalues-parser", "dep:phf", "dep:reqwest", "dep:steamid", "dep:sysinfo", "dep:thiserror", "dep:tokio", "dep:tracing", "dep:tracing-subscriber", "dep:windows-registry"]
 generate = []
+
+# Build config
+[target.'cfg(windows)'.build-dependencies]
+winresource = "0.1"
+
+[target.'cfg(target_os = "macos")'.build-dependencies]
+cargo-packager = "0.11"
+
+[package.metadata.packager]
+before-packaging-command = "cargo build --release"
+formats = ["dmg"]
+resources = ["GModPatchToolLogo.icns"]
+icons = ["GModPatchToolLogo.icns"]
+macos = { minimum-system-version = "11.0" }
+#dmg = { background = "macos-background.png", window-size = "640 360", app-position = "", app-folder-position = "" }
