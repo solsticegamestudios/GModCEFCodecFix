@@ -51,7 +51,7 @@ cargo-packager = "0.11"
 product-name = "GModPatchTool"
 identifier = "com.solsticegamestudios.gmodpatchtool"
 license-file = "LICENSE.txt"
-before-packaging-command = "cargo build --release"
+before-packaging-command = "chmod +x macos_terminal_launcher && cargo build --release" # BUG: Either create-dmg or cargo-packager don't mark CFBundleExecutable as...executable themselves
 binaries = [
 	{ path = "../../macos_terminal_launcher", main = true },
 	{ path = "gmodpatchtool", main = false }
