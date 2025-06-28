@@ -48,9 +48,12 @@ winresource = "0.1"
 cargo-packager = "0.11"
 
 [package.metadata.packager]
+product-name = "GModPatchTool"
+identifier = "com.solsticegamestudios.gmodpatchtool"
+license-file = "LICENSE.txt"
 before-packaging-command = "cargo build --release"
 formats = ["dmg"]
 resources = ["GModPatchToolLogo.icns"]
 icons = ["GModPatchToolLogo.icns"]
-macos = { minimum-system-version = "11.0", identifier = "com.solsticegamestudios.gmodpatchtool", product-name = "GModPatchTool", license-file = "LICENSE.txt" }
+macos = { minimum-system-version = "11.0" }
 #dmg = { background = "macos-background.png", window-size = "640 360", app-position = "", app-folder-position = "" }
