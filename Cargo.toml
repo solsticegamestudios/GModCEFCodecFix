@@ -52,8 +52,12 @@ product-name = "GModPatchTool"
 identifier = "com.solsticegamestudios.gmodpatchtool"
 license-file = "LICENSE.txt"
 before-packaging-command = "cargo build --release"
+binaries = [
+	{ path = "../../macos_terminal_launcher.sh", main = true },
+	{ path = "gmodpatchtool", main = false }
+]
 formats = ["dmg"]
 resources = ["GModPatchToolLogo.icns"]
 icons = ["GModPatchToolLogo.icns"]
-macos = { minimum-system-version = "11.0", embedded-apps = ["macos_terminal_launcher.sh"] }
+macos = { minimum-system-version = "11.0" }
 #dmg = { background = "macos-background.png", window-size = "640 360", app-position = "", app-folder-position = "" }
