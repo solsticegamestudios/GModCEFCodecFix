@@ -679,9 +679,14 @@ where
 	terminal_write(writer, format!("Steam User: {} ({} / {})\n", steam_user.get("PersonaName").unwrap(), steam_user.get("SteamID64").unwrap(), steam_id.steam3id()).as_str(), true, None);
 
 	// Get Steam Libraries
-	// TODO: Casing matters on some filesystems! It might be cased as SteamApps not steamapps
-	let steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "libraryfolders.vdf"]);
-	let steam_libraryfolders_str = tokio::fs::read_to_string(steam_libraryfolders_path).await;
+	let mut steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "libraryfolders.vdf"]);
+	let mut steam_libraryfolders_str = tokio::fs::read_to_string(steam_libraryfolders_path).await;
+
+	// Try SteamApps with capitalization
+	if steam_libraryfolders_str.is_err() {
+		steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["SteamApps", "libraryfolders.vdf"]);
+		steam_libraryfolders_str = tokio::fs::read_to_string(steam_libraryfolders_path).await;
+	}
 
 	if steam_libraryfolders_str.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find Steam libraryfolders.vdf. Have you ever launched/signed in to Steam?".to_string()));
@@ -717,9 +722,14 @@ where
 	terminal_write(writer, format!("GMod Steam Library: {gmod_steam_library_path_str}\n").as_str(), true, None);
 
 	// Get GMod manifest
-	// TODO: Casing matters on some filesystems! It might be cased as SteamApps not steamapps
-	let gmod_manifest_path = extend_pathbuf_and_return(gmod_steam_library_path.to_path_buf(), &["steamapps", "appmanifest_4000.acf"]);
-	let gmod_manifest_str = tokio::fs::read_to_string(gmod_manifest_path).await;
+	let mut gmod_manifest_path = extend_pathbuf_and_return(gmod_steam_library_path.to_path_buf(), &["steamapps", "appmanifest_4000.acf"]);
+	let mut gmod_manifest_str = tokio::fs::read_to_string(gmod_manifest_path).await;
+
+	// Try SteamApps with capitalization
+	if gmod_manifest_str.is_err() {
+		gmod_manifest_path = extend_pathbuf_and_return(gmod_steam_library_path.to_path_buf(), &["SteamApps", "appmanifest_4000.acf"]);
+		gmod_manifest_str = tokio::fs::read_to_string(gmod_manifest_path).await;
+	}
 
 	if gmod_manifest_str.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find GMod's appmanifest_4000.acf. Is Garry's Mod installed?".to_string()));
@@ -756,10 +766,14 @@ where
 	terminal_write(writer, format!("GMod Beta Branch: {gmod_branch}\n").as_str(), true, None);
 
 	// Get GMod path
-	// TODO: Casing matters on some filesystems! It might be cased as SteamApps not steamapps
 	// TODO: What about `steamapps/<username>/GarrysMod`? Is that still a thing, or did SteamPipe kill/migrate it completely?
-	let gmod_path = gmod_manifest.get("installdir").unwrap()[0].clone().unwrap_str();
-	let gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_steam_library_path.clone(), &["steamapps", "common", &gmod_path]), true);
+	let gmod_path_config = gmod_manifest.get("installdir").unwrap()[0].clone().unwrap_str();
+	let mut gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_steam_library_path.clone(), &["steamapps", "common", &gmod_path_config]), true);
+
+	// Try SteamApps with capitalization
+	if gmod_path.is_err() {
+		gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_steam_library_path.clone(), &["SteamApps", "common", &gmod_path_config]), true);
+	}
 
 	if gmod_path.is_err() {
 		return Err(AlmightyError::Generic("Couldn't find Garry's Mod directory. Is Garry's Mod installed?".to_string()));
@@ -774,7 +788,7 @@ where
 	// Will hopefully prevent broken installs/updating
 	#[cfg(unix)]
 	if root {
-		if let Ok(gmod_dir_meta) = tokio::fs::metadata(&gmod_path) {
+		if let Ok(gmod_dir_meta) = tokio::fs::metadata(&gmod_path).await {
 			if gmod_dir_meta.uid() != 0 {
 				return Err(AlmightyError::Generic("You are running GModPatchTool as root, but the Garry's Mod directory isn't owned by root. Either fix your permissions or don't run as root! Aborting...".to_string()));
 			}
@@ -796,7 +810,7 @@ where
 	{
 		// Get Steam config
 		let steam_config_path = extend_pathbuf_and_return(steam_path.clone(), &["config", "config.vdf"]);
-		let steam_config_str = tokio::fs::read_to_string(steam_config_path);
+		let steam_config_str = tokio::fs::read_to_string(steam_config_path).await;
 
 		if steam_config_str.is_err() {
 			return Err(AlmightyError::Generic("Couldn't find Steam config.vdf. Have you ever launched/signed in to Steam?".to_string()));
@@ -1106,9 +1120,7 @@ where
 		}
 	}
 
-	// TODO: Incorporate some of this: https://github.com/ret-0/gmod-linux-patcher/blob/master/gmod-linux-patcher.sh
-	// TODO: Consider this: https://www.protondb.com/app/4000#vZBBKPhbFd
-	// TODO: Bass updates?
+	// TODO: Update BASS? https://github.com/Facepunch/garrysmod-requests/issues/1885
 	// TODO: Check dxlevel/d3d9ex support in Proton, and if there's anything we can do about it
 
 	let now = now.elapsed().as_secs_f64();
