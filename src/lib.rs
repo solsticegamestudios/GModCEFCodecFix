@@ -4,7 +4,7 @@ pub mod generate;
 #[cfg(feature = "patch")]
 pub mod patch;
 
-pub const ABOUT: &str = "GModPatchTool
+const ABOUT: &str = "GModPatchTool
 
 Formerly: GModCEFCodecFix
 
