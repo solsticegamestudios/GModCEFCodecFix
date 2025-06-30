@@ -11,13 +11,16 @@ ProductName = "GModPatchTool"
 LegalCopyright = "Solstice Game Studios <contact@solsticegamestudios.com>"
 
 [dependencies]
+anyhow = { version = "*" }
 clap = { version = "4.5", features = ["derive"] }
+crossterm = { version = "0.29.0" }
 qbsdiff = "1.4"
 blake3 = { version = "1.8", features = ["mmap", "rayon"] }
 rayon = { version = "1.10" }
 serde_json = { version = "1.0" }
 dirs = { version = "6.0", optional = true }
-eframe = { version = "0.31", optional = true }
+iced = { version = "0.13.1", optional = true, features = ["image"] }
+iced_term = { version = "0.5.1", optional = true }
 keyvalues-parser = { version = "0.2", optional = true }
 phf = { version = "0.12", features = ["macros"], optional = true }
 reqwest = { version = "0.12", default-features = false, features = ["http2", "rustls-tls-native-roots", "json", "gzip", "brotli", "zstd", "socks"], optional = true }
@@ -33,11 +36,12 @@ zstd = "0.13"
 [target.'cfg(windows)'.dependencies]
 is_elevated = "0.1"
 dunce = "1.0"
+win32console = "0.1.5"
 
 [features]
 default = ["patch"]
 #default = ["generate"]
-patch = ["dep:dirs", "dep:eframe", "dep:keyvalues-parser", "dep:phf", "dep:reqwest", "dep:steamid", "dep:sysinfo", "dep:thiserror", "dep:tokio", "dep:tracing", "dep:tracing-subscriber", "dep:windows-registry"]
+patch = ["dep:dirs", "dep:iced", "dep:iced_term", "dep:keyvalues-parser", "dep:phf", "dep:reqwest", "dep:steamid", "dep:sysinfo", "dep:thiserror", "dep:tokio", "dep:tracing", "dep:tracing-subscriber", "dep:windows-registry"]
 generate = []
 
 # Build config
@@ -47,14 +51,16 @@ winresource = "0.1"
 [target.'cfg(target_os = "macos")'.build-dependencies]
 cargo-packager = "0.11"
 
+[patch.crates-io]
+iced_term = { git = "https://github.com/Harzu/iced_term", rev = "a93fcbd59fbee3d2e781470a6024ce935068dd31" }
+
 [package.metadata.packager]
 product-name = "GModPatchTool"
 identifier = "com.solsticegamestudios.gmodpatchtool"
 license-file = "LICENSE.txt"
-before-packaging-command = "chmod +x macos_terminal_launcher && cargo build --release" # BUG: Either create-dmg or cargo-packager don't mark CFBundleExecutable as...executable themselves
+before-packaging-command = "cargo build --release"
 binaries = [
-	{ path = "../../macos_terminal_launcher", main = true },
-	{ path = "gmodpatchtool", main = false }
+	{ path = "gmodpatchtool", main = true }
 ]
 formats = ["dmg"]
 resources = ["GModPatchToolLogo.icns"]
