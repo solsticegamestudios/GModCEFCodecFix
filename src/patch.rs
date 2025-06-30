@@ -1129,7 +1129,7 @@ where
 	Ok(())
 }
 
-pub fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool) -> JoinHandle<()>
+fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool) -> JoinHandle<()>
 where
 	W: std::io::Write + 'static
 {
@@ -1167,7 +1167,7 @@ fn terminal_exit_handler() {
 	std::io::stdin().read_line(&mut String::new()).unwrap();
 }
 
-pub fn init_logger<W>(ansi: bool, writer: fn() -> W)
+fn init_logger<W>(ansi: bool, writer: fn() -> W)
 where
 	W: std::io::Write + 'static
 {
