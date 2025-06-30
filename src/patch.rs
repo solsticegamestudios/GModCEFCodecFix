@@ -18,9 +18,7 @@ const GMOD_STEAM_APPID: &str = "4000";
 const BLANK_FILE_HASH: &str = "null";
 
 use crate::*;
-mod gui;
 
-use eframe::egui::TextBuffer;
 use tracing::error;
 use tracing_subscriber::filter::EnvFilter;
 use clap::Parser;
@@ -1183,28 +1181,64 @@ where
 }
 
 pub fn main() {
-	// Try to launch GUI -> Fallback to Terminal -> Fallback to File
-	gui::main().unwrap_or_else(|error| {
-		let stdout = std::io::stdout;
-		let stdout_is_terminal = stdout().is_terminal();
-		init_logger(stdout_is_terminal, stdout);
+	#[cfg(target_os = "windows")]
+	use crossterm::ansi_support::supports_ansi;
+	#[cfg(not(target_os = "windows"))]
+	fn supports_ansi() -> bool { true }
 
-		error!("GUI | {}\n", error);
+	let is_terminal = io::stdout().is_terminal();
+	let is_ansi = is_terminal && supports_ansi();
 
-		if stdout_is_terminal {
-			// Fallback to Terminal output if a Terminal is available
+	init_logger(is_ansi, std::io::stdout);
 
-			// Set terminal title
-			// NOTE: Doesn't work on legacy terminals like Windows <=10 Command Prompt
-			print!("\x1B]0;GModPatchTool\x07");
+	{
+		use std::{env, process};
 
-			main_script(stdout, true).join().unwrap();
+		#[cfg_attr(not(target_os = "windows"), allow(unused_mut))]
+		let mut force_gui = match env::var("FORCE_GUI") {
+			Ok(value) => Some(value.trim() == "1"),
+			Err(env::VarError::NotPresent) => None,
+			Err(error) => {
+				error!("FORCE_GUI is invalid: {error}");
+				process::exit(1);
+			},
+		};
 
-			terminal_exit_handler();
-		} else {
-			// Fallback to writing a file if there's no Terminal
-			// TODO: Write to file
-			main_script(stdout, false).join().unwrap();
+		#[cfg(target_os = "windows")]
+		{
+			use win32console::console::WinConsole;
+			match WinConsole::get_process_list() {
+				Ok(list) if list.len() == 1 => {
+					force_gui = Some(true);
+					if let Err(error) = WinConsole::free_console() {
+						tracing::warn!("GUI | {error}");
+					}
+				},
+				Ok(_) => {},
+				Err(error) => {
+					tracing::warn!("GUI | {error}");
+				}
+			}
 		}
-	});
+
+		if force_gui.unwrap_or(!is_terminal || !is_ansi) {
+			env::set_var("FORCE_GUI", "0");
+
+			if let Err(error) = gui::main() {
+				error!("GUI | {error}");
+				process::exit(1);
+			}
+			process::exit(0);
+		}
+	}
+
+	if is_ansi {
+		print!("\x1B]0;GModPatchTool\x07");
+	}
+
+	main_script(std::io::stdout, is_terminal).join().unwrap();
+	
+	if is_terminal {
+		terminal_exit_handler();
+	}
 }
