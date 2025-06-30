@@ -11,7 +11,7 @@ const MANIFEST_SERVER_ROOTS: [&str; 2] = [
 const PATCH_SERVER_ROOTS: [&str; 2] = [
 	//"https://media.githubusercontent.com/media/solsticegamestudios/GModPatchTool/refs/heads/files/", // TODO: Post-name switch
 	"https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/refs/heads/files/",
-	"https://www.solsticegamestudios.com/gmodpatchtool/"
+	"https://www.solsticegamestudios.com/gmodpatchtool/" // TODO: Webhook that triggers git pull and clears the cache on Cloudflare
 ];
 
 const GMOD_STEAM_APPID: &str = "4000";
@@ -1237,7 +1237,7 @@ pub fn main() {
 	}
 
 	main_script(std::io::stdout, is_terminal).join().unwrap();
-	
+
 	if is_terminal {
 		terminal_exit_handler();
 	}
