@@ -1,8 +1,11 @@
-mod gui;
 #[cfg(feature = "generate")]
 pub mod generate;
+
 #[cfg(feature = "patch")]
 pub mod patch;
+
+#[cfg(feature = "patch")]
+mod gui;
 
 const ABOUT: &str = "GModPatchTool
 
@@ -62,7 +65,7 @@ fn string_to_canonical_pathbuf(path_str: String) -> Option<PathBuf> {
 	use dunce::canonicalize;
 	#[cfg(not(windows))]
 	let canonicalize = Path::canonicalize;
-	
+
 	let pathbuf_result = canonicalize(Path::new(&path_str));
 
 	if let Ok(pathbuf) = pathbuf_result {
