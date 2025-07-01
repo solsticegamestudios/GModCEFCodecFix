@@ -1129,42 +1129,41 @@ where
 	Ok(())
 }
 
-fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool) -> JoinHandle<()>
-where
-	W: std::io::Write + 'static
-{
-	// HACK: Default is typically 2 MiB, but Vdf parsing can sometimes overflow the stack...
-	// TODO: Report localconfig.vdf/config.vdf overflow (maybe related to Issue #54?): https://github.com/CosmicHorrorDev/vdf-rs/issues
-	let builder = thread::Builder::new().stack_size(8388608); // 8 MiB
-
-	// This is a separate thread because the GUI (if it exists) blocks the main thread
-	builder.spawn(move || {
-		terminal_write(writer, ABOUT, true, if writer_is_interactive { Some("cyan") } else { None });
-
-		// Parse the args (will also exit if something's wrong with them)
-		let args = Args::parse();
-
-		if args.auto_mode.is_none() && !writer_is_interactive {
-			error!("Interactive tty is required when not using --auto-mode");
-			return
-		}
-
-		// Enable async on this thread
-		tokio::runtime::Builder::new_current_thread()
-		.enable_all()
-		.build()
-		.unwrap()
-		.block_on(
-			main_script_internal(writer, writer_is_interactive, args)
-		).unwrap_or_else(|err| {
-			error!("{}\n", err);
-		});
-	}).unwrap()
-}
-
 fn terminal_exit_handler() {
 	println!("Press Enter to exit...");
 	std::io::stdin().read_line(&mut String::new()).unwrap();
+}
+
+fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool) -> Result<(), AlmightyError>
+where
+	W: std::io::Write + 'static
+{
+	terminal_write(writer, ABOUT, true, if writer_is_interactive { Some("cyan") } else { None });
+
+	// Parse the args
+	let args = match Args::try_parse() {
+		Ok(args) => args,
+		Err(error) => {
+			let _ = error.print();
+			terminal_exit_handler();
+			std::process::exit(error.exit_code());
+		},
+	};
+
+	if args.auto_mode.is_none() && !writer_is_interactive {
+		return Err(AlmightyError::Generic("Interactive tty is required when not using --auto-mode".into()));
+	}
+
+	tokio::runtime::Builder::new_multi_thread()
+		.enable_all()
+		// HACK: Default is typically 2 MiB, but Vdf parsing can sometimes overflow the stack...
+		// TODO: Report localconfig.vdf/config.vdf overflow (maybe related to Issue #54?): https://github.com/CosmicHorrorDev/vdf-rs/issues
+		.thread_stack_size(0x800000) // 8 MiB
+		.build()
+		.map_err(|error| AlmightyError::Generic(format!("Failed to create Tokio runtime: {error}")))?
+		.block_on(
+			main_script_internal(writer, writer_is_interactive, args)
+		)
 }
 
 fn init_logger<W>(ansi: bool, writer: fn() -> W)
@@ -1172,12 +1171,12 @@ where
 	W: std::io::Write + 'static
 {
 	tracing_subscriber::fmt()
-	.with_env_filter(EnvFilter::from_default_env())
-	.with_ansi(ansi)
-	.without_time()
-	.with_target(false)
-	.with_writer(writer)
-	.init();
+		.with_env_filter(EnvFilter::from_default_env())
+		.with_ansi(ansi)
+		.without_time()
+		.with_target(false)
+		.with_writer(writer)
+		.init();
 }
 
 pub fn main() {
@@ -1236,7 +1235,9 @@ pub fn main() {
 		print!("\x1B]0;GModPatchTool\x07");
 	}
 
-	main_script(std::io::stdout, is_terminal).join().unwrap();
+	if let Err(error) = main_script(std::io::stdout, is_terminal) {
+		error!("{error}");
+	}
 
 	if is_terminal {
 		terminal_exit_handler();
