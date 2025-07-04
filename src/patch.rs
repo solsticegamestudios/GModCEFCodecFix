@@ -14,18 +14,18 @@ const PATCH_SERVER_ROOTS: [&str; 2] = [
 	"https://www.solsticegamestudios.com/gmodpatchtool/" // TODO: Webhook that triggers git pull and clears the cache on Cloudflare
 ];
 
-const GMOD_STEAM_APPID: &str = "4000";
+const GMOD_STEAM_APPID: u64 = 4000;
 const BLANK_FILE_HASH: &str = "null";
 
 use crate::*;
 
+use serde::Deserialize;
 use tracing::error;
 use tracing_subscriber::filter::EnvFilter;
 use clap::Parser;
 use std::io::IsTerminal;
 use phf::phf_map;
 use phf::Map;
-use keyvalues_parser::Vdf;
 use std::time;
 use steamid::SteamId;
 use sysinfo::System;
@@ -69,6 +69,174 @@ phf_map! {
 	"cyan" => "\x1B[1;36m"
 };
 
+use thiserror::Error;
+#[derive(Debug, Error)]
+enum AlmightyError {
+	#[error("HTTP Error: {0}")]
+	Http(#[from] reqwest::Error),
+	#[error("Remote Version parsing error: {0}")]
+	Parse(#[from] std::num::ParseIntError),
+	#[error("{0}")]
+	Generic(String)
+}
+
+// VDF structs
+//
+// Steam/config/loginusers.vdf
+//
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+struct SteamUser {
+	account_name: String,
+	persona_name: String,
+	//remember_password: bool,
+	//wants_offline_mode: bool,
+	//skip_offline_mode_warning: bool,
+	//allow_auto_login: bool,
+	most_recent: bool,
+	timestamp: u64 // Y2K38
+}
+
+//
+// Steam/steamapps/libraryfolders.vdf
+//
+#[derive(Deserialize, Debug)]
+struct SteamLibraryFolder {
+	path: String,
+	//label: String,
+	//contentid: i64,
+	//totalsize: u64,
+	//update_clean_bytes_tally: u64,
+	//time_last_update_verified: u64,
+	#[serde(alias = "Apps")]
+	apps: HashMap<u64, u64>
+}
+
+//
+// SteamLibrary/appmanifest_4000.acf
+//
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+struct SteamAppManifest {
+	//appid: u64,
+	//universe: u8, // 0-5
+	//launcher_path: String,
+	//name: String,
+	state_flags: u32, // https://github.com/SteamDatabase/SteamTracking/blob/master/Structs/EAppState.json
+	#[serde(rename = "installdir")]
+	installdir: String,
+	//last_updated: u64,
+	//last_played: u64,
+	//size_on_disk: u64,
+	//buildid: u32,
+	//last_owner: u64,
+	//download_type: u32, // TODO: Is this right? Can't find documentation anywhere
+	//update_result: u32, // TODO: Is this right? Can't find documentation anywhere
+	//bytes_to_download: u64,
+	//bytes_downloaded: u64,
+	//bytes_to_stage: u64,
+	//bytes_staged: u64,
+	//target_build_id: u32,
+	//auto_update_behavior: u8, // 1-3
+	//allow_other_downloads_while_running: bool,
+	scheduled_auto_update: bool,
+	//installed_depots: ,
+	//shared_depots: ,
+	//user_config: SteamAppConfig,
+	mounted_config: SteamAppConfig
+}
+
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+struct SteamAppConfig {
+	beta_key: Option<String>,
+	//language: Option<String>
+}
+
+//
+// Steam/config/config.vdf
+//
+#[cfg(target_os = "linux")]
+#[derive(Deserialize, Debug)]
+struct SteamConfig {
+	#[serde(alias = "Software")]
+	software: SteamConfigSoftware
+	// Several entries unimplemented!
+}
+
+#[cfg(target_os = "linux")]
+#[derive(Deserialize, Debug)]
+struct SteamConfigSoftware {
+	#[serde(alias = "Valve")]
+	valve: SteamConfigValve
+}
+
+#[cfg(target_os = "linux")]
+#[derive(Deserialize, Debug)]
+struct SteamConfigValve {
+	#[serde(alias = "Steam")]
+	steam: SteamConfigSteam
+}
+
+#[cfg(target_os = "linux")]
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+struct SteamConfigSteam {
+	compat_tool_mapping: Option<HashMap<u64, SteamCompatToolMapping>>
+	// Several entries unimplemented!
+}
+
+#[cfg(target_os = "linux")]
+#[derive(Deserialize, Debug)]
+struct SteamCompatToolMapping {
+	name: String,
+	//config: ,
+	//priority:
+}
+
+//
+// Steam/userdata/<steamid u32>/config/localconfig.vdf
+//
+#[derive(Deserialize, Debug)]
+struct SteamUserLocalConfig {
+	#[serde(alias = "Software")]
+	software: SteamUserLocalConfigSoftware,
+	// Several entries unimplemented!
+}
+
+#[derive(Deserialize, Debug)]
+struct SteamUserLocalConfigSoftware {
+	#[serde(alias = "Valve")]
+	valve: SteamUserLocalConfigValve
+}
+
+#[derive(Deserialize, Debug)]
+struct SteamUserLocalConfigValve {
+	#[serde(alias = "Steam")]
+	steam: SteamUserLocalConfigSteam
+}
+
+#[derive(Deserialize, Debug)]
+struct SteamUserLocalConfigSteam {
+	#[serde(alias = "Apps")]
+	apps: HashMap<u64, SteamUserLocalConfigApp>
+	// Several entries unimplemented!
+}
+
+#[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
+struct SteamUserLocalConfigApp {
+	//last_played: u64,
+	//playtime: u32,
+	//cloud: ,
+	//<appid>_eula_0: ,
+	//<appid>_eula_1: ,
+	//autocloud: ,
+	//badge_data: ,
+	launch_options: Option<String>,
+	//playtime2wks: u16
+}
+
 fn terminal_write<W>(writer: fn() -> W, output: &str, newline: bool, color: Option<&str>)
 where
 	W: std::io::Write + 'static
@@ -86,17 +254,6 @@ where
 	if color.is_some() {
 		write!(writer(), "\x1B[0m").unwrap();
 	}
-}
-
-use thiserror::Error;
-#[derive(Debug, Error)]
-enum AlmightyError {
-	#[error("HTTP Error: {0}")]
-	Http(#[from] reqwest::Error),
-	#[error("Remote Version parsing error: {0}")]
-	Parse(#[from] std::num::ParseIntError),
-	#[error("{0}")]
-	Generic(String)
 }
 
 async fn get_http_response<W>(writer: fn() -> W, writer_is_interactive: bool, servers: &[&str], filename: &str) -> Option<Response>
@@ -639,31 +796,23 @@ where
 	}
 
 	let steam_loginusers_str = steam_loginusers_str.unwrap();
-	let steam_loginusers = Vdf::parse(steam_loginusers_str.as_str());
+	let steam_loginusers = keyvalues_serde::from_str(steam_loginusers_str.as_str());
 
-	if steam_loginusers.is_err() {
-		return Err(AlmightyError::Generic("Couldn't parse Steam loginusers.vdf. Is the file corrupt?".to_string()));
+	if let Err(error) = steam_loginusers {
+		return Err(AlmightyError::Generic(format!("Couldn't parse Steam loginusers.vdf. Is the file corrupt?\n\t{error}")));
 	}
 
 	let mut steam_user: HashMap<&str, String> = HashMap::new();
-	let steam_loginusers = steam_loginusers.unwrap();
-	for (other_steam_id_64, other_steam_user) in steam_loginusers.value.unwrap_obj().iter() {
-		let other_steam_user = other_steam_user[0].clone().unwrap_obj().into_inner();
+	let steam_loginusers: HashMap<&str, SteamUser> = steam_loginusers.unwrap();
+	for (other_steam_id_64, other_steam_user) in steam_loginusers {
+		let mostrecent = other_steam_user.most_recent;
+		let timestamp = other_steam_user.timestamp;
 
-		let mostrecent = other_steam_user.get("MostRecent");
-		let mostrecent = if let Some(mostrecent) = mostrecent { mostrecent[0].get_str().unwrap() } else { "0" };
-		let timestamp = other_steam_user.get("Timestamp");
-		let timestamp = if let Some(timestamp) = timestamp { timestamp[0].get_str().unwrap().parse::<i32>().unwrap() } else { 0 };
-
-		if !steam_user.contains_key("Timestamp") || (mostrecent == "1") || (timestamp > steam_user.get("Timestamp").unwrap().parse::<i32>().unwrap()) {
+		if !steam_user.contains_key("Timestamp") || mostrecent || (timestamp > steam_user.get("Timestamp").unwrap().parse::<u64>().unwrap()) {
 			steam_user.insert("SteamID64", other_steam_id_64.to_string());
 			steam_user.insert("Timestamp", timestamp.to_string());
-
-			let accountname = other_steam_user.get("AccountName");
-			steam_user.insert("AccountName", accountname.unwrap()[0].get_str().unwrap().to_string());
-
-			let personaname = other_steam_user.get("PersonaName");
-			steam_user.insert("PersonaName", personaname.unwrap()[0].get_str().unwrap().to_string());
+			steam_user.insert("AccountName", other_steam_user.account_name);
+			steam_user.insert("PersonaName", other_steam_user.persona_name);
 		}
 	}
 
@@ -690,22 +839,18 @@ where
 	}
 
 	let steam_libraryfolders_str = steam_libraryfolders_str.unwrap();
-	let steam_libraryfolders = Vdf::parse(steam_libraryfolders_str.as_str());
+	let steam_libraryfolders = keyvalues_serde::from_str(steam_libraryfolders_str.as_str());
 
-	if steam_libraryfolders.is_err() {
-		return Err(AlmightyError::Generic("Couldn't parse Steam libraryfolders.vdf. Is the file corrupt?".to_string()));
+	if let Err(error) = steam_libraryfolders {
+		return Err(AlmightyError::Generic(format!("Couldn't parse Steam libraryfolders.vdf. Is the file corrupt?\n\t{error}")));
 	}
 
 	// Get GMod Steam ibrary
 	let mut gmod_steam_library_path = None;
-	let steam_libraryfolders = steam_libraryfolders.unwrap();
-	for (_, steam_library) in steam_libraryfolders.value.unwrap_obj().iter() {
-		let steam_library = steam_library[0].clone().unwrap_obj().into_inner();
-		let steam_library_apps = steam_library.get("apps").unwrap()[0].clone().unwrap_obj().into_inner();
-
-		if steam_library_apps.contains_key(GMOD_STEAM_APPID) {
-			let steam_library_path = steam_library.get("path").unwrap()[0].clone();
-			gmod_steam_library_path = string_to_canonical_pathbuf(steam_library_path.unwrap_str().to_string());
+	let steam_libraryfolders: HashMap<&str, SteamLibraryFolder> = steam_libraryfolders.unwrap();
+	for (_, steam_library) in steam_libraryfolders {
+		if steam_library.apps.contains_key(&GMOD_STEAM_APPID) {
+			gmod_steam_library_path = string_to_canonical_pathbuf(steam_library.path);
 		}
 	}
 
@@ -733,38 +878,37 @@ where
 	}
 
 	let gmod_manifest_str = gmod_manifest_str.unwrap();
-	let gmod_manifest = Vdf::parse(gmod_manifest_str.as_str());
+	let gmod_manifest = keyvalues_serde::from_str(gmod_manifest_str.as_str());
 
-	if gmod_manifest.is_err() {
-		return Err(AlmightyError::Generic("Couldn't parse GMod's appmanifest_4000.acf. Is the file corrupt?".to_string()));
+	if let Err(error) = gmod_manifest {
+		return Err(AlmightyError::Generic(format!("Couldn't parse GMod's appmanifest_4000.acf. Is the file corrupt?\n\t{error}")));
 	}
 
-	let gmod_manifest = gmod_manifest.unwrap();
-	let gmod_manifest = gmod_manifest.value.unwrap_obj();
+	let gmod_manifest: SteamAppManifest = gmod_manifest.unwrap();
 
 	// Get GMod app state
-	let gmod_stateflags = gmod_manifest.get("StateFlags").unwrap()[0].clone().unwrap_str();
-	//let gmod_downloadtype = gmod_manifest.get("DownloadType").unwrap()[0].clone().unwrap_str();
-	let gmod_scheduledautoupdate = gmod_manifest.get("ScheduledAutoUpdate").unwrap()[0].clone().unwrap_str();
+	let gmod_stateflags = gmod_manifest.state_flags;
+	//let gmod_downloadtype = gmod_manifest.download_type;
+	let gmod_scheduledautoupdate = gmod_manifest.scheduled_auto_update;
 
 	terminal_write(writer, format!("GMod App State: {gmod_stateflags} / {gmod_scheduledautoupdate}\n").as_str(), true, None);
 
 	// TODO(?): DownloadType / FullValidateBeforeNextUpdate / FullValidateAfterNextUpdate
-	if gmod_stateflags != "4" || gmod_scheduledautoupdate != "0" {
+	if gmod_stateflags != 4 || gmod_scheduledautoupdate {
 		return Err(AlmightyError::Generic("Garry's Mod is Not Ready. Check Steam > Downloads and make sure it is fully installed and up to date. If that doesn't work, try launching the game, closing it, then running the tool again.".to_string()));
 	}
 
 	// Get GMod branch
 	// TODO: Change branch to x86-64 if the current branch isn't in the manifest
-	let gmod_userconfig = gmod_manifest.get("UserConfig").unwrap()[0].clone().unwrap_obj();
-	let gmod_branch = gmod_userconfig.get("BetaKey");
-	let gmod_branch = if let Some(gmod_branch) = gmod_branch { gmod_branch[0].clone().unwrap_str().to_string() } else { "public".to_string() };
+	let gmod_mountedconfig = gmod_manifest.mounted_config;
+	let gmod_branch = gmod_mountedconfig.beta_key;
+	let gmod_branch = if let Some(gmod_branch) = gmod_branch { gmod_branch } else { "public".to_string() };
 
 	terminal_write(writer, format!("GMod Beta Branch: {gmod_branch}\n").as_str(), true, None);
 
 	// Get GMod path
 	// TODO: What about `steamapps/<username>/GarrysMod`? Is that still a thing, or did SteamPipe kill/migrate it completely?
-	let gmod_path_config = gmod_manifest.get("installdir").unwrap()[0].clone().unwrap_str();
+	let gmod_path_config = gmod_manifest.installdir;
 	let mut gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_steam_library_path.clone(), &["steamapps", "common", &gmod_path_config]), true);
 
 	// Try SteamApps with capitalization
@@ -814,24 +958,18 @@ where
 		}
 
 		let steam_config_str = steam_config_str.unwrap();
-		let steam_config = Vdf::parse(steam_config_str.as_str());
+		let steam_config = keyvalues_serde::from_str(steam_config_str.as_str());
 
 		if steam_config.is_err() {
 			return Err(AlmightyError::Generic("Couldn't parse Steam config.vdf. Is the file corrupt?".to_string()));
 		}
 
-		// TODO: Simplify this nightmare of unwraps and clones
-		let steam_config = steam_config.unwrap();
-		let steam_config = steam_config.value.unwrap_obj();
-		let steam_config = steam_config.get("Software").unwrap()[0].clone().unwrap_obj()
-				.get("Valve").unwrap()[0].clone().unwrap_obj()
-				.get("Steam").unwrap()[0].clone().unwrap_obj();
+		let steam_config: SteamConfig = steam_config.unwrap();
+		let steam_config = steam_config.software.valve.steam;
 
-		if let Some(steam_config_compattoolmapping) = steam_config.get("CompatToolMapping") {
-			let steam_config_compattoolmapping = steam_config_compattoolmapping[0].clone().unwrap_obj();
-
-			if steam_config_compattoolmapping.contains_key(GMOD_STEAM_APPID) {
-				let compattool = steam_config_compattoolmapping.get(GMOD_STEAM_APPID).unwrap()[0].clone().unwrap_obj().get("name").unwrap()[0].clone().unwrap_str().to_lowercase();
+		if let Some(steam_config_compattoolmapping) = steam_config.compat_tool_mapping {
+			if let Some(compattoolmapping) = steam_config_compattoolmapping.get(&GMOD_STEAM_APPID) {
+				let compattool = compattoolmapping.name.to_lowercase();
 
 				if compattool.contains("proton") {
 					platform_masked = "windows";
@@ -854,26 +992,17 @@ where
 	}
 
 	let steam_user_localconfig_str = steam_user_localconfig_str.unwrap();
-	let steam_user_localconfig = Vdf::parse(steam_user_localconfig_str.as_str());
+	let steam_user_localconfig = keyvalues_serde::from_str(steam_user_localconfig_str.as_str());
 
-	if steam_user_localconfig.is_err() {
-		return Err(AlmightyError::Generic("Couldn't parse Steam localconfig.vdf. Is the file corrupt?".to_string()));
+	if let Err(error) = steam_user_localconfig {
+		return Err(AlmightyError::Generic(format!("Couldn't parse Steam localconfig.vdf. Is the file corrupt?\n\t{error}")));
 	}
 
-	// TODO: Simplify this nightmare of unwraps and clones
-	let steam_user_localconfig = steam_user_localconfig.unwrap();
-	let steam_user_localconfig = steam_user_localconfig.value.unwrap_obj();
-	let steam_user_localconfig_apps = steam_user_localconfig.get("Software").unwrap()[0].clone().unwrap_obj()
-		.get("Valve").unwrap()[0].clone().unwrap_obj()
-		.get("Steam").unwrap()[0].clone().unwrap_obj()
-		.get("apps").unwrap()[0].clone().unwrap_obj();
+	let steam_user_localconfig: SteamUserLocalConfig = steam_user_localconfig.unwrap();
+	let steam_user_localconfig_apps = steam_user_localconfig.software.valve.steam.apps;
 
-	if let Some(steam_user_localconfig_gmod) = steam_user_localconfig_apps.get(GMOD_STEAM_APPID) {
-		let steam_user_localconfig_gmod = steam_user_localconfig_gmod[0].clone().unwrap_obj();
-
-		if let Some(steam_user_localconfig_gmod_launchopts) = steam_user_localconfig_gmod.get("LaunchOptions") {
-			let steam_user_localconfig_gmod_launchopts = steam_user_localconfig_gmod_launchopts[0].clone().unwrap_str();
-
+	if let Some(steam_user_localconfig_gmod) = steam_user_localconfig_apps.get(&GMOD_STEAM_APPID) {
+		if let Some(steam_user_localconfig_gmod_launchopts) = &steam_user_localconfig_gmod.launch_options {
 			if steam_user_localconfig_gmod_launchopts.contains("-nochromium") {
 				terminal_write(writer, "WARNING: -nochromium is in GMod's Launch Options! CEF will not work with this.\n\tPlease go to Steam > Garry's Mod > Properties > General and remove it.\n\tAdditionally, if you have gmod-lua-menu installed, uninstall it.", true, if writer_is_interactive { Some("yellow") } else { None });
 
@@ -1121,7 +1250,7 @@ where
 	// TODO: Check dxlevel/d3d9ex support in Proton, and if there's anything we can do about it
 
 	let now = now.elapsed().as_secs_f64();
-	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).\nYou can now launch Garry's Mod in Steam.\n").as_str(), true, if writer_is_interactive { Some("green") } else { None });
+	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).\nYou can now launch Garry's Mod in Steam.").as_str(), true, if writer_is_interactive { Some("green") } else { None });
 
 	// TODO: AppInfo launch options for auto-starting GMod? What if we just relied on steam://rungameid/4000 instead?
 
@@ -1129,7 +1258,7 @@ where
 }
 
 fn terminal_exit_handler() {
-	println!("Press Enter to exit...");
+	println!("\nPress Enter to exit...");
 	std::io::stdin().read_line(&mut String::new()).unwrap();
 }
 
@@ -1149,6 +1278,7 @@ where
 		},
 	};
 
+	// TODO: Finish implementing this; mainly it should skip the exit prompt at the end, and it should just be a bool not a exe launch option
 	if args.auto_mode.is_none() && !writer_is_interactive {
 		return Err(AlmightyError::Generic("Interactive tty is required when not using --auto-mode".into()));
 	}
