@@ -196,6 +196,11 @@ fn hash_diff_compress_file(patch_path: PathBuf, filename: &String, file_paths: &
 		}
 	}
 
+	// Create compressed copies of fixed symbols
+	if fixed_hash != "null" {
+		// TODO
+	}
+
 	hashes.insert("original".to_string(), original_hash);
 	hashes.insert("fixed".to_string(), fixed_hash);
 

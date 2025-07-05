@@ -48,12 +48,16 @@ use std::os::unix::fs::PermissionsExt;
 #[derive(Parser)]
 #[command(version)]
 struct Args {
-	/// Force a specific Garry's Mod launch entry
-	#[arg(short, long, value_name = "LAUNCH_OPTION")]
-	auto_mode: Option<u8>,
+	/// Launch Garry's Mod after successfully patching
+	#[arg(short, long)]
+	launch_gmod: bool,
+
+	/// Skip "Press Enter to exit..." on tool exit
+	#[arg(short, long)]
+	skip_exit_prompt: bool,
 
 	/// Force a specific Steam install path (NOT a Steam library path)
-	#[arg(short, long)]
+	#[arg(long)]
 	steam_path: Option<PathBuf>,
 
 	/// Allow running the tool as root/admin (NOT RECOMMENDED!!!)
@@ -265,7 +269,17 @@ where
 	let mut response = None;
 	while (server_id as usize) < servers.len() {
 		let url = servers[server_id as usize].to_string() + filename;
-		let response_result = reqwest::get(url.clone()).await; // TODO: Timeout check
+
+		let client = reqwest::Client::builder()
+			.connect_timeout(std::time::Duration::new(10, 0)) // Initial connection failure
+			.read_timeout(std::time::Duration::new(10, 0)) // Stall detection
+			//.timeout(std::time::Duration::new(size, 0)) // TODO: Total DEADLINE timeout (downloading too slow)
+			.build();
+
+		let response_result = match client {
+			Ok(client) => client.get(url.clone()).send().await,
+			Err(error) => Err(error)
+		};
 
 		match response_result {
 			Ok(response_unwrapped) => {
@@ -429,14 +443,15 @@ where
 	Err(())
 }
 
+#[allow(clippy::too_many_arguments)]
 fn patch_file<W>(
 	writer: fn() -> W,
 	writer_is_interactive: bool,
 	integrity_status_strings: &HashMap<IntegrityStatus, &str>,
-	gmod_path: &PathBuf,
+	gmod_path: &Path,
 	platform_masked: &str,
 	gmod_branch: &String,
-	cache_dir: &PathBuf,
+	cache_dir: &Path,
 	filename: &&String,
 	integrity_status: &IntegrityStatus,
 	hashes: &&HashMap<String, String>
@@ -449,7 +464,7 @@ where
 	let mut new_integrity_status: IntegrityStatus = *integrity_status;
 	let mut integrity_status_string = integrity_status_strings[&new_integrity_status];
 	let gmod_file_parts: Vec<&str> = filename.split("/").collect();
-	let gmod_file_path = extend_pathbuf_and_return(gmod_path.clone(), &gmod_file_parts[..]);
+	let gmod_file_path = extend_pathbuf_and_return(gmod_path.to_path_buf(), &gmod_file_parts[..]);
 
 	// Delete the file since it's not used anymore
 	// If we can't delete it outright, try and truncate it
@@ -471,7 +486,7 @@ where
 	if new_integrity_status == IntegrityStatus::NeedOriginal {
 		let original_filename = format!("originals/{platform_masked}/{gmod_branch}/{filename}");
 		let original_file_parts: Vec<&str> = original_filename.split("/").collect();
-		let original_cache_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &original_file_parts[..]), false);
+		let original_cache_file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.to_path_buf(), &original_file_parts[..]), false);
 
 		match original_cache_file_path {
 			Ok(original_cache_file_path) => {
@@ -530,7 +545,7 @@ where
 		let patch_filename = format!("patches/{platform_masked}/{gmod_branch}/{filename}.bsdiff");
 		let patch_file_parts: Vec<&str> = patch_filename.split("/").collect();
 
-		let patch_file_path = match pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.clone(), &patch_file_parts[..]), false) {
+		let patch_file_path = match pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(cache_dir.to_path_buf(), &patch_file_parts[..]), false) {
 			Ok(patch_file_path) => patch_file_path,
 			Err(error) => {
 				terminal_write(writer, format!("\tFailed to Patch: {filename} | {integrity_status_string} / Step 2: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
@@ -1064,6 +1079,7 @@ where
 		(IntegrityStatus::Fixed, "Already Fixed")
 	]);
 
+	#[allow(clippy::type_complexity)]
 	let integrity_results: Vec<(&String, Result<IntegrityStatus, String>, &HashMap<String, String>)> = platform_branch_files.par_iter()
 	.map(|(filename, hashes)| {
 		let integrity_result = determine_file_integrity_status(gmod_path.clone(), filename, hashes);
@@ -1248,11 +1264,21 @@ where
 
 	// TODO: Update BASS? https://github.com/Facepunch/garrysmod-requests/issues/1885
 	// TODO: Check dxlevel/d3d9ex support in Proton, and if there's anything we can do about it
+	// TODO: Somehow handle optional features, like the VGUI theme rework (beyond the font changes)
 
 	let now = now.elapsed().as_secs_f64();
-	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).\nYou can now launch Garry's Mod in Steam.").as_str(), true, if writer_is_interactive { Some("green") } else { None });
+	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).").as_str(), true, if writer_is_interactive { Some("green") } else { None });
 
-	// TODO: AppInfo launch options for auto-starting GMod? What if we just relied on steam://rungameid/4000 instead?
+	if args.launch_gmod {
+		terminal_write(writer, "Launching Garry's Mod...", true, if writer_is_interactive { Some("green") } else { None });
+
+		let open_result = open::that("steam://rungameid/4000");
+		if let Err(error) = open_result {
+			terminal_write(writer, format!("\tFailed: {error}").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
+		}
+	} else {
+		terminal_write(writer, "You can now launch Garry's Mod in Steam.", true, if writer_is_interactive { Some("green") } else { None });
+	}
 
 	Ok(())
 }
@@ -1262,25 +1288,12 @@ fn terminal_exit_handler() {
 	std::io::stdin().read_line(&mut String::new()).unwrap();
 }
 
-fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool) -> Result<(), AlmightyError>
+fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool, args: Args) -> Result<(), AlmightyError>
 where
 	W: std::io::Write + 'static
 {
-	terminal_write(writer, ABOUT, true, if writer_is_interactive { Some("cyan") } else { None });
-
-	// Parse the args
-	let args = match Args::try_parse() {
-		Ok(args) => args,
-		Err(error) => {
-			let _ = error.print();
-			terminal_exit_handler();
-			std::process::exit(error.exit_code());
-		},
-	};
-
-	// TODO: Finish implementing this; mainly it should skip the exit prompt at the end, and it should just be a bool not a exe launch option
-	if args.auto_mode.is_none() && !writer_is_interactive {
-		return Err(AlmightyError::Generic("Interactive tty is required when not using --auto-mode".into()));
+	if args.skip_exit_prompt && !writer_is_interactive {
+		return Err(AlmightyError::Generic("Interactive tty is required without --skip-exit-prompt".into()));
 	}
 
 	tokio::runtime::Builder::new_multi_thread()
@@ -1356,6 +1369,7 @@ pub fn main() {
 				error!("GUI | {error}");
 				process::exit(1);
 			}
+
 			process::exit(0);
 		}
 	}
@@ -1364,11 +1378,29 @@ pub fn main() {
 		print!("\x1B]0;GModPatchTool\x07");
 	}
 
-	if let Err(error) = main_script(std::io::stdout, is_terminal) {
+	let writer = std::io::stdout;
+	let writer_is_interactive = is_terminal;
+
+	// Write about
+	terminal_write(writer, ABOUT, true, if writer_is_interactive { Some("cyan") } else { None });
+
+	// Parse the args
+	let args = match Args::try_parse() {
+		Ok(args) => args,
+		Err(error) => {
+			let _ = error.print();
+			terminal_exit_handler();
+			std::process::exit(error.exit_code());
+		},
+	};
+
+	let skip_exit_prompt = args.skip_exit_prompt;
+
+	if let Err(error) = main_script(writer, writer_is_interactive, args) {
 		error!("{error}");
 	}
 
-	if is_terminal {
+	if is_terminal && !skip_exit_prompt {
 		terminal_exit_handler();
 	}
 }
