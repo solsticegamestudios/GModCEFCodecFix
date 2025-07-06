@@ -321,7 +321,7 @@ enum IntegrityStatus {
 	Fixed = 4
 }
 
-fn determine_file_integrity_status(gmod_path: PathBuf, filename: &str, hashes: &HashMap<String, String>) -> Result<IntegrityStatus, String> {
+fn determine_file_integrity_status(gmod_path: PathBuf, filename: &str, hashes: &IndexMap<String, String>) -> Result<IntegrityStatus, String> {
 	let file_parts: Vec<&str> = filename.split("/").collect();
 	let file_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path, &file_parts[..]), false);
 	let mut file_hash = BLANK_FILE_HASH.to_string();
@@ -454,7 +454,7 @@ fn patch_file<W>(
 	cache_dir: &Path,
 	filename: &&String,
 	integrity_status: &IntegrityStatus,
-	hashes: &&HashMap<String, String>
+	hashes: &&IndexMap<String, String>
 ) -> IntegrityStatus
 where
 	W: std::io::Write + 'static
@@ -1080,7 +1080,7 @@ where
 	]);
 
 	#[allow(clippy::type_complexity)]
-	let integrity_results: Vec<(&String, Result<IntegrityStatus, String>, &HashMap<String, String>)> = platform_branch_files.par_iter()
+	let integrity_results: Vec<(&String, Result<IntegrityStatus, String>, &IndexMap<String, String>)> = platform_branch_files.par_iter()
 	.map(|(filename, hashes)| {
 		let integrity_result = determine_file_integrity_status(gmod_path.clone(), filename, hashes);
 		let integrity_result_clone = integrity_result.clone();
@@ -1100,7 +1100,7 @@ where
 
 	// Filter out fixed files, and if there were any i/o errors getting the hash, exit early
 	// We don't exit during the multithreaded iterator above because we want *all* of the failing files to list first
-	let mut pending_files: Vec<(&String, IntegrityStatus, &HashMap<String, String>)> = vec![];
+	let mut pending_files: Vec<(&String, IntegrityStatus, &IndexMap<String, String>)> = vec![];
 	for (filename, result, hashes) in integrity_results {
 		match result {
 			Ok(result) => {

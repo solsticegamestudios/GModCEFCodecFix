@@ -5,6 +5,7 @@ use std::time::Instant;
 use qbsdiff::Bsdiff;
 use std::sync::Mutex;
 use std::ops::Deref;
+use serde::ser::Serialize;
 
 #[derive(Parser, Debug)]
 #[command(version)]
@@ -57,9 +58,9 @@ fn get_files_recursive(source: &str, path_base: String, files: &mut HashMap<Stri
 	}
 }
 
-fn hash_diff_compress_file(patch_dest: PathBuf, filename: &String, file_paths: &HashMap<String, PathBuf>, original_dest: PathBuf, symbol_dest: PathBuf) -> Result<(f64, HashMap<String, String>), (bool, String)> {
+fn hash_diff_compress_file(patch_dest: PathBuf, filename: &String, file_paths: &HashMap<String, PathBuf>, original_dest: PathBuf, symbol_dest: PathBuf) -> Result<(f64, IndexMap<String, String>), (bool, String)> {
 	let now = Instant::now();
-	let mut hashes: HashMap<String, String> = HashMap::new();
+	let mut hashes: IndexMap<String, String> = IndexMap::new();
 
 	let original_src = file_paths.get("original");
 	let fixed_src = file_paths.get("fixed");
@@ -378,7 +379,7 @@ pub fn main() {
 	get_files_recursive("original", "".to_string(), &mut files, original_src);
 	get_files_recursive("fixed", "".to_string(), &mut files, fixed_src);
 
-	let manifest: Mutex<Manifest> = Mutex::new(HashMap::new());
+	let manifest: Mutex<Manifest> = Mutex::new(IndexMap::new());
 
 	files.par_iter().for_each(|(filename, file_paths)| {
 		let result = hash_diff_compress_file(patch_dest.clone(), filename, file_paths, original_dest.clone(), symbol_dest.clone());
@@ -396,14 +397,14 @@ pub fn main() {
 
 				let mut platform_branches = manifest_locked.get_mut(&platform);
 				if platform_branches.is_none() {
-					manifest_locked.insert(platform.clone(), HashMap::new());
+					manifest_locked.insert(platform.clone(), IndexMap::new());
 					platform_branches = manifest_locked.get_mut(&platform);
 				}
 				let platform_branches = platform_branches.unwrap();
 
 				let mut platform_branch_files = platform_branches.get_mut(&gmod_branch);
 				if platform_branch_files.is_none() {
-					platform_branches.insert(gmod_branch.clone(), HashMap::new());
+					platform_branches.insert(gmod_branch.clone(), IndexMap::new());
 					platform_branch_files = platform_branches.get_mut(&gmod_branch);
 				}
 				let platform_branch_files = platform_branch_files.unwrap();
@@ -421,18 +422,35 @@ pub fn main() {
 		}
 	});
 
-	// TODO: Sort file names alphabetically so Git doesn't think it changes every time we generate it
-	let manifest_guard = manifest.lock().unwrap();
+	let mut manifest_guard = manifest.lock().unwrap();
+
+	// Sort file names alphabetically so Git doesn't think it changes every time we generate it
+	// TODO: Generic recursive function?
+	for (_, map) in manifest_guard.iter_mut() {
+		for (_, map) in map.iter_mut() {
+			for (_, map) in map.iter_mut() {
+				map.sort_unstable_keys();
+			}
+			map.sort_unstable_keys();
+		}
+		map.sort_unstable_keys();
+	}
+	manifest_guard.sort_unstable_keys();
+
 	let manifest = manifest_guard.deref();
 
 	println!("\n*** GENERATING MANIFEST JSON ***\n");
 
-	// HACK(winter): Replace the stupid double-space indentation with proper tabbed indentation
-	// The correct way to do this is with serde::Serialize, but that requires importing the whole serde library, so I don't care
-	// WARN(winter): This may break at some point!...but it'll probably still work, just with wonky formatting
+	// Replace the stupid double-space indentation with proper tabbed indentation
 	// Also add newline at the end to make Git happy
-	let mut manifest_json = serde_json::to_string_pretty(&manifest).unwrap();
-	manifest_json = manifest_json.replace("  ", "	");
+	let mut buf = Vec::new();
+	let formatter = serde_json::ser::PrettyFormatter::with_indent(b"	");
+	let mut ser = serde_json::Serializer::with_formatter(&mut buf, formatter);
+	manifest.serialize(&mut ser).unwrap();
+	let mut manifest_json = unsafe {
+		String::from_utf8_unchecked(buf)
+	};
+
 	manifest_json += "\n";
 
 	let write_result = std::fs::write(manifest_file_path.clone(), &manifest_json);
