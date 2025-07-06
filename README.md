@@ -4,15 +4,31 @@
 
 ***GModPatchTool** does what Facepunch [don't](https://github.com/Facepunch/gmod-html/pull/3)!*
 
-Automatically patches [Garry's Mod](https://gmod.facepunch.com/)'s internal [Chromium Embedded Framework](https://en.wikipedia.org/wiki/Chromium_Embedded_Framework) to:
-- Bring CEF up to date
-- Fix GMod missing menu/launch issues on macOS and Linux
-- Enable [Proprietary Video/Audio codec](https://www.chromium.org/audio-video), like H.264 (MP4) and AAC, support
-- Enable [Widevine](https://www.widevine.com) support (but [no VMP](https://github.com/solsticegamestudios/GModPatchTool/issues/100), so Netflix et al. don't work currently...)
-- Enable Software WebGL
-- Enable partial GPU acceleration
-
 **Created by Solstice Game Studios (www.solsticegamestudios.com)**
+
+# 🛠️ Patches We Apply
+### All Platforms
+- Fixes various launch/missing main menu issues on macOS and Linux
+- Improves the Legacy VGUI Theme with our custom SourceScheme.res
+- Replaces Debug/Console fonts with [PT Mono](https://fonts.google.com/specimen/PT+Mono) to improve consistency/readability across platforms
+  - This is particularly important for Proton, where text using those fonts are broken/tiny out of the box (no Lucida Console)
+
+### In-Game Web Browser ([Chromium Embedded Framework, aka CEF](https://en.wikipedia.org/wiki/Chromium_Embedded_Framework))
+- Updates CEF to 137.0.10 (Chromium 137.0.7151.69)
+- Enables [Proprietary Video/Audio codec](https://www.chromium.org/audio-video), like H.264 (MP4) and AAC, support
+- Enables [Widevine](https://www.widevine.com) support (but [no VMP](https://github.com/solsticegamestudios/GModPatchTool/issues/100), so Netflix et al. don't work currently...)
+- Enables Software WebGL
+- Enables partial GPU acceleration
+- Improves performance for texture updates
+- Disables Hardware Media Keys control of media
+- Re-enables Site Isolation (security feature; some sites require it to function)
+
+### Linux
+- Fixes Steam Overlay/MangoHud/etc by not doing `unset LD_PRELOAD`
+- Sets `mesa_glthread=true` for more OpenGL performance with Mesa drivers
+- Sets `DRI_PRIME=1` to automatically use the Dedicated GPU with Mesa drivers in Laptops
+  - For Nvidia proprietary driver users: Please use the `prime-run` command, or look at `hl2.sh` after patches are applied
+- Sets `ulimit -n $(ulimit -Hn)` to fix issues opening/mounting many files (many addons, Lua autorefresh, etc)
 
 # ❓ Players: How to use
 Download the **[Latest Release](https://github.com/solsticegamestudios/GModPatchTool/releases)** and run the application.
