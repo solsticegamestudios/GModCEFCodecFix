@@ -23,9 +23,10 @@ Email: contact@solsticegamestudios.com\n";
 
 use std::path::{Path, PathBuf};
 use std::collections::HashMap;
+use indexmap::IndexMap;
 use rayon::prelude::*;
 
-type Manifest = HashMap<String, HashMap<String, HashMap<String, HashMap<String, String>>>>;
+type Manifest = IndexMap<String, IndexMap<String, IndexMap<String, IndexMap<String, String>>>>;
 
 fn pathbuf_dir_not_empty(pathbuf: &Path) -> bool {
 	// If this is a valid file in the directory, the directory isn't empty
