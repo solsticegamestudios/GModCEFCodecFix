@@ -14,7 +14,7 @@ const PATCH_SERVER_ROOTS: [&str; 2] = [
 	"https://www.solsticegamestudios.com/gmodpatchtool/" // TODO: Webhook that triggers git pull and clears the cache on Cloudflare
 ];
 
-const GMOD_STEAM_APPID: u64 = 4000;
+//const GMOD_STEAM_APPID: u64 = 4000;
 const BLANK_FILE_HASH: &str = "null";
 
 use crate::*;
@@ -113,7 +113,13 @@ struct SteamLibraryFolder {
 	//update_clean_bytes_tally: u64,
 	//time_last_update_verified: u64,
 	#[serde(alias = "Apps")]
-	apps: HashMap<u64, u64>
+	apps: SteamLibraryFolderApps
+}
+
+#[derive(Deserialize, Debug)]
+struct SteamLibraryFolderApps {
+	#[serde(rename = "4000")]
+	gmod: Option<u64>
 }
 
 //
@@ -186,8 +192,15 @@ struct SteamConfigValve {
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 struct SteamConfigSteam {
-	compat_tool_mapping: Option<HashMap<u64, SteamCompatToolMapping>>
+	compat_tool_mapping: Option<SteamConfigCompatToolMappingApps>
 	// Several entries unimplemented!
+}
+
+#[cfg(target_os = "linux")]
+#[derive(Deserialize, Debug)]
+struct SteamConfigCompatToolMappingApps {
+	#[serde(rename = "4000")]
+	gmod: Option<SteamCompatToolMapping>
 }
 
 #[cfg(target_os = "linux")]
@@ -223,8 +236,14 @@ struct SteamUserLocalConfigValve {
 #[derive(Deserialize, Debug)]
 struct SteamUserLocalConfigSteam {
 	#[serde(alias = "Apps")]
-	apps: HashMap<u64, SteamUserLocalConfigApp>
+	apps: SteamUserLocalConfigApps
 	// Several entries unimplemented!
+}
+
+#[derive(Deserialize, Debug)]
+struct SteamUserLocalConfigApps {
+	#[serde(rename = "4000")]
+	gmod: Option<SteamUserLocalConfigApp>
 }
 
 #[derive(Deserialize, Debug)]
@@ -864,7 +883,7 @@ where
 	let mut gmod_steam_library_path = None;
 	let steam_libraryfolders: HashMap<&str, SteamLibraryFolder> = steam_libraryfolders.unwrap();
 	for (_, steam_library) in steam_libraryfolders {
-		if steam_library.apps.contains_key(&GMOD_STEAM_APPID) {
+		if steam_library.apps.gmod.is_some() {
 			gmod_steam_library_path = string_to_canonical_pathbuf(steam_library.path);
 		}
 	}
@@ -982,9 +1001,9 @@ where
 		let steam_config: SteamConfig = steam_config.unwrap();
 		let steam_config = steam_config.software.valve.steam;
 
-		if let Some(steam_config_compattoolmapping) = steam_config.compat_tool_mapping {
-			if let Some(compattoolmapping) = steam_config_compattoolmapping.get(&GMOD_STEAM_APPID) {
-				let compattool = compattoolmapping.name.to_lowercase();
+		if let Some(steam_config_compat_tool_mapping) = steam_config.compat_tool_mapping {
+			if let Some(steam_config_compat_tool_mapping_gmod) = steam_config_compat_tool_mapping.gmod {
+				let compattool = steam_config_compat_tool_mapping_gmod.name.to_lowercase();
 
 				if compattool.contains("proton") {
 					platform_masked = "windows";
@@ -1014,9 +1033,9 @@ where
 	}
 
 	let steam_user_localconfig: SteamUserLocalConfig = steam_user_localconfig.unwrap();
-	let steam_user_localconfig_apps = steam_user_localconfig.software.valve.steam.apps;
+	let steam_user_localconfig_gmod = steam_user_localconfig.software.valve.steam.apps.gmod;
 
-	if let Some(steam_user_localconfig_gmod) = steam_user_localconfig_apps.get(&GMOD_STEAM_APPID) {
+	if let Some(steam_user_localconfig_gmod) = steam_user_localconfig_gmod {
 		if let Some(steam_user_localconfig_gmod_launchopts) = &steam_user_localconfig_gmod.launch_options {
 			if steam_user_localconfig_gmod_launchopts.contains("-nochromium") {
 				terminal_write(writer, "WARNING: -nochromium is in GMod's Launch Options! CEF will not work with this.\n\tPlease go to Steam > Garry's Mod > Properties > General and remove it.\n\tAdditionally, if you have gmod-lua-menu installed, uninstall it.", true, if writer_is_interactive { Some("yellow") } else { None });
