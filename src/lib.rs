@@ -7,14 +7,12 @@ pub mod patch;
 #[cfg(feature = "patch")]
 mod gui;
 
-const ABOUT: &str = "GModPatchTool
-
-Formerly: GModCEFCodecFix
+const ABOUT: &str = "GModPatchTool (formerly GModCEFCodecFix)
 
 Copyright 2020-2025, Solstice Game Studios (www.solsticegamestudios.com)
 LICENSE: GNU General Public License v3.0
 
-Purpose: Patches Garry's Mod to resolve common launch/performance issues, Updates Chromium Embedded Framework (CEF), and Enables proprietary codecs in CEF.
+Purpose: Patches Garry's Mod to Update/Improve Chromium Embedded Framework (CEF) and Fix common launch/performance issues (esp. on Linux/Proton/macOS).
 
 Guide: https://www.solsticegamestudios.com/fixmedia/
 FAQ/Common Issues: https://www.solsticegamestudios.com/fixmedia/faq/
