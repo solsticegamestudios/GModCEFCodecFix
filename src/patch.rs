@@ -63,6 +63,10 @@ struct Args {
 	/// Allow running the tool as root/admin (NOT RECOMMENDED!!!)
 	#[arg(long)]
 	run_as_root_with_security_risk: bool,
+
+	/// Skip deleting ChromiumCache/ChromiumCacheMultirun from the GarrysMod directory
+	#[arg(long)]
+	skip_clear_chromiumcache: bool
 }
 
 const COLOR_LOOKUP: Map<&'static str, &'static str> =
@@ -1277,6 +1281,30 @@ where
 						}
 					}
 				}
+			}
+		}
+	}
+
+	// Delete ChromiumCache/ChromiumCacheMultirun
+	// Solves issues with being corrupt/stuck lockfiles, and GMod MUST NOT be running for this tool to run, so it probably solves more issues than it could create
+	if !args.skip_clear_chromiumcache {
+		let gmod_chromiumcache_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path.clone(), &["ChromiumCache"]), false);
+		if let Ok(gmod_chromiumcache_path) = gmod_chromiumcache_path {
+			terminal_write(writer, "\nClearing ChromiumCache...", true, None);
+			if let Err(error) = std::fs::remove_dir_all(gmod_chromiumcache_path) {
+				terminal_write(writer, format!("\tFailed: {error}\n\tYou may want to delete ChromiumCache from the GarrysMod directory manually!").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
+			} else {
+				terminal_write(writer, "Done!", true, None);
+			}
+		}
+
+		let gmod_chromiumcachemultirun_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path.clone(), &["ChromiumCacheMultirun"]), false);
+		if let Ok(gmod_chromiumcachemultirun_path) = gmod_chromiumcachemultirun_path {
+			terminal_write(writer, "\nClearing ChromiumCacheMultirun...", true, None);
+			if let Err(error) = std::fs::remove_dir_all(gmod_chromiumcachemultirun_path) {
+				terminal_write(writer, format!("\tFailed: {error}\n\tYou may want to delete ChromiumCacheMultirun from the GarrysMod directory manually!").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
+			} else {
+				terminal_write(writer, "Done!", true, None);
 			}
 		}
 	}
