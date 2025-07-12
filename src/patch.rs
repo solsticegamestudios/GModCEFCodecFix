@@ -171,7 +171,7 @@ struct SteamAppManifest {
 	//auto_update_behavior: u8, // 1-3
 	//allow_other_downloads_while_running: bool,
 	#[serde(alias = "scheduledautoupdate")]
-	scheduled_auto_update: bool,
+	scheduled_auto_update: u64, // Y2K38
 	#[serde(alias = "fullvalidatebeforenextupdate")]
 	full_validate_before_next_update: Option<bool>,
 	//full_validate_after_next_update: bool,
@@ -682,6 +682,24 @@ where
 	W: std::io::Write + 'static
 {
 	let now = Instant::now();
+	let sys = System::new_all();
+
+	// Abort if another instance is already running
+	let pid_path = extend_pathbuf_and_return(std::env::current_exe().unwrap().parent().unwrap().to_path_buf(), &["gmodpatchtool.pid"]);
+	let running_instance_pid = tokio::fs::read_to_string(&pid_path).await;
+	if let Ok(pid) = running_instance_pid {
+		if let Ok(pid) = pid.parse::<usize>() {
+			if sys.process(sysinfo::Pid::from(pid)).is_some() {
+				return Err(AlmightyError::Generic(format!("Another instance of GModPatchTool is already running ({pid}).")));
+			}
+		}
+	}
+
+	// Create PID lockfile
+	let pid_write_result = tokio::fs::write(&pid_path, std::process::id().to_string()).await;
+	if let Err(error) = pid_write_result {
+		return Err(AlmightyError::Generic(format!("Failed to create gmodpatchtool.pid: {error}")));
+	}
 
 	// Get local version
 	let local_version: u32 = env!("CARGO_PKG_VERSION_MAJOR").parse().unwrap();
@@ -749,7 +767,6 @@ where
 	}
 
 	// Abort if GMod is currently running
-	let sys = System::new_all();
 	if sys.processes_by_exact_name("gmod.exe".as_ref()).next().is_some() || sys.processes_by_exact_name("gmod".as_ref()).next().is_some() {
 		return Err(AlmightyError::Generic("Garry's Mod is currently running. Please close it before running this tool.".to_string()));
 	}
@@ -971,7 +988,7 @@ where
 
 	terminal_write(writer, format!("GMod App State: {gmod_stateflags} | {gmod_scheduledautoupdate} | {gmod_fullvalidatebeforenextupdate} | {gmod_bytesdownloaded}/{gmod_bytestodownload} | {gmod_bytesstaged}/{gmod_bytestostage} \n").as_str(), true, None);
 
-	if gmod_stateflags != 4 || gmod_scheduledautoupdate || gmod_fullvalidatebeforenextupdate || gmod_bytesdownloaded != gmod_bytestodownload || gmod_bytesstaged != gmod_bytestostage {
+	if gmod_stateflags != 4 || gmod_scheduledautoupdate != 0 || gmod_fullvalidatebeforenextupdate || gmod_bytesdownloaded != gmod_bytestodownload || gmod_bytesstaged != gmod_bytestostage {
 		return Err(AlmightyError::Generic("Garry's Mod is Not Ready. Check Steam > Downloads and make sure it is fully installed and up to date. If that doesn't work, try launching the game, closing it, then running the tool again.".to_string()));
 	}
 
@@ -1403,6 +1420,20 @@ where
 fn terminal_exit_handler() {
 	println!("\nPress Enter to exit...");
 	std::io::stdin().read_line(&mut String::new()).unwrap();
+
+	// Delete PID lockfile
+	let pid_path = extend_pathbuf_and_return(std::env::current_exe().unwrap().parent().unwrap().to_path_buf(), &["gmodpatchtool.pid"]);
+	let running_instance_pid = std::fs::read_to_string(&pid_path);
+	if let Ok(pid) = running_instance_pid {
+		if let Ok(pid) = pid.parse::<u32>() {
+			if pid == std::process::id() {
+				let pid_remove_result = std::fs::remove_file(&pid_path);
+				if let Err(error) = pid_remove_result {
+					println!("Failed to remove gmodpatchtool.pid: {error}");
+				}
+			}
+		}
+	}
 }
 
 fn main_script<W>(writer: fn() -> W, writer_is_interactive: bool, args: Args) -> Result<(), AlmightyError>
