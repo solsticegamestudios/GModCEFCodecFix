@@ -36,6 +36,8 @@ use tokio::time::Instant;
 use tokio::task::JoinSet;
 use qbsdiff::Bspatch;
 
+use super::vdf;
+
 #[cfg(windows)]
 use is_elevated::is_elevated;
 
@@ -867,7 +869,7 @@ where
 	}
 
 	let steam_loginusers_str = steam_loginusers_str.unwrap();
-	let steam_loginusers = keyvalues_serde::from_str(steam_loginusers_str.as_str());
+	let steam_loginusers = vdf::from_str(steam_loginusers_str.as_str());
 
 	if let Err(error) = steam_loginusers {
 		return Err(AlmightyError::Generic(format!("Couldn't parse Steam loginusers.vdf. Is the file corrupt?\n\t{error}")));
@@ -910,7 +912,7 @@ where
 	}
 
 	let steam_libraryfolders_str = steam_libraryfolders_str.unwrap();
-	let steam_libraryfolders = keyvalues_serde::from_str(steam_libraryfolders_str.as_str());
+	let steam_libraryfolders = vdf::from_str(steam_libraryfolders_str.as_str());
 
 	if let Err(error) = steam_libraryfolders {
 		return Err(AlmightyError::Generic(format!("Couldn't parse Steam libraryfolders.vdf. Is the file corrupt?\n\t{error}")));
@@ -949,7 +951,7 @@ where
 	}
 
 	let gmod_manifest_str = gmod_manifest_str.unwrap();
-	let gmod_manifest = keyvalues_serde::from_str(gmod_manifest_str.as_str());
+	let gmod_manifest = vdf::from_str(gmod_manifest_str.as_str());
 
 	if let Err(error) = gmod_manifest {
 		return Err(AlmightyError::Generic(format!("Couldn't parse GMod's appmanifest_4000.acf. Is the file corrupt?\n\t{error}")));
@@ -1033,7 +1035,7 @@ where
 		}
 
 		let steam_config_str = steam_config_str.unwrap();
-		let steam_config = keyvalues_serde::from_str(steam_config_str.as_str());
+		let steam_config = vdf::from_str(steam_config_str.as_str());
 
 		if steam_config.is_err() {
 			return Err(AlmightyError::Generic("Couldn't parse Steam config.vdf. Is the file corrupt?".to_string()));
@@ -1067,7 +1069,7 @@ where
 	}
 
 	let steam_user_localconfig_str = steam_user_localconfig_str.unwrap();
-	let steam_user_localconfig = keyvalues_serde::from_str(steam_user_localconfig_str.as_str());
+	let steam_user_localconfig = vdf::from_str(steam_user_localconfig_str.as_str());
 
 	if let Err(error) = steam_user_localconfig {
 		return Err(AlmightyError::Generic(format!("Couldn't parse Steam localconfig.vdf. Is the file corrupt?\n\t{error}")));
