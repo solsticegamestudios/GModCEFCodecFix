@@ -7,6 +7,8 @@ pub mod patch;
 #[cfg(feature = "patch")]
 mod gui;
 
+mod vdf;
+
 const ABOUT: &str = "GModPatchTool (formerly GModCEFCodecFix)
 
 Copyright 2020-2025, Solstice Game Studios (www.solsticegamestudios.com)
