@@ -3,7 +3,7 @@ use std::sync::LazyLock;
 use iced::advanced::graphics::core::Element;
 use iced::widget::container;
 use iced::window::{icon, Position};
-use iced::{window, Font, Length, Size, Subscription, Task, Theme};
+use iced::{window, Color, Font, Length, Size, Subscription, Task, Theme};
 use iced_term::TerminalView;
 
 static ICON: LazyLock<icon::Icon> = LazyLock::new(|| {
@@ -90,7 +90,9 @@ impl App {
 	fn update(&mut self, event: Event) -> Task<Event> {
 		match event {
 			Event::Terminal(iced_term::Event::CommandReceived(_, cmd)) => {
-				match self.term.update(cmd) {
+				let is_init_task = matches!(cmd, iced_term::Command::InitBackend(_));
+
+				let task = match self.term.update(cmd) {
 					iced_term::actions::Action::Shutdown => {
 						window::get_latest().and_then(window::close)
 					}
@@ -99,6 +101,21 @@ impl App {
 						Task::none()
 					}
 					_ => Task::none(),
+				};
+
+				// BUG/HACK: Address race condition with InitBackend/ProcessBackendCommand(Resize) and layout_width/num_cols limiting the terminal size
+				// TODO: Report to iced_term
+				if is_init_task {
+					task.chain(Task::done(Event::Terminal(iced_term::Event::CommandReceived(
+						self.term.id,
+						iced_term::Command::ChangeFont(iced_term::settings::FontSettings {
+							size: 14.0,
+							font_type: Font::MONOSPACE,
+							..Default::default()
+						}),
+					))))
+				} else {
+					task
 				}
 			}
 		}
@@ -108,6 +125,8 @@ impl App {
 		container(TerminalView::show(&self.term).map(Event::Terminal))
 			.width(Length::Fill)
 			.height(Length::Fill)
+			.padding(4)
+			.style(|_| container::background(Color::from_rgb(12.0 / 255.0, 12.0 / 255.0, 12.0 / 255.0)))
 			.into()
 	}
 }
@@ -117,8 +136,8 @@ pub fn main() -> iced::Result {
 		.antialiasing(true)
 		.window(iced::window::Settings {
 			size: Size {
-				width: 1280.0,
-				height: 720.0,
+				width: 960.0,
+				height: 540.0,
 			},
 			position: Position::Centered,
 			resizable: false,
