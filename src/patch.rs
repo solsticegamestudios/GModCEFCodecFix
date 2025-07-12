@@ -99,7 +99,9 @@ enum AlmightyError {
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 struct SteamUser {
+	#[serde(alias = "accountname")]
 	account_name: String,
+	#[serde(alias = "personaname")]
 	persona_name: String,
 	//remember_password: bool,
 	//wants_offline_mode: bool,
@@ -107,6 +109,7 @@ struct SteamUser {
 	//allow_auto_login: bool,
 	#[serde(alias = "mostrecent")]
 	most_recent: bool,
+	#[serde(alias = "timestamp")]
 	timestamp: u64 // Y2K38
 }
 
@@ -114,14 +117,16 @@ struct SteamUser {
 // Steam/steamapps/libraryfolders.vdf
 //
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamLibraryFolder {
+	#[serde(alias = "path")]
 	path: String,
 	//label: String,
 	//contentid: i64,
 	//totalsize: u64,
 	//update_clean_bytes_tally: u64,
 	//time_last_update_verified: u64,
-	#[serde(alias = "Apps")]
+	#[serde(alias = "apps")]
 	apps: SteamLibraryFolderApps
 }
 
@@ -141,9 +146,10 @@ struct SteamAppManifest {
 	//universe: u8, // 0-5
 	//launcher_path: String,
 	//name: String,
+	#[serde(alias = "stateflags")]
 	state_flags: u32, // https://github.com/SteamDatabase/SteamTracking/blob/master/Structs/EAppState.json
-	#[serde(rename = "installdir")]
-	installdir: String,
+	#[serde(alias = "installdir")]
+	install_dir: String,
 	//last_updated: u64,
 	//last_played: u64,
 	//size_on_disk: u64,
@@ -151,25 +157,33 @@ struct SteamAppManifest {
 	//last_owner: u64,
 	//download_type: u32, // TODO: Is this right? Can't find documentation anywhere
 	//update_result: u32, // TODO: Is this right? Can't find documentation anywhere
+	#[serde(alias = "bytestodownload")]
 	bytes_to_download: u64,
+	#[serde(alias = "bytesdownloaded")]
 	bytes_downloaded: u64,
+	#[serde(alias = "bytestostage")]
 	bytes_to_stage: u64,
+	#[serde(alias = "bytesstaged")]
 	bytes_staged: u64,
 	//target_build_id: u32,
 	//auto_update_behavior: u8, // 1-3
 	//allow_other_downloads_while_running: bool,
+	#[serde(alias = "scheduledautoupdate")]
 	scheduled_auto_update: bool,
+	#[serde(alias = "fullvalidatebeforenextupdate")]
 	full_validate_before_next_update: Option<bool>,
 	//full_validate_after_next_update: bool,
 	//installed_depots: ,
 	//shared_depots: ,
 	//user_config: SteamAppConfig,
+	#[serde(alias = "mountedconfig")]
 	mounted_config: SteamAppConfig
 }
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 struct SteamAppConfig {
+	#[serde(alias = "betakey")]
 	beta_key: Option<String>,
 	//language: Option<String>
 }
@@ -179,23 +193,26 @@ struct SteamAppConfig {
 //
 #[cfg(target_os = "linux")]
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamConfig {
-	#[serde(alias = "Software")]
+	#[serde(alias = "software")]
 	software: SteamConfigSoftware
 	// Several entries unimplemented!
 }
 
 #[cfg(target_os = "linux")]
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamConfigSoftware {
-	#[serde(alias = "Valve")]
+	#[serde(alias = "valve")]
 	valve: SteamConfigValve
 }
 
 #[cfg(target_os = "linux")]
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamConfigValve {
-	#[serde(alias = "Steam")]
+	#[serde(alias = "steam")]
 	steam: SteamConfigSteam
 }
 
@@ -203,6 +220,7 @@ struct SteamConfigValve {
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 struct SteamConfigSteam {
+	#[serde(alias = "compattoolmapping")]
 	compat_tool_mapping: Option<SteamConfigCompatToolMappingApps>
 	// Several entries unimplemented!
 }
@@ -216,7 +234,9 @@ struct SteamConfigCompatToolMappingApps {
 
 #[cfg(target_os = "linux")]
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamCompatToolMapping {
+	#[serde(alias = "name")]
 	name: String,
 	//config: ,
 	//priority:
@@ -226,27 +246,31 @@ struct SteamCompatToolMapping {
 // Steam/userdata/<steamid u32>/config/localconfig.vdf
 //
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamUserLocalConfig {
-	#[serde(alias = "Software")]
+	#[serde(alias = "software")]
 	software: SteamUserLocalConfigSoftware,
 	// Several entries unimplemented!
 }
 
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamUserLocalConfigSoftware {
-	#[serde(alias = "Valve")]
+	#[serde(alias = "valve")]
 	valve: SteamUserLocalConfigValve
 }
 
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamUserLocalConfigValve {
-	#[serde(alias = "Steam")]
+	#[serde(alias = "steam")]
 	steam: SteamUserLocalConfigSteam
 }
 
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]
 struct SteamUserLocalConfigSteam {
-	#[serde(alias = "Apps")]
+	#[serde(alias = "apps")]
 	apps: SteamUserLocalConfigApps
 	// Several entries unimplemented!
 }
@@ -267,6 +291,7 @@ struct SteamUserLocalConfigApp {
 	//<appid>_eula_1: ,
 	//autocloud: ,
 	//badge_data: ,
+	#[serde(alias = "launchoptions")]
 	launch_options: Option<String>,
 	//playtime2wks: u16
 }
@@ -958,7 +983,7 @@ where
 
 	// Get GMod path
 	// TODO: What about `steamapps/<username>/GarrysMod`? Is that still a thing, or did SteamPipe kill/migrate it completely?
-	let gmod_path_config = gmod_manifest.installdir;
+	let gmod_path_config = gmod_manifest.install_dir;
 	let mut gmod_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_steam_library_path.clone(), &["steamapps", "common", &gmod_path_config]), true);
 
 	// Try SteamApps with capitalization
