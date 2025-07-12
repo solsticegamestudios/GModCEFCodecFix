@@ -60,13 +60,17 @@ struct Args {
 	#[arg(long)]
 	steam_path: Option<PathBuf>,
 
-	/// Allow running the tool as root/admin (NOT RECOMMENDED!!!)
-	#[arg(long)]
-	run_as_root_with_security_risk: bool,
-
 	/// Skip deleting ChromiumCache/ChromiumCacheMultirun from the GarrysMod directory
 	#[arg(long)]
-	skip_clear_chromiumcache: bool
+	skip_clear_chromiumcache: bool,
+
+	/// Force redownload all patch files from scratch and clears the GModPatchTool cache directory on exit
+	#[arg(long)]
+	disable_cache: bool,
+
+	/// Allow running the tool as root/admin (NOT RECOMMENDED!!!)
+	#[arg(long)]
+	run_as_root_with_security_risk: bool
 }
 
 const COLOR_LOOKUP: Map<&'static str, &'static str> =
@@ -146,14 +150,16 @@ struct SteamAppManifest {
 	//last_owner: u64,
 	//download_type: u32, // TODO: Is this right? Can't find documentation anywhere
 	//update_result: u32, // TODO: Is this right? Can't find documentation anywhere
-	//bytes_to_download: u64,
-	//bytes_downloaded: u64,
-	//bytes_to_stage: u64,
-	//bytes_staged: u64,
+	bytes_to_download: u64,
+	bytes_downloaded: u64,
+	bytes_to_stage: u64,
+	bytes_staged: u64,
 	//target_build_id: u32,
 	//auto_update_behavior: u8, // 1-3
 	//allow_other_downloads_while_running: bool,
 	scheduled_auto_update: bool,
+	full_validate_before_next_update: Option<bool>,
+	//full_validate_after_next_update: bool,
 	//installed_depots: ,
 	//shared_depots: ,
 	//user_config: SteamAppConfig,
@@ -446,7 +452,8 @@ where
 				match file_hash_result {
 					Ok(file_hash) => {
 						if file_hash == target_hash {
-							terminal_write(writer, format!("\tDownloaded: {filename}").as_str(), true, None);
+							let size_mib = bytes_raw.len() as f64 / 0x100000 as f64;
+							terminal_write(writer, format!("\tDownloaded [{size_mib:.2} MiB]: {filename}").as_str(), true, None);
 							return Ok(());
 						} else {
 							terminal_write(writer, format!("\tFailed to Download: {filename} | Step 4: Checksum mismatch").as_str(), true, if writer_is_interactive { Some("red") } else { None });
@@ -926,13 +933,17 @@ where
 
 	// Get GMod app state
 	let gmod_stateflags = gmod_manifest.state_flags;
-	//let gmod_downloadtype = gmod_manifest.download_type;
+	//let gmod_downloadtype = gmod_manifest.download_type; // TODO: Figure this out...
 	let gmod_scheduledautoupdate = gmod_manifest.scheduled_auto_update;
+	let gmod_fullvalidatebeforenextupdate: bool = gmod_manifest.full_validate_before_next_update.unwrap_or_default();
+	let gmod_bytesdownloaded = gmod_manifest.bytes_downloaded;
+	let gmod_bytestodownload = gmod_manifest.bytes_to_download;
+	let gmod_bytesstaged = gmod_manifest.bytes_staged;
+	let gmod_bytestostage = gmod_manifest.bytes_to_stage;
 
-	terminal_write(writer, format!("GMod App State: {gmod_stateflags} / {gmod_scheduledautoupdate}\n").as_str(), true, None);
+	terminal_write(writer, format!("GMod App State: {gmod_stateflags} | {gmod_scheduledautoupdate} | {gmod_fullvalidatebeforenextupdate} | {gmod_bytesdownloaded}/{gmod_bytestodownload} | {gmod_bytesstaged}/{gmod_bytestostage} \n").as_str(), true, None);
 
-	// TODO(?): DownloadType / FullValidateBeforeNextUpdate / FullValidateAfterNextUpdate
-	if gmod_stateflags != 4 || gmod_scheduledautoupdate {
+	if gmod_stateflags != 4 || gmod_scheduledautoupdate || gmod_fullvalidatebeforenextupdate || gmod_bytesdownloaded != gmod_bytestodownload || gmod_bytesstaged != gmod_bytestostage {
 		return Err(AlmightyError::Generic("Garry's Mod is Not Ready. Check Steam > Downloads and make sure it is fully installed and up to date. If that doesn't work, try launching the game, closing it, then running the tool again.".to_string()));
 	}
 
@@ -1167,6 +1178,24 @@ where
 		let mut cache_path_str = cache_path.to_string_lossy();
 		let mut cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
 
+		// ...but make sure it doesn't exist (and clear it) if disable_cache is set
+		if args.disable_cache {
+			if let Ok(cache_dir) = cache_dir {
+				let remove_result = tokio::fs::remove_dir_all(cache_dir).await;
+
+				match remove_result {
+					Ok(_) => {
+						terminal_write(writer,"\n[disable-cache:Pre] Successfully cleared GModPatchTool cache directory.", true, None);
+					},
+					Err(error) => {
+						terminal_write(writer, format!("\n[disable-cache:Pre] Failed to clear GModPatchTool cache directory: {error}").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
+					}
+				}
+			}
+
+			cache_dir = pathbuf_to_canonical_pathbuf(cache_path.clone(), false);
+		}
+
 		if cache_dir.is_err() {
 			let create_result = tokio::fs::create_dir(cache_path.clone()).await;
 
@@ -1234,6 +1263,19 @@ where
 				return Err(AlmightyError::Generic("Failed to patch one or more files!".to_string()));
 			}
 		}
+
+		if args.disable_cache {
+			let remove_result = tokio::fs::remove_dir_all(cache_dir).await;
+
+			match remove_result {
+				Ok(_) => {
+					terminal_write(writer,"\n[disable-cache:Post] Successfully cleared GModPatchTool cache directory.", true, None);
+				},
+				Err(error) => {
+					terminal_write(writer, format!("\n[disable-cache:Post] Failed to clear GModPatchTool cache directory: {error}").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
+				}
+			}
+		}
 	} else {
 		terminal_write(writer, "No files need patching!", true, None);
 	}
@@ -1291,7 +1333,7 @@ where
 		let gmod_chromiumcache_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path.clone(), &["ChromiumCache"]), false);
 		if let Ok(gmod_chromiumcache_path) = gmod_chromiumcache_path {
 			terminal_write(writer, "\nClearing ChromiumCache...", true, None);
-			if let Err(error) = std::fs::remove_dir_all(gmod_chromiumcache_path) {
+			if let Err(error) = tokio::fs::remove_dir_all(gmod_chromiumcache_path).await {
 				terminal_write(writer, format!("\tFailed: {error}\n\tYou may want to delete ChromiumCache from the GarrysMod directory manually!").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
 			} else {
 				terminal_write(writer, "Done!", true, None);
@@ -1301,7 +1343,7 @@ where
 		let gmod_chromiumcachemultirun_path = pathbuf_to_canonical_pathbuf(extend_pathbuf_and_return(gmod_path.clone(), &["ChromiumCacheMultirun"]), false);
 		if let Ok(gmod_chromiumcachemultirun_path) = gmod_chromiumcachemultirun_path {
 			terminal_write(writer, "\nClearing ChromiumCacheMultirun...", true, None);
-			if let Err(error) = std::fs::remove_dir_all(gmod_chromiumcachemultirun_path) {
+			if let Err(error) = tokio::fs::remove_dir_all(gmod_chromiumcachemultirun_path).await {
 				terminal_write(writer, format!("\tFailed: {error}\n\tYou may want to delete ChromiumCacheMultirun from the GarrysMod directory manually!").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
 			} else {
 				terminal_write(writer, "Done!", true, None);
