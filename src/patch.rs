@@ -105,6 +105,7 @@ struct SteamUser {
 	//wants_offline_mode: bool,
 	//skip_offline_mode_warning: bool,
 	//allow_auto_login: bool,
+	#[serde(alias = "mostrecent")]
 	most_recent: bool,
 	timestamp: u64 // Y2K38
 }
