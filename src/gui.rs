@@ -122,6 +122,7 @@ impl App {
 	}
 
 	fn view(&self) -> Element<Event, Theme, iced::Renderer> {
+		// TODO: Scrollbar for Terminal
 		container(TerminalView::show(&self.term).map(Event::Terminal))
 			.width(Length::Fill)
 			.height(Length::Fill)
