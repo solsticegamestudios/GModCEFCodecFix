@@ -1,14 +1,11 @@
-const VERSION_SERVER_ROOTS: [&str; 2] = [
-	"https://raw.githubusercontent.com/solsticegamestudios/GModPatchTool/refs/heads/master/",
-	"https://www.solsticegamestudios.com/gmodpatchtool/"
-];
-
-const MANIFEST_SERVER_ROOTS: [&str; 2] = [
+// Version and Manifest files
+const TEXT_SERVER_ROOTS: [&str; 2] = [
 	"https://raw.githubusercontent.com/solsticegamestudios/GModPatchTool/refs/heads/files/",
 	"https://www.solsticegamestudios.com/gmodpatchtool/"
 ];
 
-const PATCH_SERVER_ROOTS: [&str; 2] = [
+// Patch files
+const BINARY_SERVER_ROOTS: [&str; 2] = [
 	//"https://media.githubusercontent.com/media/solsticegamestudios/GModPatchTool/refs/heads/files/", // TODO: Post-name switch
 	"https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/refs/heads/files/",
 	"https://www.solsticegamestudios.com/gmodpatchtool/" // TODO: Webhook that triggers git pull and clears the cache on Cloudflare
@@ -440,7 +437,7 @@ where
 	}
 
 	// If it's not in the cache, or there's a checksum mismatch with the version in the cache, (re-)download it
-	let response = get_http_response(writer, writer_is_interactive, &PATCH_SERVER_ROOTS, filename.as_str()).await;
+	let response = get_http_response(writer, writer_is_interactive, &BINARY_SERVER_ROOTS, filename.as_str()).await;
 	if let Some(response) = response {
 		let bytes_raw = response.bytes().await;
 
@@ -711,7 +708,7 @@ where
 	// Get remote version
 	terminal_write(writer, "Getting remote version...", true, None);
 
-	let remote_version_response = get_http_response(writer, writer_is_interactive, &VERSION_SERVER_ROOTS, "version.txt").await;
+	let remote_version_response = get_http_response(writer, writer_is_interactive, &TEXT_SERVER_ROOTS, "version.txt").await;
 
 	if remote_version_response.is_none() {
 		return Err(AlmightyError::Generic("Couldn't get remote version. Please check your internet connection!".to_string()));
@@ -1125,7 +1122,7 @@ where
 	// Get remote manifest
 	terminal_write(writer, "Getting remote manifest...", true, None);
 
-	let remote_manifest_response = get_http_response(writer, writer_is_interactive, &MANIFEST_SERVER_ROOTS, "manifest.json").await;
+	let remote_manifest_response = get_http_response(writer, writer_is_interactive, &TEXT_SERVER_ROOTS, "manifest.json").await;
 
 	if remote_manifest_response.is_none() {
 		terminal_write(writer, "", true, None); // Newline
