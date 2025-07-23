@@ -1,9 +1,9 @@
 [package]
 name = "gmodpatchtool"
-version = "20250705.0.0"
+version = "20250723.0.0"
 authors = ["Solstice Game Studios <contact@solsticegamestudios.com>"]
 license = "GPL-3.0-only"
-edition = "2021"
+edition = "2024"
 
 [package.metadata.winresource]
 FileDescription = "GModPatchTool"
@@ -27,7 +27,7 @@ rayon = { version = "1.10" }
 reqwest = { version = "0.12", default-features = false, features = ["http2", "rustls-tls-native-roots", "json", "gzip", "brotli", "zstd", "socks"], optional = true }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }
-serde_path_to_error = { version = "0.1.17" }
+serde_path_to_error = { version = "0.1" }
 steamid = { version = "0.1", git = "https://github.com/JohnPeel/steamid", optional = true }
 sysinfo = { version = "0.36", optional = true }
 thiserror = { version = "2.0", optional = true }
