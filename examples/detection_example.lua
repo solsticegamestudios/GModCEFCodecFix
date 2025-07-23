@@ -16,7 +16,7 @@
 if not CLIENT then return end
 
 -- Use these global variables for detection elsewhere in your Lua code
-CEFAvailable = BRANCH == "x86-64" or (BRANCH == "dev" and system.IsWindows())
+CEFAvailable = BRANCH == "x86-64" or system.IsWindows()
 CEFCodecFixChecked = false
 CEFCodecFixAvailable = false
 
