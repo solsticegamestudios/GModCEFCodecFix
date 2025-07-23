@@ -62,6 +62,10 @@ struct Args {
 	#[arg(long)]
 	steam_path: Option<PathBuf>,
 
+	/// Don't apply SourceScheme (VGUI Theme) changes
+	#[arg(long)]
+	no_sourcescheme: bool,
+
 	/// Skip deleting ChromiumCache/ChromiumCacheMultirun from the GarrysMod directory
 	#[arg(long)]
 	skip_clear_chromiumcache: bool,
@@ -1161,16 +1165,22 @@ where
 	#[allow(clippy::type_complexity)]
 	let integrity_results: Vec<(&String, Result<IntegrityStatus, String>, &IndexMap<String, String>)> = platform_branch_files.par_iter()
 	.map(|(filename, hashes)| {
-		let integrity_result = determine_file_integrity_status(gmod_path.clone(), filename, hashes);
-		let integrity_result_clone = integrity_result.clone();
+		let integrity_result;
+		if args.no_sourcescheme && filename.ends_with(".res") {
+			terminal_write(writer, format!("\t{filename}: Skipping due to --no-sourcescheme").as_str(), true, if writer_is_interactive { Some("yellow") } else { None });
+			integrity_result = Ok(IntegrityStatus::Fixed);
+		} else {
+			integrity_result = determine_file_integrity_status(gmod_path.clone(), filename, hashes);
+			let integrity_result_clone = integrity_result.clone();
 
-		match integrity_result_clone {
-			Ok(integrity_result_clone) => {
-				let integrity_status_string = integrity_status_strings[&integrity_result_clone];
-				terminal_write(writer, format!("\t{filename}: {integrity_status_string}").as_str(), true, None);
-			},
-			Err(error) => {
-				terminal_write(writer, format!("\t{filename}: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+			match integrity_result_clone {
+				Ok(integrity_result_clone) => {
+					let integrity_status_string = integrity_status_strings[&integrity_result_clone];
+					terminal_write(writer, format!("\t{filename}: {integrity_status_string}").as_str(), true, None);
+				},
+				Err(error) => {
+					terminal_write(writer, format!("\t{filename}: {error}").as_str(), true, if writer_is_interactive { Some("red") } else { None });
+				}
 			}
 		}
 
@@ -1398,7 +1408,6 @@ where
 
 	// TODO: Update BASS? https://github.com/Facepunch/garrysmod-requests/issues/1885
 	// TODO: Check dxlevel/d3d9ex support in Proton, and if there's anything we can do about it
-	// TODO: Somehow handle optional features, like the VGUI theme rework (beyond the font changes)
 
 	let now = now.elapsed().as_secs_f64();
 	terminal_write(writer, format!("\nGModPatchTool applied successfully! Took {now} second(s).").as_str(), true, if writer_is_interactive { Some("green") } else { None });
