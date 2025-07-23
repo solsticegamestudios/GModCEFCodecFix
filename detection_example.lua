@@ -1,12 +1,13 @@
 --[[
-	GModCEFCodecFix detection code example
+	GModPatchTool (formerly GModCEFCodecFix) detection code example
 
-	Copyright 2024, Solstice Game Studios (www.solsticegamestudios.com)
+	Copyright 2024-2025, Solstice Game Studios (www.solsticegamestudios.com)
 	LICENSE: GNU General Public License v3.0
 
-	Purpose: Detects if CEFCodecFix has been applied successfully on a GMod client.
+	Purpose: Detects if GModPatchTool's CEF patches have been applied successfully on a GMod client.
 
 	Contact:
+		Repository: https://github.com/solsticegamestudios/GModPatchTool/
 		Discord: https://www.solsticegamestudios.com/discord/
 		Email: contact@solsticegamestudios.com
 ]]
@@ -15,6 +16,7 @@
 if not CLIENT then return end
 
 -- Use these global variables for detection elsewhere in your Lua code
+CEFAvailable = BRANCH == "x86-64" or system.IsWindows()
 CEFCodecFixChecked = false
 CEFCodecFixAvailable = false
 
@@ -24,11 +26,12 @@ hook.Add("PreRender", "CEFCodecFixCheck", function()
 
 	print("Querying CEF Codec Support...")
 
-	-- If the client isn't on the x86-64 beta, it's impossible for them to have CEFCodecFix
-	if BRANCH ~= "x86-64" then
+	-- If the client isn't on a beta that has CEF, it's impossible for them to have CEFCodecFix
+	if not CEFAvailable then
 		CEFCodecFixAvailable = false
 		CEFCodecFixChecked = true
 		print("CEF does not have CEFCodecFix")
+		hook.Run("CEFCodecFixStatus", CEFAvailable, CEFCodecFixAvailable)
 		return
 	end
 
@@ -60,6 +63,7 @@ hook.Add("PreRender", "CEFCodecFixCheck", function()
 					print("CEF does not have CEFCodecFix")
 				end
 
+				hook.Run("CEFCodecFixStatus", CEFAvailable, CEFCodecFixAvailable)
 				self:RemoveWhileHidden()
 			end)
 
