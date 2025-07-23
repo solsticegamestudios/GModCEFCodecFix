@@ -1517,7 +1517,11 @@ pub fn main() {
 		}
 
 		if force_gui.unwrap_or(!is_terminal || !is_ansi) {
-			env::set_var("FORCE_GUI", "0");
+			// TODO: Make this safe if possible
+			// https://doc.rust-lang.org/std/env/fn.set_var.html
+			unsafe {
+				env::set_var("FORCE_GUI", "0");
+			}
 
 			if let Err(error) = gui::main() {
 				error!("GUI | {error}");
