@@ -24,7 +24,8 @@
 - Re-enables Site Isolation (security feature; some sites require it to function)
 
 ### Linux
-- Fixes Steam Overlay/MangoHud/etc by not doing `unset LD_PRELOAD`
+- Can fix Steam Overlay/MangoHud/etc not working by putting `GMOD_ENABLE_LD_PRELOAD=1 %command%` in GMod's Launch Options
+  - This is disabled by default because it could just crash GMod instead!
 - Sets `mesa_glthread=true` for more OpenGL performance with Mesa drivers
 - Sets `DRI_PRIME=1` to automatically use the Dedicated GPU with Mesa drivers in Laptops
   - For Nvidia proprietary driver users: Please use the `prime-run` command, or look at `hl2.sh` after patches are applied
