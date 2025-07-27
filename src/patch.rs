@@ -117,7 +117,7 @@ struct SteamUser {
 }
 
 //
-// Steam/steamapps/libraryfolders.vdf
+// Steam/config/libraryfolders.vdf
 //
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
@@ -916,8 +916,14 @@ where
 	terminal_write(writer, format!("Steam User: {} ({} / {})\n", steam_user.get("PersonaName").unwrap(), steam_user.get("SteamID64").unwrap(), steam_id.steam3id()).as_str(), true, None);
 
 	// Get Steam Libraries
-	let mut steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "libraryfolders.vdf"]);
+	let mut steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["config", "libraryfolders.vdf"]);
 	let mut steam_libraryfolders_str = tokio::fs::read_to_string(steam_libraryfolders_path).await;
+
+	// Try steamapps
+	if steam_libraryfolders_str.is_err() {
+		steam_libraryfolders_path = extend_pathbuf_and_return(steam_path.clone(), &["steamapps", "libraryfolders.vdf"]);
+		steam_libraryfolders_str = tokio::fs::read_to_string(steam_libraryfolders_path).await;
+	}
 
 	// Try SteamApps with capitalization
 	if steam_libraryfolders_str.is_err() {
