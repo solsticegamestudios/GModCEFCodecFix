@@ -129,15 +129,15 @@ struct SteamLibraryFolder {
 	//totalsize: u64,
 	//update_clean_bytes_tally: u64,
 	//time_last_update_verified: u64,
-	#[serde(alias = "apps")]
-	apps: SteamLibraryFolderApps
+	//#[serde(alias = "apps")]
+	//apps: SteamLibraryFolderApps
 }
 
-#[derive(Deserialize, Debug)]
-struct SteamLibraryFolderApps {
-	#[serde(rename = "4000")]
-	gmod: Option<u64>
-}
+//#[derive(Deserialize, Debug)]
+//struct SteamLibraryFolderApps {
+//	#[serde(rename = "4000")]
+//	gmod: Option<u64>
+//}
 
 //
 // SteamLibrary/appmanifest_4000.acf
@@ -942,35 +942,36 @@ where
 		return Err(AlmightyError::Generic(format!("Couldn't parse Steam libraryfolders.vdf. Is the file corrupt?\n\t{error}")));
 	}
 
-	// Get GMod Steam ibrary
+	// Get GMod Steam Library and Manifest
 	let mut gmod_steam_library_path = None;
+	let mut gmod_manifest_str = None;
+
 	let steam_libraryfolders: HashMap<&str, SteamLibraryFolder> = steam_libraryfolders.unwrap();
 	for (_, steam_library) in steam_libraryfolders {
-		if steam_library.apps.gmod.is_some() {
-			gmod_steam_library_path = string_to_canonical_pathbuf(steam_library.path);
+		// Get potential Steam Library
+		let new_gmod_steam_library_path = string_to_canonical_pathbuf(steam_library.path);
+
+		if let Some(new_gmod_steam_library_path) = new_gmod_steam_library_path {
+			// Get GMod manifest
+			let mut new_gmod_manifest_path = extend_pathbuf_and_return(new_gmod_steam_library_path.to_path_buf(), &["steamapps", "appmanifest_4000.acf"]);
+			let mut new_gmod_manifest_str = tokio::fs::read_to_string(new_gmod_manifest_path).await;
+
+			// Try SteamApps with capitalization
+			if new_gmod_manifest_str.is_err() {
+				new_gmod_manifest_path = extend_pathbuf_and_return(new_gmod_steam_library_path.to_path_buf(), &["SteamApps", "appmanifest_4000.acf"]);
+				new_gmod_manifest_str = tokio::fs::read_to_string(new_gmod_manifest_path).await;
+			}
+
+			if new_gmod_manifest_str.is_ok() {
+				gmod_steam_library_path = Some(new_gmod_steam_library_path);
+				gmod_manifest_str = new_gmod_manifest_str.ok();
+				break;
+			}
 		}
 	}
 
-	if gmod_steam_library_path.is_none() {
-		return Err(AlmightyError::Generic("Couldn't find Garry's Mod app registration. Is Garry's Mod installed?".to_string()));
-	}
-
-	let gmod_steam_library_path = gmod_steam_library_path.unwrap();
-	let gmod_steam_library_path_str = gmod_steam_library_path.to_string_lossy();
-
-	terminal_write(writer, format!("GMod Steam Library: {gmod_steam_library_path_str}\n").as_str(), true, None);
-
-	// Get GMod manifest
-	let mut gmod_manifest_path = extend_pathbuf_and_return(gmod_steam_library_path.to_path_buf(), &["steamapps", "appmanifest_4000.acf"]);
-	let mut gmod_manifest_str = tokio::fs::read_to_string(gmod_manifest_path).await;
-
-	// Try SteamApps with capitalization
-	if gmod_manifest_str.is_err() {
-		gmod_manifest_path = extend_pathbuf_and_return(gmod_steam_library_path.to_path_buf(), &["SteamApps", "appmanifest_4000.acf"]);
-		gmod_manifest_str = tokio::fs::read_to_string(gmod_manifest_path).await;
-	}
-
-	if gmod_manifest_str.is_err() {
+	//gmod_steam_library_path.is_none() ||
+	if gmod_manifest_str.is_none() {
 		return Err(AlmightyError::Generic("Couldn't find GMod's appmanifest_4000.acf. Is Garry's Mod installed?".to_string()));
 	}
 
@@ -981,9 +982,13 @@ where
 		return Err(AlmightyError::Generic(format!("Couldn't parse GMod's appmanifest_4000.acf. Is the file corrupt?\n\t{error}")));
 	}
 
-	let gmod_manifest: SteamAppManifest = gmod_manifest.unwrap();
+	let gmod_steam_library_path = gmod_steam_library_path.unwrap();
+	let gmod_steam_library_path_str = gmod_steam_library_path.to_string_lossy();
+
+	terminal_write(writer, format!("GMod Steam Library: {gmod_steam_library_path_str}\n").as_str(), true, None);
 
 	// Get GMod app state
+	let gmod_manifest: SteamAppManifest = gmod_manifest.unwrap();
 	let gmod_stateflags = gmod_manifest.state_flags;
 	//let gmod_downloadtype = gmod_manifest.download_type; // TODO: Figure this out...
 	let gmod_scheduledautoupdate = gmod_manifest.scheduled_auto_update;
