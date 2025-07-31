@@ -25,7 +25,8 @@ Purpose: Patches Garry's Mod to Update/Improve Chromium Embedded Framework (CEF)
 Guide: https://www.solsticegamestudios.com/fixmedia/
 FAQ/Common Issues: https://www.solsticegamestudios.com/fixmedia/faq/
 Discord: https://www.solsticegamestudios.com/discord/
-Email: contact@solsticegamestudios.com\n"#;
+Email: contact@solsticegamestudios.com
+"#;
 
 use std::path::{Path, PathBuf};
 use std::collections::HashMap;

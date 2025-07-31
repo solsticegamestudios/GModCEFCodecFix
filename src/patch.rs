@@ -81,6 +81,7 @@ phf_map! {
 	"red" => "\x1B[1;31m",
 	"green" => "\x1B[1;32m",
 	"yellow" => "\x1B[1;33m",
+	"magenta" => "\x1B[1;35m",
 	"cyan" => "\x1B[1;36m"
 };
 
@@ -1430,6 +1431,9 @@ where
 	} else {
 		terminal_write(writer, "You can now launch Garry's Mod in Steam.", true, if writer_is_interactive { Some("green") } else { None });
 	}
+
+	terminal_write(writer, "\n💖 Did you find this tool useful? Please consider donating a few dollars to help support it:", true, if writer_is_interactive { Some("magenta") } else { None });
+	terminal_write(writer, "\thttps://www.solsticegamestudios.com/donate/", true, None);
 
 	Ok(())
 }
