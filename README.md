@@ -9,6 +9,10 @@
 # 🛠️ Patches We Apply
 ### All Platforms
 - Fixes various launch/missing main menu issues on macOS and Linux
+- Adds `-chromium_fps_max` Launch Option for GMod
+  - Allows setting a maximum internal FPS limit for ALL CEF web panels
+  - May improve game framerate in exchange for less web content framerate
+  - Default is 60
 - Improves the Legacy VGUI Theme with our custom SourceScheme.res
 - Replaces Debug/Console fonts with [PT Mono](https://fonts.google.com/specimen/PT+Mono) to improve consistency/readability across platforms
   - This is particularly important for Proton, where text using those fonts are broken/tiny out of the box (no Lucida Console)
