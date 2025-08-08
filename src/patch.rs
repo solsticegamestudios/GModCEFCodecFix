@@ -773,6 +773,28 @@ where
 		return Err(AlmightyError::Generic("Garry's Mod is currently running. Please close it before running this tool.".to_string()));
 	}
 
+	// Warning for macOS users
+	#[cfg(target_os = "macos")]
+	{
+		terminal_write(writer, "WARNING: Garry's Mod is not well supported on macOS and may not be supported at all in the future:", true, if writer_is_interactive { Some("red") } else { None });
+		terminal_write(writer, "\thttps://winteris.moe/share/2025-08-07_20-53-45.png", true, None);
+		terminal_write(writer, "\nOptions to continue playing GMod on macOS using the Windows version are listed here:", true, if writer_is_interactive { Some("red") } else { None });
+		terminal_write(writer, "\thttps://github.com/solsticegamestudios/GModPatchTool/issues/170", true, None);
+
+		let mut secs_to_continue: u8 = 10;
+		while secs_to_continue > 0 {
+			terminal_write(writer, format!("\tContinuing in {secs_to_continue} second(s)...\r").as_str(), false, if writer_is_interactive { Some("yellow") } else { None });
+			writer().flush().unwrap();
+			tokio::time::sleep(time::Duration::from_secs(1)).await;
+			secs_to_continue -= 1;
+		}
+
+		// Clear continuing line
+		if writer_is_interactive {
+			terminal_write(writer, "\x1B[0K\n", false, None);
+		}
+	}
+
 	// Find Steam
 	let mut steam_path = None;
 	if let Some(steam_path_arg) = args.steam_path {
