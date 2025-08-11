@@ -1,6 +1,6 @@
 [package]
 name = "gmodpatchtool"
-version = "20250731.0.0"
+version = "20250810.0.0"
 authors = ["Solstice Game Studios <contact@solsticegamestudios.com>"]
 license = "GPL-3.0-only"
 edition = "2024"
@@ -29,9 +29,9 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }
 serde_path_to_error = { version = "0.1" }
 steamid = { version = "0.1", git = "https://github.com/JohnPeel/steamid", optional = true }
-sysinfo = { version = "0.36", optional = true }
+sysinfo = { version = "0.37", optional = true }
 thiserror = { version = "2.0", optional = true }
-tokio = { version = "1.46", features = ["full"], optional = true }
+tokio = { version = "1.47", features = ["full"], optional = true }
 tracing = { version = "0.1", optional = true }
 tracing-subscriber = { version = "0.3", features = ["env-filter", "tracing-log"], optional = true }
 windows-registry = { version = "0.5", optional = true }
