@@ -2,7 +2,7 @@
 
 ![GModPatchTool](GModPatchToolLogo.png)
 
-***GModPatchTool** does what Facepunch [don't](https://github.com/Facepunch/gmod-html/pull/3)!*
+***GModPatchTool** does what Facepunch [don't](https://github.com/Facepunch/gmod-html/pull/5)!*
 
 **Created by Solstice Game Studios (www.solsticegamestudios.com)**
 
@@ -16,6 +16,7 @@
 - Improves the Legacy VGUI Theme with our custom SourceScheme.res
 - Replaces Debug/Console fonts with [PT Mono](https://fonts.google.com/specimen/PT+Mono) to improve consistency/readability across platforms
   - This is particularly important for Proton, where text using those fonts are broken/tiny out of the box (no Lucida Console)
+  - If you don't like the theme changes or the font replacement, you can disable those patches by using the `--no-sourcescheme` argument when running the tool
 
 ### In-Game Web Browser ([Chromium Embedded Framework, aka CEF](https://en.wikipedia.org/wiki/Chromium_Embedded_Framework))
 - Updates CEF to 137.0.10 (Chromium 137.0.7151.69)
