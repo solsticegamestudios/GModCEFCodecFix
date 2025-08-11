@@ -6,8 +6,7 @@ const TEXT_SERVER_ROOTS: [&str; 2] = [
 
 // Patch files
 const BINARY_SERVER_ROOTS: [&str; 2] = [
-	//"https://media.githubusercontent.com/media/solsticegamestudios/GModPatchTool/refs/heads/files/", // TODO: Post-name switch
-	"https://media.githubusercontent.com/media/solsticegamestudios/GModCEFCodecFix/refs/heads/files/",
+	"https://media.githubusercontent.com/media/solsticegamestudios/GModPatchTool/refs/heads/files/",
 	"https://www.solsticegamestudios.com/gmodpatchtool/" // TODO: Webhook that triggers git pull and clears the cache on Cloudflare
 ];
 
@@ -67,7 +66,7 @@ struct Args {
 	#[arg(long)]
 	skip_clear_chromiumcache: bool,
 
-	/// Force redownload all patch files from scratch and clears the GModPatchTool cache directory on exit
+	/// Force redownload all patch files from scratch and clear the GModPatchTool cache directory on exit
 	#[arg(long)]
 	disable_cache: bool,
 
@@ -778,7 +777,7 @@ where
 	{
 		terminal_write(writer, "WARNING: Garry's Mod is not well supported on macOS and may not be supported at all in the future:", true, if writer_is_interactive { Some("red") } else { None });
 		terminal_write(writer, "\thttps://winteris.moe/share/2025-08-07_20-53-45.png", true, None);
-		terminal_write(writer, "\nOptions to continue playing GMod on macOS using the Windows version are listed here:", true, if writer_is_interactive { Some("red") } else { None });
+		terminal_write(writer, "\nOptions for playing the Windows version of GMod on macOS are located here:", true, if writer_is_interactive { Some("red") } else { None });
 		terminal_write(writer, "\thttps://github.com/solsticegamestudios/GModPatchTool/issues/170", true, None);
 
 		let mut secs_to_continue: u8 = 10;
