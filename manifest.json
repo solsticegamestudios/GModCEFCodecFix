@@ -601,6 +601,11 @@
 				"original": "e8336023ea9e27720eb2c6dc3964393da74724bf0e29852a423202b1689e6f7f",
 				"patch": "5f1dc627c988430963330c887e0327d482e850b8d90da551426e2d8d5709e445"
 			},
+			"garrysmod/html/css/menu/NewGame.css": {
+				"fixed": "210c1ffaf3fd1e033a3fa229fc5aa65b833c36c2aa5bd6abdac4d753ac6e613d",
+				"original": "b2a056266f244f48b59d856eefeb2d4bc12c811a7b3eca29daa2b629a0c19946",
+				"patch": "2fea46d6958751d21e053764dd797a70710ebb5bf6d71a368886e7ae0f6afb60"
+			},
 			"garrysmod/html/js/menu/control.Menu.js": {
 				"fixed": "d02657de16755a949423aaa6ca93404d89fbef9388bf139d43b05e44c5202024",
 				"original": "3ea03af4eef1f53915e4f32b8aacd71de12f0411fb36464018b87e0339d2604e",
@@ -1091,6 +1096,11 @@
 				"fixed": "94af808e1d5d8ca94de7461050ed809751ef2d58782b9ad32bdb5416a66fbcda",
 				"original": "e8336023ea9e27720eb2c6dc3964393da74724bf0e29852a423202b1689e6f7f",
 				"patch": "5f1dc627c988430963330c887e0327d482e850b8d90da551426e2d8d5709e445"
+			},
+			"garrysmod/html/css/menu/NewGame.css": {
+				"fixed": "210c1ffaf3fd1e033a3fa229fc5aa65b833c36c2aa5bd6abdac4d753ac6e613d",
+				"original": "b2a056266f244f48b59d856eefeb2d4bc12c811a7b3eca29daa2b629a0c19946",
+				"patch": "2fea46d6958751d21e053764dd797a70710ebb5bf6d71a368886e7ae0f6afb60"
 			},
 			"garrysmod/html/js/menu/control.Menu.js": {
 				"fixed": "dae53c9b99b27c3c1b2fcd1e3abdfe59e40767f1b8f459b0d3c14684cf106cae",
@@ -1728,16 +1738,24 @@
 				"patch": "a6009e72cd34fd1ec3a3226d97474404d5f7cbb258e5957a5e846db96dd9e20a"
 			},
 			"garrysmod/html/css/menu/Menu.css": {
-				"fixed": "null",
-				"original": "e8336023ea9e27720eb2c6dc3964393da74724bf0e29852a423202b1689e6f7f"
+				"fixed": "94af808e1d5d8ca94de7461050ed809751ef2d58782b9ad32bdb5416a66fbcda",
+				"original": "e8336023ea9e27720eb2c6dc3964393da74724bf0e29852a423202b1689e6f7f",
+				"patch": "5f1dc627c988430963330c887e0327d482e850b8d90da551426e2d8d5709e445"
+			},
+			"garrysmod/html/css/menu/NewGame.css": {
+				"fixed": "210c1ffaf3fd1e033a3fa229fc5aa65b833c36c2aa5bd6abdac4d753ac6e613d",
+				"original": "b2a056266f244f48b59d856eefeb2d4bc12c811a7b3eca29daa2b629a0c19946",
+				"patch": "2fea46d6958751d21e053764dd797a70710ebb5bf6d71a368886e7ae0f6afb60"
 			},
 			"garrysmod/html/js/menu/control.Menu.js": {
-				"fixed": "null",
-				"original": "3ea03af4eef1f53915e4f32b8aacd71de12f0411fb36464018b87e0339d2604e"
+				"fixed": "d02657de16755a949423aaa6ca93404d89fbef9388bf139d43b05e44c5202024",
+				"original": "3ea03af4eef1f53915e4f32b8aacd71de12f0411fb36464018b87e0339d2604e",
+				"patch": "aa96b5189186a51236562e0230dad05ca0a215aca877b425ac758c85041af0af"
 			},
 			"garrysmod/html/menu.html": {
-				"fixed": "null",
-				"original": "50467dc47e090443a31a3804fb9d19bda98521fb30e2b803f127e0d75429da01"
+				"fixed": "6ad6bffe3c95df2183f970e069f25bea47514ad2323eef004e08d2b567836666",
+				"original": "50467dc47e090443a31a3804fb9d19bda98521fb30e2b803f127e0d75429da01",
+				"patch": "b3f4a5d7466b74deada8a4745c3ff9280b665a8064b31d76039717c6b310756f"
 			},
 			"garrysmod/lua/menu/mainmenu.lua": {
 				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc",
@@ -2746,6 +2764,11 @@
 				"fixed": "94af808e1d5d8ca94de7461050ed809751ef2d58782b9ad32bdb5416a66fbcda",
 				"original": "e8336023ea9e27720eb2c6dc3964393da74724bf0e29852a423202b1689e6f7f",
 				"patch": "5f1dc627c988430963330c887e0327d482e850b8d90da551426e2d8d5709e445"
+			},
+			"garrysmod/html/css/menu/NewGame.css": {
+				"fixed": "210c1ffaf3fd1e033a3fa229fc5aa65b833c36c2aa5bd6abdac4d753ac6e613d",
+				"original": "b2a056266f244f48b59d856eefeb2d4bc12c811a7b3eca29daa2b629a0c19946",
+				"patch": "2fea46d6958751d21e053764dd797a70710ebb5bf6d71a368886e7ae0f6afb60"
 			},
 			"garrysmod/html/js/menu/control.Menu.js": {
 				"fixed": "d02657de16755a949423aaa6ca93404d89fbef9388bf139d43b05e44c5202024",
