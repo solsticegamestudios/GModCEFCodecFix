@@ -160,13 +160,13 @@ struct SteamAppManifest {
 	//last_owner: u64,
 	//download_type: u32, // TODO: Is this right? Can't find documentation anywhere
 	//update_result: u32, // TODO: Is this right? Can't find documentation anywhere
-	#[serde(alias = "bytestodownload")]
+	#[serde(alias = "bytestodownload", default)]
 	bytes_to_download: u64,
-	#[serde(alias = "bytesdownloaded")]
+	#[serde(alias = "bytesdownloaded", default)]
 	bytes_downloaded: u64,
-	#[serde(alias = "bytestostage")]
+	#[serde(alias = "bytestostage", default)]
 	bytes_to_stage: u64,
-	#[serde(alias = "bytesstaged")]
+	#[serde(alias = "bytesstaged", default)]
 	bytes_staged: u64,
 	//target_build_id: u32,
 	//auto_update_behavior: u8, // 1-3
