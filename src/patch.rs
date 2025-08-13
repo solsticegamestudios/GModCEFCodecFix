@@ -1120,6 +1120,7 @@ where
 	}
 
 	let steam_user_localconfig_str = steam_user_localconfig_str.unwrap();
+	let steam_user_localconfig_str = steam_user_localconfig_str.replace("\\\"", "'"); // Temp: Prevent stack overflow caused by escape parsing in "WebStorage" section. Related to Issue #54: https://github.com/CosmicHorrorDev/vdf-rs/issues
 	let steam_user_localconfig = vdf::from_str(steam_user_localconfig_str.as_str());
 
 	if let Err(error) = steam_user_localconfig {
