@@ -763,7 +763,8 @@ where
 				terminal_write(writer, "\x1B[0K\n", false, None);
 			}
 		} else {
-			return Err(AlmightyError::Generic("You are running GModPatchTool as root/with admin privileges. This may cause issues and is not typically necessary.\n\nIF YOU KNOW WHAT YOU'RE DOING, you can allow this using --run-as-root-with-security-risk. Aborting...".to_string()));
+			let elevated_msg = format!("You are running GModPatchTool as root/with admin privileges{}. This may cause issues and is not typically necessary.\n\nIF YOU KNOW WHAT YOU'RE DOING, you can allow this by running the tool with --run-as-root-with-security-risk. Aborting...", if cfg!(windows) { " (is User Account Control turned off?)" } else { "" });
+			return Err(AlmightyError::Generic(elevated_msg));
 		}
 	}
 
