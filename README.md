@@ -33,16 +33,16 @@
   - Put `GMOD_ENABLE_LD_PRELOAD=1 %command%` in GMod's Launch Options to try it!
   - This is disabled by default because it could just crash GMod instead
 - Sets `mesa_glthread=true` for more OpenGL performance with Mesa drivers
-- Sets `DRI_PRIME=1` to automatically use the Dedicated GPU with Mesa drivers in Laptops
-  - For Nvidia proprietary driver users: Please use the `prime-run` command, or look at `hl2.sh` after patches are applied
 - Sets `ulimit -n $(ulimit -Hn)` to fix issues opening/mounting many files (many addons, Lua autorefresh, etc)
+- Adds various commented exports to `hl2.sh` to help multi-GPU users quickly point GMod to use the correct GPU (typically Laptops)
+  - See [#188](https://github.com/solsticegamestudios/GModPatchTool/issues/188) for why we don't turn these on by default
 
-# ❓ Players: How to use
+# ❓ Players: How to Install / Use
 Download the **[Latest Release](https://github.com/solsticegamestudios/GModPatchTool/releases)** and run the application.
 
 Need a more in-depth guide? Take a look at https://www.solsticegamestudios.com/fixmedia/
 
-# 👩‍💻 Developers: How to use
+# 👩‍💻 Developers: How to Use / Detect
 Direct players to follow the Players' instructions above. This patch is CLIENTSIDE only!
 
 **To Detect Patched CEF:** Check out our [Lua detection example](examples/detection_example.lua).
