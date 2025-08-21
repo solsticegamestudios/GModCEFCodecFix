@@ -2150,6 +2150,7 @@ dependencies = [
  "phf 0.12.1",
  "qbsdiff",
  "rayon",
+ "regex",
  "reqwest",
  "serde",
  "serde_json",

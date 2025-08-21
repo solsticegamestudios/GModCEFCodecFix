@@ -31,6 +31,7 @@ use reqwest::Response;
 use tokio::time::Instant;
 use tokio::task::JoinSet;
 use qbsdiff::Bspatch;
+use regex::Regex;
 
 use super::vdf;
 
@@ -1120,8 +1121,24 @@ where
 		return Err(AlmightyError::Generic("Couldn't find Steam localconfig.vdf. Have you ever launched/signed in to Steam?".to_string()));
 	}
 
-	let steam_user_localconfig_str = steam_user_localconfig_str.unwrap();
-	let steam_user_localconfig_str = steam_user_localconfig_str.replace("\\\"", "'"); // Temp: Prevent stack overflow caused by escape parsing in "WebStorage" section. Related to Issue #54: https://github.com/CosmicHorrorDev/vdf-rs/issues
+	// HACK: Rip out the "WebStorage" section to mitigate stack overflow issues
+	// See `thread_stack_size` below
+	// See https://github.com/CosmicHorrorDev/vdf-rs/issues/54
+	let mut steam_user_localconfig_str = steam_user_localconfig_str.unwrap();
+	let webstorage_start_regex = Regex::new(r"WebStorage.+\s+\{").unwrap();
+	let webstorage_start_match = webstorage_start_regex.find(&steam_user_localconfig_str);
+
+	if let Some(webstorage_start_match) = webstorage_start_match {
+		let webstorage_open_bracket = webstorage_start_match.end();
+		let webstorage_end_regex = Regex::new(r"[^\\]['\x22]\s*}").unwrap();
+		let webstorage_end_match = webstorage_end_regex.find(&steam_user_localconfig_str[webstorage_open_bracket..]);
+
+		if let Some(webstorage_end_match) = webstorage_end_match {
+			let webstorage_close_bracket = webstorage_open_bracket + webstorage_end_match.end() - 1;
+			steam_user_localconfig_str = format!("{}{}", &steam_user_localconfig_str[..webstorage_open_bracket], &steam_user_localconfig_str[webstorage_close_bracket..]);
+		}
+	}
+
 	let steam_user_localconfig = vdf::from_str(steam_user_localconfig_str.as_str());
 
 	if let Err(error) = steam_user_localconfig {
@@ -1491,7 +1508,7 @@ where
 	tokio::runtime::Builder::new_multi_thread()
 		.enable_all()
 		// HACK: Default is typically 2 MiB, but Vdf parsing can sometimes overflow the stack...
-		// TODO: Report localconfig.vdf/config.vdf overflow (maybe related to Issue #54?): https://github.com/CosmicHorrorDev/vdf-rs/issues
+		// TODO: Report localconfig.vdf/config.vdf overflow: https://github.com/CosmicHorrorDev/vdf-rs/issues
 		.thread_stack_size(0x800000) // 8 MiB
 		.build()
 		.map_err(|error| AlmightyError::Generic(format!("Failed to create Tokio runtime: {error}")))?
