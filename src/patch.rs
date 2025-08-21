@@ -1130,11 +1130,24 @@ where
 
 	if let Some(webstorage_start_match) = webstorage_start_match {
 		let webstorage_open_bracket = webstorage_start_match.end();
-		let webstorage_end_regex = Regex::new(r"[^\\]['\x22]\s*}").unwrap();
-		let webstorage_end_match = webstorage_end_regex.find(&steam_user_localconfig_str[webstorage_open_bracket..]);
 
-		if let Some(webstorage_end_match) = webstorage_end_match {
-			let webstorage_close_bracket = webstorage_open_bracket + webstorage_end_match.end() - 1;
+		let mut open_bracket_count: usize = 1;
+		let mut webstorage_close_bracket_offset: Option<usize> = None;
+		for (offset, char) in (0_usize..).zip(steam_user_localconfig_str[webstorage_open_bracket..].chars()) {
+			if char == '{' {
+				open_bracket_count += 1;
+			} else if char == '}' {
+				open_bracket_count -= 1;
+			}
+
+			if open_bracket_count == 0 {
+				webstorage_close_bracket_offset = Some(offset);
+				break;
+			}
+		}
+
+		if let Some(webstorage_close_bracket_offset) = webstorage_close_bracket_offset {
+			let webstorage_close_bracket = webstorage_open_bracket + webstorage_close_bracket_offset;
 			steam_user_localconfig_str = format!("{}{}", &steam_user_localconfig_str[..webstorage_open_bracket], &steam_user_localconfig_str[webstorage_close_bracket..]);
 		}
 	}
