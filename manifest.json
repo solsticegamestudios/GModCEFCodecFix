@@ -612,9 +612,9 @@
 				"patch": "aa96b5189186a51236562e0230dad05ca0a215aca877b425ac758c85041af0af"
 			},
 			"garrysmod/html/menu.html": {
-				"fixed": "6ad6bffe3c95df2183f970e069f25bea47514ad2323eef004e08d2b567836666",
+				"fixed": "305eddb60cdef32639131379c0836895a4063cec58156beb6a25a33586ffd8d7",
 				"original": "d7fcbbf5a0071dfea9e01432834e9fd4c78f192b376b897e2b8d7cc629425297",
-				"patch": "723425babcfc1185f4d22dc0616c80dc0e03edf092c0db95b1e4d42dff592331"
+				"patch": "286703da678d26ff870f6af5190a61c03fb0d92703685627bc21a133fd0ebb9d"
 			},
 			"garrysmod/lua/menu/mainmenu.lua": {
 				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc",
@@ -1108,9 +1108,9 @@
 				"patch": "3df5aee20830aa487ebafa04f7d7fe28fa7d026d763060497b942910bed8303a"
 			},
 			"garrysmod/html/menu.html": {
-				"fixed": "6ad6bffe3c95df2183f970e069f25bea47514ad2323eef004e08d2b567836666",
+				"fixed": "305eddb60cdef32639131379c0836895a4063cec58156beb6a25a33586ffd8d7",
 				"original": "d7fcbbf5a0071dfea9e01432834e9fd4c78f192b376b897e2b8d7cc629425297",
-				"patch": "723425babcfc1185f4d22dc0616c80dc0e03edf092c0db95b1e4d42dff592331"
+				"patch": "286703da678d26ff870f6af5190a61c03fb0d92703685627bc21a133fd0ebb9d"
 			},
 			"garrysmod/lua/menu/mainmenu.lua": {
 				"fixed": "0cff7d3398cf76e001d4300ac35477f011a44b201a4e192ee3ae113bcf4a0d70",
@@ -1409,8 +1409,8 @@
 			"bin/html_chromium.dll": {
 				"executable": "true",
 				"fixed": "8b88818a3c58e63fbe649c61ec182290ccc8830dad04a562803d070b46f1459c",
-				"original": "3b9bc4c4f4597d8e133dc53cd43f02f334d52e5cf24708962e46ffd036c3baa1",
-				"patch": "29faf41abcd3954eec3d93c2eeb803a653a3151a97f49d9b99cf70a99907eb62"
+				"original": "ef00f4de052e847b145303e25ad36c8cc36c4ffa9e1bcee2e4d47be4f906ac38",
+				"patch": "4f408f545acfe77a42bab898e17029744a1d5a290fa2ac6879ea6b4f466ef3fe"
 			},
 			"bin/icudtl.dat": {
 				"fixed": "7fc8f453677bb4624bb200e78080289e5ef5f4ca818e082980f98f60e8c83f32",
@@ -1754,8 +1754,8 @@
 			},
 			"garrysmod/html/menu.html": {
 				"fixed": "6ad6bffe3c95df2183f970e069f25bea47514ad2323eef004e08d2b567836666",
-				"original": "d7fcbbf5a0071dfea9e01432834e9fd4c78f192b376b897e2b8d7cc629425297",
-				"patch": "723425babcfc1185f4d22dc0616c80dc0e03edf092c0db95b1e4d42dff592331"
+				"original": "50467dc47e090443a31a3804fb9d19bda98521fb30e2b803f127e0d75429da01",
+				"patch": "b3f4a5d7466b74deada8a4745c3ff9280b665a8064b31d76039717c6b310756f"
 			},
 			"garrysmod/lua/menu/mainmenu.lua": {
 				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc",
@@ -1785,8 +1785,8 @@
 			"gmod.exe": {
 				"executable": "true",
 				"fixed": "b8d24b60eee8881d94ce7fb6ba26863c0f51b7d32cc3181beadae606a3f61dbf",
-				"original": "528601d1c497226d06be1eab89c048f79ff10c43aa55d3c58766c36e9c273542",
-				"patch": "d97bf4fb25ac5e7ffc426c496438b0e72c2491849fdd44b73435c56cc3278d69"
+				"original": "b993f95e8cc80e752abccbafe423f47dcb14d10bca46b88a5a92961d20d80508",
+				"patch": "bd3a41cd9dbd2afe24680cc35e64258a515943d20b0843e54d7d4070cafbdbaa"
 			}
 		},
 		"x86-64": {
@@ -2776,9 +2776,9 @@
 				"patch": "aa96b5189186a51236562e0230dad05ca0a215aca877b425ac758c85041af0af"
 			},
 			"garrysmod/html/menu.html": {
-				"fixed": "6ad6bffe3c95df2183f970e069f25bea47514ad2323eef004e08d2b567836666",
+				"fixed": "305eddb60cdef32639131379c0836895a4063cec58156beb6a25a33586ffd8d7",
 				"original": "d7fcbbf5a0071dfea9e01432834e9fd4c78f192b376b897e2b8d7cc629425297",
-				"patch": "723425babcfc1185f4d22dc0616c80dc0e03edf092c0db95b1e4d42dff592331"
+				"patch": "286703da678d26ff870f6af5190a61c03fb0d92703685627bc21a133fd0ebb9d"
 			},
 			"garrysmod/lua/menu/mainmenu.lua": {
 				"fixed": "41e7a688e8bbc16d0db25d160f11cb9572ae1695c85f6141f9cb6b69e2fdbcdc",
